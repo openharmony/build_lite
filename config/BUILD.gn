@@ -148,7 +148,6 @@ config("clang") {
         "-L${ohos_build_compiler_dir}/lib/arm-liteos/c++",
         "-L${ohos_root_path}prebuilts/lite/sysroot/usr/lib/arm-liteos",
         "-L${ohos_build_compiler_dir}/lib/clang/9.0.0/lib/arm-liteos",
-        "-L${ohos_build_compiler_dir}/lib/arm-liteos/c++",
         "-lclang_rt.builtins",
         "-lc++",
         "-lc++abi"
