@@ -30,7 +30,7 @@ def add_options(parser):
     parser.add_argument('-n', '--ndk', help='Compile ndk', action='store_true')
 
 
-def exec_command(args):
+def exec_command(args, parser):
     callback_dict = CallbackDict()
 
     # parse product
@@ -43,4 +43,5 @@ def exec_command(args):
                              config=config,
                              args=args)
     else:
+        parser.print_help()
         raise Exception("Error: product not found.")

@@ -37,6 +37,7 @@ class Config():
         self.log_path = os.path.join(self.get_out_path(), 'build.log')
         self.cfg = ConfigParser()
         self.cfg.read(self.config)
+        self.quickstart = self.cfg.get('env', 'quickstart')
         self.args_list = []
         self.__test_cmd_check(args.test)
         self.__ndk_check(args.ndk)
@@ -124,7 +125,9 @@ class Compile():
         elif compiler == "gcc":
             compiler_bin = "riscv32-unknown-elf-gcc"
         else:
-            raise Exception('Error: Unsupport compiler {}.'.format(compiler))
+            raise Exception('Error: Unsupport compiler {}\nYou can visit {} '
+                            'for more infomation'.
+                            format(compiler, config.quickstart))
 
         cls.compiler_path = distutils.spawn.find_executable(compiler_bin)
         if cls.compiler_path is None:
@@ -134,7 +137,9 @@ class Compile():
                 cls.compiler_path = os.path.abspath(compiler_cfg_path)
             else:
                 raise Exception('Error: Can\'t find compiler {}, '
-                                'install it please.'.format(compiler_bin))
+                                'install it please\nYou can visit {} for more '
+                                'infomation'.format(compiler_bin,
+                                                    config.quickstart))
         cls.check_compiler(compiler, config)
 
         cls.gn_path = distutils.spawn.find_executable('gn')
@@ -143,7 +148,9 @@ class Compile():
             if os.path.exists(gn_cfg_path):
                 cls.gn_path = gn_cfg_path
             else:
-                raise Exception('Error: Can\'t find gn, install it please.')
+                raise Exception('Error: Can\'t find gn, install it please\n'
+                                'You can visit {} for more infomation'.
+                                format(config.quickstart))
 
         cls.ninja_path = distutils.spawn.find_executable('ninja')
         if cls.ninja_path is None:
@@ -151,22 +158,37 @@ class Compile():
             if os.path.exists(ninja_cfg_path):
                 cls.ninja_path = ninja_cfg_path
             else:
-                raise Exception('Error: Can\'t find ninja, install it please.')
+                raise Exception('Error: Can\'t find ninja, install it please\n'
+                                'You can visit {} for more infomation'.
+                                format(config.quickstart))
 
     @classmethod
     def check_compiler(cls, compiler, config):
-        if compiler == 'gcc':
-            return True
-
         cmd = [cls.compiler_path, '-v']
         ret = check_output(cmd)
+
+        if compiler == 'gcc':
+            if 'gcc version 7.3.0 (GCC)' not in ret:
+                raise Exception('Error: {} is not OHOS compiler, please '
+                                'install compiler\nYou can visit {} for more'
+                                ' infomation'.format(cls.compiler_path,
+                                                     config.quickstart))
+            return True
+
         if 'OHOS' not in ret:
             raise Exception('Error: {} is not OHOS compiler, please install'
-                            ' compiler.'.format(cls.compiler_path))
+                            ' compiler\nYou can visit {} for more infomation'.
+                            format(cls.compiler_path, config.quickstart))
 
         compiler_path = os.path.join(os.path.dirname(cls.compiler_path),
                                      os.pardir)
         config.cfg.set('gn_args', 'compiler_path', compiler_path)
         config.args_list.append(config.cfg.get('gn_args', 'compiler_args'))
+
+        hc_gen_path = distutils.spawn.find_executable('hc-gen')
+        if hc_gen_path is None:
+            raise Exception('Error: Can\'t find hc-gen, install it please\n'
+                            'You can visit {} for more infomation'.
+                            format(config.quickstart))
 
         return True

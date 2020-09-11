@@ -26,7 +26,9 @@ import os
 def usage():
     msg = "\n  python build.py ipcamera_hi3516dv300\n  "\
           "python build.py ipcamera_hi3518ev300\n  "\
-          "python build.py wifiiot"
+          "python build.py wifiiot\n"\
+          "\n  Quickstart: https://device.harmonyos.com/cn/docs/start/"\
+          "introduce/oem_start_guide-0000001054913231\n"
     return msg
 
 
@@ -52,13 +54,12 @@ def main():
     args = parser.parse_args()
 
     try:
-        status = args.command(args)
+        status = args.command(args, parser)
     except KeyboardInterrupt:
         logging.warning('interrupted')
         status = -1
     except Exception as e:
         print(e)
-        parser.print_help()
         status = -1
 
     return status
