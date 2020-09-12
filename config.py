@@ -132,7 +132,7 @@ class Compile():
         cls.compiler_path = distutils.spawn.find_executable(compiler_bin)
         if cls.compiler_path is None:
             compiler_cfg_path = config.cfg.get('ndk', '{}_path'
-                                               .format(compiler_bin))
+                                               .format(compiler))
             if os.path.exists(compiler_cfg_path):
                 cls.compiler_path = os.path.abspath(compiler_cfg_path)
             else:
