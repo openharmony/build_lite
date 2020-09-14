@@ -26,7 +26,8 @@ import os
 def usage():
     msg = "\n  python build.py ipcamera_hi3516dv300\n  "\
           "python build.py ipcamera_hi3518ev300\n  "\
-          "python build.py wifiiot\n"\
+          "python build.py wifiiot\n  "\
+          "python build.py qemu_arm_virt_ca7\n"\
           "\n  Quickstart: https://device.harmonyos.com/cn/docs/start/"\
           "introduce/oem_start_guide-0000001054913231\n"
     return msg
