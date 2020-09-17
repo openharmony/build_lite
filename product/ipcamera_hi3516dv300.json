@@ -8,7 +8,6 @@
       "name": "aafwk",
       "component": [
         { "name": "abilitykit_lite", "dir": "//foundation/aafwk/frameworks/ability_lite:aafwk_abilitykit_lite", "features":[ "enable_ohos_appexecfwk_feature_ability = true" ] },
-        { "name": "abilityMain_lite", "dir": "//foundation/aafwk/frameworks/ability_lite:aafwk_abilityMain_lite", "features":[] },
         { "name": "abilityManager_lite", "dir": "//foundation/aafwk/frameworks/abilitymgr_lite:aafwk_abilityManager_lite", "features":[] },
         { "name": "aafwk_services_lite", "dir": "//foundation/aafwk/services/abilitymgr_lite:aafwk_services_lite", "features":[] }
       ]
