@@ -184,9 +184,9 @@ def change_userfs_filemode(path):
     # change all files filemode
     chmod_files_mode(path, 493, 365)
     # change special files filemode
-    tmppath = os.path.join(path, "etc/cameradev.ini")
+    tmppath = os.path.join(path, "data/cameradev.ini")
     if os.path.exists(tmppath):
-        os.chmod(tmppath, 420)
+        os.chmod(tmppath, 365)
 
 
 def remove_file_in_rootfs(output_path):
@@ -333,7 +333,8 @@ def main():
         'vendor/firmware/hisilicon': ['vendor/firmware/hisilicon', [], ""],
         'obj/vendor/huawei/camera/init_configs/config': ['etc', [], ""],
         'system/internal': ['system/internal', [], ""],
-        'etc': ['etc', [], ""]
+        'etc': ['etc', [], ""],
+        'data': ['data', [], ""]
     }
     userfs_dirs_dict = {
         'obj/base/security/services/app_verify/config':
