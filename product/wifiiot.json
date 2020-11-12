@@ -59,6 +59,12 @@
       ]
     },
     {
+      "name": "iot",
+      "component": [
+        { "name": "iot_link", "dir": "//domains/iot/link", "features":[] }
+      ]
+    },    
+    {
       "name": "vendor",
       "component": [
         { "name": "hi3861_sdk", "dir": "//vendor/hisi/hi3861/hi3861:wifiiot_sdk", "features":[] }
