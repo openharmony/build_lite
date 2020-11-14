@@ -27,6 +27,8 @@ def add_options(parser):
     parser.add_argument('-b', '--build_type', help='release or debug version.',
                         nargs=1, default=['release'])
     parser.add_argument('-t', '--test', help='Compile test suit', nargs='*')
+    parser.add_argument('-T', '--target', help='Compile single target',
+                        nargs=1, default=[''])
     parser.add_argument('-n', '--ndk', help='Compile ndk', action='store_true')
 
 

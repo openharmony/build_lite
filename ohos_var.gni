@@ -15,6 +15,7 @@ declare_args() {
     product = ""
     # "debug" or "release"
     ohos_build_type = "debug"
+    ohos_build_target = ""
     ohos_build_compiler_dir = ""
 }
 
