@@ -259,6 +259,23 @@
         ]
       },
       {
+        "subsystem": "iot",
+        "optional": "true",
+        "components": [
+          {
+            "component": "iot_link",
+            "optional": "false",
+            "targets": [
+              "//domains/iot/link"
+            ],
+            "features": [],
+            "deps": {
+              "third_party": []
+            }
+          }
+        ]
+      },
+      {
         "subsystem": "vendor",
         "optional": "true",
         "components": [
