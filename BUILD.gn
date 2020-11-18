@@ -16,11 +16,15 @@ import("//build/lite/ndk/ndk.gni")
 
 group("ohos") {
     deps = []
-    product_cfg = read_file("//build/lite/product/${product}.json", "json")
-    foreach(subsystem, product_cfg.subsystem) {
-        foreach(component, subsystem.component) {
-            deps += [ component.dir ]
+    if (ohos_build_target == "") {
+        product_cfg = read_file("//build/lite/product/${product}.json", "json")
+        foreach(subsystem, product_cfg.subsystem) {
+            foreach(component, subsystem.component) {
+                deps += [ component.dir ]
+            }
         }
+    } else {
+        deps += [ ohos_build_target ]
     }
 }
 

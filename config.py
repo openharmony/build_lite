@@ -32,6 +32,7 @@ class Config():
     def __init__(self, args):
         self.product = args.product[0]
         self.build_type = args.build_type[0]
+        self.build_target = args.target[0]
         self.__set_path()
         self.config = os.path.join(self.get_build_path(), 'config.ini')
         self.log_path = os.path.join(self.get_out_path(), 'build.log')
@@ -100,8 +101,10 @@ class Config():
     def get_gn_args(self):
         self.cfg.set('gn_args', 'product', self.product)
         self.cfg.set('gn_args', 'build_type', self.build_type)
+        self.cfg.set('gn_args', 'build_target', self.build_target)
         self.args_list.append(self.cfg.get('gn_args', 'product_args'))
         self.args_list.append(self.cfg.get('gn_args', 'build_type_args'))
+        self.args_list.append(self.cfg.get('gn_args', 'build_target_args'))
         return " ".join(self.args_list)
 
 
