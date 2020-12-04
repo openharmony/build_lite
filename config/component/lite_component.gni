@@ -17,7 +17,7 @@ template("lite_library") {
     target_type = invoker.target_type
     shared_lib = (target_type == "shared_library")
 
-    if (shared_lib && ohos_kernel_type == "liteos_riscv") {
+    if (shared_lib && ohos_kernel_type == "liteos_m") {
         group(target_name) {
             if(defined(invoker.sources)) {
                 assert(invoker.sources != "")
@@ -137,7 +137,7 @@ template("ohos_tools") {
         output_dir = "$root_out_dir/tools/$target_name"
         if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "linux") {
              configs -= [ "//build/lite/config:ohos" ]
-        } else if (ohos_kernel_type == "liteos_riscv") {
+        } else if (ohos_kernel_type == "liteos_m") {
              configs -= [ "//build/lite/config:liteos" ]
         }
         configs -= [ "//build/lite/config:pie_executable_config" ]

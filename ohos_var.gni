@@ -37,7 +37,7 @@ board_name = product_config.board
 # Supported compiler: gcc, clang
 ohos_build_compiler = product_config.compiler
 
-# Supported kernel: "liteos_a", "liteos_riscv"
+# Supported kernel: "liteos_a", "liteos_m"
 ohos_kernel_type = product_config.kernel
 
 ohos_vendor_adapter_dir = product_config.vendor_adapter_dir

@@ -62,7 +62,7 @@ group("ndk_build") {
         "//utils/native/lite:native_api",
         "//base/startup/frameworks/syspara_lite/parameter:parameter_notes",
     ]
-    if (ohos_kernel_type != "liteos_riscv") {
+    if (ohos_kernel_type != "liteos_m") {
         deps += [
             "//base/security/interfaces/kits/iam_lite:permission_notes",
             "//base/hiviewdfx/frameworks/hilog_lite/featured:hilog_ndk",

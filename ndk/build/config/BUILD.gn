@@ -35,7 +35,7 @@ config("base") {
         "_FORTIFY_SOURCE=2"
     ]
 
-    if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "liteos_m" || ohos_kernel_type == "liteos_riscv") {
+    if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "liteos_m") {
         defines += [
             "__LITEOS__",
         ]

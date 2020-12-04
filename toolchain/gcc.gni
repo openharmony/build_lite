@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if (ohos_kernel_type == "liteos_riscv") {
+if (ohos_kernel_type == "liteos_m") {
     ohos_build_compiler_prefix = "riscv32-unknown-elf"
     ohos_build_compiler_so_strip = ""
     ohos_build_compiler_bin_strip = ""
