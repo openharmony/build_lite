@@ -32,7 +32,7 @@ if(target_os == "ohos") {
             set_default_toolchain("//build/toolchain:linux_x86_64_clang")
         }
         default_target_configs = [ "//build/config:ohos" ]
-    } else if (ohos_kernel_type == "liteos_riscv") {
+    } else if (ohos_kernel_type == "liteos_m") {
         set_default_toolchain("//build/config:liteos")
     } else if (ohos_kernel_type == "linux" && board_name == "hi3518ev300") {
         set_default_toolchain("//build/toolchain:linux_x86_64_himix100_gcc")

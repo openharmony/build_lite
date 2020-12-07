@@ -52,11 +52,6 @@ config("kernel_macros") {
             "__LITEOS__",
             "__LITEOS_M__"
         ]
-    } else if (ohos_kernel_type == "liteos_riscv") {
-        defines = [
-            "__LITEOS__",
-            "__LITEOS_RISCV__"
-        ]
     } else if (ohos_kernel_type == "linux") {
         defines = [ "__LINUX__" ]
     }
@@ -203,7 +198,7 @@ config("liteos_a") {
     }
 }
 
-config("liteos_riscv") {
+config("liteos_m") {
     configs = [
         ":common",
         ":werror",

@@ -28,9 +28,9 @@ if(target_os == "ohos") {
     if(ohos_kernel_type == "liteos_a") {
         set_default_toolchain("//build/lite/toolchain:linux_x86_64_clang")
         default_target_configs = [ "//build/lite/config:liteos_a" ]
-    } else if (ohos_kernel_type == "liteos_riscv") {
+    } else if (ohos_kernel_type == "liteos_m") {
         set_default_toolchain("//build/lite/toolchain:linux_x86_64_riscv32_gcc")
-        default_target_configs = [ "//build/lite/config:liteos_riscv" ]
+        default_target_configs = [ "//build/lite/config:liteos_m" ]
     }
     default_target_configs += [
         "//build/lite/config:language_c",
