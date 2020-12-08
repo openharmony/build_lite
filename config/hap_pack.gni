@@ -1,0 +1,118 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+declare_args() {
+    hapsigner = "developtools/hapsigntoolv2.jar"
+    packtool = "developtools/hmos_app_packing_tool.jar"
+    jks_file = "//base/security/frameworks/app_verify/OpenHarmonyCer/OpenHarmony.jks"
+    cert_file = "//base/security/frameworks/app_verify/OpenHarmonyCer/OpenHarmony.cer"
+    default_hap_signature_algorithm = "SHA256withECDSA"
+    privatekey = "OpenHarmony Software Signature"
+    keystorepasswd = "123456"
+}
+
+template("hap_pack") {
+    assert(defined(invoker.cert_profile), "cert_profile in required.")
+    assert(defined(invoker.hap_name), "hap_name in required.")
+    unsignhap_path = "$root_out_dir/system/internal/unsigned_${invoker.hap_name}.hap"
+    signhap_path = "$root_out_dir/system/internal/${invoker.hap_name}.hap"
+
+    action(target_name){
+        if (defined(invoker.deps)) {
+            deps = []
+            deps += invoker.deps
+        }
+        script = "//build/lite/hap_pack.py"
+        args = [
+            "--packing-tool-path",
+            packtool
+        ]
+        if (defined(invoker.mode)) {
+            args += [
+                "--mode",
+                invoker.mode
+            ]
+        }
+        if (defined(invoker.json_path)) {
+            args += [
+                "--json-path",
+                rebase_path(invoker.json_path)
+            ]
+        }
+        if (defined(invoker.resources_path)) {
+            args += [
+                "--resources-path",
+                rebase_path(invoker.resources_path)
+            ]
+        }
+        if (defined(invoker.assets_path)) {
+            args += [
+                "--assets-path",
+                rebase_path(invoker.assets_path)
+            ]
+        }
+        if (defined(invoker.lib_path)) {
+            args += [
+                "--lib-path",
+                rebase_path(invoker.lib_path)
+            ]
+        }
+        if (defined(invoker.shared_libs_path)) {
+            args += [
+                "--shared-libs-path",
+                rebase_path(invoker.shared_libs_path)
+            ]
+        }
+        if (defined(invoker.ability_so_path)) {
+            args += [
+                "--ability-so-path",
+                rebase_path(invoker.ability_so_path)
+            ]
+        }
+        if (defined(invoker.index_path)) {
+            args += [
+                "--index-path",
+                rebase_path(invoker.index_path)
+            ]
+        }
+        if (defined(invoker.force)) {
+            args += [
+                "--force",
+                invoker.force
+            ]
+        }
+        args += [
+            "--signtool-path",
+            hapsigner,
+            "--privatekey",
+            privatekey,
+            "--sign-algo",
+            default_hap_signature_algorithm,
+            "--unsignhap-path",
+            rebase_path(unsignhap_path),
+            "--signhap-path",
+            rebase_path(signhap_path),
+            "--jks-path",
+            rebase_path(jks_file),
+            "--cert-path",
+            rebase_path(cert_file),
+        ]
+        if (defined(invoker.cert_profile)) {
+            args += [
+                "--cert-profile",
+                rebase_path(invoker.cert_profile)
+            ]
+        }
+        outputs = [ "$target_out_dir/${target_name}_build_log.txt" ]
+    }
+}
