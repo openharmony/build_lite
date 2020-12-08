@@ -257,7 +257,10 @@
           "targets": [
             "//applications/sample/camera/app:camera_app",
             "//applications/sample/camera/communication:sample",
-            "//applications/sample/camera/hap:copy_hap"
+            "//applications/sample/camera/launcher:launcher",
+            "//applications/sample/camera/cameraApp:cameraApp",
+            "//applications/sample/camera/setting:setting",
+            "//applications/sample/camera/gallery:gallery"
           ],
           "features": [],
           "deps": {

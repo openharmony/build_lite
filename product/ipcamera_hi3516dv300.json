@@ -17,7 +17,10 @@
       "component": [
         { "name": "camera", "dir": "//applications/sample/camera/app:camera_app", "features":[] },
         { "name": "communication", "dir": "//applications/sample/camera/communication:sample", "features":[] },
-        { "name": "hap", "dir": "//applications/sample/camera/hap:copy_hap", "features":[] }
+        { "name": "launcher", "dir": "//applications/sample/camera/launcher:launcher", "features":[] },
+        { "name": "cameraApp", "dir": "//applications/sample/camera/cameraApp:cameraApp", "features":[] },
+        { "name": "setting", "dir": "//applications/sample/camera/setting:setting", "features":[] },
+        { "name": "gallery", "dir": "//applications/sample/camera/gallery:gallery", "features":[] }
       ]
     },
     {
