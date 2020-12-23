@@ -28,9 +28,9 @@
       ]
     },
     {
-      "name": "vendor",
+      "name": "device",
       "component": [
-        { "name": "qemu_virt_init", "dir": "//vendor/qemu/arm/arm_init/virt:virt_make_kernel", "features":[] }
+        { "name": "qemu_virt_init", "dir": "//device/qemu/arm/arm_init/virt:virt_make_kernel", "features":[] }
       ]
     }
   ],
