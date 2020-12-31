@@ -1,0 +1,52 @@
+{
+  "ohos_version": "OpenHarmony 1.0",
+  "board": "qemu_arm_virt_ca7",
+  "kernel": "liteos_a",
+  "compiler": "clang",
+  "subsystem": [
+    {
+      "name": "applications",
+      "component": [
+      ]
+    },
+    {
+      "name": "startup",
+      "component": [
+      ]
+    },
+    {
+      "name": "kernel",
+      "component": [
+        { "name": "liteos_a", "dir": "//kernel/liteos_a:kernel", "features":[] }
+      ]
+    },
+    {
+      "name": "hdf",
+      "component": [
+	{ "name": "posix", "dir": "//drivers/hdf/lite/posix:hdf_posix", "features":[] },
+	{ "name": "manager", "dir": "//drivers/hdf/lite/manager:hdf_manager", "features":[] }
+      ]
+    },
+    {
+      "name": "device",
+      "component": [
+        { "name": "qemu_virt_init", "dir": "//device/qemu/arm/arm_init/virt:virt_make_kernel", "features":[] }
+      ]
+    }
+  ],
+  "vendor_adapter_dir": "",
+  "third_party_dir": "//third_party",
+  "ohos_product_type":"",
+  "ohos_manufacture":"",
+  "ohos_brand":"",
+  "ohos_market_name":"",
+  "ohos_product_series":"",
+  "ohos_product_model":"",
+  "ohos_software_model":"",
+  "ohos_hardware_model":"",
+  "ohos_hardware_profile":"",
+  "ohos_serial":"",
+  "ohos_bootloader_version":"",
+  "ohos_secure_patch_level":"",
+  "ohos_abi_list":""
+}
