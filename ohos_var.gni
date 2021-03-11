@@ -11,34 +11,81 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Description: Define the global variables for all components
 declare_args() {
-    product = ""
-    # "debug" or "release"
-    ohos_build_type = "debug"
-    ohos_build_target = ""
-    ohos_build_compiler_dir = ""
+  product = ""
+  device_path = ""
+  product_path = ""
+
+  device_company = ""
+  ohos_product_adapter_dir = ""
+
+  # "debug" or "release"
+  ohos_build_type = "debug"
+  ohos_full_compile = false
+  ohos_build_compiler = ""
+  ohos_build_compiler_specified = ""
+  ohos_build_target = ""
+  ohos_build_compiler_dir = ""
+  ohos_kernel_type = ""
+  use_board_toolchain = true
+
+  # Current toolchain name
+  ohos_current_toolchain = ""
+
+  # Current toolchain type, clang or gcc.
+  ohos_current_toolchain_type = ""
+
+  # Current toolchain prefix. E.g. "/data/user1/riscv32/bin/riscv32-unknown-elf-".
+  ohos_current_toolchain_prefix = ""
+
+  # Current toolchain cc command. E.g. "/data/user1/riscv32/bin/riscv32-unknown-elf-gcc".
+  ohos_current_cc_command = ""
+  ohos_current_cxx_command = ""
+  ohos_current_ar_command = ""
+  ohos_current_as_command = ""
+  ohos_current_ld_command = ""
+  ohos_current_strip_command = ""
+  ohos_current_sysroot = []
 }
 
-product_config = read_file("//build/lite/product/${product}.json", "json")
+if (product_path != "") {
+  product_config = read_file("${product_path}/config.json", "json")
 
-# OHOS version
-ohos_version = product_config.ohos_version
+  # OHOS version
+  ohos_version = product_config.ohos_version
 
+  # Board selected by product.
+  board_name = product_config.board
+  device_company = product_config.device_company
+
+  # Supported kernel: "liteos_a", "liteos_m", "linux"
+  ohos_kernel_type = product_config.kernel_type
+
+  ohos_vendor_adapter_dir = product_config.vendor_adapter_dir
+  ohos_product_adapter_dir = product_config.product_adapter_dir
+  ohos_third_party_dir = product_config.third_party_dir
+}
 ohos_build_user = "jenkins"
 ohos_build_host = host_os
-ohos_build_time = exec_script("//build/lite/gn_scripts.py", ["-t"], "value")
+ohos_build_time = exec_script("//build/lite/gn_scripts.py", [ "-t" ], "value")
 ohos_build_roothash = ""
 ohos_root_path = rebase_path("//")
 ohos_lite = true
 
-# Supported board: "hi3516dv300", "hi3518ev300", "hi3861v100"
-board_name = product_config.board
+# Testing switches
+LOSCFG_TEST_JS_BUILD = false
+LOSCFG_TEST_MLF_BUILD = false
+LOSCFG_TEST_C_BUILD = false
+LOSCFG_TEST_APPS = false
 
-# Supported compiler: gcc, clang
-ohos_build_compiler = product_config.compiler
+declare_args() {
+  enable_ohos_hiview = true
+  enable_ohos_hiview_event = true
+  enable_ohos_hiview_platform = false
+}
 
-# Supported kernel: "liteos_a", "liteos_m"
-ohos_kernel_type = product_config.kernel
-
-ohos_vendor_adapter_dir = product_config.vendor_adapter_dir
-ohos_third_party_dir = product_config.third_party_dir
+declare_args() {
+  enable_tee_ree = false
+  enable_ohos_security_dmverity = false
+}

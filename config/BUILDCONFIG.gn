@@ -1,4 +1,3 @@
-#
 # Copyright (c) 2020 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,50 +10,122 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
-
 import("//build/lite/ohos_var.gni")
-import("//build/lite/config/boards/${board_name}.gni")
+import("${device_path}/config.gni")
 
 if (target_os == "") {
-    target_os = "ohos"
+  target_os = "ohos"
 }
 
 if (target_cpu == "") {
-    target_cpu = board_cpu
+  target_cpu = board_cpu
 }
 
-if(target_os == "ohos") {
-    if(ohos_kernel_type == "liteos_a") {
-        set_default_toolchain("//build/lite/toolchain:linux_x86_64_clang")
-        default_target_configs = [ "//build/lite/config:liteos_a" ]
-    } else if (ohos_kernel_type == "liteos_m") {
-        set_default_toolchain("//build/lite/toolchain:linux_x86_64_riscv32_gcc")
-        default_target_configs = [ "//build/lite/config:liteos_m" ]
-    }
-    default_target_configs += [
-        "//build/lite/config:language_c",
-        "//build/lite/config:language_cpp",
-        "//build/lite/config:kernel_macros"
-    ]
+# Only gcc avaiable for liteos_m.
+if (ohos_kernel_type == "liteos_m" || ohos_kernel_type == "linux") {
+  use_board_toolchain = true
 }
 
-default_shared_library_configs = default_target_configs + [ "//build/lite/config:shared_library_config" ]
-default_static_library_configs = default_target_configs + [ "//build/lite/config:static_pie_config" ]
-default_executable_configs = default_static_library_configs + [ "//build/lite/config:pie_executable_config" ]
+# Set current toolchain with to board configuration.
+if (board_toolchain != "" && use_board_toolchain) {
+  ohos_current_toolchain = board_toolchain
+  ohos_current_toolchain_type = board_toolchain_type
+  ohos_build_compiler = ohos_current_toolchain_type
+  hos_build_compiler = ohos_current_toolchain_type
+  if (board_toolchain_path != "") {
+    compile_prefix = "${board_toolchain_path}/${board_toolchain_prefix}"
+  } else {
+    compile_prefix = "${board_toolchain_prefix}"
+  }
+  ohos_current_toolchain_prefix = compile_prefix
+  ohos_current_sysroot = board_configed_sysroot
+  set_default_toolchain("//build/lite/toolchain:${board_toolchain}")
+  if (board_toolchain_type == "gcc") {
+    ohos_current_cc_command = "${compile_prefix}gcc"
+    ohos_current_cxx_command = "${compile_prefix}g++"
+    ohos_current_ar_command = "${compile_prefix}ar"
+    ohos_current_ld_command = ohos_current_cc_command
+    ohos_current_strip_command = "${compile_prefix}strip --strip-unneeded"
+    default_target_configs = [ "//build/lite/config:gcc_opt" ]
+  } else if (board_toolchain_type == "clang") {
+    ohos_current_cc_command = "${compile_prefix}clang"
+    ohos_current_cxx_command = "${compile_prefix}clang++"
+    ohos_current_ar_command = "${compile_prefix}llvm-ar"
+    ohos_current_as_command = ohos_current_cc_command
+    ohos_current_ld_command = ohos_current_cc_command
+    ohos_current_strip_command = "$compile_prefix/llvm-objcopy --strip-all"
+    default_target_configs = [ "//build/lite/config:clang" ]
+    default_target_configs += [ "//build/lite/config:clang_opt" ]
+  }
+} else {
+  # OHOS default toolchain: ohos_clang
+  ohos_current_toolchain = "ohos_clang"
+  ohos_build_compiler = "clang"
+  hos_build_compiler = "clang"
+  ohos_clang_toolchain_dir = rebase_path("${ohos_build_compiler_dir}/bin")
+  compile_prefix = rebase_path("${ohos_build_compiler_dir}/bin")
+  ohos_current_cc_command = "${compile_prefix}/clang"
+  ohos_current_cxx_command = "${compile_prefix}/clang++"
+  ohos_current_ar_command = "${compile_prefix}/llvm-ar"
+  ohos_current_as_command = ohos_current_cc_command
+  ohos_current_ld_command = ohos_current_cc_command
+  ohos_build_strip_command =
+      "$ohos_clang_toolchain_dir/llvm-objcopy --strip-all"
+  set_default_toolchain("//build/lite/toolchain:linux_x86_64_ohos_clang")
+  default_target_configs = [ "//build/lite/config:clang" ]
+  default_target_configs += [ "//build/lite/config:clang_opt" ]
+}
+
+default_target_configs += [
+  "//build/lite/config:board_config",
+  "//build/lite/config:cpu_arch",
+  "//build/lite/config:common",
+  "//build/lite/config:default_link_path",
+]
+
+if (ohos_build_type == "debug") {
+  default_target_configs += [ "//build/lite/config:debug" ]
+} else if (ohos_build_type == "release") {
+  default_target_configs += [ "//build/lite/config:release" ]
+}
+
+if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "linux") {
+  default_target_configs += [
+    "//build/lite/config/kernel/liteos/cortex_a:default",
+    "//build/lite/config:security",
+    "//build/lite/config:exceptions",
+  ]
+} else if (ohos_kernel_type == "liteos_m") {
+  default_target_configs += [ "//build/lite/config:stack_protector" ]
+}
+
+default_target_configs += [
+  "//build/lite/config:language_c",
+  "//build/lite/config:language_cpp",
+  "//build/lite/config:kernel_macros",
+]
+
+default_shared_library_configs =
+    default_target_configs + [ "//build/lite/config:shared_library_config" ]
+default_static_library_configs = default_target_configs
+if (ohos_kernel_type != "liteos_m") {
+  default_static_library_configs += [ "//build/lite/config:static_pie_config" ]
+}
+default_executable_configs = default_static_library_configs +
+                             [ "//build/lite/config:pie_executable_config" ]
 
 set_defaults("executable") {
-    configs = default_executable_configs
+  configs = default_executable_configs
 }
 
 set_defaults("static_library") {
-    configs = default_static_library_configs
+  configs = default_static_library_configs
 }
 
 set_defaults("shared_library") {
-    configs = default_shared_library_configs
+  configs = default_shared_library_configs
 }
 
 set_defaults("source_set") {
-    configs = default_target_configs
+  configs = default_target_configs
 }

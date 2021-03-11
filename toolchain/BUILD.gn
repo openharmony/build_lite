@@ -10,42 +10,40 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import("//build/lite/toolchain/clang.gni")
+import("//build/lite/toolchain/gcc.gni")
 
-import("//build/lite/toolchain/${ohos_build_compiler}.gni")
-
-if (ohos_build_compiler == "gcc") {
-    gcc_toolchain("linux_x86_64_riscv32_gcc") {
-        ohos_build_compiler_prefix = "riscv32-unknown-elf"
-        cc = "${ohos_build_compiler_prefix}-gcc"
-        cxx = "${ohos_build_compiler_prefix}-g++"
-        ar = "${ohos_build_compiler_prefix}-ar"
-        ld = cc
-        if (ohos_build_type == "release") {
-            strip = "$ohos_build_compiler_prefix-strip --strip-unneeded"
-        }
+# Set toolchain configed by board.
+if (board_toolchain != "" && use_board_toolchain) {
+  if (board_toolchain_type == "gcc") {
+    gcc_toolchain(board_toolchain) {
+      cc = ohos_current_cc_command
+      cxx = ohos_current_cxx_command
+      ar = ohos_current_ar_command
+      ld = ohos_current_ld_command
+      if (ohos_build_type == "release") {
+        strip = ohos_current_strip_command
+      }
     }
+  } else if (board_toolchain_type == "clang") {
+    clang_toolchain(board_toolchain) {
+      cc = ohos_current_cc_command
+      cxx = ohos_current_cxx_command
+      ar = ohos_current_ar_command
+      ld = ohos_current_ld_command
+      if (ohos_build_type == "release") {
+        strip = ohos_current_strip_command
+      }
+    }
+  }
+} else {
+  clang_toolchain("linux_x86_64_ohos_clang") {
+    cc = ohos_current_cc_command
+    cxx = ohos_current_cxx_command
+    ar = ohos_current_ar_command
+    ld = ohos_current_ld_command
+    if (ohos_build_type == "release") {
+      strip = ohos_build_strip_command
+    }
+  }
 }
-
-if (ohos_build_compiler == "clang") {
-    clang_toolchain("linux_x86_64_clang") {
-        cc = "$ohos_build_compiler_dir/bin/clang"
-        cxx = "$ohos_build_compiler_dir/bin/clang++"
-        ar = "$ohos_build_compiler_dir/bin/llvm-ar"
-        as = "$ohos_build_compiler_dir/bin/llvm-as"
-        ld = cc
-        if (ohos_build_type == "release") {
-            strip = "$ohos_build_compiler_dir/bin/llvm-objcopy  --strip-all"
-        }
-    }
-    clang_toolchain("win_x86_64_clang") {
-        cc = "clang"
-        cxx = "clang++"
-        ar = "llvm-ar"
-        as = "llvm-as"
-        ld = cc
-        if (ohos_build_type == "release") {
-            strip = "llvm-objcopy  --strip-all"
-        }
-    }
-}
-

@@ -1,0 +1,377 @@
+{
+  "components": [
+    {
+      "component": "hi3516dv300_init",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "device/hisilicon/build/hi3516dv300"
+      ],
+      "targets": [
+        "//device/hisilicon/build/hi3516dv300:hi3516dv300_image"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ "OHOS_image.bin" ],
+      "adapted_board": [
+        "hi3516dv300",
+        "hi3516dv300_openharmony"
+      ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {
+        "third_party": [],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "liteos_a"
+        ]
+      }
+    },
+    {
+      "component": "hi3518ev300_init",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "device/hisilicon/build/hi3518ev300"
+      ],
+      "targets": [
+        "//device/hisilicon/build/hi3518ev300:hi3518ev300_make_kernel"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ "OHOS_image.bin" ],
+      "adapted_board": [
+        "hi3518ev300",
+        "hi3518ev300_openharmony"
+      ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {
+        "third_party": [],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "liteos_a"
+        ]
+      }
+    },
+    {
+      "component": "hardware",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "device/hisilicon/hardware"
+      ],
+      "targets": [
+        "//device/hisilicon/hardware:hardware_media_sdk"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3518ev300",
+        "hi3518ev300_openharmony",
+        "hi3516dv300",
+        "hi3516dv300_openharmony"
+      ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {}
+    },
+    {
+      "component": "middleware",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "device/hisilicon/modules/middleware"
+      ],
+      "targets": [
+        "//device/hisilicon/modules/middleware:middleware_source_sdk"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3518ev300",
+        "hi3518ev300_openharmony",
+        "hi3516dv300",
+        "hi3516dv300_openharmony"
+      ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {}
+    },
+    {
+      "component": "hi3516dv300_adapter",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "device/hisilicon/hardware"
+      ],
+      "targets": [],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3516dv300",
+        "hi3516dv300_openharmony"
+      ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function",
+          "iniparser"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "hilog",
+          "hdf_hi3516dv300_liteos_a",
+          "camera_lite",
+          "hi3516dv300_sdk"
+        ]
+      }
+    },
+    {
+      "component": "hi3518ev300_adapter",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+          "device/hisilicon/hardware"
+      ],
+      "targets": [],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3518ev300",
+        "hi3518ev300_openharmony"
+      ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {}
+    },
+    {
+      "component": "hi3516dv300_uboot",
+      "description": "",
+      "optional": "false",
+      "dirs": [],
+      "targets": [],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3516dv300",
+        "hi3516dv300_openharmony"
+      ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {}
+    },
+    {
+        "component": "hi3518ev300_uboot",
+        "description": "",
+        "optional": "false",
+        "dirs": [],
+        "targets": [],
+        "rom": "",
+        "ram": "",
+        "output": [],
+        "adapted_board": [
+          "hi3518ev300",
+          "hhi3518ev300_openharmony"
+        ],
+        "adapted_kernel": [ "liteos_a" ],
+        "features": [],
+        "deps": {}
+      },
+    {
+      "component": "oem_smartvision",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "vendor/huawei/camera",
+        "base/startup/syspara_lite/hals"
+      ],
+      "targets": [
+        "//vendor/huawei/camera/hals/utils/sys_param:hal_sysparam",
+        "//vendor/huawei/camera/hals/utils/token:haltoken_shared"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3518ev300",
+        "hi3518ev300_openharmony",
+        "hi3516dv300",
+        "hi3516dv300_openharmony"
+      ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": [
+          "utils_base"
+        ]
+      }
+    },
+    {
+      "component": "hi3516dv300_sdk",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "device/hisilicon/hi3516dv300/sdk_liteos"
+      ],
+      "targets": [],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3516dv300",
+        "hi3516dv300_openharmony"
+      ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {}
+    },
+    {
+      "component": "hi3518ev300_sdk",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+          "device/hisilicon/hi3518ev300/sdk_liteos"
+      ],
+      "targets": [],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3518ev300",
+        "hi3518ev300_openharmony"
+      ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {}
+    },
+    {
+      "component": "hi3861_sdk",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "device/hisilicon/hispark_pegasus/sdk_liteos"
+      ],
+      "targets": [
+        "//device/hisilicon/hispark_pegasus/sdk_liteos:wifiiot_sdk"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3861v100"
+      ],
+      "adapted_kernel": [ "liteos_m" ],
+      "features": [],
+      "deps": {
+        "components": [
+          "utils_base",
+          "liteos_m"
+        ]
+      }
+    },
+    {
+      "component": "dvkit_sample",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "vendor/hisi/camera/dvkit_product/sample"
+      ],
+      "targets": [
+        "//vendor/hisi/camera/dvkit_product/sample/ohos3518ev300:dvkit_hilink_media_sdk"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3518ev300",
+        "hi3518ev300_openharmony"
+      ],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "iniparser",
+          "mbedtls"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "liteos_a",
+          "permission"
+        ]
+      }
+    },
+    {
+      "component": "hi3861_adapter",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/utils/file",
+        "utils/native/lite/hals/file",
+        "base/iot_hardware/hals/wifiiot_lite",
+        "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/iot_hardware/wifiiot_lite",
+        "base/update/ota_lite/hals",
+        "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/update",
+        "foundation/communication/hals/wifi_lite/wifiaware",
+        "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/communication/wifi_lite/wifiaware",
+        "foundation/communication/wifi_lite/interfaces/wifiservice",
+        "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/communication/wifi_lite/wifiservice"
+      ],
+      "targets": [],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3861v100"
+      ],
+      "adapted_kernel": [ "liteos_m" ],
+      "features": [],
+      "deps": {
+        "components": [
+          "hi3861_sdk"
+        ]
+      }
+    },
+    {
+      "component": "oem_iotlink",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "vendor/huawei/wifi-iot/hals/utils",
+        "base/startup/syspara_lite/hals"
+      ],
+      "targets": [
+        "//vendor/huawei/wifi-iot/hals/utils/sys_param:hal_sysparam",
+        "//vendor/huawei/wifi-iot/hals/utils/token:hal_token_static"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3861v100"
+      ],
+      "adapted_kernel": [ "liteos_m" ],
+      "features": [],
+      "deps": {
+        "components": [
+          "liteos_m",
+          "hi3861_sdk",
+          "utils_base"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "components": [
+    {
+      "component": "ipc",
+      "description": "Lite interprosses communication.",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/ipc_lite"
+      ],
+      "targets": [
+        "//foundation/communication/ipc_lite:liteipc_adapter"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ "libliteipc_adapter.so" ],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": [
+          "hilog_lite",
+          "utils_base"
+        ]
+      }
+    },
+    {
+      "component": "soft_bus",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/softbus_lite"
+      ],
+      "targets": [
+        "//foundation/communication/softbus_lite:softbus"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [
+        "softbus_lite.so",
+        "discovery.a"
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux",
+        "liteos_m"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "mbedtls",
+          "bounds_checking_function",
+          "cjson"
+        ],
+        "kernel_special": {
+          "liteos_a": [
+            "permission",
+            "wpa_supplicant"
+          ],
+          "liteos_m": [
+            "wlan",
+            "liteos_m",
+            "hi3861_sdk",
+            "utils_base"
+          ]
+        },
+        "board_special": {
+          "hi3516dv300": [
+            "permission",
+            "wpa_supplicant"
+          ],
+          "hi3518ev300": [
+            "permission",
+            "wpa_supplicant"
+          ],
+          "hi3861v100": [
+            "wlan",
+            "liteos_m",
+            "hi3861_sdk",
+            "utils_base"
+          ]
+        },
+        "components": [
+          "liteos_a",
+          "syspara",
+          "hichainsdk"
+        ]
+      }
+    },
+    {
+      "component": "wpa_supplicant",
+      "description": "WPA supplicant open sources software.",
+      "optional": "true",
+      "dirs": [
+        "third_party/wpa_supplicant"
+      ],
+      "targets": [
+        "//third_party/wpa_supplicant/wpa_supplicant-2.9:wpa_supplicant"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ "wpa_supplicant.so" ],
+      "adapted_kernel": [ "liteos_a", "linux" ],
+      "features": [],
+      "deps": {
+        "third_party": [],
+        "kernel_special": {},
+        "board_special": {
+          "hi3516dv300": [
+            "hdf_hi3516dv300_liteos_a"
+          ],
+          "hi3518ev300": [
+            "hdf_hi3518ev300_liteos_a"
+          ]
+        },
+        "components": []
+      }
+    },
+    {
+      "component": "wlan",
+      "description": "Wifi service based on liteos-m.",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/wifi_lite"
+      ],
+      "targets": [
+        "//foundation/communication/wifi_lite:wifi"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ ],
+      "adapted_kernel": [ "liteos_m" ],
+      "features": [],
+      "deps": {
+        "third_party": [],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "liteos_m",
+          "hi3861_adapter",
+          "hi3861_sdk",
+          "utils_base"
+        ]
+      }
+    },
+    {
+      "component": "wifi_aware",
+      "description": "WiFi Aware",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/wifi_aware"
+      ],
+      "targets": [
+        "//foundation/communication/wifi_aware:wifiaware"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ ],
+      "adapted_kernel": [ "liteos_m" ],
+      "features": [],
+      "deps": {
+        "components": [
+          "hi3861_adapter",
+          "hi3861_sdk"
+        ],
+        "third_party": []
+      }
+    }
+  ]
+}

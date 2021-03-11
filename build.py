@@ -16,54 +16,48 @@
 # limitations under the License.
 #
 
-import sys
-import argparse
-import importlib
-import logging
 import os
+import sys
+import subprocess
 
 
-def usage():
-    msg = "\n  python build.py ipcamera_hi3516dv300\n  "\
-          "python build.py ipcamera_hi3518ev300\n  "\
-          "python build.py wifiiot\n  "\
-          "python build.py qemu_arm_virt_ca7\n"\
-          "\n  Quickstart: https://device.harmonyos.com/cn/docs/start/"\
-          "introduce/oem_start_guide-0000001054913231\n"
-    return msg
+def check_output(cmd, **kwargs):
+    process = subprocess.Popen(cmd,
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE,
+                               universal_newlines=True,
+                               **kwargs)
+    for line in iter(process.stdout.readline, ''):
+        sys.stdout.write(line)
+        sys.stdout.flush()
+
+    process.wait()
+    ret_code = process.returncode
+
+    if ret_code != 0:
+        for line in iter(process.stderr.readline, ''):
+            sys.stdout.write(line)
+            sys.stdout.flush()
+
+    return ret_code
+
+
+def set_root_path(path):
+    cmd = ['python3', 'build/lite/hb/__main__.py', 'set', '-root', path]
+    return check_output(cmd, cwd=path)
+
+
+def build(path, args_list):
+    cmd = ['python3', 'build/lite/hb/__main__.py', 'build'] + args_list
+    return check_output(cmd, cwd=path)
 
 
 def main():
-    if not __package__:
-        path = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                            'build')
-        sys.path.insert(0, path)
-
-    parser = argparse.ArgumentParser(usage=usage())
-    parser_list = []
-    parser_list.append({
-        'name': 'compile',
-        'help': 'Build source code'
-    })
-
-    for each in parser_list:
-        module = importlib.import_module('.{}'.format(each.get('name')),
-                                         'lite')
-        module.add_options(parser)
-        parser.set_defaults(command=module.exec_command)
-
-    args = parser.parse_args()
-
-    try:
-        status = args.command(args, parser)
-    except KeyboardInterrupt:
-        logging.warning('interrupted')
-        status = -1
-    except Exception as e:
-        print(e)
-        status = -1
-
-    return status
+    root_path = os.path.dirname(os.path.abspath(__file__))
+    ret_code = set_root_path(root_path)
+    if ret_code != 0:
+        return ret_code
+    return build(root_path, sys.argv[1:])
 
 
 if __name__ == "__main__":

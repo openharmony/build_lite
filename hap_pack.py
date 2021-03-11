@@ -20,6 +20,7 @@ import sys
 import os
 import argparse
 import subprocess
+from utils import makedirs
 import shutil
 import zipfile
 
@@ -49,10 +50,12 @@ def parse_args():
     parser.add_argument('--signtool-path', help='sign tool path')
     parser.add_argument('--signhap-path', help='sign hap path')
     parser.add_argument('--privatekey', help='privatekey')
+    parser.add_argument('--sign-server', help='sign_server')
     parser.add_argument('--sign-algo', help='sign algo')
     parser.add_argument('--cert-profile', help='cert profile')
     parser.add_argument('--jks-path', help='jks path')
     parser.add_argument('--cert-path', help='cert path')
+    parser.add_argument('--sign-by-server', help='sign mode')
     args = parser.parse_args()
 
     return args
@@ -74,7 +77,8 @@ def hap_packing(args):
                 '--ability-so-path': args.ability_so_path,
                 '--index-path': args.index_path,
                 '--out-path': args.unsignhap_path,
-                '--force': args.force}
+                '--force': args.force,
+                '--sign-by-server': args.sign_by_server}
     for key, value in cmd_dict.items():
         if value:
             packing_cmd.extend([key, value])
@@ -87,22 +91,51 @@ def hap_signing(args):
     if not args.signtool_path:
         print('hap warning: signing tool path empty')
         return
-    signtool_path = os.path.join(os.environ['HOME'], args.signtool_path)
-    #The default password of the key is 123456.
-    # You are advised to use a key and certificate management tool (
-    # such as keytool) to change the default password.
-    # For details, see section "Application Signature Verification
-    # Development Guide" in the Security Subsystem Development Guide.
-    signing_cmd = ['java', '-jar', signtool_path, 'sign', '-mode',
-                   'localjks', '-profileSigned', '1', '-keystorepasswd',
-                   '123456', '-keyaliaspasswd', '123456']
-    cmd_dict = {'-privatekey': args.privatekey,
-                '-inputFile': args.unsignhap_path,
-                '-outputFile': args.signhap_path,
-                '-signAlg': args.sign_algo,
-                '-profile': args.cert_profile,
-                '-keystore': args.jks_path,
-                '-certpath': args.cert_path}
+
+    # sign by server
+    if args.sign_by_server == "True":
+        if 'ONLINE_USERNAME' in os.environ:
+            user_name = os.environ.get('ONLINE_USERNAME')
+        else:
+            print('hap warning: Environment variable ONLINE_USERNAME and ' +
+                  'ONLINE_PASSWD are needed for app signning. ' +
+                  'Please export it in bash.')
+            return
+        if 'ONLINE_PASSWD' in os.environ:
+            password = os.environ.get('ONLINE_PASSWD')
+        else:
+            print('hap warning: Environment variable ONLINE_USERNAME and ' +
+                  'ONLINE_PASSWD are needed for app signning. ' +
+                  'Please export it in bash.')
+            return
+        signing_cmd = ['java', '-jar', args.signtool_path, 'sign', '-mode',
+                       'remote', '-profileSigned', '1']
+        cmd_dict = {'-privatekey': args.privatekey,
+                    '-server': args.sign_server,
+                    '-inputFile': args.unsignhap_path,
+                    '-outputFile': args.signhap_path,
+                    '-username': user_name,
+                    '-password': password,
+                    '-signAlg': args.sign_algo,
+                    '-profile': args.cert_profile}
+    # sign by software.
+    else:
+        signtool_path = os.path.join(os.environ['HOME'], args.signtool_path)
+        #The default password of the key is 123456.
+        # You are advised to use a key and certificate management tool (
+        # such as keytool) to change the default password.
+        # For details, see section "Application Signature Verification
+        # Development Guide" in the Security Subsystem Development Guide.
+        signing_cmd = ['java', '-jar', signtool_path, 'sign', '-mode',
+                       'localjks', '-profileSigned', '1', '-keystorepasswd',
+                       '123456', '-keyaliaspasswd', '123456']
+        cmd_dict = {'-privatekey': args.privatekey,
+                    '-inputFile': args.unsignhap_path,
+                    '-outputFile': args.signhap_path,
+                    '-signAlg': args.sign_algo,
+                    '-profile': args.cert_profile,
+                    '-keystore': args.jks_path,
+                    '-certpath': args.cert_path}
     for key, value in cmd_dict.items():
         if value:
             signing_cmd.extend([key, value])
@@ -111,6 +144,10 @@ def hap_signing(args):
 
 def main():
     args = parse_args()
+
+    # Workaround: hap packing tools multi-thread contention issue.
+    makedirs(os.path.dirname(args.unsignhap_path), exist_ok=True)
+
     hap_packing(args)
     if os.path.exists(args.unsignhap_path):
         hap_signing(args)

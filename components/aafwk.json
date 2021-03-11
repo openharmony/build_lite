@@ -1,0 +1,53 @@
+{
+  "components": [
+    {
+      "component": "ability",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "foundation/aafwk/aafwk_lite"
+      ],
+      "targets": [
+        "//foundation/aafwk/aafwk_lite/frameworks/ability_lite:aafwk_abilitykit_lite",
+        "//foundation/aafwk/aafwk_lite/frameworks/abilitymgr_lite:aafwk_abilityManager_lite",
+        "//foundation/aafwk/aafwk_lite/services/abilitymgr_lite:aafwk_services_lite"
+      ],
+      "rom": "300KB",
+      "ram": ">20KB",
+      "output": [
+        "libability.so",
+        "libabilitymanager.so"
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [
+        "enable_ohos_appexecfwk_feature_ability = true"
+      ],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function",
+          "cjson"
+        ],
+        "kernel_special": {},
+        "board_special": {
+          "hi3516dv300": [
+            "hdf_hi3516dv300_liteos_a"
+          ],
+          "hi3518ev300": [
+            "hdf_hi3518ev300_liteos_a"
+          ]
+        },
+        "components": [
+          "hilog_lite",
+          "permission",
+          "ipc_lite",
+          "samgr_lite",
+          "appspawn",
+          "wms"
+        ]
+      }
+    }
+  ]
+}

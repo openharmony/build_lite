@@ -1,0 +1,202 @@
+{
+  "components": [
+    {
+      "component": "camera_sample_communication",
+      "description": "Communication related samples.",
+      "optional": "true",
+      "dirs": [
+        "applications/sample/camera/communication"
+      ],
+      "targets": [
+        "//applications/sample/camera/communication:sample"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {
+        "components": [],
+        "third_party": [ ]
+      }
+    },
+    {
+      "component": "camera_sample_app",
+      "description": "Camera related samples.",
+      "optional": "true",
+      "dirs": [
+        "applications/sample/camera/launcher",
+        "applications/sample/camera/cameraApp",
+        "applications/sample/camera/setting",
+        "applications/sample/camera/gallery",
+        "applications/sample/camera/media"
+      ],
+      "targets": [
+        "//applications/sample/camera/launcher:launcher_hap",
+        "//applications/sample/camera/cameraApp:cameraApp_hap",
+        "//applications/sample/camera/setting:setting_hap",
+        "//applications/sample/camera/gallery:gallery_hap",
+        "//applications/sample/camera/media:media_sample"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [
+        "cameraApp.so",
+        "launcher.so",
+        "setting.so",
+        "gallery.so",
+        "camera_sample"
+      ],
+      "adapted_kernel": [ "liteos_a","linux" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function",
+          "libjpeg",
+          "giflib",
+          "libpng",
+          "iniparser",
+          "cjson"
+        ],
+        "kernel_special": {},
+        "board_special": {
+          "hi3516dv300": [
+            "hdf_hi3516dv300_liteos_a"
+          ],
+          "hi3518ev300": [
+            "hdf_hi3518ev300_liteos_a"
+          ]
+        },
+        "components": [
+          "liteos_a",
+          "media_lite",
+          "syspara",
+          "hilog",
+          "media_service",
+          "permission",
+          "ipc",
+          "camera_lite",
+          "system_ability_manager",
+          "wpa_supplicant",
+          "utils_base",
+          "graphic",
+          "ability",
+          "bundle_mgr"
+        ]
+      }
+    },
+    {
+      "component": "camera_screensaver_app",
+      "description": "Camera related samples.",
+      "optional": "true",
+      "dirs": [
+        "applications/sample/camera/screensaver"
+      ],
+      "targets": [
+        "//applications/sample/camera/screensaver:screensaver_hap"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [
+        "screensaver.so"
+      ],
+      "adapted_kernel": [ "liteos_a","linux" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "libjpeg",
+          "libpng",
+          "bounds_checking_function",
+          "cjson",
+          "giflib"
+        ],
+        "kernel_special": {},
+        "board_special": {
+          "hi3516dv300": [
+            "hdf_hi3516dv300_liteos_a"
+          ],
+          "hi3518ev300": [
+            "hdf_hi3518ev300_liteos_a"
+          ]
+        },
+        "components": [
+          "syspara",
+          "bundle_mgr",
+          "media_lite",
+          "media_service",
+          "camera_lite",
+          "permission",
+          "ability",
+          "ipc",
+          "wpa_supplicant",
+          "liteos_a",
+          "graphic",
+          "hilog",
+          "utils_base",
+          "system_ability_manager"
+        ]
+      }
+    },
+    {
+      "component": "wifi_iot_sample_app",
+      "description": "Wifi iot samples.",
+      "optional": "true",
+      "dirs": [
+        "applications/sample/wifi-iot/app"
+      ],
+      "targets": [
+        "//applications/sample/wifi-iot/app"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [ "hi3861v100" ],
+      "adapted_kernel": [ "liteos_m" ],
+      "features": [],
+      "deps": {
+          "components": [
+            "liteos_m",
+            "hi3861_sdk",
+            "utils_base"
+        ]
+      }
+    },
+    {
+      "component": "kit_framework",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "applications/kit_framework"
+      ],
+      "targets": [
+        "//applications/kit_framework:kit_framework"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [
+        "liteos_m",
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "components": [
+          "hilog_a",
+          "huks",
+          "token",
+          "syspara",
+          "ipc",
+          "ability",
+          "bundle_mgr",
+          "kv_store"
+        ],
+        "third_party": [
+          "cjson",
+          "mbedtls",
+          "bounds_checking_function"
+        ]
+      }
+    }
+  ]
+}

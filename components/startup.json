@@ -1,0 +1,191 @@
+{
+  "components": [
+    {
+      "component": "syspara",
+      "discription": "",
+      "optional": "true",
+      "dirs": [
+        "base/startup/syspara_lite"
+      ],
+      "targets": [
+        "//base/startup/syspara_lite/frameworks/parameter",
+        "//base/startup/syspara_lite/frameworks/token"
+      ],
+      "rom": "23KB",
+      "ram": "",
+      "output": [
+        "libhal_sysparam.so",
+        "libsysparam.so",
+        "libtoken.a",
+        "libtoken.so"
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "kernel_special": {
+          "liteos_a": [
+            "hilog",
+            "oem_smartvision"
+          ],
+          "liteos_m": [
+            "hilog_lite",
+            "liteos_m",
+            "hi3861_sdk",
+            "oem_iotlink"
+          ]
+        },
+        "board_special": {
+          "hi3516dv300": [
+            "hilog",
+            "oem_smartvision"
+          ],
+          "hi3518ev300": [
+            "hilog",
+            "oem_smartvision"
+          ],
+          "hi3861v100": [
+            "hilog_lite",
+            "liteos_m",
+            "hi3861_sdk",
+            "oem_iotlink"
+          ]
+        },
+        "components": [
+          "utils_base",
+          "hilog_a"
+        ]
+      }
+    },
+    {
+      "component": "bootstrap",
+      "discription": "",
+      "optional": "true",
+      "dirs": [
+        "base/startup/bootstrap_lite"
+      ],
+      "targets": [
+        "//base/startup/bootstrap_lite/services/source:bootstrap"
+      ],
+      "rom": "14KB",
+      "ram": "~128KB",
+      "output": [
+        "libbootstrap.a"
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "kernel_special": {
+          "liteos_a": [
+            "liteos_a"
+          ],
+          "liteos_m": [
+            "liteos_m",
+            "hi3861_sdk"
+          ]
+        },
+        "board_special": {
+          "hi3516dv300": [
+            "liteos_a"
+          ],
+          "hi3518ev300": [
+            "liteos_a"
+          ],
+          "hi3861v100": [
+            "liteos_m",
+            "hi3861_sdk"
+          ]
+        },
+        "components": [
+          "utils_base",
+          "samgr_lite"
+        ]
+      }
+    },
+    {
+      "component": "init",
+      "discription": "",
+      "optional": "false",
+      "dirs": [
+        "base/startup/init_lite"
+      ],
+      "targets": [
+        "//base/startup/init_lite/services:init_lite"
+      ],
+      "output": [
+        "init"
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "components": [
+          "syspara"
+        ],
+        "third_party": [
+          "bounds_checking_function",
+          "cjson"
+        ]
+      }
+    },
+    {
+        "component": "appspawn",
+        "discription": "",
+        "optional": "true",
+        "dirs": [
+          "base/startup/appspawn_lite"
+        ],
+        "targets": [
+          "//base/startup/appspawn_lite/services:appspawn_lite"
+        ],
+        "rom": "26KB",
+        "ram": "~1.8M",
+        "output": [ "appspawn" ],
+        "adapted_kernel": [
+          "liteos_a",
+          "linux"
+        ],
+        "features": [],
+        "deps": {
+          "third_party": [
+            "bounds_checking_function",
+            "cjson"
+          ],
+          "kernel_special": {},
+          "board_special": {
+            "hi3516dv300": [
+              "hdf_hi3516dv300_liteos_a"
+            ],
+            "hi3518ev300": [
+              "hdf_hi3518ev300_liteos_a"
+            ]
+          },
+          "components": [
+            "hilog_lite",
+            "samgr_lite",
+            "ipc_lite",
+            "kv_store",
+            "aafwk_lite",
+            "ace_engine_lite",
+            "surface",
+            "ui"
+          ]
+        }
+      }
+  ]
+}

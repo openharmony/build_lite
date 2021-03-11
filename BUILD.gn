@@ -10,51 +10,116 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-import("//build/lite/toolchain/${ohos_build_compiler}.gni")
 import("//build/lite/ndk/ndk.gni")
 
 group("ohos") {
-    deps = []
-    if (ohos_build_target == "") {
-        product_cfg = read_file("//build/lite/product/${product}.json", "json")
-        foreach(subsystem, product_cfg.subsystem) {
-            foreach(component, subsystem.component) {
-                deps += [ component.dir ]
-            }
+  deps = []
+  if (ohos_build_target == "") {
+    # Step 1: Read product configuration profile.
+    product_cfg = read_file("${product_path}/config.json", "json")
+    kernel = product_cfg.kernel_type
+
+    # Step 2: Loop subsystems configured by product.
+    foreach(product_configed_subsystem, product_cfg.subsystems) {
+      subsystem_name = product_configed_subsystem.subsystem
+      subsystem_info = {
+      }
+
+      # Step 3: Read OS subsystems profile.
+      subsystem_info =
+          read_file("//build/lite/components/${subsystem_name}.json", "json")
+
+      # Step 4: Loop components configured by product.
+      foreach(product_configed_component,
+              product_configed_subsystem.components) {
+        # Step 5: Check whether the component configured by product is exist.
+        component_found = false
+        foreach(system_component, subsystem_info.components) {
+          if (product_configed_component.component ==
+              system_component.component) {
+            component_found = true
+          }
         }
-    } else {
-        deps += [ ohos_build_target ]
+        assert(
+            component_found,
+            "Component \"${product_configed_component.component}\" not found" +
+                ", please check your product configuration.")
+
+        # Step 6: Loop OS components and check validity of product configuration.
+        foreach(component, subsystem_info.components) {
+          kernel_valid = false
+          board_valid = false
+
+          # Step 6.1: Skip component which not configured by product.
+          if (component.component == product_configed_component.component) {
+            # Step 6.1.1: Loop OS components adapted kernel type.
+            foreach(component_adapted_kernel, component.adapted_kernel) {
+              if (component_adapted_kernel == kernel && kernel_valid == false) {
+                kernel_valid = true
+              }
+            }
+
+            assert(
+                kernel_valid,
+                "Invalid component configed, ${subsystem_name}:${product_configed_component.component} " + "not available for kernel: $kernel!")
+
+            # Step 6.1.2: Add valid component for compiling.
+            foreach(component_target, component.targets) {
+              deps += [ component_target ]
+            }
+          }
+        }
+      }
     }
+    # Step 7: Add device and product target by default.
+    deps += [ 
+      "${device_path}/../",
+      "${product_path}" ]
+  } else {
+    deps += string_split(ohos_build_target, "&&")
+  }
 }
 
 group("ndk") {
-    # Add native API targets
-    deps = []
-    if (ohos_build_ndk) {
-        deps += [
-            "//build/lite/ndk:ndk"
-        ]
-    }
+  # Add native API targets.
+  deps = []
+  if (ohos_build_ndk) {
+    deps += [ "//build/lite/ndk:ndk" ]
+  }
 }
 
-action("gen_rootfs") {
+if (ohos_build_target == "") {
+  action("gen_rootfs") {
     deps = [ ":ohos" ]
 
     script = "//build/lite/gen_rootfs.py"
     outputs = [ "$target_gen_dir/gen_rootfs.log" ]
-    out_dir = rebase_path(root_build_dir, ".")
-
-    compiler_dir = ohos_build_compiler_dir + "/bin/"
-
-    ohos_build_compiler_so_strip = compiler_dir + ohos_build_compiler_so_strip
-    ohos_build_compiler_bin_strip = compiler_dir + ohos_build_compiler_bin_strip
+    out_dir = rebase_path("$root_out_dir")
 
     args = [
-        "--path=$out_dir",
-        "--board=$board_name",
-        "--kernel=$ohos_kernel_type",
-        "--compile_so=$ohos_build_compiler_so_strip",
-        "--compile_bin=$ohos_build_compiler_bin_strip"
+      "--path=$out_dir",
+      "--kernel=$ohos_kernel_type",
+      "--storage=$storage_type",
+      "--strip_command=$ohos_current_strip_command",
+      "--dmverity=$enable_ohos_security_dmverity",
     ]
+  }
+}
+
+if (ohos_build_type == "debug" && product != "") {
+  action("gen_testfwk_info") {
+    outputs = [ "$root_out_dir/gen_testfwk_info.log" ]
+    script = "//build/lite/testfwk/gen_testfwk_info.py"
+    archive_dir_name = "test_info"
+    args = [
+      "--component-info-file",
+      rebase_path("${product_path}/config.json"),
+      "--output-json-fold",
+      rebase_path("${root_out_dir}/${archive_dir_name}/build_configs/"),
+      "--output-json-file-name",
+      "infos_for_testfwk.json",
+      "--output-module-list-files-fold",
+      rebase_path("${root_out_dir}/${archive_dir_name}/module_list_files/"),
+    ]
+  }
 }

@@ -51,18 +51,19 @@ def main():
         ninja_cmd = ''
         print("\n=== start build ===\n")
         if platform.system().find('Windows') == 0:
-            gn_cmd = ['gn.exe', 'gen', product_path, '--root=.',
-                      '--dotfile=build/.gn']
+            gn_cmd = ['./prebuilts/build-tools/bin/gn.exe', 'gen',
+                      product_path, '--root=.', '--dotfile=build/.gn']
 
-            ninja_cmd = ['ninja.exe',
+            ninja_cmd = ['./prebuilts/build-tools/bin/ninja.exe',
                          '-C', product_path]
         else:
-            gn_cmd = ['gn', 'gen', product_path, '--root=.',
-                      '--dotfile=build/.gn']
+            gn_cmd = ['./prebuilts/build-tools/bin/gn', 'gen',
+                      product_path, '--root=.', '--dotfile=build/.gn']
             if args.build_type == 'debug':
                 gn_cmd += ['--args=ohos_build_type=\"debug\"']
 
-            ninja_cmd = ['ninja', '-C', product_path]
+            ninja_cmd = ['./prebuilts/build-tools/bin/ninja',
+                         '-C', product_path]
         print("=== gn working ===\n")
         exec_command(gn_cmd, log_path)
         time.sleep(2)
@@ -76,9 +77,11 @@ def main():
             return 0
         print("\n=== start clean ===\n")
         if platform.system().find('Windows') == 0:
-            clean_cmd = ['ninja.exe', '-C', product_path, '-t', 'clean']
+            clean_cmd = ['./prebuilts/build-tools/bin/ninja.exe',
+                         '-C', product_path, '-t', 'clean']
         else:
-            clean_cmd = ['ninja', '-C', product_path, '-t', 'clean']
+            clean_cmd = ['./prebuilts/build-tools/bin/ninja',
+                         '-C', product_path, '-t', 'clean']
         print("=== clean working ===\n")
         exec_command(clean_cmd, log_path)
         print("clean success!")

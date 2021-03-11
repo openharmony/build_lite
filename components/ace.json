@@ -1,0 +1,52 @@
+{
+  "components": [
+    {
+      "component": "ace_engine_lite",
+      "description": "JS APP development frameworks.",
+      "optional": "true",
+      "dirs": [
+        "foundation/ace/ace_engine_lite",
+        "utils/native/lite/timer_task",
+        "utils/native/lite/js/builtin"
+      ],
+      "targets": [
+        "//foundation/ace/ace_engine_lite/frameworks:jsfwk",
+        "//foundation/ace/ace_engine_lite/test:unittest"
+      ],
+      "rom": "600KB",
+      "ram": "~90KB",
+      "output": [ "libace_lite.so" ],
+      "adapted_kernel": [ "liteos_a", "linux"],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function",
+          "cjson",
+          "freetype"
+        ],
+        "kernel_special": {},
+        "board_special": {
+          "hi3516dv300": [
+            "hdf_hi3516dv300_liteos_a"
+          ],
+          "hi3518ev300": [
+            "hdf_hi3518ev300_liteos_a"
+          ]
+        },
+        "components": [
+          "syspara",
+          "surface",
+          "i18n",
+          "global_resource_manager",
+          "samgr_lite",
+          "hilog_lite",
+          "permission",
+          "ipc_lite",
+          "kal_timer",
+          "liteos_a",
+          "kv_store"
+        ]
+      }
+    }
+  ]
+}

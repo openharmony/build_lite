@@ -12,88 +12,71 @@
 # limitations under the License.
 
 config("cpu_arch") {
-    cflags = []
-    if (target_cpu == "cortex-a7") {
-        cflags += [
-            "-march=armv7-a",
-            "-mfloat-abi=softfp"
-        ]
-    } else if (target_cpu == "riscv32") {
-        cflags += [
-            "-mabi=ilp32",
-            "-march=rv32imc"
-        ]
-    }
-    asmflags = cflags
-    cflags_cc = cflags
-    ldflags = cflags
+  cflags = []
+  if (board_arch != "") {
+    cflags += [ "-march=$board_arch" ]
+  }
+  if (board_cpu != "") {
+    cflags += [ "-mcpu=$board_cpu" ]
+  }
+  cflags_cc = cflags
+  ldflags = cflags
 }
 
 config("language_c") {
-    cflags_c = [
-        "-std=c99"
-    ]
+  cflags_c = [ "-std=c99" ]
 }
 
 config("language_cpp") {
-    cflags_cc = [
-        "-std=c++11"
-    ]
+  cflags_cc = [ "-std=c++11" ]
 }
 
 config("kernel_macros") {
-    if (ohos_kernel_type == "liteos_a") {
-        defines = [
-            "__LITEOS__",
-            "__LITEOS_A__",
-        ]
-    } else if (ohos_kernel_type == "liteos_m") {
-        defines = [
-            "__LITEOS__",
-            "__LITEOS_M__"
-        ]
-    } else if (ohos_kernel_type == "linux") {
-        defines = [ "__LINUX__" ]
-    }
+  if (ohos_kernel_type == "liteos_a") {
+    defines = [
+      "__LITEOS__",
+      "__LITEOS_A__",
+    ]
+  } else if (ohos_kernel_type == "liteos_m") {
+    defines = [
+      "__LITEOS__",
+      "__LITEOS_M__",
+    ]
+  } else if (ohos_kernel_type == "linux") {
+    defines = [ "__LINUX__" ]
+  }
 }
 
 config("werror") {
-    cflags = [
-        "-Werror"
-    ]
-    cflags_cc = cflags
+  cflags = [ "-Werror" ]
+  cflags_cc = cflags
 }
 
 config("common") {
-    defines = [ "_XOPEN_SOURCE=700" ]
-    cflags = [
-        "-nostdlib",
-        "-fno-common",
-        "-fno-builtin",
-        "-fno-strict-aliasing",
-    ]
-    cflags_cc = cflags
-    ldflags = [
-        "-lc"
-    ]
-    cflags += [ "-fsigned-char" ]
+  defines = [ "_XOPEN_SOURCE=700" ]
+  cflags = [
+    "-nostdlib",
+    "-fno-common",
+    "-fno-builtin",
+    "-fno-strict-aliasing",
+    "-Wall",
+  ]
+  cflags_cc = cflags
+  ldflags = [ "-lc" ]
+  cflags += [ "-fsigned-char" ]
 }
 
 config("security") {
-    defines = [
-        "_FORTIFY_SOURCE=2"
-    ]
+  defines = [ "_FORTIFY_SOURCE=2" ]
 
-    cflags = [
-        "-fstack-protector-all"
-    ]
-    cflags_cc = cflags
+  cflags = [ "-fstack-protector-all" ]
+  cflags_cc = cflags
 
-    ldflags = [
-        "-Wl,-z,now",
-        "-Wl,-z,relro",
-        "-Wl,-z,noexecstack"
-    ]
+  ldflags = [
+    "-Wl,-z,now",
+    "-Wl,-z,relro",
+    "-Wl,-z,noexecstack",
+  ]
 }
 
 config("exceptions") {
@@ -108,102 +91,94 @@ config("no_exceptions") {
 }
 
 config("stack_protector") {
-    cflags = [ "-fstack-protector-all" ]
-    cflags_cc = cflags
+  cflags = [ "-fstack-protector-all" ]
+  cflags_cc = cflags
 }
 
 config("static_pie_config") {
-    cflags = [ "-fPIE" ]
-    cflags_cc = cflags
+  cflags = [ "-fPIE" ]
+  cflags_cc = cflags
 }
 
 config("shared_library_config") {
-    cflags = [ "-fPIC" ]
-    cflags_cc = cflags
+  cflags = [ "-fPIC" ]
+  cflags_cc = cflags
 }
 
 config("pie_executable_config") {
-    ldflags = [ "-pie" ]
+  ldflags = [ "-pie" ]
 }
 
 config("clang") {
-    include_dirs = [
-        "${ohos_build_compiler_dir}/include/c++/v1",
-        "//prebuilts/lite/sysroot/usr/include/arm-liteos",
-    ]
+  clang_dir = ""
+  if (ohos_build_compiler_dir != "") {
+    clang_dir = rebase_path("${ohos_build_compiler_dir}")
+  }
+  include_dirs = [
+    "${clang_dir}/include/c++/v1",
+    "//prebuilts/lite/sysroot/usr/include/arm-liteos",
+  ]
 
-    cflags = [
-        "--target=arm-liteos",
-        "--sysroot=${ohos_root_path}prebuilts/lite/sysroot"
-    ]
-    cflags_cc = cflags
-    ldflags = cflags
+  cflags = [
+    "--target=arm-liteos",
+    "--sysroot=${ohos_root_path}prebuilts/lite/sysroot",
+  ]
+  cflags_cc = cflags
+  ldflags = cflags
 
-    ldflags += [
-        "-L${ohos_build_compiler_dir}/lib/arm-liteos/c++",
-        "-L${ohos_root_path}prebuilts/lite/sysroot/usr/lib/arm-liteos",
-        "-L${ohos_build_compiler_dir}/lib/clang/9.0.0/lib/arm-liteos",
-        "-lclang_rt.builtins",
-        "-lc++",
-        "-lc++abi"
-    ]
+  ldflags += [
+    "-L${clang_dir}/lib/arm-liteos/c++",
+    "-L${ohos_root_path}prebuilts/lite/sysroot/usr/lib/arm-liteos",
+    "-L${clang_dir}/lib/clang/9.0.0/lib/arm-liteos",
+    "-lclang_rt.builtins",
+    "-lc",
+    "-lc++",
+    "-lc++abi",
+    "--sysroot=${ohos_root_path}prebuilts/lite/sysroot",
+  ]
 }
 
 config("release") {
-    defines = [
-        "OHOS_RELEASE",
-    ]
-    cflags = [
-        "-Oz",
-        "-flto"
-    ]
-    cflags_cc = cflags
+  defines = [ "OHOS_RELEASE" ]
 }
 
 config("debug") {
-    defines = [
-        "OHOS_DEBUG",
-    ]
-    cflags = [
-        "-Oz",
-        "-flto"
-    ]
-    cflags_cc = cflags
+  defines = [ "OHOS_DEBUG" ]
+}
+
+config("clang_opt") {
+  cflags = [
+    "-Oz",
+    "-flto",
+  ]
+  cflags_cc = cflags
+}
+
+config("gcc_opt") {
+  cflags = [ "-Os" ]
+  cflags_cc = cflags
 }
 
 config("default_link_path") {
-    out_dir = rebase_path(root_build_dir)
-    ldflags = [
-        "-L${out_dir}",
-        "-Wl,-rpath-link=${out_dir}"
-    ]
+  out_dir = rebase_path(root_build_dir)
+  ldflags = [
+    "-L${out_dir}",
+    "-Wl,-rpath-link=${out_dir}",
+  ]
 }
 
-config("liteos_a") {
-    configs = [
-        ":common",
-        ":werror",
-        "kernel/liteos/cortex_a:default",
-        ":clang",
-        ":cpu_arch",
-        ":security",
-        ":exceptions",
-        ":default_link_path"
-    ]
-
-    if (ohos_build_type == "release") {
-        configs += [ ":release" ]
-    } else if (ohos_build_type == "debug") {
-        configs += [ ":debug" ]
-    }
-}
-
-config("liteos_m") {
-    configs = [
-        ":common",
-        ":werror",
-        "kernel/liteos/cortex_m:riscv32",
-        ":cpu_arch",
-        ":default_link_path"
-    ]
+config("board_config") {
+  cflags = []
+  cflags_cc = []
+  ldflags = []
+  include_dirs = []
+  cflags += board_cflags
+  if (board_configed_sysroot != "") {
+    cflags += [ "--sysroot=${board_configed_sysroot}" ]
+    cflags_cc += [ "--sysroot=${board_configed_sysroot}" ]
+    ldflags += [ "--sysroot=${board_configed_sysroot}" ]
+  }
+  cflags_cc += board_cxx_flags
+  ldflags += board_ld_flags
+  include_dirs += board_include_dirs
 }

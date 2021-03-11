@@ -1955,6 +1955,7 @@ PREDEFINED             = __attribute__(x)= \
                          OHOS_APPEXECFWK_BMS_BUNDLEMANAGER= \
                          ENABLE_MEMORY_HOOKS= \
 
+
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The
 # macro definition that is found in the sources will be used. Use the PREDEFINED

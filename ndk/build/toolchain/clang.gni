@@ -12,7 +12,8 @@
 # limitations under the License.
 
 ohos_build_compiler = "clang"
-ohos_build_compiler_dir = rebase_path("//llvm/bin", root_build_dir)
+ohos_build_compiler_dir_linux = rebase_path("//clang/bin", root_build_dir)
+ohos_build_compiler_dir_win = rebase_path("//clang/bin", root_build_dir)
 ohos_build_compiler_prefix = "clang"
 ohos_build_compiler_so_strip = "llvm-objcopy --strip-all"
 ohos_build_compiler_bin_strip = "llvm-objcopy --strip-all"

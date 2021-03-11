@@ -55,7 +55,8 @@ def get_notice_file_name(readme_file_path, copyright_file,
     for info in opensource_config:
         license_file = info.get('License File')
         license_name = info.get('License')
-        software_name = '{} {}'.format(info.get('Name'), info.get('Version Number'))
+        software_name = '{} {}'.format(info.get('Name'),
+                                       info.get('Version Number'))
 
     license_file_path = os.path.join(os.path.dirname(readme_file_path),
                                      license_file.strip())

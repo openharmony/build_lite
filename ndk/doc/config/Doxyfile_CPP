@@ -1954,6 +1954,9 @@ PREDEFINED             = __attribute__(x)= \
                          ABILITY_WINDOW_SUPPORT= \
                          OHOS_APPEXECFWK_BMS_BUNDLEMANAGER= \
                          ENABLE_MEMORY_HOOKS= \
+                         ENABLE_WINDOW= \
+                         ENABLE_DEBUG= \
+                         ENABLE_AOD= \
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The

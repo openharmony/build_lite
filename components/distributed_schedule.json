@@ -1,0 +1,144 @@
+{
+  "components": [
+    {
+      "component": "system_ability_manager",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "foundation/distributedschedule/samgr_lite"
+      ],
+      "targets": [
+        "//foundation/distributedschedule/samgr_lite:samgr"
+      ],
+      "rom": "62KB",
+      "ram": "",
+      "output": [
+        "libsamgr.so",
+        "libbroadcast.so",
+        "libserver.so"
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function",
+          "cjson"
+        ],
+        "kernel_special": {
+          "liteos_a": [
+            "liteos_a",
+            "hilog",
+            "permission",
+            "ipc"
+          ],
+          "liteos_m": [
+            "liteos_m",
+            "hilog_lite",
+            "hi3861_sdk"
+          ]
+        },
+        "board_special": {
+          "hi3516dv300": [
+            "liteos_a",
+            "hilog",
+            "permission",
+            "ipc"
+          ],
+          "hi3518ev300": [
+            "liteos_a",
+            "hilog",
+            "permission",
+            "ipc"
+          ],
+          "hi3861v100": [
+            "liteos_m",
+            "hilog_lite",
+            "hi3861_sdk"
+          ]
+        },
+        "components": [
+          "utils_base",
+          "ipc_lite",
+          "permission",
+          "hilog_lite"
+        ]
+      }
+    },
+    {
+      "component": "foundation",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "foundation/distributedschedule/safwk_lite"
+      ],
+      "targets": [
+        "//foundation/distributedschedule/safwk_lite"
+      ],
+      "rom": "15KB",
+      "ram": "",
+      "output": [ "foundation" ],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function",
+          "cjson"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "aafwk_lite",
+          "appexecfwk_lite",
+          "hilog_lite",
+          "permission",
+          "dmsfwk_lite",
+          "samgr_lite",
+          "powermgr_lite"
+        ]
+      }
+    },
+    {
+      "component": "distributed_schedule",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "foundation/distributedschedule/dmsfwk_lite"
+      ],
+      "targets": [
+        "//foundation/distributedschedule/dmsfwk_lite:dtbschedmgr",
+        "//foundation/distributedschedule/dmsfwk_lite/moduletest/dtbschedmgr_lite:distributed_schedule_test_dms"
+      ],
+      "rom": "26KB",
+      "ram": "",
+      "output": [ "dmslite.so" ],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function",
+          "cjson"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "hilog_lite",
+          "samgr_lite",
+          "aafwk_lite",
+          "appexecfwk_lite",
+          "softbus_lite",
+          "huks"
+        ]
+      }
+    }
+  ]
+}
