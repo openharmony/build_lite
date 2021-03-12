@@ -62,7 +62,7 @@
         },
         "components": [
           "utils_base",
-          "ipc_lite",
+          "ipc",
           "permission",
           "hilog_lite"
         ]
@@ -94,12 +94,12 @@
         "kernel_special": {},
         "board_special": {},
         "components": [
-          "aafwk_lite",
-          "appexecfwk_lite",
+          "ability",
+          "bundle_mgr",
           "hilog_lite",
           "permission",
           "dmsfwk_lite",
-          "samgr_lite",
+          "system_ability_manager",
           "powermgr_lite"
         ]
       }
@@ -132,9 +132,9 @@
         "board_special": {},
         "components": [
           "hilog_lite",
-          "samgr_lite",
-          "aafwk_lite",
-          "appexecfwk_lite",
+          "system_ability_manager",
+          "ability",
+          "bundle_mgr",
           "softbus_lite",
           "huks"
         ]

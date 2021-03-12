@@ -37,10 +37,10 @@
         },
         "components": [
           "hilog_lite",
-          "audio_lite",
+          "audio_manager_lite",
           "camera_lite",
           "permission",
-          "ipc_lite",
+          "ipc",
           "ui"
         ]
       }
@@ -117,10 +117,10 @@
         },
         "components": [
           "hilog_lite",
-          "audio_lite",
+          "audio_manager_lite",
           "camera_lite",
           "permission",
-          "ipc_lite",
+          "ipc",
           "ui"
         ]
       }

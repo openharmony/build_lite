@@ -186,38 +186,6 @@
         "adapted_kernel": [ "liteos_a" ],
         "features": [],
         "deps": {}
-      },
-    {
-      "component": "oem_smartvision",
-      "description": "",
-      "optional": "false",
-      "dirs": [
-        "vendor/huawei/camera",
-        "base/startup/syspara_lite/hals"
-      ],
-      "targets": [
-        "//vendor/huawei/camera/hals/utils/sys_param:hal_sysparam",
-        "//vendor/huawei/camera/hals/utils/token:haltoken_shared"
-      ],
-      "rom": "",
-      "ram": "",
-      "output": [],
-      "adapted_board": [
-        "hi3518ev300",
-        "hi3518ev300_openharmony",
-        "hi3516dv300",
-        "hi3516dv300_openharmony"
-      ],
-      "adapted_kernel": [ "liteos_a" ],
-      "features": [],
-      "deps": {
-        "third_party": [
-          "bounds_checking_function"
-        ],
-        "components": [
-          "utils_base"
-        ]
-      }
     },
     {
       "component": "hi3516dv300_sdk",
@@ -277,8 +245,7 @@
       "features": [],
       "deps": {
         "components": [
-          "utils_base",
-          "liteos_m"
+          "utils_base"
         ]
       }
     },
@@ -321,11 +288,9 @@
       "dirs": [
         "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/utils/file",
         "utils/native/lite/hals/file",
-        "base/iot_hardware/hals/wifiiot_lite",
         "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/iot_hardware/wifiiot_lite",
         "base/update/ota_lite/hals",
         "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/update",
-        "foundation/communication/hals/wifi_lite/wifiaware",
         "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/communication/wifi_lite/wifiaware",
         "foundation/communication/wifi_lite/interfaces/wifiservice",
         "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/communication/wifi_lite/wifiservice"
@@ -350,7 +315,6 @@
       "description": "",
       "optional": "false",
       "dirs": [
-        "vendor/huawei/wifi-iot/hals/utils",
         "base/startup/syspara_lite/hals"
       ],
       "targets": [
@@ -367,8 +331,6 @@
       "features": [],
       "deps": {
         "components": [
-          "liteos_m",
-          "hi3861_sdk",
           "utils_base"
         ]
       }

@@ -68,7 +68,6 @@
           ]
         },
         "components": [
-          "liteos_a",
           "media_lite",
           "syspara",
           "hilog",
