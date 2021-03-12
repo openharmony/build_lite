@@ -138,6 +138,23 @@
       }
     },
     {
+      "component": "camera_sample_ai",
+      "description": "Sample applications for AI-Engine in hispark_taurus.",
+      "optional": "true",
+      "dirs": [
+        "applications/sample/camera/ai"
+      ],
+      "targets": [
+        "//applications/sample/camera/ai:ai"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {}
+    },
+    {
       "component": "wifi_iot_sample_app",
       "description": "Wifi iot samples.",
       "optional": "true",
