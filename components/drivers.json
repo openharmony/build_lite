@@ -6,7 +6,10 @@
       "optional": "false",
       "dirs": [
         "drivers/adapter/uhdf",
-        "drivers/peripheral",
+        "drivers/peripheral/display",
+        "drivers/peripheral/input",
+        "drivers/peripheral/sensor",
+        "drivers/peripheral/wlan",
         "device/hisilicon/drivers"
       ],
       "targets": [
@@ -58,7 +61,10 @@
       "optional": "false",
       "dirs": [
         "drivers/adapter/uhdf",
-        "drivers/peripheral",
+        "drivers/peripheral/display",
+        "drivers/peripheral/input",
+        "drivers/peripheral/sensor",
+        "drivers/peripheral/wlan",
         "device/hisilicon/drivers"
       ],
       "targets": [
@@ -134,7 +140,9 @@
       "optional": "false",
       "dirs": [
         "drivers/adapter/uhdf",
-        "drivers/peripheral",
+        "drivers/peripheral/display",
+        "drivers/peripheral/input",
+        "drivers/peripheral/wlan",
         "device/hisilicon/drivers"
       ],
       "targets": [

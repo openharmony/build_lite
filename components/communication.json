@@ -63,8 +63,6 @@
           ],
           "liteos_m": [
             "wlan",
-            "liteos_m",
-            "hi3861_sdk",
             "utils_base"
           ]
         },
@@ -140,9 +138,6 @@
         "kernel_special": {},
         "board_special": {},
         "components": [
-          "liteos_m",
-          "hi3861_adapter",
-          "hi3861_sdk",
           "utils_base"
         ]
       }
@@ -164,8 +159,6 @@
       "features": [],
       "deps": {
         "components": [
-          "hi3861_adapter",
-          "hi3861_sdk"
         ],
         "third_party": []
       }

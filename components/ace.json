@@ -38,12 +38,11 @@
           "surface",
           "i18n",
           "global_resource_manager",
-          "samgr_lite",
+          "system_ability_manager",
           "hilog_lite",
           "permission",
-          "ipc_lite",
+          "ipc",
           "kal_timer",
-          "liteos_a",
           "kv_store"
         ]
       }

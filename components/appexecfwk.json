@@ -34,11 +34,11 @@
         "board_special": {},
         "components": [
           "hilog_lite",
-          "aafwk_lite",
+          "ability",
           "permission",
-          "ipc_lite",
-          "samgr_lite",
-          "resmgr_lite",
+          "ipc",
+          "system_ability_manager",
+          "global_resource_manager",
           "ability",
           "app_verify"
         ]
