@@ -20,7 +20,7 @@ import os
 from setuptools import setup
 
 WORK_PATH = os.path.dirname('__file__')
-README_PATH = os.path.join(WORK_PATH, 'readme.md')
+README_PATH = os.path.join(WORK_PATH, 'README.md')
 LICENSE_PATH = os.path.join(WORK_PATH, 'LICENSE')
 LONG_DESCRIPTION = open(README_PATH).read()
 LICENSE = open(LICENSE_PATH).read()
