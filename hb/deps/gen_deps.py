@@ -72,7 +72,7 @@ def gen_deps(subsystems, products):
             status = exec_command(args_factory(args))
         except Exception:
             status = 1
-            with open(config.log_path, 'rt') as log_file:
+            with open(config.log_path, 'rt', encoding='utf-8') as log_file:
                 log = log_file.read()
         else:
             log = ''

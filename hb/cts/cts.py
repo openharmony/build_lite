@@ -222,7 +222,7 @@ class Subsystem():
             component_list[index]['deps'] = component_cls.get_real_deps()
 
         self.json_content['components'] = component_list
-        with open(self.json_path, 'wt') as file:
+        with open(self.json_path, 'wt', encoding='utf-8') as file:
             json.dump(self.json_content, file,
                       ensure_ascii=False, indent=2)
 

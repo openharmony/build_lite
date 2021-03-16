@@ -53,24 +53,24 @@ def read_json_file(input_file):
 
 
 def exec_command(cmd, log_path='out/build.log', **kwargs):
-    with open(log_path, 'at') as f:
+    with open(log_path, 'at', encoding='utf-8') as log_file:
         process = subprocess.Popen(cmd,
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE,
-                                   universal_newlines=True,
+                                   encoding='utf-8',
                                    **kwargs)
         for line in iter(process.stdout.readline, ''):
             sys.stdout.write(line)
-            f.write(line)
+            log_file.write(line)
 
     process.wait()
     ret_code = process.returncode
 
     if ret_code != 0:
-        with open(log_path, 'at') as f:
+        with open(log_path, 'at', encoding='utf-8') as log_file:
             for line in iter(process.stderr.readline, ''):
                 sys.stdout.write(line)
-                f.write(line)
+                log_file.write(line)
         print('you can check build log in {}'.format(log_path))
         raise Exception("{} failed, return code is {}".format(cmd, ret_code))
 
