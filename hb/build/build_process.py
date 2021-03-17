@@ -188,16 +188,15 @@ class Build():
             self.config.out_path = os.path.join(self.config.root_path,
                                                 'out',
                                                 board)
-            gn_device_path = os.path.dirname(device_path).\
-                replace(self.config.root_path, '/')
-            gn_kernel_path = device_path.replace(self.config.root_path, '/')
+            gn_device_path = os.path.dirname(device_path)
+            gn_kernel_path = device_path
             self.register_args('ohos_build_target', [gn_device_path])
             self.register_args('device_path', gn_kernel_path)
             self.register_args('ohos_kernel_type', kernel)
         else:
             # Compile product in "hb set"
-            self.register_args('product_path', self.config.gn_product_path)
-            self.register_args('device_path', self.config.gn_device_path)
+            self.register_args('product_path', self.config.product_path)
+            self.register_args('device_path', self.config.device_path)
             self.register_args('ohos_kernel_type', self.config.kernel)
 
             product_json = os.path.join(self.config.product_path,

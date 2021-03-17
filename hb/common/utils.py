@@ -56,7 +56,7 @@ def read_json_file(input_file):
 
 
 def dump_json_file(dump_file, json_data):
-    with open(dump_file, 'wt') as json_file:
+    with open(dump_file, 'wt', encoding='utf-8') as json_file:
         json.dump(json_data,
                   json_file,
                   ensure_ascii=False,
@@ -75,11 +75,11 @@ def exec_command(cmd, log_path='out/build.log', **kwargs):
     useful_info_pattern = re.compile(r'\[\d+/\d+\].+')
     is_log_filter = kwargs.pop('log_filter', False)
 
-    with open(log_path, 'at') as log_file:
+    with open(log_path, 'at', encoding='utf-8') as log_file:
         process = subprocess.Popen(cmd,
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE,
-                                   universal_newlines=True,
+                                   encoding='utf-8',
                                    **kwargs)
         for line in iter(process.stdout.readline, ''):
             if is_log_filter:
@@ -94,7 +94,7 @@ def exec_command(cmd, log_path='out/build.log', **kwargs):
     ret_code = process.returncode
 
     if ret_code != 0:
-        with open(log_path, 'at') as log_file:
+        with open(log_path, 'at', encoding='utf-8') as log_file:
             for line in iter(process.stderr.readline, ''):
                 if 'ninja: warning' in line:
                     log_file.write(line)
@@ -112,7 +112,7 @@ def exec_command(cmd, log_path='out/build.log', **kwargs):
 
 
 def get_failed_log(log_path):
-    with open(log_path, 'rt') as log_file:
+    with open(log_path, 'rt', encoding='utf-8') as log_file:
         data = log_file.read()
     failed_pattern = re.compile(r'(\[\d+/\d+\].*?)(?=\[\d+/\d+\]|'
                                 'ninja: build stopped)', re.DOTALL)
@@ -123,7 +123,7 @@ def get_failed_log(log_path):
 
     error_log = os.path.join(os.path.dirname(log_path), 'error.log')
     if os.path.isfile(error_log):
-        with open(error_log, 'rt') as log_file:
+        with open(error_log, 'rt', encoding='utf-8') as log_file:
             hb_error(log_file.read())
 
 
