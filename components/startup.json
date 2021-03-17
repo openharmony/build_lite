@@ -55,7 +55,7 @@
         },
         "components": [
           "utils_base",
-          "hilog_a"
+          "hilog"
         ]
       }
     },

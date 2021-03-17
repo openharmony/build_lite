@@ -69,7 +69,7 @@ if (board_toolchain != "" && use_board_toolchain) {
   ohos_current_ar_command = "${compile_prefix}/llvm-ar"
   ohos_current_as_command = ohos_current_cc_command
   ohos_current_ld_command = ohos_current_cc_command
-  ohos_build_strip_command =
+  ohos_current_strip_command =
       "$ohos_clang_toolchain_dir/llvm-objcopy --strip-all"
   set_default_toolchain("//build/lite/toolchain:linux_x86_64_ohos_clang")
   default_target_configs = [ "//build/lite/config:clang" ]

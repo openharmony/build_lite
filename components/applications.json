@@ -128,7 +128,6 @@
           "ability",
           "ipc",
           "wpa_supplicant",
-          "liteos_a",
           "graphic",
           "hilog",
           "utils_base",
@@ -171,8 +170,6 @@
       "features": [],
       "deps": {
           "components": [
-            "liteos_m",
-            "hi3861_sdk",
             "utils_base"
         ]
       }
@@ -198,7 +195,7 @@
       "features": [],
       "deps": {
         "components": [
-          "hilog_a",
+          "hilog",
           "huks",
           "token",
           "syspara",
