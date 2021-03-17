@@ -36,7 +36,7 @@
         "components": [
           "syspara",
           "surface",
-          "i18n",
+          "global_i18n_kits",
           "global_resource_manager",
           "system_ability_manager",
           "hilog_lite",
