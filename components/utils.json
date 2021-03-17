@@ -86,7 +86,7 @@
         },
         "components": [
           "syspara",
-          "iot_hardware"
+          "iot_controller"
         ]
       }
     },
