@@ -100,7 +100,7 @@
           "permission",
           "dmsfwk_lite",
           "system_ability_manager",
-          "powermgr_lite"
+          "powermanageservice"
         ]
       }
     },
