@@ -42,8 +42,8 @@
         "components": [
           "hilog_lite",
           "permission",
-          "ipc_lite",
-          "samgr_lite",
+          "ipc",
+          "system_ability_manager",
           "appspawn",
           "wms"
         ]

@@ -86,7 +86,7 @@ class Device():
         kernel_pattern = r'kernel_type ?= ?"{}"'.format(kernel)
         version_pattern = r'kernel_version ?= ?"{}"'.format(version)
 
-        with open(config, 'rt') as config_file:
+        with open(config, 'rt', encoding='utf-8') as config_file:
             data = config_file.read()
             return re.search(kernel_pattern, data) and\
                 re.search(version_pattern, data)
@@ -96,7 +96,7 @@ class Device():
         kernel_pattern = r'kernel_type ?= ?"(\w+)"'
         version_pattern = r'kernel_version ?= ?"([a-zA-Z0-9._]*)"'
 
-        with open(config, 'rt') as config_file:
+        with open(config, 'rt', encoding='utf-8') as config_file:
             data = config_file.read()
             kernel_list = re.findall(kernel_pattern, data)
             version_list = re.findall(version_pattern, data)

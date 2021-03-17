@@ -129,8 +129,8 @@
       "deps": {
         "components": [
           "hilog_lite",
-          "samgr_lite",
-          "ipc_lite"
+          "system_ability_manager",
+          "ipc"
         ],
         "third_party": [
           "bounds_checking_function",

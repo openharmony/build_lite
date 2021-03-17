@@ -73,7 +73,7 @@
         ],
         "components": [
           "hilog_lite",
-          "ipc_lite"
+          "ipc"
         ],
         "board_special": {
           "hi3516dv300": [
@@ -108,8 +108,8 @@
         ],
         "components": [
           "hilog_lite",
-          "ipc_lite",
-          "samgr_lite",
+          "ipc",
+          "system_ability_manager",
           "surface"
         ],
         "board_special": {

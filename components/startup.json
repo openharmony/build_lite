@@ -31,24 +31,20 @@
         ],
         "kernel_special": {
           "liteos_a": [
-            "hilog",
-            "oem_smartvision"
+            "hilog"
           ],
           "liteos_m": [
             "hilog_lite",
             "liteos_m",
-            "hi3861_sdk",
-            "oem_iotlink"
+            "hi3861_sdk"
           ]
         },
         "board_special": {
           "hi3516dv300": [
-            "hilog",
-            "oem_smartvision"
+            "hilog"
           ],
           "hi3518ev300": [
-            "hilog",
-            "oem_smartvision"
+            "hilog"
           ],
           "hi3861v100": [
             "hilog_lite",
@@ -111,7 +107,7 @@
         },
         "components": [
           "utils_base",
-          "samgr_lite"
+          "system_ability_manager"
         ]
       }
     },
@@ -177,10 +173,10 @@
           },
           "components": [
             "hilog_lite",
-            "samgr_lite",
-            "ipc_lite",
+            "system_ability_manager",
+            "ipc",
             "kv_store",
-            "aafwk_lite",
+            "ability",
             "ace_engine_lite",
             "surface",
             "ui"

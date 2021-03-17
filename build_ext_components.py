@@ -30,12 +30,14 @@ def cmd_exec(command, temp_file, error_log_path):
     proc = subprocess.Popen(cmd,
                             stdout=temp_file,
                             stderr=temp_file,
-                            universal_newlines=True)
+                            encoding='utf-8')
 
     proc.wait()
     ret_code = proc.returncode
     if ret_code != 0:
+        temp_file.close()
         copyfile(temp_file.name, error_log_path)
+        os.remove(temp_file.name)
         return ret_code
 
     return ret_code
@@ -58,23 +60,25 @@ def main():
     if args.path:
         curr_dir = os.getcwd()
         os.chdir(args.path)
-        with NamedTemporaryFile(mode='wt') as temp_file:
-            if args.prebuilts:
-                status = cmd_exec(args.prebuilts, temp_file, args.out_dir[0])
-                if status != 0:
-                    return status
-            if args.command:
-                if '&&' in args.command:
-                    command = args.command.split('&&')
-                    for data in command:
-                        status = cmd_exec(data, temp_file, args.out_dir[0])
-                        if status != 0:
-                            return status
-                else:
-                    status = cmd_exec(args.command, temp_file, args.out_dir[0])
+        temp_file = NamedTemporaryFile(mode='wt', delete=False)
+        if args.prebuilts:
+            status = cmd_exec(args.prebuilts, temp_file, args.out_dir[0])
+            if status != 0:
+                return status
+        if args.command:
+            if '&&' in args.command:
+                command = args.command.split('&&')
+                for data in command:
+                    status = cmd_exec(data, temp_file, args.out_dir[0])
                     if status != 0:
                         return status
-            copyfile(temp_file.name, args.target_dir[0])
+            else:
+                status = cmd_exec(args.command, temp_file, args.out_dir[0])
+                if status != 0:
+                    return status
+        temp_file.close()
+        copyfile(temp_file.name, args.target_dir[0])
+        os.remove(temp_file.name)
 
         os.chdir(curr_dir)
     return 0

@@ -22,8 +22,8 @@
       "features": [],
       "deps": {
         "components": [
-          "samgr_lite",
-          "ipc_lite"
+          "system_ability_manager",
+          "ipc"
 
         ],
         "third_party": [

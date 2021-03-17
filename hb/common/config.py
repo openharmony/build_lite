@@ -16,6 +16,7 @@
 # limitations under the License.
 
 import os
+import platform
 from distutils.spawn import find_executable
 
 from hb import CONFIG_JSON
@@ -146,13 +147,26 @@ class Config(metaclass=Singleton):
         return os.path.join(self.root_path, 'vendor')
 
     @property
+    def build_tools_path(self):
+        platform_name = platform.system()
+        if platform_name == 'Linux':
+            return os.path.join(self.root_path,
+                                'prebuilts',
+                                'build-tools',
+                                'linux-x86',
+                                'bin')
+        if platform_name == 'Windows':
+            return os.path.join(self.root_path,
+                                'prebuilts',
+                                'build-tools',
+                                'win-x86',
+                                'bin')
+
+        raise Exception(f'unidentified platform: {platform_name}')
+
+    @property
     def gn_path(self):
-        repo_gn_path = os.path.join(self.root_path,
-                                    'prebuilts',
-                                    'build-tools',
-                                    'linux-x86',
-                                    'bin',
-                                    'gn')
+        repo_gn_path = os.path.join(self.build_tools_path, 'gn')
         if os.path.isfile(repo_gn_path):
             return repo_gn_path
 
@@ -164,12 +178,7 @@ class Config(metaclass=Singleton):
 
     @property
     def ninja_path(self):
-        repo_ninja_path = os.path.join(self.root_path,
-                                       'prebuilts',
-                                       'build-tools',
-                                       'linux-x86',
-                                       'bin',
-                                       'ninja')
+        repo_ninja_path = os.path.join(self.build_tools_path, 'ninja')
         if os.path.isfile(repo_ninja_path):
             return repo_ninja_path
 

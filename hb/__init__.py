@@ -21,7 +21,8 @@ import os
 
 def get_config_path():
     search_path = os.getcwd()
-    while search_path != '/':
+    root_path = os.path.abspath(os.sep)
+    while search_path != root_path:
         config_path = os.path.join(search_path, 'ohos_config.json')
         if os.path.isfile(config_path):
             return config_path

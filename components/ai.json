@@ -28,8 +28,8 @@
         "components": [
           "hilog_lite",
           "utils_base",
-          "ipc_lite",
-          "samgr_lite"
+          "ipc",
+          "system_ability_manager"
         ]
       }
     }

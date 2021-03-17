@@ -4,7 +4,7 @@
       "component": "powermanageservice",
       "optional": "true",
       "dirs": [
-        "base/powermgr"
+        "base/powermgr/powermgr_lite"
       ],
       "targets": [
         "//base/powermgr/powermgr_lite/services:power_manage_service"
@@ -23,13 +23,13 @@
       ],
       "deps": {
         "components": [
-          "aafwk_lite",
-	  "appexecfwk_lite",
-	  "samgr_lite",
-	  "ui"
+          "ability",
+          "bundle_mgr",
+          "system_ability_manager",
+          "ui"
         ],
         "third_party": [
-	  "bounds_checking_function"
+          "bounds_checking_function"
         ]
       }
     }
