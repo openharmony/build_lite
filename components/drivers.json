@@ -1,176 +1,128 @@
 {
   "components": [
     {
-      "component": "hdf_hi3516dv300_liteos_a",
+      "component": "drivers_framework",
       "description": "",
       "optional": "false",
-      "dirs": [
-        "drivers/adapter/uhdf",
-        "drivers/peripheral/display",
-        "drivers/peripheral/input",
-        "drivers/peripheral/sensor",
-        "drivers/peripheral/wlan",
-        "device/hisilicon/drivers"
+      "dirs": ["drivers/framework"],
+      "targets": [],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
       ],
+      "features": [],
+      "deps": {
+        "third_party": [],
+        "components": []
+      }
+    },
+    {
+      "component": "adapter_khdf_liteos",
+      "description": "",
+      "optional": "false",
+      "dirs": ["drivers/adapter/khdf/liteos"],
+      "targets": [],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [],
+      "adapted_kernel": ["liteos_a"],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": [
+          "liteos_a",
+          "hilog"
+        ]
+      }
+    },
+    {
+      "component": "adapter_khdf_linux",
+      "description": "",
+      "optional": "false",
+      "dirs": ["drivers/adapter/khdf/linux"],
+      "targets": [],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [],
+      "adapted_kernel": [ "linux" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": [
+          "linux_hi3516dv300",
+          "linux_hi3518ev300",
+          "hilog"
+        ]
+      }
+    },
+    {
+      "component": "adapter_uhdf",
+      "description": "",
+      "optional": "false",
+      "dirs": ["drivers/adapter/uhdf"],
       "targets": [
-        "//drivers/adapter/uhdf/posix:hdf_posix",
         "//drivers/adapter/uhdf/manager:hdf_manager",
+        "//drivers/adapter/uhdf/posix:hdf_posix",
         "//drivers/adapter/uhdf/platform:hdf_platform_driver",
-        "//drivers/peripheral/display/hal:hdi_display",
-        "//drivers/peripheral/input/hal:hdi_input",
-        "//drivers/peripheral/sensor/hal:hdi_sensor",
-        "//drivers/peripheral/wlan/client:hdi_wifi",
-        "//drivers/peripheral/wlan/hal:wifi_hal_interface",
-        "//device/hisilicon/drivers/firmware/common/wlan:wifi_firmware",
-        "//drivers/adapter/uhdf/test:hdf_test"
+        "//drivers/adapter/uhdf/test/unittest/common:hdf_test_common",
+        "//drivers/adapter/uhdf/test:hdf_test_uhdf"
       ],
       "rom": "",
       "ram": "",
       "output": [
-        "libhdf_osal.so",
         "libhdf_core.so",
-        "libdisplay_gralloc.so",
-        "libdisplay_layer.so",
-        "libdisplay_gfx.so",
-        "libhdi_input.so"
+        "libhdf_osal.so",
+        "libhdf_platform.so",
+        "libhdf_test_common.so"
       ],
-      "adapted_board": [
-        "hi3516dv300",
-        "hi3516dv300_openharmony"
+      "adapted_board": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
       ],
-      "adapted_kernel": [ "liteos_a" ],
       "features": [],
       "deps": {
         "third_party": [
-          "bounds_checking_function",
-          "googletest"
+          "bounds_checking_function"
         ],
         "components": [
           "hilog",
-          "hi3516dv300_sdk",
-          "hi3516dv300_adapter",
-          "liteos_a",
           "utils_base",
           "developer_test"
         ]
       }
     },
     {
-      "component": "hdf_hi3516dv300_linux",
+      "component": "peripheral_display",
       "description": "",
-      "optional": "false",
-      "dirs": [
-        "drivers/adapter/uhdf",
-        "drivers/peripheral/display",
-        "drivers/peripheral/input",
-        "drivers/peripheral/sensor",
-        "drivers/peripheral/wlan",
-        "device/hisilicon/drivers"
-      ],
+      "optional": "true",
+      "dirs": ["drivers/peripheral/display"],
       "targets": [
-        "//drivers/adapter/uhdf/posix:hdf_posix",
-        "//drivers/adapter/uhdf/manager:hdf_manager",
-        "//drivers/adapter/uhdf/platform:hdf_platform_driver",
-        "//drivers/peripheral/input/hal:hdi_input",
         "//drivers/peripheral/display/hal:hdi_display",
-        "//drivers/peripheral/sensor/hal:hdi_sensor",
-        "//drivers/peripheral/wlan/client:hdi_wifi",
-        "//drivers/peripheral/wlan/hal:wifi_hal_interface",
-        "//device/hisilicon/drivers/firmware/common/wlan:wifi_firmware",
-        "//drivers/adapter/uhdf/test:hdf_test"
+        "//drivers/peripheral/display/test:hdf_test_display"
       ],
       "rom": "",
       "ram": "",
       "output": [
-        "libhdf_posix_osal.so",
-        "libhdf_core.so",
-        "libhdf_platform.so",
-        "hi3881_fw.bin",
-        "wifi_cfg"
-      ],
-      "adapted_board": [
-        "hi3516dv300",
-        "hi3516dv300_openharmony"
-      ],
-      "adapted_kernel": [ "linux" ],
-      "features": [],
-      "deps": {
-        "third_party": [
-          "bounds_checking_function"
-        ],
-        "components": [
-          "hilog"
-        ]
-      }
-    },
-    {
-      "component": "hdf_hi3518ev300_linux",
-      "description": "",
-      "optional": "false",
-      "dirs": [
-        "drivers/peripheral/display",
-        "vendor/huawei/hdf"
-      ],
-      "targets": [
-        "//drivers/peripheral/display/hal:hdi_display"
-      ],
-      "rom": "",
-      "ram": "",
-      "output": [
-        "libdisplay_layer.so"
-      ],
-      "adapted_board": [
-        "hi3518ev300",
-        "hi3518ev300_openharmony"
-      ],
-      "adapted_kernel": [ "linux" ],
-      "features": [],
-      "deps": {
-        "third_party": [
-          "bounds_checking_function"
-        ],
-        "components": [
-          "hi3518ev300_linux"
-        ]
-      }
-    },
-    {
-      "component": "hdf_hi3518ev300_liteos_a",
-      "description": "",
-      "optional": "false",
-      "dirs": [
-        "drivers/adapter/uhdf",
-        "drivers/peripheral/display",
-        "drivers/peripheral/input",
-        "drivers/peripheral/wlan",
-        "device/hisilicon/drivers"
-      ],
-      "targets": [
-        "//drivers/adapter/uhdf/posix:hdf_posix",
-        "//drivers/adapter/uhdf/manager:hdf_manager",
-        "//drivers/adapter/uhdf/platform:hdf_platform_driver",
-        "//drivers/peripheral/display/hal:hdi_display",
-        "//drivers/peripheral/input/hal:hdi_input",
-        "//drivers/peripheral/wlan/client:hdi_wifi",
-        "//drivers/peripheral/wlan/hal:wifi_hal_interface",
-        "//device/hisilicon/drivers/firmware/common/wlan:wifi_firmware",
-        "//drivers/adapter/uhdf/test:hdf_test"
-      ],
-      "rom": "",
-      "ram": "",
-      "output": [
-        "libhdf_osal.so",
-        "libhdf_core.so",
         "libdisplay_gralloc.so",
         "libdisplay_layer.so",
-        "libdisplay_gfx.so",
-        "libhdi_input.so"
+        "libdisplay_gfx.so"
       ],
-      "adapted_board": [
-        "hi3518ev300",
-        "hi3518ev300_openharmony"
+      "adapted_board": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
       ],
-      "adapted_kernel": [ "liteos_a" ],
       "features": [],
       "deps": {
         "third_party": [
@@ -178,7 +130,125 @@
         ],
         "components": [
           "hilog",
-          "hi3516dv300_sdk"
+          "adapter_uhdf"
+        ]
+      }
+    },
+    {
+      "component": "peripheral_input",
+      "description": "",
+      "optional": "true",
+      "dirs": ["drivers/peripheral/input"],
+      "targets": [
+        "//drivers/peripheral/input/hal:hdi_input",
+        "//drivers/peripheral/input/test:hdf_test_input"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [
+        "libhdi_input.so"
+      ],
+      "adapted_board": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": [
+          "hilog",
+          "adapter_uhdf"
+        ]
+      }
+    },
+    {
+      "component": "peripheral_sensor",
+      "description": "",
+      "optional": "true",
+      "dirs": ["drivers/peripheral/sensor"],
+      "targets": [
+        "//drivers/peripheral/sensor/hal:hdi_sensor",
+        "//drivers/peripheral/sensor/test:hdf_test_sensor"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [
+        "libhdi_sensor.so"
+      ],
+      "adapted_board": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": [
+          "hilog",
+          "adapter_uhdf"
+        ]
+      }
+    },
+    {
+      "component": "peripheral_wlan",
+      "description": "",
+      "optional": "true",
+      "dirs": ["drivers/peripheral/wlan"],
+      "targets": [
+        "//drivers/peripheral/wlan/hal:wifi_hal",
+        "//drivers/peripheral/wlan/client:wifi_driver_client",
+        "//device/hisilicon/drivers/firmware/common/wlan:wifi_firmware",
+        "//drivers/peripheral/wlan/test:hdf_test_wlan"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [
+        "libwifi_hal.so",
+        "libwifi_driver_client.so"
+      ],
+      "adapted_board": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": [
+          "hilog",
+          "adapter_uhdf"
+        ]
+      }
+    },
+    {
+      "component": "peripheral_audio",
+      "description": "",
+      "optional": "true",
+      "dirs": ["drivers/peripheral/audio"],
+      "targets": [],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": [
+          "hilog",
+          "adapter_uhdf"
         ]
       }
     }

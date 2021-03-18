@@ -128,7 +128,6 @@
         "board_special": {},
         "components": [
           "hilog",
-          "hdf_hi3516dv300_liteos_a",
           "camera_lite",
           "hi3516dv300_sdk"
         ]
