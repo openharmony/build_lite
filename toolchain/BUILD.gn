@@ -43,7 +43,7 @@ if (board_toolchain != "" && use_board_toolchain) {
     ar = ohos_current_ar_command
     ld = ohos_current_ld_command
     if (ohos_build_type == "release") {
-      strip = ohos_build_strip_command
+      strip = ohos_current_strip_command
     }
   }
 }
