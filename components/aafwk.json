@@ -31,14 +31,7 @@
           "cjson"
         ],
         "kernel_special": {},
-        "board_special": {
-          "hi3516dv300": [
-            "hdf_hi3516dv300_liteos_a"
-          ],
-          "hi3518ev300": [
-            "hdf_hi3518ev300_liteos_a"
-          ]
-        },
+        "board_special": {},
         "components": [
           "hilog_lite",
           "permission",

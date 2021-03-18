@@ -45,8 +45,7 @@
           "bounds_checking_function"
         ],
         "components": [
-          "lite_graphic_utils",
-          "hdi_display"
+          "lite_graphic_utils"
         ]
       }
     },
@@ -73,16 +72,11 @@
         ],
         "components": [
           "hilog_lite",
-          "ipc"
+          "ipc",
+		  "peripheral_display",
+		  "peripheral_input"
         ],
-        "board_special": {
-          "hi3516dv300": [
-            "hdf_hi3516dv300_liteos_a"
-          ],
-          "hi3518ev300": [
-            "hdf_hi3518ev300_liteos_a"
-          ]
-        }
+        "board_special": {}
       }
     },
     {
@@ -110,16 +104,11 @@
           "hilog_lite",
           "ipc",
           "system_ability_manager",
-          "surface"
+          "surface",
+		  "peripheral_display",
+		  "peripheral_input"
         ],
-        "board_special": {
-          "hi3516dv300": [
-            "hdf_hi3516dv300_liteos_a"
-          ],
-          "hi3518ev300": [
-            "hdf_hi3518ev300_liteos_a"
-          ]
-        }
+        "board_special": {}
       }
     },
     {
