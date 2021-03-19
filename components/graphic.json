@@ -73,8 +73,8 @@
         "components": [
           "hilog_lite",
           "ipc",
-		  "peripheral_display",
-		  "peripheral_input"
+          "peripheral_display",
+          "peripheral_input"
         ],
         "board_special": {}
       }
@@ -105,8 +105,8 @@
           "ipc",
           "system_ability_manager",
           "surface",
-		  "peripheral_display",
-		  "peripheral_input"
+          "peripheral_display",
+          "peripheral_input"
         ],
         "board_special": {}
       }
