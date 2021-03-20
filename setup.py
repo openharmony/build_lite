@@ -19,21 +19,20 @@
 import os
 from setuptools import setup
 
-WORK_PATH = os.path.dirname('__file__')
+WORK_PATH = os.path.abspath(os.path.dirname('__file__'))
 README_PATH = os.path.join(WORK_PATH, 'README.md')
-LICENSE_PATH = os.path.join(WORK_PATH, 'LICENSE')
-LONG_DESCRIPTION = open(README_PATH, 'rt', encoding='utf-8').read()
-LICENSE = open(LICENSE_PATH, 'rt', encoding='utf-8').read()
+LONG_DESCRIPTION = open(README_PATH, 'r', encoding='utf-8').read()
 
 setup(
     name='ohos-build',
     version='0.2.0',
+    author='Huawei',
+    author_email='contact@openharmony.io',
     description='OHOS build command line tool',
     long_description=LONG_DESCRIPTION,
-    url='',
-    author='',
-    author_email='',
-    license=LICENSE,
+    long_description_content_type="text/markdown",
+    url='https://gitee.com/openharmony/build_lite',
+    license='Apache 2.0',
     python_requires='>=3.7',
     packages=['hb', 'hb.build', 'hb.set', 'hb.cts',
               'hb.common', 'hb.env', 'hb.clean', 'hb.deps'],
