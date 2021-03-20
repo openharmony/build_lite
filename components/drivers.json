@@ -11,9 +11,9 @@
       "output": [],
       "adapted_board": [],
       "adapted_kernel": [
-	    "liteos_a",
-	    "linux"
-	  ],
+        "liteos_a",
+        "linux"
+      ],
       "features": [],
       "deps": {
         "third_party": [],
@@ -61,7 +61,7 @@
         "components": [
           "linux_hi3516dv300",
           "linux_hi3518ev300",
-		  "hilog"
+          "hilog"
         ]
       }
     },
@@ -87,9 +87,9 @@
       ],
       "adapted_board": [],
       "adapted_kernel": [
-	    "liteos_a",
-	    "linux"
-	  ],
+        "liteos_a",
+        "linux"
+      ],
       "features": [],
       "deps": {
         "third_party": [
@@ -120,9 +120,9 @@
       ],
       "adapted_board": [],
       "adapted_kernel": [
-	    "liteos_a",
-	    "linux"
-	  ],
+        "liteos_a",
+        "linux"
+      ],
       "features": [],
       "deps": {
         "third_party": [
@@ -150,9 +150,9 @@
       ],
       "adapted_board": [],
       "adapted_kernel": [
-	    "liteos_a",
-	    "linux"
-	  ],
+        "liteos_a",
+        "linux"
+      ],
       "features": [],
       "deps": {
         "third_party": [
@@ -180,9 +180,9 @@
       ],
       "adapted_board": [],
       "adapted_kernel": [
-	    "liteos_a",
-	    "linux"
-	  ],
+        "liteos_a",
+        "linux"
+      ],
       "features": [],
       "deps": {
         "third_party": [
@@ -213,9 +213,9 @@
       ],
       "adapted_board": [],
       "adapted_kernel": [
-	    "liteos_a",
-	    "linux"
-	  ],
+        "liteos_a",
+        "linux"
+      ],
       "features": [],
       "deps": {
         "third_party": [
@@ -238,9 +238,9 @@
       "output": [],
       "adapted_board": [],
       "adapted_kernel": [
-	    "liteos_a",
-	    "linux"
-	  ],
+        "liteos_a",
+        "linux"
+      ],
       "features": [],
       "deps": {
         "third_party": [
