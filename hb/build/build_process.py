@@ -141,6 +141,7 @@ class Build():
                   self.config.out_path,
                   '--root={}'.format(self.config.root_path),
                   '--dotfile={}/.gn'.format(self.config.build_path),
+                  '--script-executable=python3',
                   '--args={}'.format(" ".join(self._args_list))] + gn_args
         exec_command(gn_cmd, log_path=self.config.log_path)
 
