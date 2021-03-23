@@ -418,6 +418,8 @@ def main():
         'config': ['etc', [], ""],
         'system/internal': ['system/internal', [], ""],
         'etc': ['etc', [], ""],
+        'proc': ['proc', [], ""],
+        'dev': ['dev', [], ""],
         'data': ['data', [], ""],
         'obj/foundation/distributedschedule/samgr_lite/config': ['etc', [], ""]
     }
