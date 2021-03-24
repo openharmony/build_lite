@@ -9,7 +9,7 @@
         "foundation/multimedia/utils/lite"
       ],
       "targets": [
-        "//foundation/multimedia/media_lite/services:media_server"
+        "//foundation/multimedia/media_lite/services:media_lite"
       ],
       "rom": "622KB",
       "ram": "",
