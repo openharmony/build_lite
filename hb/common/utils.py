@@ -23,6 +23,7 @@ import shutil
 import sys
 import json
 from collections import namedtuple
+import yaml
 
 
 def encode(data, encoding='utf-8'):
@@ -61,6 +62,20 @@ def dump_json_file(dump_file, json_data):
                   json_file,
                   ensure_ascii=False,
                   indent=2)
+
+
+def read_yaml_file(input_file):
+    if not os.path.isfile(input_file):
+        raise OSError('{} not found'.format(input_file))
+
+    with open(input_file, 'rt', encoding='utf-8') as yaml_file:
+        try:
+            return yaml.safe_load(yaml_file)
+        except yaml.YAMLError as exc:
+            if hasattr(exc, 'problem_mark'):
+                mark = exc.problem_mark
+                raise Exception(f'{input_file} load failed, error position:'
+                                f' {mark.line + 1}:{mark.column + 1}')
 
 
 def get_input(msg):
@@ -142,12 +157,15 @@ def check_output(cmd, **kwargs):
     return ret
 
 
-def makedirs(path, exist_ok=True):
+def makedirs(path, exist_ok=True, with_rm=False):
     try:
         os.makedirs(path)
     except OSError:
         if not os.path.isdir(path):
             raise Exception("{} makedirs failed".format(path))
+        if with_rm:
+            remove_path(path)
+            return os.makedirs(path)
         if not exist_ok:
             raise Exception("{} exists, makedirs failed".format(path))
 

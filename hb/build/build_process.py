@@ -28,6 +28,7 @@ from hb.common.config import Config
 from hb.cts.cts import CTS
 from hb.common.device import Device
 from hb.common.product import Product
+from hb.build.fs_process import Packer
 
 
 class Build():
@@ -115,18 +116,19 @@ class Build():
             return [self.gn_build]
 
         build_ninja = os.path.join(self.config.out_path, 'build.ninja')
+        packer = Packer()
         if not os.path.isfile(build_ninja):
             self.register_args('ohos_full_compile', 'true', quota=False)
             makedirs(self.config.out_path)
-            return [self.gn_build, self.ninja_build]
+            return [self.gn_build, self.ninja_build, packer.fs_make]
         if full_compile:
             self.register_args('ohos_full_compile', 'true', quota=False)
             remove_path(self.config.out_path)
             makedirs(self.config.out_path)
-            return [self.gn_build, self.ninja_build]
+            return [self.gn_build, self.ninja_build, packer.fs_make]
 
         self.register_args('ohos_full_compile', 'false', quota=False)
-        return [self.ninja_build]
+        return [self.ninja_build, packer.fs_make]
 
     def gn_build(self, cmd_args):
         # Clean out path

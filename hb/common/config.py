@@ -38,6 +38,7 @@ class Config(metaclass=Singleton):
         self._product_path = config_content.get('product_path', None)
         self._device_path = config_content.get('device_path', None)
         self._out_path = None
+        self.fs_attr = set()
 
     @property
     def root_path(self):

@@ -72,7 +72,7 @@ group("ohos") {
       }
     }
     # Step 7: Add device and product target by default.
-    deps += [ 
+    deps += [
       "${device_path}/../",
       "${product_path}" ]
   } else {
@@ -85,24 +85,6 @@ group("ndk") {
   deps = []
   if (ohos_build_ndk) {
     deps += [ "//build/lite/ndk:ndk" ]
-  }
-}
-
-if (ohos_build_target == "") {
-  action("gen_rootfs") {
-    deps = [ ":ohos" ]
-
-    script = "//build/lite/gen_rootfs.py"
-    outputs = [ "$target_gen_dir/gen_rootfs.log" ]
-    out_dir = rebase_path("$root_out_dir")
-
-    args = [
-      "--path=$out_dir",
-      "--kernel=$ohos_kernel_type",
-      "--storage=$storage_type",
-      "--strip_command=$ohos_current_strip_command",
-      "--dmverity=$enable_ohos_security_dmverity",
-    ]
   }
 }
 
