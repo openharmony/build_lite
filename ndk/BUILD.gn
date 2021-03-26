@@ -121,7 +121,7 @@ group("ndk_build") {
       "//foundation/graphic/utils:lite_graphic_hals_ndk",
       "//foundation/graphic/utils:lite_graphic_utils_ndk",
       "//foundation/graphic/wms:lite_wms_ndk",
-      "//foundation/multimedia/services/media_lite:media_ndk",
+      "//foundation/multimedia/media_lite/services:media_ndk",
       "//third_party/mbedtls:mbedtls_ndk",
       "//third_party/wpa_supplicant/wpa_supplicant-2.9:wpa_supplicant",
     ]
