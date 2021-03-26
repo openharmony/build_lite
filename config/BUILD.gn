@@ -172,6 +172,7 @@ config("board_config") {
   cflags_cc = []
   ldflags = []
   include_dirs = []
+  defines = []
   cflags += board_cflags
   if (board_configed_sysroot != "") {
     cflags += [ "--sysroot=${board_configed_sysroot}" ]
@@ -181,4 +182,14 @@ config("board_config") {
   cflags_cc += board_cxx_flags
   ldflags += board_ld_flags
   include_dirs += board_include_dirs
+  if (defined(board_macro_defines)) {
+    defines += board_macro_defines
+  }
+}
+
+config("board_exe_ld_flags") {
+  ldflags = []
+  if (defined(board_exe_ld_flags)) {
+    ldflags += board_exe_ld_flags
+  }
 }

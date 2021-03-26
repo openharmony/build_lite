@@ -54,7 +54,6 @@ if (board_toolchain != "" && use_board_toolchain) {
     ohos_current_as_command = ohos_current_cc_command
     ohos_current_ld_command = ohos_current_cc_command
     ohos_current_strip_command = "$compile_prefix/llvm-objcopy --strip-all"
-    default_target_configs = [ "//build/lite/config:clang" ]
     default_target_configs += [ "//build/lite/config:clang_opt" ]
   }
 } else {
@@ -116,6 +115,7 @@ default_executable_configs = default_static_library_configs +
 
 set_defaults("executable") {
   configs = default_executable_configs
+  configs += [ "//build/lite/config:board_exe_ld_flags" ]
 }
 
 set_defaults("static_library") {
