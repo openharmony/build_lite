@@ -196,6 +196,9 @@ class Packer():
         fs_cfg_list = read_yaml_file(fs_cfg_path)
         for fs_cfg in fs_cfg_list:
             self.fs_cfg = self.fs_attr_process(fs_cfg)
+            if self.fs_cfg.get('fs_dir_name', None) is None:
+                continue
+
             for fs_process_func in self.packing_process:
                 fs_process_func()
 
