@@ -17,7 +17,6 @@ group("ohos") {
   if (ohos_build_target == "") {
     # Step 1: Read product configuration profile.
     product_cfg = read_file("${product_path}/config.json", "json")
-    kernel = product_cfg.kernel_type
 
     # Step 2: Loop subsystems configured by product.
     foreach(product_configed_subsystem, product_cfg.subsystems) {
@@ -54,14 +53,15 @@ group("ohos") {
           if (component.component == product_configed_component.component) {
             # Step 6.1.1: Loop OS components adapted kernel type.
             foreach(component_adapted_kernel, component.adapted_kernel) {
-              if (component_adapted_kernel == kernel && kernel_valid == false) {
+              if (component_adapted_kernel == product_cfg.kernel_type && 
+                  kernel_valid == false) {
                 kernel_valid = true
               }
             }
 
             assert(
                 kernel_valid,
-                "Invalid component configed, ${subsystem_name}:${product_configed_component.component} " + "not available for kernel: $kernel!")
+                "Invalid component configed, ${subsystem_name}:${product_configed_component.component} " + "not available for kernel: ${product_cfg.kernel_type}!")
 
             # Step 6.1.2: Add valid component for compiling.
             foreach(component_target, component.targets) {
@@ -71,10 +71,12 @@ group("ohos") {
         }
       }
     }
+
     # Step 7: Add device and product target by default.
-    deps += [ 
+    deps += [
       "${device_path}/../",
-      "${product_path}" ]
+      "${product_path}"
+    ]
   } else {
     deps += string_split(ohos_build_target, "&&")
   }
