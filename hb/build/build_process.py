@@ -98,6 +98,8 @@ class Build():
                 self._args_list += ['{}="{}"'.format(args_name, args_value)]
         else:
             self._args_list += ['{}={}'.format(args_name, args_value)]
+        if args_name == 'ohos_build_target' and len(args_value):
+            self.config.fs_attr = None
 
     def build(self, full_compile, ninja=True, cmd_args=None):
         self.check_in_device()

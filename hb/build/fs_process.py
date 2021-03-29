@@ -192,6 +192,9 @@ class Packer():
         if not os.path.isfile(fs_cfg_path):
             hb_info(f'{fs_cfg_path} not found, stop packing fs')
             return
+        if self.config.fs_attr is None:
+            hb_info(f'component compiling, no need to pack fs')
+            return
 
         fs_cfg_list = read_yaml_file(fs_cfg_path)
         for fs_cfg in fs_cfg_list:
