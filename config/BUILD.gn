@@ -109,7 +109,7 @@ config("pie_executable_config") {
   ldflags = [ "-pie" ]
 }
 
-config("clang") {
+config("ohos_clang") {
   clang_dir = ""
   if (ohos_build_compiler_dir != "") {
     clang_dir = rebase_path("${ohos_build_compiler_dir}")
