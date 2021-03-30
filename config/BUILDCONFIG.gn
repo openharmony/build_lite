@@ -31,7 +31,6 @@ if (board_toolchain != "" && use_board_toolchain) {
   ohos_current_toolchain = board_toolchain
   ohos_current_toolchain_type = board_toolchain_type
   ohos_build_compiler = ohos_current_toolchain_type
-  hos_build_compiler = ohos_current_toolchain_type
   if (board_toolchain_path != "") {
     compile_prefix = "${board_toolchain_path}/${board_toolchain_prefix}"
   } else {
@@ -54,7 +53,7 @@ if (board_toolchain != "" && use_board_toolchain) {
     ohos_current_as_command = ohos_current_cc_command
     ohos_current_ld_command = ohos_current_cc_command
     ohos_current_strip_command = "$compile_prefix/llvm-objcopy --strip-all"
-    default_target_configs += [ "//build/lite/config:clang_opt" ]
+    default_target_configs = [ "//build/lite/config:clang_opt" ]
   }
 } else {
   # OHOS default toolchain: ohos_clang
@@ -71,7 +70,7 @@ if (board_toolchain != "" && use_board_toolchain) {
   ohos_current_strip_command =
       "$ohos_clang_toolchain_dir/llvm-objcopy --strip-all"
   set_default_toolchain("//build/lite/toolchain:linux_x86_64_ohos_clang")
-  default_target_configs = [ "//build/lite/config:clang" ]
+  default_target_configs = [ "//build/lite/config:ohos_clang" ]
   default_target_configs += [ "//build/lite/config:clang_opt" ]
 }
 
