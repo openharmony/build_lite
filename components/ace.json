@@ -5,9 +5,7 @@
       "description": "JS APP development frameworks.",
       "optional": "true",
       "dirs": [
-        "foundation/ace/ace_engine_lite",
-        "utils/native/lite/timer_task",
-        "utils/native/lite/js/builtin"
+        "foundation/ace/ace_engine_lite"
       ],
       "targets": [
         "//foundation/ace/ace_engine_lite/frameworks:jsfwk",
@@ -36,7 +34,9 @@
           "permission",
           "ipc",
           "kal_timer",
-          "kv_store"
+          "kv_store",
+          "js_builtin",
+          "timer_task"
         ]
       }
     }
