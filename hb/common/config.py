@@ -128,7 +128,10 @@ class Config(metaclass=Singleton):
 
     @property
     def build_path(self):
-        return os.path.join(self.root_path, 'build', 'lite')
+        _build_path = os.path.join(self.root_path, 'build', 'lite')
+        if not os.path.isdir(_build_path):
+            raise Exception(f'Invalid build path: {_build_path}')
+        return _build_path
 
     @property
     def out_path(self):
@@ -144,7 +147,10 @@ class Config(metaclass=Singleton):
 
     @property
     def vendor_path(self):
-        return os.path.join(self.root_path, 'vendor')
+        _vendor_path = os.path.join(self.root_path, 'vendor')
+        if not os.path.isdir(_vendor_path):
+            raise Exception(f'Invalid vendor path: {_vendor_path}')
+        return _vendor_path
 
     @property
     def build_tools_path(self):
