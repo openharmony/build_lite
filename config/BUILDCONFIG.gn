@@ -26,6 +26,11 @@ if (ohos_kernel_type == "liteos_m" || ohos_kernel_type == "linux") {
   use_board_toolchain = true
 }
 
+toolchain_cmd_suffix = ""
+if (host_os == "win") {
+  toolchain_cmd_suffix = ".exe"
+}
+
 # Set current toolchain with to board configuration.
 if (board_toolchain != "" && use_board_toolchain) {
   ohos_current_toolchain = board_toolchain
@@ -40,19 +45,19 @@ if (board_toolchain != "" && use_board_toolchain) {
   ohos_current_sysroot = board_configed_sysroot
   set_default_toolchain("//build/lite/toolchain:${board_toolchain}")
   if (board_toolchain_type == "gcc") {
-    ohos_current_cc_command = "${compile_prefix}gcc"
-    ohos_current_cxx_command = "${compile_prefix}g++"
-    ohos_current_ar_command = "${compile_prefix}ar"
+    ohos_current_cc_command = "${compile_prefix}gcc$toolchain_cmd_suffix"
+    ohos_current_cxx_command = "${compile_prefix}g++$toolchain_cmd_suffix"
+    ohos_current_ar_command = "${compile_prefix}ar$toolchain_cmd_suffix"
     ohos_current_ld_command = ohos_current_cc_command
-    ohos_current_strip_command = "${compile_prefix}strip --strip-unneeded"
+    ohos_current_strip_command = "${compile_prefix}strip$toolchain_cmd_suffix --strip-unneeded"
     default_target_configs = [ "//build/lite/config:gcc_opt" ]
   } else if (board_toolchain_type == "clang") {
-    ohos_current_cc_command = "${compile_prefix}clang"
-    ohos_current_cxx_command = "${compile_prefix}clang++"
-    ohos_current_ar_command = "${compile_prefix}llvm-ar"
+    ohos_current_cc_command = "${compile_prefix}clang$toolchain_cmd_suffix"
+    ohos_current_cxx_command = "${compile_prefix}clang++$toolchain_cmd_suffix"
+    ohos_current_ar_command = "${compile_prefix}llvm-ar$toolchain_cmd_suffix"
     ohos_current_as_command = ohos_current_cc_command
     ohos_current_ld_command = ohos_current_cc_command
-    ohos_current_strip_command = "$compile_prefix/llvm-objcopy --strip-all"
+    ohos_current_strip_command = "$compile_prefix/llvm-objcopy$toolchain_cmd_suffix --strip-all"
     default_target_configs = [ "//build/lite/config:clang_opt" ]
   }
 } else {
@@ -62,13 +67,13 @@ if (board_toolchain != "" && use_board_toolchain) {
   hos_build_compiler = "clang"
   ohos_clang_toolchain_dir = rebase_path("${ohos_build_compiler_dir}/bin")
   compile_prefix = rebase_path("${ohos_build_compiler_dir}/bin")
-  ohos_current_cc_command = "${compile_prefix}/clang"
-  ohos_current_cxx_command = "${compile_prefix}/clang++"
-  ohos_current_ar_command = "${compile_prefix}/llvm-ar"
+  ohos_current_cc_command = "${compile_prefix}/clang$toolchain_cmd_suffix"
+  ohos_current_cxx_command = "${compile_prefix}/clang++$toolchain_cmd_suffix"
+  ohos_current_ar_command = "${compile_prefix}/llvm-ar$toolchain_cmd_suffix"
   ohos_current_as_command = ohos_current_cc_command
   ohos_current_ld_command = ohos_current_cc_command
   ohos_current_strip_command =
-      "$ohos_clang_toolchain_dir/llvm-objcopy --strip-all"
+      "$ohos_clang_toolchain_dir/llvm-objcopy$toolchain_cmd_suffix --strip-all"
   set_default_toolchain("//build/lite/toolchain:linux_x86_64_ohos_clang")
   default_target_configs = [ "//build/lite/config:ohos_clang" ]
   default_target_configs += [ "//build/lite/config:clang_opt" ]
