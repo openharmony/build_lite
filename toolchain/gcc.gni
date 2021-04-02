@@ -129,7 +129,11 @@ template("gcc_toolchain") {
       description = "STAMP {{output}}"
     }
     tool("copy") {
-      command = "cp -afd {{source}} {{output}}"
+      if (host_os == "win") {
+        command = "python $ohos_root_path/build/lite/copy_files.py --src_type=file --src={{source}} --dest_dir={{output}}"
+      } else if (host_os == "linux") {
+        command = "cp -afd {{source}} {{output}}"
+      }
       description = "COPY {{source}} {{output}}"
     }
   }
