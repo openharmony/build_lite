@@ -169,21 +169,21 @@ def args_factory(args_dict):
 
 def hb_info(msg):
     level = 'info'
-    for line in msg.splitlines():
+    for line in str(msg).splitlines():
         sys.stdout.write(message(level, line))
         sys.stdout.flush()
 
 
 def hb_warning(msg):
     level = 'warning'
-    for line in msg.splitlines():
+    for line in str(msg).splitlines():
         sys.stderr.write(message(level, line))
         sys.stderr.flush()
 
 
 def hb_error(msg):
     level = 'error'
-    for line in msg.splitlines():
+    for line in str(msg).splitlines():
         sys.stderr.write(message(level, line))
         sys.stderr.flush()
 
