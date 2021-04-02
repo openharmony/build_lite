@@ -78,8 +78,7 @@
         "base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite"
       ],
       "targets": [
-        "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite",
-        "//base/hiviewdfx/hilog_lite/command:hilog_lite_command"
+        "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite"
       ],
       "rom": "",
       "ram": "",
