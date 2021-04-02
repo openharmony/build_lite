@@ -44,7 +44,7 @@ class Packer():
             self.fs_tear_down
         ]
         self.fs_cfg = None
-        self.chmod_dirs = set()
+        self.chmod_dirs = []
 
     def mv_usr_libs(self):
         src_path = self.config.out_path
@@ -83,7 +83,8 @@ class Packer():
             target_path = os.path.join(fs_path, target_dir)
             if source_dir == '' or not os.path.isdir(source_path):
                 makedirs(target_path, exist_ok=exist_ok, with_rm=with_rm)
-                self.chmod_dirs.add((target_path, fs_dir.get('dir_mode', 755)))
+                target_mode_tuple = (target_path, fs_dir.get('dir_mode', 755))
+                self.chmod_dirs.append(target_mode_tuple)
                 continue
 
             self.copy_files(source_path, target_path, fs_dir)
@@ -97,14 +98,14 @@ class Packer():
             tdirname = srelpath.replace(spath, tpath)
             if not os.path.isdir(tdirname):
                 makedirs(tdirname)
-                self.chmod_dirs.add((tdirname, dir_mode))
+                self.chmod_dirs.append((tdirname, dir_mode))
             tfile = os.path.join(tdirname, os.path.basename(sfile))
             shutil.copy(sfile, tfile)
-            self.chmod_dirs.add((tfile, file_mode))
+            self.chmod_dirs.append((tfile, file_mode))
 
     def chmod(self, file, mode):
         mode = int(str(mode), base=8)
-        if os.path.isfile(file):
+        if os.path.exists(file):
             os.chmod(file, mode)
 
     def filter(self, files, ignore_list):
@@ -150,11 +151,9 @@ class Packer():
                                     filestat.get('file_dir', ''))
             file_mode = filestat.get('file_mode', 0)
             if os.path.exists(file_dir) and file_mode > 0:
-                self.chmod_dirs.add((file_dir, file_mode))
+                self.chmod_dirs.append((file_dir, file_mode))
 
-        for filestat in self.chmod_dirs:
-            file_dir = filestat[0]
-            file_mode = filestat[1]
+        for file_dir, file_mode in self.chmod_dirs:
             self.chmod(file_dir, file_mode)
 
     def fs_make_cmd(self):
