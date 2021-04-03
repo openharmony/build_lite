@@ -26,8 +26,7 @@ class Device():
     @staticmethod
     def is_in_device():
         cwd_pardir = os.path.dirname(os.path.dirname(os.getcwd()))
-        config = Config()
-        return os.path.join(config.root_path, 'device') == cwd_pardir
+        return os.path.basename(cwd_pardir) == 'device'
 
     @staticmethod
     def is_kernel(kernel_path):

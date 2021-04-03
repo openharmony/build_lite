@@ -186,6 +186,8 @@ class Build():
         if self._target is None and Device.is_in_device():
             # Compile device board
             device_path, kernel, board = Device.device_menuconfig()
+            # xxx: build device, no need to set root manually, so set it speculatively.
+            self.config.root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.getcwd())))
             self.config.out_path = os.path.join(self.config.root_path,
                                                 'out',
                                                 board)
