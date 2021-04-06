@@ -25,7 +25,7 @@ LONG_DESCRIPTION = open(README_PATH, 'r', encoding='utf-8').read()
 
 setup(
     name='ohos-build',
-    version='0.3.1',
+    version='0.3.2',
     author='Huawei',
     author_email='contact@openharmony.io',
     description='OHOS build command line tool',
