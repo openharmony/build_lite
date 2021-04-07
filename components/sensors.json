@@ -16,15 +16,14 @@
       "ram": "~200KB",
       "output": [ "libsensor_frameworks.so" ],
       "adapted_kernel": [ "liteos_a" ],
-      "adapted_board": [
-        "hi3516dv300_openharmony"
-      ],
+      "adapted_board": [],
       "features": [],
       "deps": {
         "components": [
-          "system_ability_manager",
-          "ipc"
-
+          "samgr_lite",
+          "ipc_lite",
+          "utils_base",
+          "peripheral_sensor"
         ],
         "third_party": [
           "bounds_checking_function"

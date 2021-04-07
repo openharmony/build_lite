@@ -1,7 +1,7 @@
 {
   "components": [
     {
-      "component": "powermanageservice",
+      "component": "powermgr_lite",
       "optional": "true",
       "dirs": [
         "base/powermgr/powermgr_lite"
@@ -23,10 +23,15 @@
       ],
       "deps": {
         "components": [
-          "ability",
-          "bundle_mgr",
-          "system_ability_manager",
-          "ui"
+          "utils_base",
+          "samgr_lite",
+          "peripheral_input",
+          "ui",
+          "ipc_lite",
+          "aafwk_lite",
+          "appexecfwk_lite",
+          "hilog",
+          "wms"
         ],
         "third_party": [
           "bounds_checking_function"

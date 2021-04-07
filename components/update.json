@@ -1,7 +1,7 @@
 {
   "components": [
     {
-      "component": "hota",
+      "component": "ota_lite",
       "description": "",
       "optional": "false",
       "dirs": [
@@ -25,31 +25,11 @@
           "mbedtls",
           "bounds_checking_function"
         ],
-        "kernel_special": {
-          "liteos_a": [
-            "hi3518ev300_adapter"
-          ],
-          "liteos_m": [
-            "liteos_m",
-            "hi3861_adapter",
-            "hi3861_sdk"
-          ]
-        },
-        "board_special": {
-          "hi3516dv300": [
-            "hi3516dv300_adapter"
-          ],
-          "hi3518ev300": [
-            "hi3518ev300_adapter"
-          ],
-          "hi3861v100": [
-            "liteos_m",
-            "hi3861_adapter",
-            "hi3861_sdk"
-          ]
-        },
+        "kernel_special": {},
+        "board_special": {},
         "components": [
-          "syspara"
+          "syspara_lite",
+          "utils_base"
         ]
       }
     }

@@ -1,7 +1,7 @@
 {
   "components": [
     {
-      "component": "bundle_mgr",
+      "component": "appexecfwk_lite",
       "description": "Bundle installation management frameworks.",
       "optional": "true",
       "dirs": [
@@ -33,14 +33,14 @@
         "kernel_special": {},
         "board_special": {},
         "components": [
-          "hilog_lite",
-          "ability",
+          "aafwk_lite",
+          "hilog",
+          "utils_base",
           "permission",
-          "ipc",
-          "system_ability_manager",
-          "global_resource_manager",
-          "ability",
-          "app_verify"
+          "ipc_lite",
+          "samgr_lite",
+          "resmgr_lite",
+          "appverify"
         ]
       }
     }

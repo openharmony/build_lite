@@ -1,7 +1,7 @@
 {
   "components": [
     {
-      "component": "global_resource_manager",
+      "component": "resmgr_lite",
       "description": "resource scheduler.",
       "optional": "true",
       "dirs": [
@@ -25,7 +25,7 @@
       }
     },
     {
-      "component": "global_i18n_kits",
+      "component": "i18n_lite",
       "description": "i18n interfaces",
       "optional": "true",
       "dirs": [

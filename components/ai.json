@@ -10,8 +10,8 @@
       "targets": [
         "//foundation/ai/engine/services:ai"
       ],
-      "rom": "",
-      "ram": "",
+      "rom": "130KB",
+      "ram": "~337KB",
       "output": [
         "ai_server",
         "ai_communication_adapter.a"
@@ -26,10 +26,10 @@
         "kernel_special": {},
         "board_special": {},
         "components": [
-          "hilog_lite",
+          "hilog",
           "utils_base",
-          "ipc",
-          "system_ability_manager"
+          "ipc_lite",
+          "samgr_lite"
         ]
       }
     }

@@ -1,7 +1,7 @@
 {
   "components": [
     {
-      "component": "system_ability_manager",
+      "component": "samgr_lite",
       "description": "",
       "optional": "false",
       "dirs": [
@@ -28,48 +28,18 @@
           "bounds_checking_function",
           "cjson"
         ],
-        "kernel_special": {
-          "liteos_a": [
-            "liteos_a",
-            "hilog",
-            "permission",
-            "ipc"
-          ],
-          "liteos_m": [
-            "liteos_m",
-            "hilog_lite",
-            "hi3861_sdk"
-          ]
-        },
-        "board_special": {
-          "hi3516dv300": [
-            "liteos_a",
-            "hilog",
-            "permission",
-            "ipc"
-          ],
-          "hi3518ev300": [
-            "liteos_a",
-            "hilog",
-            "permission",
-            "ipc"
-          ],
-          "hi3861v100": [
-            "liteos_m",
-            "hilog_lite",
-            "hi3861_sdk"
-          ]
-        },
+        "kernel_special": {},
+        "board_special": {},
         "components": [
           "utils_base",
-          "ipc",
+          "ipc_lite",
           "permission",
           "hilog_lite"
         ]
       }
     },
     {
-      "component": "foundation",
+      "component": "safwk_lite",
       "description": "",
       "optional": "true",
       "dirs": [
@@ -94,18 +64,19 @@
         "kernel_special": {},
         "board_special": {},
         "components": [
-          "ability",
-          "bundle_mgr",
-          "hilog_lite",
+          "utils_base",
+          "aafwk_lite",
+          "appexecfwk_lite",
+          "hilog",
           "permission",
           "dmsfwk_lite",
-          "system_ability_manager",
-          "powermanageservice"
+          "samgr_lite",
+          "powermgr_lite"
         ]
       }
     },
     {
-      "component": "distributed_schedule",
+      "component": "dmsfwk_lite",
       "description": "",
       "optional": "true",
       "dirs": [
@@ -131,10 +102,11 @@
         "kernel_special": {},
         "board_special": {},
         "components": [
-          "hilog_lite",
-          "system_ability_manager",
-          "ability",
-          "bundle_mgr",
+          "utils_base",
+          "hilog",
+          "samgr_lite",
+          "aafwk_lite",
+          "appexecfwk_lite",
           "softbus_lite",
           "huks"
         ]

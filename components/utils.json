@@ -6,7 +6,6 @@
       "optional": "true",
       "dirs": [
         "utils/native/lite/kv_store",
-        "utils/native/lite/include",
         "utils/native/lite/unittest/kv_store"
       ],
       "targets": [
@@ -28,21 +27,11 @@
         "third_party": [
           "bounds_checking_function"
         ],
-        "kernel_special": {
-          "liteos_m": [
-            "file",
-            "liteos_m",
-            "hi3861_sdk"
-          ]
-        },
-        "board_special": {
-          "hi3861v100": [
-            "file",
-            "liteos_m",
-            "hi3861_sdk"
-          ]
-        },
-        "components": []
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "utils_base"
+        ]
       }
     },
     {
@@ -68,24 +57,10 @@
         "third_party": [
           "bounds_checking_function"
         ],
-        "kernel_special": {
-          "liteos_m": [
-            "liteos_m",
-            "iot_controller",
-            "hi3861_sdk",
-            "utils_base"
-          ]
-        },
-        "board_special": {
-          "hi3861v100": [
-            "liteos_m",
-            "iot_controller",
-            "hi3861_sdk",
-            "utils_base"
-          ]
-        },
+        "kernel_special": {},
+        "board_special": {},
         "components": [
-          "syspara",
+          "syspara_lite",
           "iot_controller"
         ]
       }
@@ -95,8 +70,7 @@
       "description": "",
       "optional": "false",
       "dirs": [
-        "utils/native/lite/file",
-        "utils/native/lite/include"
+        "utils/native/lite/file"
       ],
       "targets": [
         "//utils/native/lite/file"
@@ -113,6 +87,7 @@
           "bounds_checking_function"
         ],
         "components": [
+          "utils_base"
         ]
       }
     },
@@ -188,10 +163,12 @@
         "board_special": {},
         "components": [
           "utils_base",
-          "ability",
-          "syspara",
+          "aafwk_lite",
+          "syspara_lite",
           "graphic_utils",
-          "global_resource_manager"
+          "resmgr_lite",
+          "ui",
+          "ace_engine_lite"
         ]
       }
     },

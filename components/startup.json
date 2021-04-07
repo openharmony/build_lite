@@ -1,7 +1,7 @@
 {
   "components": [
     {
-      "component": "syspara",
+      "component": "syspara_lite",
       "discription": "",
       "optional": "true",
       "dirs": [
@@ -29,38 +29,15 @@
         "third_party": [
           "bounds_checking_function"
         ],
-        "kernel_special": {
-          "liteos_a": [
-            "hilog"
-          ],
-          "liteos_m": [
-            "hilog_lite",
-            "liteos_m",
-            "hi3861_sdk"
-          ]
-        },
-        "board_special": {
-          "hi3516dv300": [
-            "hilog"
-          ],
-          "hi3518ev300": [
-            "hilog"
-          ],
-          "hi3861v100": [
-            "hilog_lite",
-            "liteos_m",
-            "hi3861_sdk",
-            "oem_iotlink"
-          ]
-        },
+        "kernel_special": {},
+        "board_special": {},
         "components": [
-          "utils_base",
-          "hilog"
+          "utils_base"
         ]
       }
     },
     {
-      "component": "bootstrap",
+      "component": "bootstrap_lite",
       "discription": "",
       "optional": "true",
       "dirs": [
@@ -84,35 +61,16 @@
         "third_party": [
           "bounds_checking_function"
         ],
-        "kernel_special": {
-          "liteos_a": [
-            "liteos_a"
-          ],
-          "liteos_m": [
-            "liteos_m",
-            "hi3861_sdk"
-          ]
-        },
-        "board_special": {
-          "hi3516dv300": [
-            "liteos_a"
-          ],
-          "hi3518ev300": [
-            "liteos_a"
-          ],
-          "hi3861v100": [
-            "liteos_m",
-            "hi3861_sdk"
-          ]
-        },
+        "kernel_special": {},
+        "board_special": {},
         "components": [
           "utils_base",
-          "system_ability_manager"
+          "samgr_lite"
         ]
       }
     },
     {
-      "component": "init",
+      "component": "init_lite",
       "discription": "",
       "optional": "false",
       "dirs": [
@@ -121,6 +79,8 @@
       "targets": [
         "//base/startup/init_lite/services:init_lite"
       ],
+      "rom": "31KB",
+      "ram": "~200KB",
       "output": [
         "init"
       ],
@@ -131,7 +91,7 @@
       "features": [],
       "deps": {
         "components": [
-          "syspara"
+          "syspara_lite"
         ],
         "third_party": [
           "bounds_checking_function",
@@ -140,7 +100,7 @@
       }
     },
     {
-        "component": "appspawn",
+        "component": "appspawn_lite",
         "discription": "",
         "optional": "true",
         "dirs": [
