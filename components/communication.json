@@ -1,7 +1,7 @@
 {
   "components": [
     {
-      "component": "ipc",
+      "component": "ipc_lite",
       "description": "Lite interprosses communication.",
       "optional": "true",
       "dirs": [
@@ -23,13 +23,13 @@
           "bounds_checking_function"
         ],
         "components": [
-          "hilog_lite",
+          "hilog",
           "utils_base"
         ]
       }
     },
     {
-      "component": "soft_bus",
+      "component": "softbus_lite",
       "description": "",
       "optional": "true",
       "dirs": [
@@ -54,38 +54,15 @@
         "third_party": [
           "mbedtls",
           "bounds_checking_function",
-          "cjson"
+          "cjson",
+          "wpa_supplicant"
         ],
-        "kernel_special": {
-          "liteos_a": [
-            "permission",
-            "wpa_supplicant"
-          ],
-          "liteos_m": [
-            "wlan",
-            "utils_base"
-          ]
-        },
-        "board_special": {
-          "hi3516dv300": [
-            "permission",
-            "wpa_supplicant"
-          ],
-          "hi3518ev300": [
-            "permission",
-            "wpa_supplicant"
-          ],
-          "hi3861v100": [
-            "wlan",
-            "liteos_m",
-            "hi3861_sdk",
-            "utils_base"
-          ]
-        },
+        "kernel_special": {},
+        "board_special": {},
         "components": [
-          "liteos_a",
-          "syspara",
-          "hichainsdk"
+          "deviceauth",
+          "syspara_lite",
+          "permission"
         ]
       }
     },
@@ -112,7 +89,7 @@
       }
     },
     {
-      "component": "wlan",
+      "component": "wifi_lite",
       "description": "Wifi service based on liteos-m.",
       "optional": "true",
       "dirs": [
@@ -127,11 +104,17 @@
       "adapted_kernel": [ "liteos_m" ],
       "features": [],
       "deps": {
-        "third_party": [],
+        "third_party": [
+          "wpa_supplicant",
+          "bounds_checking_function"
+        ],
         "kernel_special": {},
         "board_special": {},
         "components": [
-          "utils_base"
+          "samgr_lite",
+          "drivers_framework",
+          "adapter_uhdf",
+          "peripheral_wlan"
         ]
       }
     },

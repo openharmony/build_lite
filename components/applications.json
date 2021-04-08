@@ -52,28 +52,24 @@
       "deps": {
         "third_party": [
           "bounds_checking_function",
-          "libjpeg",
-          "giflib",
-          "libpng",
-          "iniparser",
-          "cjson"
+          "wpa_supplicant"
         ],
         "kernel_special": {},
         "board_special": {},
         "components": [
-          "media_lite",
-          "syspara",
-          "hilog",
-          "media_service",
-          "permission",
-          "ipc",
+          "aafwk_lite",
+          "appexecfwk_lite",
+          "surface",
+          "ui",
+          "graphic_utils",
+          "kv_store",
+          "syspara_lite",
           "camera_lite",
-          "system_ability_manager",
-          "wpa_supplicant",
-          "utils_base",
-          "graphic",
-          "ability",
-          "bundle_mgr"
+          "media_lite",
+          "permission",
+          "ipc_lite",
+          "samgr_lite",
+          "utils_base"
         ]
       }
     },

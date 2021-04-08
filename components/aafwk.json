@@ -1,7 +1,7 @@
 {
   "components": [
     {
-      "component": "ability",
+      "component": "aafwk_lite",
       "description": "",
       "optional": "true",
       "dirs": [
@@ -28,16 +28,21 @@
       "deps": {
         "third_party": [
           "bounds_checking_function",
-          "cjson"
+          "cjson",
+          "freetype"
         ],
         "kernel_special": {},
         "board_special": {},
         "components": [
-          "hilog_lite",
+          "appexecfwk_lite",
+          "kv_store",
+          "ui",
+          "surface",
+          "hilog",
           "permission",
-          "ipc",
-          "system_ability_manager",
-          "appspawn",
+          "ipc_lite",
+          "samgr_lite",
+          "appspawn_lite",
           "wms"
         ]
       }

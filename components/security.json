@@ -25,29 +25,8 @@
           "cjson"
 
         ],
-        "kernel_special": {
-          "liteos_a": [
-            "huks"
-          ],
-          "liteos_m": [
-            "liteos_m",
-            "hi3861_sdk",
-            "utils_base"
-          ]
-        },
-        "board_special": {
-          "hi3516dv300": [
-            "huks"
-          ],
-          "hi3518ev300": [
-            "huks"
-          ],
-          "hi3861v100": [
-            "liteos_m",
-            "hi3861_sdk",
-            "utils_base"
-          ]
-        },
+        "kernel_special": {},
+        "board_special": {},
         "components": [
           "huks"
         ]
@@ -128,9 +107,9 @@
       "features": [],
       "deps": {
         "components": [
-          "hilog_lite",
-          "system_ability_manager",
-          "ipc"
+          "hilog",
+          "samgr_lite",
+          "ipc_lite"
         ],
         "third_party": [
           "bounds_checking_function",
@@ -139,7 +118,7 @@
       }
     },
     {
-      "component": "app_verify",
+      "component": "appverify",
       "description": "",
       "optional": "true",
       "dirs": [
@@ -161,8 +140,8 @@
       "features": [],
       "deps": {
         "components": [
-          "hilog_lite",
-          "syspara"
+          "hilog",
+          "syspara_lite"
         ],
         "third_party": [
           "bounds_checking_function",
@@ -172,7 +151,7 @@
       }
     },
     {
-      "component": "crypto",
+      "component": "crypto_lite",
       "description": "",
       "optional": "true",
       "dirs": [
@@ -191,7 +170,7 @@
       "features": [],
       "deps": {
         "components": [
-          "hilog_lite"
+          "hilog"
         ],
         "third_party": [
           "bounds_checking_function",
