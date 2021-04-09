@@ -20,6 +20,7 @@ from collections import defaultdict
 
 from hb.build.build_process import Build
 from hb.set.set import set_product
+from hb.common.device import Device
 
 
 def add_options(parser):
@@ -57,9 +58,6 @@ def exec_command(args):
 
     build.register_args('ohos_build_type', args.build_type[0])
 
-    if len(args.compiler):
-        build.compiler = args.compiler[0]
-
     if args.test is not None:
         build.test = args.test
 
@@ -71,6 +69,8 @@ def exec_command(args):
     if len(args.product):
         product, company = args.product[0].split('@')
         set_product(product_name=product, company=company)
+
+    build.compiler = Device.get_compiler(build.config.device_path)
 
     if args.ndk:
         build.register_args('ohos_build_ndk', 'true', quota=False)

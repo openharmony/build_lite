@@ -109,3 +109,18 @@ class Device():
         if os.path.isdir(path) or os.path.isfile(path):
             return
         raise Exception('invalid path: {}'.format(path))
+
+    @staticmethod
+    def get_compiler(config_path):
+        config = os.path.join(config_path, 'config.gni')
+        if not os.path.isfile(config):
+            return ''
+        compiler_pattern = r'board_toolchain_type ?= ?"(\w+)"'
+        with open(config, 'rt', encoding='utf-8') as config_file:
+            data = config_file.read()
+        compiler_list = re.findall(compiler_pattern, data)
+        if not len(compiler_list):
+            raise Exception('board_toolchain_type is None'
+                            ' in {}'.format(config))
+
+        return compiler_list[0]
