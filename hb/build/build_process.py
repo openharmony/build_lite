@@ -17,6 +17,7 @@
 #
 
 import os
+import sys
 from collections import defaultdict
 
 from hb.common.utils import exec_command
@@ -141,7 +142,7 @@ class Build():
                   self.config.out_path,
                   '--root={}'.format(self.config.root_path),
                   '--dotfile={}/.gn'.format(self.config.build_path),
-                  '--script-executable=python3',
+                  f'--script-executable={sys.executable}',
                   '--args={}'.format(" ".join(self._args_list))] + gn_args
         exec_command(gn_cmd, log_path=self.config.log_path)
 
