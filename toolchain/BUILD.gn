@@ -21,9 +21,7 @@ if (board_toolchain != "" && use_board_toolchain) {
       cxx = ohos_current_cxx_command
       ar = ohos_current_ar_command
       ld = ohos_current_ld_command
-      if (ohos_build_type == "release") {
-        strip = ohos_current_strip_command
-      }
+      strip = ohos_current_strip_command
     }
   } else if (board_toolchain_type == "clang") {
     clang_toolchain(board_toolchain) {
@@ -31,9 +29,7 @@ if (board_toolchain != "" && use_board_toolchain) {
       cxx = ohos_current_cxx_command
       ar = ohos_current_ar_command
       ld = ohos_current_ld_command
-      if (ohos_build_type == "release") {
-        strip = ohos_current_strip_command
-      }
+      strip = ohos_current_strip_command
     }
   }
 } else {
@@ -42,8 +38,6 @@ if (board_toolchain != "" && use_board_toolchain) {
     cxx = ohos_current_cxx_command
     ar = ohos_current_ar_command
     ld = ohos_current_ld_command
-    if (ohos_build_type == "release") {
-      strip = ohos_current_strip_command
-    }
+    strip = ohos_current_strip_command
   }
 }

@@ -33,6 +33,8 @@ def add_options(parser):
     parser.add_argument('-t', '--test', help='compile test suit', nargs='*')
     parser.add_argument('--dmverity', help='Enable dmverity',
                         action="store_true")
+    parser.add_argument('--tee', help='Enable tee',
+                        action="store_true")
     parser.add_argument('-p', '--product', help='build a specified product '
                         'with {product_name}@{company}, eg: camera@huawei',
                         nargs=1, default=[])
@@ -65,6 +67,11 @@ def exec_command(args):
         build.register_args('enable_ohos_security_dmverity',
                             'true',
                             quota=False)
+        build.config.fs_attr.add('dmverity_enable')
+
+    if args.tee:
+        build.register_args('tee_enable', 'true', quota=False)
+        build.config.fs_attr.add('tee_enable')
 
     if len(args.product):
         product, company = args.product[0].split('@')

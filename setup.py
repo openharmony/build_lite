@@ -25,7 +25,7 @@ LONG_DESCRIPTION = open(README_PATH, 'r', encoding='utf-8').read()
 
 setup(
     name='ohos-build',
-    version='0.2.0',
+    version='0.3.2',
     author='Huawei',
     author_email='contact@openharmony.io',
     description='OHOS build command line tool',
@@ -38,7 +38,10 @@ setup(
               'hb.common', 'hb.env', 'hb.clean', 'hb.deps'],
     package_dir={'hb': 'hb'},
     package_data={'hb': ['common/config.json']},
-    install_requires=['prompt_toolkit==1.0.14'],
+    install_requires=[
+        'prompt_toolkit==1.0.14',
+        'PyYAML'
+    ],
     entry_points={
         'console_scripts': [
             'hb=hb.__main__:main',
