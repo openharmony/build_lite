@@ -41,3 +41,4 @@ CONFIG_STRUCT = {
     "product_path": None,
     "device_path": None
 }
+VERSION = '0.3.5'

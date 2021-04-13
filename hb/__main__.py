@@ -24,6 +24,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(__file__,
 import argparse
 import importlib
 
+from hb import VERSION
 from hb.common.utils import hb_warning
 from hb.common.utils import hb_error
 
@@ -31,6 +32,10 @@ from hb.common.utils import hb_error
 def main():
     parser = argparse.ArgumentParser(usage="hb",
                                      description='OHOS build system')
+    parser.add_argument('-v', '--version',
+                        action='version',
+                        version=f'[OHOS INFO] hb version {VERSION}')
+
     subparsers = parser.add_subparsers()
     parser_list = []
     parser_list.append({
