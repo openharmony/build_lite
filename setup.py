@@ -19,13 +19,15 @@
 import os
 from setuptools import setup
 
+from hb import VERSION
+
 WORK_PATH = os.path.abspath(os.path.dirname('__file__'))
 README_PATH = os.path.join(WORK_PATH, 'README.md')
 LONG_DESCRIPTION = open(README_PATH, 'r', encoding='utf-8').read()
 
 setup(
     name='ohos-build',
-    version='0.3.2',
+    version=VERSION,
     author='Huawei',
     author_email='contact@openharmony.io',
     description='OHOS build command line tool',
