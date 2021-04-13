@@ -47,9 +47,13 @@
       "output": [ "libhuks.so" ],
       "adapted_kernel": [
         "liteos_a",
+        "liteos_m",
         "linux"
       ],
-      "features": [],
+      "features": [
+        "disable_huks_binary = false",
+        "disable_authenticate = false"
+      ],
       "deps": {
         "third_party": [
           "mbedtls",
