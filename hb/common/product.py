@@ -21,6 +21,7 @@ from collections import defaultdict
 from hb.common.utils import read_json_file
 from hb.common.config import Config
 from hb.cts.menuconfig import Menuconfig
+from hb.cts.common import Separator
 
 
 class Product():
@@ -93,16 +94,25 @@ class Product():
     @staticmethod
     def product_menuconfig():
         product_path_dict = {}
+        company_separator = None
         for company, product, product_path in Product.get_products():
+            if company_separator is None or company_separator != company:
+                company_separator = company
+                product_key = Separator(company_separator)
+                product_path_dict[product_key] = None
+
             product_path_dict['{}@{}'.format(product, company)] = product_path
 
         if not len(product_path_dict):
             raise Exception('no valid product found')
 
-        choices = [{'name': product} for product in product_path_dict.keys()]
+        choices = [product if isinstance(product, Separator)
+                   else {'name': product.split('@')[0],
+                   'value': product.split('@')[1]}
+                   for product in product_path_dict.keys()]
         menu = Menuconfig()
         product = menu.list_promt('product',
                                   'Which product do you need?',
                                   choices).get('product')
-
-        return product_path_dict.get(product), product.split('@')[0]
+        product_key = f'{product[0]}@{product[1]}'
+        return product_path_dict.get(product_key), product[0]

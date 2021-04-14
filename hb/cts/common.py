@@ -16,7 +16,6 @@
 # limitations under the License.
 
 import os
-import json
 try:
     from queue import Queue
 except ImportError:
@@ -33,7 +32,7 @@ from hb.common.utils import read_json_file
 def get_style(style_type):
     if style_type == 'terminal':
         return style_from_dict({
-            Token.Separator: '#6C6C6C',
+            Token.Separator: '#75c951',
             Token.QuestionMark: '#5F819D',
             Token.Selected: '',  # default
             Token.Pointer: '#FF9D00 bold',  # AWS orange
@@ -43,7 +42,7 @@ def get_style(style_type):
         })
     if style_type == 'answer':
         return style_from_dict({
-            Token.Separator: '#cc5454',
+            Token.Separator: '#75c951',
             Token.QuestionMark: '#E91E63 bold',
             Token.Selected: '#cc5454',  # default
             Token.Pointer: '#ed9164 bold',
@@ -189,7 +188,7 @@ class Separator(object):
 
     def __init__(self, line=None):
         if line:
-            self.line = line
+            self.line = f'\n{line}'
 
     def __str__(self):
         return self.line

@@ -15,12 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
 from hb.cts.prompt import prompt
-from hb.cts.common import Separator
 from hb.cts.common import get_style
-from hb.cts.cts import CTS
-from hb.common.utils import hb_info
 
 
 class Menuconfig():
