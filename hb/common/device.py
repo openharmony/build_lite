@@ -51,7 +51,7 @@ class Device():
         menu = Menuconfig()
         kernel = menu.list_promt('kernel',
                                  'Which kernel do you need?',
-                                 choices).get('kernel')
+                                 choices).get('kernel')[0]
         return kernel_path_dict.get(kernel), kernel.split('@')[0],\
             os.path.basename(cwd)
 

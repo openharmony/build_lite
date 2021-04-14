@@ -88,12 +88,17 @@ class InquirerControl(TokenListControl):
                 tokens.append((token.Selected if selected else token,
                                '- %s (%s)' % (choice[0], choice[2])))
             else:
-                try:
-                    tokens.append((token.Selected if selected else token,
-                                   str(choice[0]), select_item))
-                except Exception:
-                    tokens.append((token.Selected if selected else
-                                  token, choice[0], select_item))
+                if isinstance(choice[0], Separator):
+                    tokens.append((token.Separator,
+                                  str(choice[0]),
+                                  select_item))
+                else:
+                    try:
+                        tokens.append((token.Selected if selected else token,
+                                      str(choice[0]), select_item))
+                    except Exception:
+                        tokens.append((token.Selected if selected else
+                                      token, choice[0], select_item))
             tokens.append((token, '\n'))
 
         # prepare the select choices
@@ -175,7 +180,7 @@ def question(message, **kwargs):
     @manager.registry.add_binding(Keys.Enter, eager=True)
     def set_answer(event):
         inquirer_control.answered = True
-        event.cli.set_return_value(inquirer_control.get_selection()[1])
+        event.cli.set_return_value(inquirer_control.get_selection())
 
     return Application(
         layout=layout,
