@@ -46,14 +46,14 @@ def remove_path(path):
 # Read json file data
 def read_json_file(input_file):
     if not os.path.isfile(input_file):
-        raise OSError('{} not found'.format(input_file))
+        raise OHOSException(f'{input_file} not found')
 
     with open(input_file, 'rb') as input_f:
         try:
             data = json.load(input_f)
             return data
         except json.JSONDecodeError:
-            raise Exception('{} parsing error!'.format(input_file))
+            raise OHOSException(f'{input_file} parsing error!')
 
 
 def dump_json_file(dump_file, json_data):
@@ -66,7 +66,7 @@ def dump_json_file(dump_file, json_data):
 
 def read_yaml_file(input_file):
     if not os.path.isfile(input_file):
-        raise OSError('{} not found'.format(input_file))
+        raise OHOSException(f'{input_file} not found')
 
     with open(input_file, 'rt', encoding='utf-8') as yaml_file:
         try:
@@ -74,15 +74,15 @@ def read_yaml_file(input_file):
         except yaml.YAMLError as exc:
             if hasattr(exc, 'problem_mark'):
                 mark = exc.problem_mark
-                raise Exception(f'{input_file} load failed, error position:'
-                                f' {mark.line + 1}:{mark.column + 1}')
+                raise OHOSException(f'{input_file} load failed, error line:'
+                                    f' {mark.line + 1}:{mark.column + 1}')
 
 
 def get_input(msg):
     try:
         user_input = input
     except NameError:
-        raise Exception('python2.x not supported')
+        raise OHOSException('python2.x not supported')
     return user_input(msg)
 
 
@@ -123,7 +123,9 @@ def exec_command(cmd, log_path='out/build.log', **kwargs):
         hb_error('you can check build log in {}'.format(log_path))
         if isinstance(cmd, list):
             cmd = ' '.join(cmd)
-        raise Exception("{} failed, return code is {}".format(cmd, ret_code))
+        raise OHOSException(f'command: "{cmd}" failed\n'
+                            f'return code: {ret_code}\n'
+                            f'execution path: {os.getcwd()}')
 
 
 def get_failed_log(log_path):
@@ -152,7 +154,9 @@ def check_output(cmd, **kwargs):
         ret = called_exception.output
         if isinstance(cmd, list):
             cmd = ' '.join(cmd)
-        raise Exception("{} failed, failed log is {}".format(cmd, ret))
+        raise OHOSException(f'command: "{cmd}" failed\n'
+                            f'return code: {ret}\n'
+                            f'execution path: {os.getcwd()}')
 
     return ret
 
@@ -162,12 +166,12 @@ def makedirs(path, exist_ok=True, with_rm=False):
         os.makedirs(path)
     except OSError:
         if not os.path.isdir(path):
-            raise Exception("{} makedirs failed".format(path))
+            raise OHOSException(f"{path} makedirs failed")
         if with_rm:
             remove_path(path)
             return os.makedirs(path)
         if not exist_ok:
-            raise Exception("{} exists, makedirs failed".format(path))
+            raise OHOSException(f"{path} exists, makedirs failed")
 
 
 def get_project_path(json_path):
@@ -178,7 +182,8 @@ def get_project_path(json_path):
 
 def args_factory(args_dict):
     if not len(args_dict):
-        raise Exception('at least one k_v param is required in args_factory')
+        raise OHOSException('at least one k_v param is '
+                            'required in args_factory')
 
     args_cls = namedtuple('Args', [key for key in args_dict.keys()])
     args = args_cls(**args_dict)
@@ -220,3 +225,7 @@ class Singleton(type):
             cls._instances[cls] = super(Singleton, cls).__call__(*args,
                                                                  **kwargs)
         return cls._instances[cls]
+
+
+class OHOSException(Exception):
+    pass

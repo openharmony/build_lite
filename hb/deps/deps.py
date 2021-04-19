@@ -19,6 +19,7 @@
 
 from hb.deps.check_deps import check_deps
 from hb.deps.gen_deps import gen_deps
+from hb.common.utils import OHOSException
 
 
 def add_options(parser):
@@ -42,4 +43,4 @@ def exec_command(args):
         elif args.deps_type[0] == 'gen':
             return gen_deps(args.subsystems, args.products)
 
-    raise Exception('please select the operation for deps (check or gen)')
+    raise OHOSException('please select the operation for deps (check or gen)')

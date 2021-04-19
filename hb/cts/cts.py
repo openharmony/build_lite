@@ -33,6 +33,7 @@ from hb.cts.common import check_path
 from hb.common.utils import get_project_path
 from hb.common.utils import hb_info
 from hb.common.utils import hb_warning
+from hb.common.utils import OHOSException
 
 
 class CTS():
@@ -51,8 +52,8 @@ class CTS():
     def _set_path(self):
         self._code_path = get_project_path(CONFIG_JSON)
         if self._code_path is None:
-            raise Exception('Please run command "hb set" to '
-                            'init OHOS development environment')
+            raise OHOSException('Please run command "hb set" to '
+                                'init OHOS development environment')
 
         self._components_path = os.path.join(self._code_path,
                                              'build',
@@ -113,7 +114,7 @@ class CTS():
     def init(self, board=None):
         if board is None:
             if self.board is None:
-                raise Exception('no board selected')
+                raise OHOSException('no board selected')
         else:
             self.board = board
 

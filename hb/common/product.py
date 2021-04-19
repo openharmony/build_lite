@@ -19,6 +19,7 @@ import os
 from collections import defaultdict
 
 from hb.common.utils import read_json_file
+from hb.common.utils import OHOSException
 from hb.common.config import Config
 from hb.cts.menuconfig import Menuconfig
 from hb.cts.common import Separator
@@ -54,7 +55,7 @@ class Product():
     @staticmethod
     def get_features(product_json):
         if not os.path.isfile(product_json):
-            raise Exception('{} not found'.format(product_json))
+            raise OHOSException(f'{product_json} not found')
 
         features_list = []
         subsystems = read_json_file(product_json).get('subsystems', [])
@@ -69,7 +70,7 @@ class Product():
     @staticmethod
     def get_components(product_json, subsystems):
         if not os.path.isfile(product_json):
-            raise Exception('{} not found'.format(product_json))
+            raise OHOSException(f'{product_json} not found')
 
         components_dict = defaultdict(list)
         product_data = read_json_file(product_json)
@@ -88,8 +89,7 @@ class Product():
             if cur_company == company and cur_product == product_name:
                 return product_path
 
-        raise Exception('product {}@{} not found'.
-                        format(product_name, company))
+        raise OHOSException(f'product {product_name}@{company} not found')
 
     @staticmethod
     def product_menuconfig():
@@ -104,7 +104,7 @@ class Product():
             product_path_dict['{}@{}'.format(product, company)] = product_path
 
         if not len(product_path_dict):
-            raise Exception('no valid product found')
+            raise OHOSException('no valid product found')
 
         choices = [product if isinstance(product, Separator)
                    else {'name': product.split('@')[0],

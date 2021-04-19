@@ -19,6 +19,7 @@ import os
 import re
 
 from hb.cts.menuconfig import Menuconfig
+from hb.common.utils import OHOSException
 
 
 class Device():
@@ -44,7 +45,7 @@ class Device():
                 kernel_path
 
         if not len(kernel_path_dict):
-            raise Exception('no valid kernel found')
+            raise OHOSException('no valid kernel found')
 
         choices = [{'name': kernel} for kernel in kernel_path_dict.keys()]
 
@@ -63,9 +64,8 @@ class Device():
                                    kernel_version):
                 return kernel_path
 
-        raise Exception('cannot find {}_{} in {}'.format(kernel_type,
-                                                         kernel_version,
-                                                         board_path))
+        raise OHOSException(f'cannot find {kernel_type}_{kernel_version} '
+                            f'in {board_path}')
 
     @staticmethod
     def get_kernel_config(board_path):
@@ -99,8 +99,8 @@ class Device():
             kernel_list = re.findall(kernel_pattern, data)
             version_list = re.findall(version_pattern, data)
             if not len(kernel_list) or not len(version_list):
-                raise Exception('kernel_type or kernel_version '
-                                'not found in {}'.format(config))
+                raise OHOSException(f'kernel_type or kernel_version '
+                                    f'not found in {config}')
 
             return kernel_list[0], version_list[0]
 
@@ -108,7 +108,7 @@ class Device():
     def check_path(path):
         if os.path.isdir(path) or os.path.isfile(path):
             return
-        raise Exception('invalid path: {}'.format(path))
+        raise OHOSException(f'invalid path: {path}')
 
     @staticmethod
     def get_compiler(config_path):
@@ -120,7 +120,6 @@ class Device():
             data = config_file.read()
         compiler_list = re.findall(compiler_pattern, data)
         if not len(compiler_list):
-            raise Exception('board_toolchain_type is None'
-                            ' in {}'.format(config))
+            raise OHOSException(f'board_toolchain_type is None in {config}')
 
         return compiler_list[0]
