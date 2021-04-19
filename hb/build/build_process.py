@@ -33,7 +33,7 @@ from hb.build.fs_process import Packer
 
 
 class Build():
-    def __init__(self):
+    def __init__(self, component=None):
         self.config = Config()
 
         # Get gn args ready
@@ -42,12 +42,19 @@ class Build():
         self._compiler = None
         self._test = None
 
+        self.target = component
+        self.check_in_device()
+
     @property
     def target(self):
         return self._target
 
     @target.setter
     def target(self, component):
+        if component is None or not len(component):
+            return
+        component = component[0]
+
         cts = CTS()
         cts.init_from_json()
         for subsystem_cls in cts:
@@ -103,7 +110,6 @@ class Build():
             self.config.fs_attr = None
 
     def build(self, full_compile, ninja=True, cmd_args=None):
-        self.check_in_device()
         cmd_list = self.get_cmd(full_compile, ninja)
 
         if cmd_args is None:
@@ -111,6 +117,7 @@ class Build():
         for exec_cmd in cmd_list:
             exec_cmd(cmd_args)
 
+        hb_info(f'{os.path.basename(self.config.out_path)} build success')
         return 0
 
     def get_cmd(self, full_compile, ninja):
@@ -118,20 +125,27 @@ class Build():
             self.register_args('ohos_full_compile', 'true', quota=False)
             return [self.gn_build]
 
+        cmd_list = []
+
         build_ninja = os.path.join(self.config.out_path, 'build.ninja')
-        packer = Packer()
         if not os.path.isfile(build_ninja):
             self.register_args('ohos_full_compile', 'true', quota=False)
             makedirs(self.config.out_path)
-            return [self.gn_build, self.ninja_build, packer.fs_make]
-        if full_compile:
+            cmd_list = [self.gn_build, self.ninja_build]
+        elif full_compile:
             self.register_args('ohos_full_compile', 'true', quota=False)
             remove_path(self.config.out_path)
             makedirs(self.config.out_path)
-            return [self.gn_build, self.ninja_build, packer.fs_make]
+            cmd_list = [self.gn_build, self.ninja_build]
+        else:
+            self.register_args('ohos_full_compile', 'false', quota=False)
+            cmd_list = [self.ninja_build]
 
-        self.register_args('ohos_full_compile', 'false', quota=False)
-        return [self.ninja_build, packer.fs_make]
+        if self.config.fs_attr is not None:
+            packer = Packer()
+            cmd_list.append(packer.fs_make)
+
+        return cmd_list
 
     def gn_build(self, cmd_args):
         # Clean out path
@@ -184,18 +198,22 @@ class Build():
                      self.config.out_path] + ninja_args
         exec_command(ninja_cmd, log_path=self.config.log_path, log_filter=True)
 
-        hb_info('{} build success'.format(
-            os.path.basename(self.config.out_path)))
-
     def check_in_device(self):
         if self._target is None and Device.is_in_device():
             # Compile device board
             device_path, kernel, board = Device.device_menuconfig()
-            # xxx: build device, no need to set root manually, so set it speculatively.
-            self.config.root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.getcwd())))
+            hb_info(f'{device_path}')
+            # build device, no need to set root manually,
+            # so set it speculatively.
+            self.config.root_path = os.path.abspath(os.path.join(device_path,
+                                                                 os.pardir,
+                                                                 os.pardir,
+                                                                 os.pardir,
+                                                                 os.pardir))
             self.config.out_path = os.path.join(self.config.root_path,
                                                 'out',
                                                 board)
+            self.compiler = Device.get_compiler(device_path)
             gn_device_path = os.path.dirname(device_path)
             gn_kernel_path = device_path
             self.register_args('ohos_build_target', [gn_device_path])
@@ -203,6 +221,7 @@ class Build():
             self.register_args('ohos_kernel_type', kernel)
         else:
             # Compile product in "hb set"
+            self.compiler = Device.get_compiler(self.config.device_path)
             self.register_args('product_path', self.config.product_path)
             self.register_args('device_path', self.config.device_path)
             self.register_args('ohos_kernel_type', self.config.kernel)

@@ -20,12 +20,11 @@ from collections import defaultdict
 
 from hb.build.build_process import Build
 from hb.set.set import set_product
-from hb.common.device import Device
 
 
 def add_options(parser):
     parser.add_argument('component', help='name of the component', nargs='*',
-                        default=[])
+                        default=None)
     parser.add_argument('-b', '--build_type', help='release or debug version',
                         nargs=1, default=['debug'])
     parser.add_argument('-c', '--compiler', help='specify compiler',
@@ -52,11 +51,12 @@ def add_options(parser):
 
 
 def exec_command(args):
-    build = Build()
-    cmd_args = defaultdict(list)
+    if len(args.product):
+        product, company = args.product[0].split('@')
+        set_product(product_name=product, company=company)
 
-    if len(args.component):
-        build.target = args.component[0]
+    build = Build(args.component)
+    cmd_args = defaultdict(list)
 
     build.register_args('ohos_build_type', args.build_type[0])
 
@@ -72,12 +72,6 @@ def exec_command(args):
     if args.tee:
         build.register_args('tee_enable', 'true', quota=False)
         build.config.fs_attr.add('tee_enable')
-
-    if len(args.product):
-        product, company = args.product[0].split('@')
-        set_product(product_name=product, company=company)
-
-    build.compiler = Device.get_compiler(build.config.device_path)
 
     if args.ndk:
         build.register_args('ohos_build_ndk', 'true', quota=False)
