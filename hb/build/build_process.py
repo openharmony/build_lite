@@ -25,6 +25,7 @@ from hb.common.utils import makedirs
 from hb.common.utils import remove_path
 from hb.common.utils import hb_info
 from hb.common.utils import hb_warning
+from hb.common.utils import OHOSException
 from hb.common.config import Config
 from hb.cts.cts import CTS
 from hb.common.device import Device
@@ -69,7 +70,7 @@ class Build():
                                                self._target)
                             return
 
-        raise Exception('Component {} not found'.format(component))
+        raise OHOSException(f'Component {component} not found')
 
     @property
     def compiler(self):
@@ -95,7 +96,7 @@ class Build():
             if len(test_args) > 1:
                 self.register_args('ohos_xts_test_args', self._test)
         else:
-            raise Exception('Error: wrong input of test')
+            raise OHOSException('Error: wrong input of test')
 
     def register_args(self, args_name, args_value, quota=True):
         if quota:

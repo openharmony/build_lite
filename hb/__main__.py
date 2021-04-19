@@ -23,10 +23,12 @@ sys.path.insert(0, os.path.abspath(os.path.join(__file__,
                                                 os.pardir)))
 import argparse
 import importlib
+import traceback
 
 from hb import VERSION
 from hb.common.utils import hb_warning
 from hb.common.utils import hb_error
+from hb.common.utils import OHOSException
 
 
 def main():
@@ -77,10 +79,14 @@ def main():
     try:
         status = args.command(args)
     except KeyboardInterrupt:
-        hb_warning('interrupted')
+        hb_warning('User Abort')
+        status = -1
+    except OHOSException as exception:
+        hb_error(exception.args[0])
         status = -1
     except Exception as exception:
-        hb_error(exception.args[0])
+        hb_error(traceback.format_exc())
+        hb_error(f'Unhandled error: {exception}')
         status = -1
 
     return status

@@ -24,6 +24,7 @@ from hb import CONFIG_STRUCT
 from hb.common.utils import read_json_file
 from hb.common.utils import dump_json_file
 from hb.common.utils import Singleton
+from hb.common.utils import OHOSException
 
 
 class Config(metaclass=Singleton):
@@ -43,8 +44,8 @@ class Config(metaclass=Singleton):
     @property
     def root_path(self):
         if self._root_path is None:
-            raise Exception('Please run command "hb set" to '
-                            'init OHOS development environment')
+            raise OHOSException('Please run command "hb set" to '
+                                'init OHOS development environment')
 
         return self._root_path
 
@@ -52,7 +53,7 @@ class Config(metaclass=Singleton):
     def root_path(self, value):
         self._root_path = os.path.abspath(value)
         if not os.path.isdir(self._root_path):
-            raise Exception('{} is not a valid path'.format(self._root_path))
+            raise OHOSException(f'{self._root_path} is not a valid path')
 
         config_path = os.path.join(self._root_path, 'ohos_config.json')
         if not os.path.isfile(config_path):
@@ -62,8 +63,8 @@ class Config(metaclass=Singleton):
     @property
     def board(self):
         if self._board is None:
-            raise Exception('Please run command "hb set" to '
-                            'init OHOS development environment')
+            raise OHOSException('Please run command "hb set" to '
+                                'init OHOS development environment')
         return self._board
 
     @board.setter
@@ -74,8 +75,8 @@ class Config(metaclass=Singleton):
     @property
     def kernel(self):
         if self._kernel is None:
-            raise Exception('Please run command "hb set" to '
-                            'init OHOS development environment')
+            raise OHOSException('Please run command "hb set" to '
+                                'init OHOS development environment')
         return self._kernel
 
     @kernel.setter
@@ -86,8 +87,8 @@ class Config(metaclass=Singleton):
     @property
     def product(self):
         if self._product is None:
-            raise Exception('Please run command "hb set" to '
-                            'init OHOS development environment')
+            raise OHOSException('Please run command "hb set" to '
+                                'init OHOS development environment')
         return self._product
 
     @product.setter
@@ -98,8 +99,8 @@ class Config(metaclass=Singleton):
     @property
     def product_path(self):
         if self._product_path is None:
-            raise Exception('Please run command "hb set" to '
-                            'init OHOS development environment')
+            raise OHOSException('Please run command "hb set" to '
+                                'init OHOS development environment')
         return self._product_path
 
     @product_path.setter
@@ -114,8 +115,8 @@ class Config(metaclass=Singleton):
     @property
     def device_path(self):
         if self._device_path is None:
-            raise Exception('Please run command "hb set" to '
-                            'init OHOS development environment')
+            raise OHOSException('Please run command "hb set" to '
+                                'init OHOS development environment')
         return self._device_path
 
     @device_path.setter
@@ -131,7 +132,7 @@ class Config(metaclass=Singleton):
     def build_path(self):
         _build_path = os.path.join(self.root_path, 'build', 'lite')
         if not os.path.isdir(_build_path):
-            raise Exception(f'Invalid build path: {_build_path}')
+            raise OHOSException(f'Invalid build path: {_build_path}')
         return _build_path
 
     @property
@@ -150,7 +151,7 @@ class Config(metaclass=Singleton):
     def vendor_path(self):
         _vendor_path = os.path.join(self.root_path, 'vendor')
         if not os.path.isdir(_vendor_path):
-            raise Exception(f'Invalid vendor path: {_vendor_path}')
+            raise OHOSException(f'Invalid vendor path: {_vendor_path}')
         return _vendor_path
 
     @property
@@ -169,7 +170,7 @@ class Config(metaclass=Singleton):
                                 'win-x86',
                                 'bin')
 
-        raise Exception(f'unidentified platform: {platform_name}')
+        raise OHOSException(f'unidentified platform: {platform_name}')
 
     @property
     def gn_path(self):
@@ -181,7 +182,7 @@ class Config(metaclass=Singleton):
         if env_gn_path is not None:
             return env_gn_path
 
-        raise Exception('gn not found, install it please')
+        raise OHOSException('gn not found, install it please')
 
     @property
     def ninja_path(self):
@@ -193,7 +194,7 @@ class Config(metaclass=Singleton):
         if env_ninja_path is not None:
             return env_ninja_path
 
-        raise Exception('ninja not found, install it please')
+        raise OHOSException('ninja not found, install it please')
 
     @property
     def clang_path(self):
@@ -214,7 +215,7 @@ class Config(metaclass=Singleton):
             if os.path.basename(env_clang_path) == 'llvm':
                 return env_clang_path
 
-        raise Exception('clang not found, install it please')
+        raise OHOSException('clang not found, install it please')
 
     def config_create(self, config_path):
         dump_json_file(config_path, CONFIG_STRUCT)

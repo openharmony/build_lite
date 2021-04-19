@@ -32,6 +32,7 @@ from prompt_toolkit.token import Token
 from hb.cts.common import Separator
 from hb.cts.common import if_mousedown
 from hb.cts.common import get_style
+from hb.common.utils import OHOSException
 
 
 class InquirerControl(TokenListControl):
@@ -113,7 +114,7 @@ class InquirerControl(TokenListControl):
 
 def question(message, **kwargs):
     if 'choices' not in kwargs:
-        raise Exception("You must choose one platform.")
+        raise OHOSException("You must choose one platform.")
 
     choices = kwargs.pop('choices', None)
     qmark = kwargs.pop('qmark', '?')
