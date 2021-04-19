@@ -79,29 +79,45 @@ class Packer():
             if target_dir == '':
                 continue
 
-            source_path = os.path.join(self.config.out_path, source_dir)
-            target_path = os.path.join(fs_path, target_dir)
-            if source_dir == '' or not os.path.isdir(source_path):
-                makedirs(target_path, exist_ok=exist_ok, with_rm=with_rm)
+            source_path = self.fs_dirs_replace(source_dir,
+                                               self.config.out_path)
+            target_path = self.fs_dirs_replace(target_dir, fs_path)
+
+            if source_dir == '' or not os.path.exists(source_path):
+                makedirs(target_path)
                 target_mode_tuple = (target_path, fs_dir.get('dir_mode', 755))
                 self.chmod_dirs.append(target_mode_tuple)
                 continue
 
             self.copy_files(source_path, target_path, fs_dir)
 
+    def fs_dirs_replace(self, path, default_path):
+        source_path, is_changed = self.replace(path)
+        if not is_changed:
+            source_path = os.path.join(default_path, path)
+        return source_path
+
     def copy_files(self, spath, tpath, fs_dir):
         ignore_files = fs_dir.get('ignore_files', [])
         dir_mode = fs_dir.get('dir_mode', 755)
         file_mode = fs_dir.get('file_mode', 555)
 
-        for srelpath, sfile in self.list_all_files(spath, ignore_files):
-            tdirname = srelpath.replace(spath, tpath)
-            if not os.path.isdir(tdirname):
-                makedirs(tdirname)
-                self.chmod_dirs.append((tdirname, dir_mode))
-            tfile = os.path.join(tdirname, os.path.basename(sfile))
+        def copy_file_process(source_path, target_path):
+            if not os.path.isdir(target_path):
+                makedirs(target_path)
+                self.chmod_dirs.append((target_path, dir_mode))
+            tfile = os.path.join(target_path, os.path.basename(source_path))
             shutil.copy(sfile, tfile)
             self.chmod_dirs.append((tfile, file_mode))
+
+        if os.path.isfile(spath):
+            sfile = spath
+            copy_file_process(spath, tpath)
+            return
+
+        for srelpath, sfile in self.list_all_files(spath, ignore_files):
+            tdirname = srelpath.replace(spath, tpath)
+            copy_file_process(sfile, tdirname)
 
     def chmod(self, file, mode):
         mode = int(str(mode), base=8)
@@ -131,15 +147,16 @@ class Packer():
                     yield relpath, full_path
 
     def replace(self, raw_str):
+        old_str = raw_str
         for old, new in self.replace_items.items():
             raw_str = raw_str.replace(old, new)
-        return raw_str
+        return raw_str, old_str != raw_str
 
     def fs_link(self):
         fs_symlink = self.fs_cfg.get('fs_symlink', [])
         for symlink in fs_symlink:
-            source = self.replace(symlink.get('source', ''))
-            link_name = self.replace(symlink.get('link_name', ''))
+            source, _ = self.replace(symlink.get('source', ''))
+            link_name, _ = self.replace(symlink.get('link_name', ''))
             if os.path.exists(link_name):
                 os.remove(link_name)
             os.symlink(source, link_name)
@@ -161,7 +178,7 @@ class Packer():
         log_path = self.config.log_path
 
         for cmd in fs_make_cmd:
-            cmd = self.replace(cmd)
+            cmd, _ = self.replace(cmd)
             cmd = cmd.split(' ')
             exec_command(cmd, log_path=log_path)
 
@@ -189,10 +206,11 @@ class Packer():
     def fs_make(self, cmd_args):
         fs_cfg_path = os.path.join(self.config.product_path, 'fs.yml')
         if not os.path.isfile(fs_cfg_path):
-            hb_info(f'{fs_cfg_path} not found, stop packing fs')
+            hb_info(f'{fs_cfg_path} not found, stop packing fs. '
+                    'If the product does not need to be packaged, ignore it.')
             return
         if self.config.fs_attr is None:
-            hb_info(f'component compiling, no need to pack fs')
+            hb_info('component compiling, no need to pack fs')
             return
 
         fs_cfg_list = read_yaml_file(fs_cfg_path)
