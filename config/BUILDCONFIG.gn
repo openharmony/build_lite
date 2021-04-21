@@ -21,7 +21,7 @@ if (target_cpu == "") {
   target_cpu = board_cpu
 }
 
-# Only gcc avaiable for liteos_m.
+# Only gcc available for liteos_m.
 if (ohos_kernel_type == "liteos_m" || ohos_kernel_type == "linux") {
   use_board_toolchain = true
 }
