@@ -43,7 +43,10 @@ config("kernel_macros") {
       "__LITEOS_M__",
     ]
   } else if (ohos_kernel_type == "linux") {
-    defines = [ "__LINUX__" ]
+    defines = [
+      "__linux__",
+      "__LINUX__",
+    ]
   }
 }
 
@@ -114,22 +117,31 @@ config("ohos_clang") {
   if (ohos_build_compiler_dir != "") {
     clang_dir = rebase_path("${ohos_build_compiler_dir}")
   }
+
+  target_kernel = ""
+  if (ohos_kernel_type == "liteos_a") {
+    target_kernel = "arm-liteos"
+  } else if (ohos_kernel_type == "linux") {
+    target_kernel = "arm-linux-musl"
+    defines = [ "_LIBCPP_HAS_MUSL_LIBC" ]
+  }
+
   include_dirs = [
     "${clang_dir}/include/c++/v1",
-    "//prebuilts/lite/sysroot/usr/include/arm-liteos",
+    "//prebuilts/lite/sysroot/usr/include/${target_kernel}",
   ]
 
   cflags = [
-    "--target=arm-liteos",
+    "--target=${target_kernel}",
     "--sysroot=${ohos_root_path}prebuilts/lite/sysroot",
   ]
   cflags_cc = cflags
   ldflags = cflags
 
   ldflags += [
-    "-L${clang_dir}/lib/arm-liteos/c++",
-    "-L${ohos_root_path}prebuilts/lite/sysroot/usr/lib/arm-liteos",
-    "-L${clang_dir}/lib/clang/9.0.0/lib/arm-liteos",
+    "-L${clang_dir}/lib/${target_kernel}/c++",
+    "-L${ohos_root_path}prebuilts/lite/sysroot/usr/lib/${target_kernel}",
+    "-L${clang_dir}/lib/clang/9.0.0/lib/${target_kernel}",
     "-lclang_rt.builtins",
     "-lc",
     "-lc++",
