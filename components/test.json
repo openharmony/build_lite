@@ -76,10 +76,10 @@
       "description": "",
       "optional": "true",
       "dirs": [
-        "test/xts/huawei_proprietary/ssts"
+        "test/xts/huawei_proprietary/ssts/build_lite"
       ],
       "targets": [
-        "//test/xts/huawei_proprietary/ssts"
+        "//test/xts/huawei_proprietary/ssts/build_lite:ssts"
       ],
       "rom": "",
       "ram": "",
