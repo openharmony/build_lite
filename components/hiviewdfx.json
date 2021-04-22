@@ -150,6 +150,33 @@
         ],
         "components": []
       }
+    },
+    {
+      "component": "hiview_tunnel",
+      "description": "log upload service for liteos-a kernel",
+      "optional": "false",
+      "dirs": [
+        "base/hiviewdfx/huawei_proprietary/hiview_tunnel"
+      ],
+      "targets": [
+        "//base/hiviewdfx/huawei_proprietary/hiview_tunnel:libhiview_tunnel"
+      ],
+      "rom": "500KB",
+      "ram": "~500KB",
+      "output": [
+        "libhiview_tunnel"
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": []
+      }
     }
   ]
 }
