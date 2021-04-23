@@ -32,6 +32,40 @@
           "utils_base"
         ]
       }
+    },
+    {
+      "component": "dupdate",
+      "description": "dupdate kit.",
+      "optional": "true",
+      "dirs": [
+        "base/update/dupdate"
+      ],
+      "targets": [
+        "//base/update/dupdate:dupdate"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [
+        "libdupdate_sdk.so",
+        "libdupdate_svc.so",
+        "dupdate.so"
+      ],
+      "adapted_kernel": [ "liteos_a","linux" ],
+      "features": [],
+      "deps": {
+        "components": [
+          "hilog",
+          "bundle_mgr",
+          "system_ability_manager",
+          "distributed_schedule",
+          "utils_base",
+          "ipc"
+        ],
+        "third_party": [
+          "cjson",
+          "curl"
+        ]
+      }
     }
   ]
 }
