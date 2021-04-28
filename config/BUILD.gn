@@ -112,7 +112,7 @@ config("pie_executable_config") {
   ldflags = [ "-pie" ]
 }
 
-config("ohos_clang") {
+if (ohos_current_toolchain == "ohos_clang") {
   clang_dir = ""
   if (ohos_build_compiler_dir != "") {
     clang_dir = rebase_path("${ohos_build_compiler_dir}")
@@ -123,9 +123,17 @@ config("ohos_clang") {
     target_kernel = "arm-liteos"
   } else if (ohos_kernel_type == "linux") {
     target_kernel = "arm-linux-musl"
-    defines = [ "_LIBCPP_HAS_MUSL_LIBC" ]
   }
+  copy("ohos_clang_runtime") {
+    sources = [
+      "${clang_dir}/lib/${target_kernel}/c++/libc++.so",
+      "${ohos_root_path}prebuilts/lite/sysroot/usr/lib/${target_kernel}/libc.so",
+    ]
+    outputs = [ "$root_out_dir/libs/{{source_file_part}}" ]
+  }
+}
 
+config("ohos_clang") {
   include_dirs = [
     "${clang_dir}/include/c++/v1",
     "//prebuilts/lite/sysroot/usr/include/${target_kernel}",
@@ -137,6 +145,9 @@ config("ohos_clang") {
   ]
   cflags_cc = cflags
   ldflags = cflags
+  if (ohos_kernel_type == "linux") {
+    defines = [ "_LIBCPP_HAS_MUSL_LIBC" ]
+  }
 
   ldflags += [
     "-L${clang_dir}/lib/${target_kernel}/c++",
