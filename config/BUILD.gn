@@ -124,7 +124,6 @@ if(ohos_current_toolchain == "ohos_clang") {
   } else if (ohos_kernel_type == "linux") {
     target_kernel = "arm-linux-musl"
   }
-
   copy("ohos_clang_runtime") {
     sources = [
       "${clang_dir}/lib/${target_kernel}/c++/libc++.so",
