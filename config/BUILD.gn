@@ -122,7 +122,7 @@ if(ohos_current_toolchain == "ohos_clang") {
   if (ohos_kernel_type == "liteos_a") {
     target_kernel = "arm-liteos"
   } else if (ohos_kernel_type == "linux") {
-    target_kernel = "arm-linux-musl"
+    target_kernel = "arm-linux-ohosmusl"
   }
   copy("ohos_clang_runtime") {
     sources = [
