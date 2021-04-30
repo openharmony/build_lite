@@ -51,7 +51,11 @@ if [ "${FSTYPE}" = "jffs2" ]; then
     else
         tool_check ${JFFS2_TOOL}
         if [[ "${ROOTFS_DIR}" = *"rootfs" ]]; then
-            ${JFFS2_TOOL} -q -o ${ROOTFS_IMG} -d ${ROOTFS_DIR} --pagesize=4096 --devtable ${CONFIG_PATH}
+            if [ -f "${ROOTFS_DIR}/bin/foundation" ] && [ -f "${ROOTFS_DIR}/bin/apphilogcat" ]; then
+                ${JFFS2_TOOL} -q -o ${ROOTFS_IMG} -d ${ROOTFS_DIR} --pagesize=4096 --devtable ${CONFIG_PATH}
+            else
+                ${JFFS2_TOOL} -q -o ${ROOTFS_IMG} -d ${ROOTFS_DIR} --pagesize=4096
+            fi
         else
             ${JFFS2_TOOL} -q -o ${ROOTFS_IMG} -d ${ROOTFS_DIR} --pagesize=4096
         fi
