@@ -24,6 +24,7 @@ from hb.common.utils import exec_command
 from hb.common.utils import makedirs
 from hb.common.utils import read_yaml_file
 from hb.common.utils import hb_info
+from hb.common.utils import hb_warning
 from hb.common.config import Config
 
 
@@ -107,8 +108,11 @@ class Packer():
                 makedirs(target_path)
                 self.chmod_dirs.append((target_path, dir_mode))
             tfile = os.path.join(target_path, os.path.basename(source_path))
-            shutil.copy(sfile, tfile, follow_symlinks=False)
-            self.chmod_dirs.append((tfile, file_mode))
+            try: 
+                shutil.copy(sfile, tfile, follow_symlinks=False)
+                self.chmod_dirs.append((tfile, file_mode))
+            except FileExistsError:
+                hb_warning(f'Target file: {tfile} already exists!')
 
         if os.path.isfile(spath):
             sfile = spath
