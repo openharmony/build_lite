@@ -92,9 +92,14 @@ if (ohos_build_type == "debug") {
   default_target_configs += [ "//build/lite/config:release" ]
 }
 
+if (ohos_kernel_type == "liteos_a") {
+  default_target_configs += [
+    "//build/lite/config/kernel/liteos/cortex_a:default"
+  ]
+}
+
 if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "linux") {
   default_target_configs += [
-    "//build/lite/config/kernel/liteos/cortex_a:default",
     "//build/lite/config:security",
     "//build/lite/config:exceptions",
   ]

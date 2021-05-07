@@ -108,7 +108,7 @@ class Packer():
                 makedirs(target_path)
                 self.chmod_dirs.append((target_path, dir_mode))
             tfile = os.path.join(target_path, os.path.basename(source_path))
-            try: 
+            try:
                 shutil.copy(sfile, tfile, follow_symlinks=False)
                 self.chmod_dirs.append((tfile, file_mode))
             except FileExistsError:
