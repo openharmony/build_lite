@@ -101,7 +101,7 @@
         "kernel_special": {},
         "board_special": {},
         "components": [
-          "syspara",
+          "syspara_lite",
           "bundle_mgr",
           "media_lite",
           "media_service",
@@ -113,7 +113,7 @@
           "graphic",
           "hilog",
           "utils_base",
-          "system_ability_manager"
+          "samgr_lite"
         ]
       }
     },
