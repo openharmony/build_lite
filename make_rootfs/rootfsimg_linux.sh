@@ -22,11 +22,8 @@ JFFS2_TOOL=mkfs.jffs2
 WIN_JFFS2_TOOL=mkfs.jffs2.exe
 VFAT_TOOL=mkfs.vfat
 MCOPY_TOOL=mcopy
-EXT4_TOOL=${ROOTFS_DIR}/../../../../vendor/hisi/camera/dvkit_product/linux/hi3516dv300/\
-Hi3516CV500_SDK_V2.0.3.0/Hi3516CV500_SDK_V2.0.3.0/osdrv/pub/bin/pc/mkfs.ext4
-E2FSPROGS_DIR=${ROOTFS_DIR}/../../../../vendor/hisi/camera/dvkit_product/linux/hi3516dv300/\
-Hi3516CV500_SDK_V2.0.3.0/Hi3516CV500_SDK_V2.0.3.0/open_source/e2fsprogs
-EXT4_SH=${ROOTFS_DIR}/../../../../vendor/hisi/camera/dvkit_product/linux/hi3516dv300/tools/makeextfs.sh
+EXT4_TOOL=mkfs.ext4
+EXT4_SH=$(dirname $(readlink -f "$0"))/../../../third_party/e2fsprogs/contrib/populate-extfs.sh
 
 tool_check() {
 local ret='0'
@@ -47,11 +44,7 @@ if [[ "${ROOTFS_DIR}" = *"rootfs" ]]; then
     fi
 fi
 
-if [[ "${ROOTFS_DIR}" =~ "dv300" ]] || [[ "${ROOTFS_DIR}" =~ "taurus" ]]; then
-    CONFIG_PATH=$(dirname $(readlink -f "$0"))/rootfs_linux_hi3516dv300.config
-elif [[ "${ROOTFS_DIR}" =~ "ev300" ]] || [[ "${ROOTFS_DIR}" =~ "aries" ]]; then
-    CONFIG_PATH=$(dirname $(readlink -f "$0"))/rootfs_linux_hi3518ev300.config
-fi
+CONFIG_PATH=$(dirname $(readlink -f "$0"))/rootfs_linux.config
 
 if [ "${FSTYPE}" = "jffs2" ]; then
     if [ "${system}" != "Linux" ] ; then
