@@ -155,7 +155,7 @@ config("ohos_clang") {
   ldflags += [
     "-L${clang_dir}/lib/${target_kernel}/c++",
     "-L${ohos_root_path}prebuilts/lite/sysroot/usr/lib/${target_kernel}",
-    "-L${clang_dir}/lib/clang/9.0.0/lib/${target_kernel}",
+    "-L${clang_dir}/lib/clang/current/lib/${target_kernel}",
     "-lclang_rt.builtins",
     "-lc",
     "-lc++",
