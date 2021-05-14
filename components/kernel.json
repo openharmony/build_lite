@@ -94,17 +94,15 @@
       "description": "linux 4.1.9",
       "optional": "false",
       "dirs": [
-        "vendor/hisi/camera/dvkit_product/linux/hi3516dv300/Hi3516CV500_SDK_V2.0.3.0"
+        "kernel/linux/patches"
       ],
       "targets": [
-        "//vendor/hisi/camera/dvkit_product/linux/hi3516dv300/Hi3516CV500_SDK_V2.0.3.0:linux_kernel"
+        "//kernel/linux/patches:linux_kernel"
       ],
       "rom": "",
       "ram": "",
       "output": [
-        "u-boot-hi3516dv300.bin",
-        "uImage_hi3516dv300_smp",
-        "rootfs.img"
+        "uImage_hi3516dv300_smp"
       ],
       "features": [],
       "adapted_board": [
