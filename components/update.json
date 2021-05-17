@@ -55,9 +55,9 @@
       "deps": {
         "components": [
           "hilog",
-          "bundle_mgr",
-          "system_ability_manager",
-          "distributed_schedule",
+          "appexecfwk_lite",
+          "samgr_lite",
+          "dmsfwk_lite",
           "utils_base",
           "ipc"
         ],

@@ -60,7 +60,7 @@
         "kernel_special": {},
         "board_special": {},
         "components": [
-          "deviceauth",
+          "hichainsdk",
           "syspara_lite",
           "permission"
         ]
