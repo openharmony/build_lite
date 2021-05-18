@@ -2,7 +2,7 @@
     "components": [
     {
         "component": "dbm_kv_store",
-        "discription": "",
+        "discription": "it supports storage of local lightweight key-value pairs",
         "optional": "true",
         "dirs": [
           "foundation/distributeddatamgr/appdatamgr/appdatamgr_lite"
