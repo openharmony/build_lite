@@ -13,6 +13,15 @@
 
 import("//build/lite/config/subsystem/aafwk/path.gni")
 
+declare_args() {
+  ohos_test_args = ""
+}
+
+test_target_type = "executable"
+if(ohos_test_args == "notest") {
+  test_target_type = "group"
+}
+
 # liteos c test template
 
 test_common_include_dirs = [ "//third_party/googletest/googletest/include" ]
@@ -80,7 +89,10 @@ template("unittest") {
   _gen_module_list_script = "//build/lite/testfwk/gen_module_list_files.py"
   exec_script(_gen_module_list_script, _arguments)
 
-  executable(target_name) {
+  target(test_target_type, target_name) {
+    if (ohos_test_args == "notest") {
+      not_needed(invoker, "*")
+    }
     if (defined(invoker.output_dir)) {
       output_dir = invoker.output_dir
     }
@@ -110,7 +122,7 @@ template("unittest") {
     if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "linux") {
       deps += [ "//test/developertest/third_party/lib/cpp:gtest_main" ]
     }
-    if (defined(invoker.configs)) {
+    if (defined(invoker.configs) && ohos_test_args != "notest") {
       configs += invoker.configs
     }
     cflags = [ "-Wno-error" ]
@@ -129,6 +141,9 @@ template("unittest") {
         "-lm",
         "-pthread",
       ]
+    }
+    if (ohos_test_args == "notest") {
+      not_needed(["output_dir", "sources", "include_dirs", "deps", "public_deps", "defines", "configs", "cflags", "ldflags", "output_extension"])
     }
   }
 }

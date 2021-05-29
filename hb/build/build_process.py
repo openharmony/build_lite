@@ -90,11 +90,14 @@ class Build():
 
     @test.setter
     def test(self, test_args):
-        cmd_list = ['xts']
+        cmd_list = ['xts', 'notest']
         if test_args[0] in cmd_list:
-            self._test = test_args[1]
-            if len(test_args) > 1:
-                self.register_args('ohos_xts_test_args', self._test)
+            if test_args[0] == 'notest':
+                self.register_args('ohos_test_args', 'notest')
+            else:
+                self._test = test_args[1]
+                if len(test_args) > 1:
+                    self.register_args('ohos_xts_test_args', self._test)
         else:
             raise OHOSException('Error: wrong input of test')
 
