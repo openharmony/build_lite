@@ -16,10 +16,10 @@
         "liteos.bin"
       ],
       "adapted_board": [
-        "hi3516dv300",
-        "hi3516dv300_openharmony",
+        "hispark_aries",
+        "hispark_taurus",
         "hi3518ev300",
-        "hi3518ev300_openharmony"
+	"hi3516dv300"
       ],
       "adapted_kernel": [ "liteos_a" ],
       "features": [],
@@ -107,7 +107,7 @@
       "features": [],
       "adapted_board": [
         "hi3516dv300",
-        "hi3516dv300_openharmony"
+        "hispark_taurus"
       ],
       "adapted_kernel": [ "linux" ],
       "deps": {
