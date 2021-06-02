@@ -101,19 +101,16 @@
         "kernel_special": {},
         "board_special": {},
         "components": [
+          "aafwk_lite",
+          "appexecfwk_lite",
+          "surface",
+          "ui",
+          "graphic_utils",
+          "kv_store",
           "syspara_lite",
-          "bundle_mgr",
-          "media_lite",
-          "media_service",
-          "camera_lite",
-          "permission",
-          "ability",
-          "ipc",
-          "wpa_supplicant",
-          "graphic",
-          "hilog",
-          "utils_base",
-          "samgr_lite"
+          "ipc_lite",
+          "samgr_lite",
+          "utils_base"
         ]
       }
     },
