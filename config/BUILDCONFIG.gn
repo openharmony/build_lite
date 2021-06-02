@@ -60,6 +60,10 @@ if (board_toolchain != "" && use_board_toolchain) {
     ohos_current_strip_command = "$compile_prefix/llvm-objcopy$toolchain_cmd_suffix --strip-all"
     default_target_configs = [ "//build/lite/config:clang_opt" ]
   }
+  # Overwrite ld cmd by customed cmd.
+  if(defined(board_customed_ld_cmd)) {
+    ohos_current_ld_command = board_customed_ld_cmd
+  }
 } else {
   # OHOS default toolchain: ohos_clang
   ohos_current_toolchain = "ohos_clang"
