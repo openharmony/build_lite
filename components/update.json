@@ -59,7 +59,7 @@
           "samgr_lite",
           "dmsfwk_lite",
           "utils_base",
-          "ipc"
+          "ipc_lite"
         ],
         "third_party": [
           "cjson",

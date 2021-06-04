@@ -176,11 +176,10 @@
         "components": [
           "hilog",
           "huks",
-          "token",
-          "syspara",
-          "ipc",
-          "ability",
-          "bundle_mgr",
+          "syspara_lite",
+          "ipc_lite",
+          "aafwk_lite",
+          "appexecfwk_lite",
           "kv_store"
         ],
         "third_party": [
