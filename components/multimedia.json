@@ -40,7 +40,7 @@
           "audio_manager_lite",
           "camera_lite",
           "permission",
-          "ipc",
+          "ipc_lite",
           "ui"
         ]
       }
@@ -116,7 +116,7 @@
           "audio_manager_lite",
           "camera_lite",
           "permission",
-          "ipc",
+          "ipc_lite",
           "ui"
         ]
       }
