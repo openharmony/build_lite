@@ -113,7 +113,7 @@
       ],
       "targets": [
         "//foundation/distributedschedule/dmsfwk_lite:dtbschedmgr",
-        "//foundation/distributedschedule/dmsfwk_lite/moduletest/dtbschedmgr_lite:distributed_schedule_test_dms"
+        "//foundation/distributedschedule/dmsfwk_lite/moduletest/dtbschedmgr_lite:distributed_schedule_test_dms_door"
       ],
       "rom": "26KB",
       "ram": "",
