@@ -12,6 +12,11 @@
 # limitations under the License.
 import("//build/lite/ndk/ndk.gni")
 
+# write version info.
+version_info = [ "VERSION=\"$ohos_version\"",
+                 "BUILD_TIME=\"$ohos_buid_datetime\""]
+write_file("$root_build_dir/etc/version-info", version_info)
+
 group("ohos") {
   deps = []
   if (ohos_build_target == "") {
