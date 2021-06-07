@@ -20,6 +20,7 @@ from collections import defaultdict
 
 from hb.build.build_process import Build
 from hb.set.set import set_product
+from hb.common.utils import get_current_time
 
 
 def add_options(parser):
@@ -59,6 +60,10 @@ def exec_command(args):
     cmd_args = defaultdict(list)
 
     build.register_args('ohos_build_type', args.build_type[0])
+    # Get the compilation time in timestamp and human readable format
+    build.register_args('ohos_build_time', get_current_time(type='timestamp'))
+    build.register_args('ohos_build_datetime',
+                        get_current_time(type='datetime'))
 
     if args.test is not None:
         build.test = args.test
