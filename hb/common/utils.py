@@ -24,6 +24,7 @@ import sys
 import json
 from collections import namedtuple
 import yaml
+from datetime import datetime
 
 
 def encode(data, encoding='utf-8'):
@@ -188,6 +189,13 @@ def args_factory(args_dict):
     args_cls = namedtuple('Args', [key for key in args_dict.keys()])
     args = args_cls(**args_dict)
     return args
+
+
+def get_current_time(type='timestamp'):
+    if type == 'timestamp':
+        return int(datetime.utcnow().timestamp() * 1000)
+    if type == 'datetime':
+        return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 def hb_info(msg):
