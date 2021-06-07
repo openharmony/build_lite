@@ -45,7 +45,7 @@
           "bounds_checking_function"
         ],
         "components": [
-          "lite_graphic_utils"
+          "graphic_utils"
         ]
       }
     },
@@ -72,7 +72,7 @@
         ],
         "components": [
           "hilog_lite",
-          "ipc",
+          "ipc_lite",
           "peripheral_display",
           "peripheral_input"
         ],
@@ -102,8 +102,8 @@
         ],
         "components": [
           "hilog_lite",
-          "ipc",
-          "system_ability_manager",
+          "ipc_lite",
+          "samgr_lite",
           "surface",
           "peripheral_display",
           "peripheral_input"

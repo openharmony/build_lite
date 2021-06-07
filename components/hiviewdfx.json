@@ -38,7 +38,7 @@
         ],
         "components": [
           "hiview_lite",
-          "system_ability_manager"
+          "samgr_lite"
         ]
       }
     },
@@ -117,7 +117,7 @@
         "components": [
           "utils_base",
           "hiview_lite",
-          "system_ability_manager"
+          "samgr_lite"
         ],
         "third_party": []
       }

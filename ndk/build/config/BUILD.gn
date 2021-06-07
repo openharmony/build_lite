@@ -108,7 +108,7 @@ config("clang") {
   ldflags += [
     "-L../clang/arm-liteos/c++",
     "-L../lite/sysroot/usr/lib/arm-liteos",
-    "-L../clang/9.0.0/lib/arm-liteos",
+    "-L../clang/current/lib/arm-liteos",
     "-L../clang/arm-liteos/c++",
     "-lclang_rt.builtins",
     "-lc",

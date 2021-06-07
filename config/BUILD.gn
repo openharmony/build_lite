@@ -122,7 +122,7 @@ if(ohos_current_toolchain == "ohos_clang") {
   if (ohos_kernel_type == "liteos_a") {
     target_kernel = "arm-liteos"
   } else if (ohos_kernel_type == "linux") {
-    target_kernel = "arm-linux-musl"
+    target_kernel = "arm-linux-ohosmusl"
   }
   copy("ohos_clang_runtime") {
     sources = [
@@ -146,13 +146,16 @@ config("ohos_clang") {
   cflags_cc = cflags
   ldflags = cflags
   if (ohos_kernel_type == "linux") {
-    defines = [ "_LIBCPP_HAS_MUSL_LIBC" ]
+    defines = [
+        "_LIBCPP_HAS_MUSL_LIBC",
+        "__BUILD_LINUX_WITH_CLANG",
+    ]
   }
 
   ldflags += [
     "-L${clang_dir}/lib/${target_kernel}/c++",
     "-L${ohos_root_path}prebuilts/lite/sysroot/usr/lib/${target_kernel}",
-    "-L${clang_dir}/lib/clang/9.0.0/lib/${target_kernel}",
+    "-L${clang_dir}/lib/clang/current/lib/${target_kernel}",
     "-lclang_rt.builtins",
     "-lc",
     "-lc++",

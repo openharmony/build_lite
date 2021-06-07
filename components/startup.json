@@ -126,10 +126,10 @@
           "board_special": {},
           "components": [
             "hilog_lite",
-            "system_ability_manager",
-            "ipc",
+            "samgr_lite",
+            "ipc_lite",
             "kv_store",
-            "ability",
+            "aafwk_lite",
             "ace_engine_lite",
             "surface",
             "ui"

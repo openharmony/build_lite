@@ -54,7 +54,7 @@ template("lite_library") {
       if (shared_lib) {
         cflags += [ "-fPIC" ]
         cflags_cc += [ "-fPIC" ]
-      } else {
+      } else if (!shared_lib && ohos_kernel_type != "liteos_m") {
         cflags += [ "-fPIE" ]
         cflags_cc += [ "-fPIE" ]
       }
