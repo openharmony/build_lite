@@ -49,6 +49,8 @@ def add_options(parser):
                         action='store_true')
     parser.add_argument('-shs', '--sign_haps_by_server',
                         help='sign haps by server', action='store_true')
+    parser.add_argument('--patch', help='apply product patch before compiling',
+                        action='store_true')
 
 
 def exec_command(args):
@@ -96,4 +98,4 @@ def exec_command(args):
                             'true',
                             quota=False)
 
-    return build.build(args.full, cmd_args=cmd_args)
+    return build.build(args.full, patch=args.patch, cmd_args=cmd_args)

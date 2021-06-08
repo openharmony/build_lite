@@ -38,6 +38,7 @@ class Config(metaclass=Singleton):
         self._product = config_content.get('product', None)
         self._product_path = config_content.get('product_path', None)
         self._device_path = config_content.get('device_path', None)
+        self._patch_cache = config_content.get('patch_cache', None)
         self._out_path = None
         self.fs_attr = set()
 
@@ -216,6 +217,15 @@ class Config(metaclass=Singleton):
                 return env_clang_path
 
         raise OHOSException('clang not found, install it please')
+
+    @property
+    def patch_cache(self):
+        return self._patch_cache
+
+    @patch_cache.setter
+    def patch_cache(self, value):
+        self._patch_cache = value
+        self.config_update('patch_cache', self._patch_cache)
 
     def config_create(self, config_path):
         dump_json_file(config_path, CONFIG_STRUCT)

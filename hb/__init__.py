@@ -39,6 +39,7 @@ CONFIG_STRUCT = {
     "kernel": None,
     "product": None,
     "product_path": None,
-    "device_path": None
+    "device_path": None,
+    "patch_cache": None
 }
-VERSION = '0.3.10'
+VERSION = '0.4.0'
