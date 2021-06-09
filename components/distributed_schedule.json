@@ -33,7 +33,6 @@
         "components": [
           "utils_base",
           "ipc_lite",
-          "permission",
           "hilog_lite"
         ]
       }
