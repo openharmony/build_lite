@@ -32,7 +32,8 @@
         "base/global/i18n_lite"
       ],
       "targets": [
-        "//base/global/i18n_lite/frameworks/i18n:global_i18n"
+        "//base/global/i18n_lite/frameworks/i18n:global_i18n",
+        "//base/global/i18n_lite/frameworks/i18n/test:I18nTest"
       ],
       "rom": "2.5MB",
       "ram": "~112KB",
