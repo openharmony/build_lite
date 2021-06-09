@@ -5,12 +5,13 @@
         "discription": "it supports storage of local lightweight key-value pairs",
         "optional": "true",
         "dirs": [
-          "foundation/distributeddatamgr/appdatamgr/appdatamgr_lite"
+          "foundation/distributeddatamgr/appdatamgr/interfaces/innerkits/dbm_kv_store",
+          "foundation/distributeddatamgr/appdatamgr/frameworks/innerkitsimpl/dbm_kv_store"
         ],
         "targets": [
-          "//foundation/distributeddatamgr/appdatamgr/appdatamgr_lite:dbm_kv_store"
+          "//foundation/distributeddatamgr/appdatamgr/frameworks/innerkitsimpl/dbm_kv_store:dbm_kv_store"
         ],
-        "rom": "13KB",
+	"rom": "13KB",
         "ram": "80k",
         "output": [
           "libdbm_kv_store.so",
