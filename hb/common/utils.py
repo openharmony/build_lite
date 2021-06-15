@@ -126,7 +126,7 @@ def exec_command(cmd, log_path='out/build.log', **kwargs):
             cmd = ' '.join(cmd)
         raise OHOSException(f'command: "{cmd}" failed\n'
                             f'return code: {ret_code}\n'
-                            f'execution path: {os.getcwd()}')
+                            f'execution path: {kwargs.get("cwd", os.getcwd())}')
 
 
 def get_failed_log(log_path):

@@ -242,8 +242,8 @@ class Component():
     def _init_comp(self, component_json):
         self.dirs = component_json.get('dirs', [])
         self.targets = component_json.get('targets', [])
-        self.adapted_board = component_json.get('adapted_board', None)
-        self.adapted_kernel = component_json.get('adapted_kernel', None)
+        self.adapted_board = component_json.get('adapted_board', [])
+        self.adapted_kernel = component_json.get('adapted_kernel', [])
         self.features = component_json.get('features', None)
 
         deps = component_json.get('deps', {})
@@ -258,7 +258,7 @@ class Component():
         return False
 
     def is_board_in_comp(self, board):
-        if self.adapted_board is None:
+        if not len(self.adapted_board):
             return True
         if board in self.adapted_board:
             return True
@@ -266,7 +266,7 @@ class Component():
         return False
 
     def is_kernel_in_comp(self, kernel):
-        if self.adapted_kernel is None:
+        if not len(self.adapted_kernel):
             return True
         if kernel in self.adapted_kernel:
             return True

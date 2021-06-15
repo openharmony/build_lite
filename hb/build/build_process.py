@@ -31,6 +31,7 @@ from hb.cts.cts import CTS
 from hb.common.device import Device
 from hb.common.product import Product
 from hb.build.fs_process import Packer
+from hb.build.patch_process import Patch
 
 
 class Build():
@@ -61,9 +62,9 @@ class Build():
         for subsystem_cls in cts:
             for cname, component_cls in subsystem_cls:
                 if cname == component:
-                    if component_cls.adapted_board is None or\
+                    if not len(component_cls.adapted_board) or\
                        self.config.board in component_cls.adapted_board:
-                        if component_cls.adapted_kernel is None or\
+                        if not len(component_cls.adapted_kernel) or\
                            self.config.kernel in component_cls.adapted_kernel:
                             self._target = component_cls.targets
                             self.register_args('ohos_build_target',
@@ -113,8 +114,8 @@ class Build():
         if args_name == 'ohos_build_target' and len(args_value):
             self.config.fs_attr = None
 
-    def build(self, full_compile, ninja=True, cmd_args=None):
-        cmd_list = self.get_cmd(full_compile, ninja)
+    def build(self, full_compile, patch=False, ninja=True, cmd_args=None):
+        cmd_list = self.get_cmd(full_compile, patch, ninja)
 
         if cmd_args is None:
             cmd_args = defaultdict(list)
@@ -124,7 +125,7 @@ class Build():
         hb_info(f'{os.path.basename(self.config.out_path)} build success')
         return 0
 
-    def get_cmd(self, full_compile, ninja):
+    def get_cmd(self, full_compile, patch, ninja):
         if not ninja:
             self.register_args('ohos_full_compile', 'true', quota=False)
             return [self.gn_build]
@@ -144,6 +145,10 @@ class Build():
         else:
             self.register_args('ohos_full_compile', 'false', quota=False)
             cmd_list = [self.ninja_build]
+
+        if patch:
+            patch = Patch()
+            cmd_list = [patch.patch_make] + cmd_list
 
         if self.config.fs_attr is not None:
             packer = Packer()
