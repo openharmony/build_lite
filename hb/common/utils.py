@@ -94,7 +94,7 @@ def exec_command(cmd, log_path='out/build.log', **kwargs):
     with open(log_path, 'at', encoding='utf-8') as log_file:
         process = subprocess.Popen(cmd,
                                    stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE,
+                                   stderr=subprocess.STDOUT,
                                    encoding='utf-8',
                                    **kwargs)
         for line in iter(process.stdout.readline, ''):
@@ -110,14 +110,6 @@ def exec_command(cmd, log_path='out/build.log', **kwargs):
     ret_code = process.returncode
 
     if ret_code != 0:
-        with open(log_path, 'at', encoding='utf-8') as log_file:
-            for line in iter(process.stderr.readline, ''):
-                if 'ninja: warning' in line:
-                    log_file.write(line)
-                    continue
-                hb_error(line)
-                log_file.write(line)
-
         if is_log_filter:
             get_failed_log(log_path)
 
