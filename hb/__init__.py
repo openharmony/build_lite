@@ -42,4 +42,4 @@ CONFIG_STRUCT = {
     "device_path": None,
     "patch_cache": None
 }
-VERSION = '0.4.0'
+VERSION = '0.4.1'
