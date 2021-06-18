@@ -7,20 +7,17 @@
         "base/powermgr/powermgr_lite"
       ],
       "targets": [
-        "//base/powermgr/powermgr_lite/services:power_manage_service"
+        "//base/powermgr/powermgr_lite:powermgr_lite"
       ],
       "rom": "22KB",
       "ram": "~10KB",
-      "output": [
-        "libpms.so"
-      ],
+      "output": [],
       "adapted_kernel": [
         "liteos_a",
+        "liteos_m",
         "linux"
       ],
-      "features": [
-        "enable_ohos_appexecfwk_feature_ability = true"
-      ],
+      "features": [],
       "deps": {
         "components": [
           "utils_base",
