@@ -24,7 +24,7 @@ import subprocess
 def check_output(cmd, **kwargs):
     process = subprocess.Popen(cmd,
                                stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE,
+                               stderr=subprocess.STDOUT,
                                universal_newlines=True,
                                **kwargs)
     for line in iter(process.stdout.readline, ''):
@@ -33,11 +33,6 @@ def check_output(cmd, **kwargs):
 
     process.wait()
     ret_code = process.returncode
-
-    if ret_code != 0:
-        for line in iter(process.stderr.readline, ''):
-            sys.stdout.write(line)
-            sys.stdout.flush()
 
     return ret_code
 
