@@ -29,7 +29,7 @@ windows_system = "windows-x86_64"
 linux_system = "linux-x86_64"
 
 ndk_toolchain = "gcc"
-if (ohos_current_toolchain_type == "clang") {
+if (ohos_build_compiler == "clang") {
   ndk_toolchain = "llvm"
 }
 ndk_windows_specific_out_dir = "${ndk_out_dir}/$ndk_toolchain"

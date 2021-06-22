@@ -12,13 +12,7 @@
 # limitations under the License.
 
 config("cpu_arch") {
-  cflags = []
-  if (board_arch != "") {
-    cflags += [ "-march=$board_arch" ]
-  }
-  if (board_cpu != "") {
-    cflags += [ "-mcpu=$board_cpu" ]
-  }
+  cflags = target_arch_cflags
   cflags_cc = cflags
   ldflags = cflags
 }
@@ -112,56 +106,13 @@ config("pie_executable_config") {
   ldflags = [ "-pie" ]
 }
 
-clang_dir = ""
-target_kernel = ""
-if(ohos_current_toolchain == "ohos_clang") {
-  if (ohos_build_compiler_dir != "") {
-    clang_dir = rebase_path("${ohos_build_compiler_dir}")
-  }
-
-  if (ohos_kernel_type == "liteos_a") {
-    target_kernel = "arm-liteos"
-  } else if (ohos_kernel_type == "linux") {
-    target_kernel = "arm-linux-ohosmusl"
-  }
-  copy("ohos_clang_runtime") {
-    sources = [
-      "${clang_dir}/lib/${target_kernel}/c++/libc++.so",
-      "${ohos_root_path}prebuilts/lite/sysroot/usr/lib/${target_kernel}/libc.so",
-    ]
-    outputs = [ "$root_out_dir/libs/{{source_file_part}}" ]
-  }
-}
-
 config("ohos_clang") {
-  include_dirs = [
-    "${clang_dir}/include/c++/v1",
-    "//prebuilts/lite/sysroot/usr/include/${target_kernel}",
-  ]
-
-  cflags = [
-    "--target=${target_kernel}",
-    "--sysroot=${ohos_root_path}prebuilts/lite/sysroot",
-  ]
-  cflags_cc = cflags
-  ldflags = cflags
   if (ohos_kernel_type == "linux") {
     defines = [
-        "_LIBCPP_HAS_MUSL_LIBC",
-        "__BUILD_LINUX_WITH_CLANG",
+      "_LIBCPP_HAS_MUSL_LIBC",
+      "__BUILD_LINUX_WITH_CLANG",
     ]
   }
-
-  ldflags += [
-    "-L${clang_dir}/lib/${target_kernel}/c++",
-    "-L${ohos_root_path}prebuilts/lite/sysroot/usr/lib/${target_kernel}",
-    "-L${clang_dir}/lib/clang/current/lib/${target_kernel}",
-    "-lclang_rt.builtins",
-    "-lc",
-    "-lc++",
-    "-lc++abi",
-    "--sysroot=${ohos_root_path}prebuilts/lite/sysroot",
-  ]
 }
 
 config("release") {
@@ -200,11 +151,6 @@ config("board_config") {
   include_dirs = []
   defines = []
   cflags += board_cflags
-  if (board_configed_sysroot != "") {
-    cflags += [ "--sysroot=${board_configed_sysroot}" ]
-    cflags_cc += [ "--sysroot=${board_configed_sysroot}" ]
-    ldflags += [ "--sysroot=${board_configed_sysroot}" ]
-  }
   cflags_cc += board_cxx_flags
   ldflags += board_ld_flags
   include_dirs += board_include_dirs
