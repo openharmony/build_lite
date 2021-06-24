@@ -12,6 +12,9 @@
 # limitations under the License.
 import("//build/lite/ndk/ndk.gni")
 
+# gn version >= 1717 required.
+assert(gn_version >= 1717, "GN version 1717 required, please upgrade!")
+
 # write version info.
 version_info = [ "VERSION=\"$ohos_version\"",
                  "BUILD_TIME=\"$ohos_build_datetime\""]
