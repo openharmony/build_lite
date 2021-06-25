@@ -9,7 +9,7 @@
       ],
       "targets": [
         "//base/global/resmgr_lite/frameworks/resmgr_lite:global_resmgr",
-        "//base/global/resmgr_lite/frameworks/test:unittest"
+        "//base/global/resmgr_lite/frameworks/resmgr_lite/test:unittest"
       ],
       "rom": "21KB",
       "ram": "~48KB",
