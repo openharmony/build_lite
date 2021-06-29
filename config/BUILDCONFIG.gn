@@ -154,53 +154,152 @@ set_defaults("source_set") {
   configs = default_target_configs
 }
 
+Variables_Flags = [
+  "cflags",
+  "cflags_c",
+  "cflags_cc",
+  "cflags_objc",
+  "cflags_objcc",
+  "asmflags",
+  "defines",
+  "include_dirs",
+  "inputs",
+  "ldflags",
+  "lib_dirs",
+  "libs",
+  "precompiled_header",
+  "precompiled_source",
+  "rustflags",
+  "rustenv",
+]
+
+Variables_Deps = [
+  "data_deps",
+  "deps",
+  "public_deps",
+]
+
+Variables_Dependent_Configs = [
+  "all_dependent_configs",
+  "public_configs",
+]
+
+Variables_General = [
+  "check_includes",
+  #"configs", # configs are set by set_defaults
+  "data",
+  "friend",
+  "inputs",
+  "metadata",
+  "output_dir",
+  "output_name",
+  "output_extension",
+  "public",
+  "sources",
+  "testonly",
+  "visibility",
+]
+
+Variables_Rust_Variables = [
+  "aliased_deps",
+  "crate_root",
+  "crate_name",
+]
+
+Variables_Action = [
+  "args",
+  "data",
+  "data_deps",
+  "depfile",
+  "deps",
+  "inputs",
+  "metadata",
+  "outputs",
+  "pool",
+  "response_file_contents",
+  "script",
+  "sources",
+]
+
+Variables_Action_Foreach = Variables_Action
+Variables_Source_Set = Variables_Flags + Variables_Deps + Variables_Dependent_Configs + Variables_General
+Variables_Executable = Variables_Source_Set + Variables_Rust_Variables
+Variables_Shared_Library = Variables_Executable
+Variables_Static_Library = Variables_Executable
+Variables_Static_Library += [ "complete_static_lib" ]
+
 template("executable") {
   executable(target_name) {
-    forward_variables_from(invoker, "*")
+    forward_variables_from(invoker, Variables_Executable)
     if (!defined(invoker.deps)) {
       deps = [ "//build/lite:prebuilts" ]
     } else {
       deps += [ "//build/lite:prebuilts" ]
+    }
+    configs = []
+    if (defined(invoker.configs)) {
+      configs += invoker.configs
     }
   }
 }
 
 template("static_library") {
   static_library(target_name) {
-    forward_variables_from(invoker, "*")
+    forward_variables_from(invoker, Variables_Static_Library)
     if (!defined(invoker.deps)) {
       deps = [ "//build/lite:prebuilts" ]
     } else {
       deps += [ "//build/lite:prebuilts" ]
+    }
+    configs = []
+    if (defined(invoker.configs)) {
+      configs += invoker.configs
     }
   }
 }
 
 template("shared_library") {
   shared_library(target_name) {
-    forward_variables_from(invoker, "*")
+    forward_variables_from(invoker, Variables_Shared_Library)
     if (!defined(invoker.deps)) {
       deps = [ "//build/lite:prebuilts" ]
     } else {
       deps += [ "//build/lite:prebuilts" ]
+    }
+    configs = []
+    if (defined(invoker.configs)) {
+      configs += invoker.configs
     }
   }
 }
 
 template("source_set") {
   source_set(target_name) {
-    forward_variables_from(invoker, "*")
+    forward_variables_from(invoker, Variables_Source_Set)
     if (!defined(invoker.deps)) {
       deps = [ "//build/lite:prebuilts" ]
     } else {
       deps += [ "//build/lite:prebuilts" ]
+    }
+    configs = []
+    if (defined(invoker.configs)) {
+      configs += invoker.configs
     }
   }
 }
 
 template("action") {
   action(target_name) {
-    forward_variables_from(invoker, "*")
+    forward_variables_from(invoker, Variables_Action)
+    if (!defined(invoker.deps) || invoker.deps == []) {
+      deps = [ "//build/lite:prebuilts" ]
+    }
+  }
+}
+
+template("action_foreach") {
+  action_foreach(target_name) {
+    forward_variables_from(invoker, Variables_Action_Foreach)
     if (!defined(invoker.deps) || invoker.deps == []) {
       deps = [ "//build/lite:prebuilts" ]
     }
