@@ -39,23 +39,15 @@ declare_args() {
   ohos_kernel_type = ""
   use_board_toolchain = true
 
-  # Current toolchain name
-  ohos_current_toolchain = ""
-
-  # Current toolchain type, clang or gcc.
-  ohos_current_toolchain_type = ""
-
-  # Current toolchain prefix. E.g. "/data/user1/riscv32/bin/riscv32-unknown-elf-".
-  ohos_current_toolchain_prefix = ""
-
   # Current toolchain cc command. E.g. "/data/user1/riscv32/bin/riscv32-unknown-elf-gcc".
   ohos_current_cc_command = ""
   ohos_current_cxx_command = ""
   ohos_current_ar_command = ""
-  ohos_current_as_command = ""
   ohos_current_ld_command = ""
   ohos_current_strip_command = ""
-  ohos_current_sysroot = []
+
+  # Current sysroot path. E.g. "//prebuilts/lite/sysroot".
+  ohos_current_sysroot = "//prebuilts/lite/sysroot"
 }
 
 if (product_path != "") {
@@ -72,6 +64,7 @@ if (product_path != "") {
   ohos_product_adapter_dir = product_config.product_adapter_dir
   ohos_third_party_dir = product_config.third_party_dir
 }
+
 ohos_build_user = "jenkins"
 ohos_build_host = host_os
 ohos_build_roothash = ""

@@ -11,12 +11,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-declare_args() {
-  ohos_test_args = ""
+template("unittest") {
+  group(target_name) {
+    not_needed(invoker, "*")
+  }
 }
 
-if(ohos_test_args == "notest") {
-  import("test/notest.gni")
-} else {
-  import("test/test.gni")
+template("moduletest") {
+  group(target_name) {
+    not_needed(invoker, "*")
+  }
+}
+
+template("subsystem_test") {
+  group(target_name) {
+    not_needed(invoker, "*")
+  }
+}
+
+template("fuzztest") {
+  group(target_name) {
+    not_needed(invoker, "*")
+  }
 }

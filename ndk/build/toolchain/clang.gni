@@ -98,7 +98,7 @@ template("clang_toolchain") {
             outfile = "bin/{{target_output_name}}{{output_extension}}"
             rspfile = "$outfile.rsp"
             custom_ld_flags = " "
-            command = "$cc {{ldflags}} {{inputs}} $custom_ld_flags -o $outfile"
+            command = "$ld {{ldflags}} {{inputs}} $custom_ld_flags -o $outfile"
             if (need_strip) {
                 command += " && $strip $outfile"
             }

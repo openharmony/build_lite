@@ -96,7 +96,7 @@ template("clang_toolchain") {
         unstripped_outfile = "{{output_dir}}/unstripped/bin/{{target_output_name}}{{output_extension}}"
       }
       command +=
-          "$cc {{ldflags}} {{inputs}} {{libs}} $custom_ld_flags -o $unstripped_outfile"
+          "$ld {{ldflags}} {{inputs}} {{libs}} $custom_ld_flags -o $unstripped_outfile"
       if (need_strip) {
         command += " && $strip \"$unstripped_outfile\" \"$outfile\""
       }

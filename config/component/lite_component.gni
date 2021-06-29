@@ -73,8 +73,6 @@ template("lite_library") {
 template("lite_component") {
   assert(defined(invoker.features), "Component features is required.")
 
-  forward_variables_from(invoker, "*")
-
   if (!defined(invoker.target_type)) {
     target_type = "group"
   } else if (invoker.target_type == "static_library") {
@@ -86,6 +84,8 @@ template("lite_component") {
 
   target(target_type, target_name) {
     deps = []
+
+    forward_variables_from(invoker, "*")
 
     # add component deps
     if (defined(invoker.deps)) {
