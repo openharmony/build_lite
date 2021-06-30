@@ -39,6 +39,9 @@ declare_args() {
   ohos_kernel_type = ""
   use_board_toolchain = true
 
+  # hb set it to true if ccache installed.
+  ohos_build_enable_ccache = false
+
   # Current toolchain cc command. E.g. "/data/user1/riscv32/bin/riscv32-unknown-elf-gcc".
   ohos_current_cc_command = ""
   ohos_current_cxx_command = ""

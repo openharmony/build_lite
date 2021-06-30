@@ -50,13 +50,20 @@ if (host_os == "win") {
   toolchain_cmd_suffix = ".exe"
 }
 
+# enable ccache if ccache installed.
+if (ohos_build_enable_ccache) {
+  compile_prefix = "ccache "
+} else {
+  compile_prefix = ""
+}
+
 # Set current toolchain with to board configuration.
 if (board_toolchain != "" && use_board_toolchain) {
   ohos_build_compiler = board_toolchain_type
   if (board_toolchain_path != "") {
-    compile_prefix = "${board_toolchain_path}/${board_toolchain_prefix}"
+    compile_prefix += "${board_toolchain_path}/${board_toolchain_prefix}"
   } else {
-    compile_prefix = "${board_toolchain_prefix}"
+    compile_prefix += "${board_toolchain_prefix}"
   }
   set_default_toolchain("//build/lite/toolchain:${board_toolchain}")
   if (board_toolchain_type == "gcc") {
@@ -82,7 +89,7 @@ if (board_toolchain != "" && use_board_toolchain) {
   # OHOS default toolchain
   ohos_build_compiler = "clang"
   ohos_clang_toolchain_dir = rebase_path("${ohos_build_compiler_dir}/bin")
-  compile_prefix = rebase_path("${ohos_build_compiler_dir}/bin")
+  compile_prefix += rebase_path("${ohos_build_compiler_dir}/bin")
   ohos_current_cc_command = "${compile_prefix}/clang$toolchain_cmd_suffix"
   ohos_current_cxx_command = "${compile_prefix}/clang++$toolchain_cmd_suffix"
   ohos_current_ar_command = "${compile_prefix}/llvm-ar$toolchain_cmd_suffix"

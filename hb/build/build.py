@@ -21,6 +21,7 @@ from collections import defaultdict
 from hb.build.build_process import Build
 from hb.set.set import set_product
 from hb.common.utils import get_current_time
+from distutils.spawn import find_executable
 
 
 def add_options(parser):
@@ -97,5 +98,10 @@ def exec_command(args):
         build.register_args('ohos_sign_haps_by_server',
                             'true',
                             quota=False)
+
+    # enable ccache if it installed.
+    ccache_path = find_executable('ccache')
+    if ccache_path is not None:
+        build.register_args('ohos_build_enable_ccache', 'true',  quota=False)
 
     return build.build(args.full, patch=args.patch, cmd_args=cmd_args)
