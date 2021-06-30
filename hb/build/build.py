@@ -99,9 +99,4 @@ def exec_command(args):
                             'true',
                             quota=False)
 
-    # enable ccache if it installed.
-    ccache_path = find_executable('ccache')
-    if ccache_path is not None:
-        build.register_args('ohos_build_enable_ccache', 'true',  quota=False)
-
     return build.build(args.full, patch=args.patch, cmd_args=cmd_args)

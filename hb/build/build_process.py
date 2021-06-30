@@ -117,6 +117,11 @@ class Build():
     def build(self, full_compile, patch=False, ninja=True, cmd_args=None):
         cmd_list = self.get_cmd(full_compile, patch, ninja)
 
+        # enable ccache if it installed.
+        ccache_path = find_executable('ccache')
+        if ccache_path is not None:
+            build.register_args('ohos_build_enable_ccache', 'true',  quota=False)
+
         if cmd_args is None:
             cmd_args = defaultdict(list)
         for exec_cmd in cmd_list:
