@@ -32,8 +32,8 @@ from hb.common.utils import OHOSException
 
 
 def main():
-    parser = argparse.ArgumentParser(usage="hb",
-                                     description='OHOS build system')
+    parser = argparse.ArgumentParser(description='OHOS Build System '
+                                                 f'version {VERSION}')
     parser.add_argument('-v', '--version',
                         action='version',
                         version=f'[OHOS INFO] hb version {VERSION}')
@@ -85,8 +85,11 @@ def main():
         hb_error(exception.args[0])
         status = -1
     except Exception as exception:
-        hb_error(traceback.format_exc())
-        hb_error(f'Unhandled error: {exception}')
+        if not hasattr(args, 'command'):
+            parser.print_help()
+        else:
+            hb_error(traceback.format_exc())
+            hb_error(f'Unhandled error: {exception}')
         status = -1
 
     return status
