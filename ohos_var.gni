@@ -47,7 +47,7 @@ declare_args() {
   ohos_current_strip_command = ""
 
   # Current sysroot path. E.g. "//prebuilts/lite/sysroot".
-  ohos_current_sysroot = "//prebuilts/lite/sysroot"
+  ohos_current_sysroot = "$root_out_dir/sysroot"
 }
 
 if (product_path != "") {
