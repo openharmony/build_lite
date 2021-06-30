@@ -21,7 +21,6 @@ from collections import defaultdict
 from hb.build.build_process import Build
 from hb.set.set import set_product
 from hb.common.utils import get_current_time
-from distutils.spawn import find_executable
 
 
 def add_options(parser):

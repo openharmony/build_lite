@@ -32,7 +32,7 @@ from hb.common.device import Device
 from hb.common.product import Product
 from hb.build.fs_process import Packer
 from hb.build.patch_process import Patch
-
+from distutils.spawn import find_executable
 
 class Build():
     def __init__(self, component=None):
