@@ -120,7 +120,7 @@ class Build():
         # enable ccache if it installed.
         ccache_path = find_executable('ccache')
         if ccache_path is not None:
-            build.register_args('ohos_build_enable_ccache', 'true',  quota=False)
+            self.register_args('ohos_build_enable_ccache', 'true',  quota=False)
 
         if cmd_args is None:
             cmd_args = defaultdict(list)
