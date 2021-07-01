@@ -103,6 +103,7 @@ class Build():
             raise OHOSException('Error: wrong input of test')
 
     def register_args(self, args_name, args_value, quota=True):
+        quota = False if args_value in ['true', 'false'] else quota
         if quota:
             if isinstance(args_value, list):
                 self._args_list += ['{}="{}"'.format(args_name,

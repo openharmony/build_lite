@@ -21,6 +21,7 @@ from collections import defaultdict
 from hb.build.build_process import Build
 from hb.set.set import set_product
 from hb.common.utils import get_current_time
+from hb.common.utils import OHOSException
 
 
 def add_options(parser):
@@ -51,6 +52,9 @@ def add_options(parser):
                         help='sign haps by server', action='store_true')
     parser.add_argument('--patch', help='apply product patch before compiling',
                         action='store_true')
+    parser.add_argument('--gn-args', nargs=1, default='',
+                        help='specifies gn build arguments, '
+                             'eg: --gn-args="foo="bar" enable=true blah=7"')
 
 
 def exec_command(args):
@@ -97,5 +101,13 @@ def exec_command(args):
         build.register_args('ohos_sign_haps_by_server',
                             'true',
                             quota=False)
+
+    if len(args.gn_args):
+        for gn_arg in args.gn_args[0].split(' '):
+            try:
+                variable, value = gn_arg.split('=')
+                build.register_args(variable, value)
+            except ValueError:
+                raise OHOSException(f'Invalid gn args: {gn_arg}')
 
     return build.build(args.full, patch=args.patch, cmd_args=cmd_args)
