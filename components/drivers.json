@@ -195,6 +195,36 @@
       }
     },
     {
+      "component": "peripheral_misc",
+      "description": "",
+      "optional": "true",
+      "dirs": ["drivers/peripheral/misc"],
+      "targets": [
+        "//drivers/peripheral/misc/vibrator/hal:hdi_vibrator",
+        "//drivers/peripheral/misc/vibrator/test/:hdf_test_vibrator"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [
+        "libhdi_vibrator.so"
+      ],
+      "adapted_board": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": [
+          "hilog",
+          "adapter_uhdf"
+        ]
+      }
+    },
+    {
       "component": "peripheral_wlan",
       "description": "",
       "optional": "true",
