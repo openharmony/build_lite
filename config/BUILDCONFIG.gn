@@ -232,8 +232,7 @@ Variables_Action_Foreach = Variables_Action
 Variables_Source_Set = Variables_Flags + Variables_Deps + Variables_Dependent_Configs + Variables_General
 Variables_Executable = Variables_Source_Set + Variables_Rust_Variables
 Variables_Shared_Library = Variables_Executable
-Variables_Static_Library = Variables_Executable
-Variables_Static_Library += [ "complete_static_lib" ]
+Variables_Static_Library = Variables_Executable + [ "complete_static_lib" ]
 
 template("executable") {
   executable(target_name) {
@@ -243,8 +242,8 @@ template("executable") {
     } else {
       deps += [ "//build/lite:prebuilts" ]
     }
-    configs = []
     if (defined(invoker.configs)) {
+      configs = []
       configs += invoker.configs
     }
   }
@@ -258,8 +257,8 @@ template("static_library") {
     } else {
       deps += [ "//build/lite:prebuilts" ]
     }
-    configs = []
     if (defined(invoker.configs)) {
+      configs = []
       configs += invoker.configs
     }
   }
@@ -273,8 +272,8 @@ template("shared_library") {
     } else {
       deps += [ "//build/lite:prebuilts" ]
     }
-    configs = []
     if (defined(invoker.configs)) {
+      configs = []
       configs += invoker.configs
     }
   }
@@ -288,8 +287,8 @@ template("source_set") {
     } else {
       deps += [ "//build/lite:prebuilts" ]
     }
-    configs = []
     if (defined(invoker.configs)) {
+      configs = []
       configs += invoker.configs
     }
   }
