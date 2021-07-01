@@ -32,7 +32,7 @@ from hb.common.device import Device
 from hb.common.product import Product
 from hb.build.fs_process import Packer
 from hb.build.patch_process import Patch
-
+from distutils.spawn import find_executable
 
 class Build():
     def __init__(self, component=None):
@@ -116,6 +116,11 @@ class Build():
 
     def build(self, full_compile, patch=False, ninja=True, cmd_args=None):
         cmd_list = self.get_cmd(full_compile, patch, ninja)
+
+        # enable ccache if it installed.
+        ccache_path = find_executable('ccache')
+        if ccache_path is not None:
+            build.register_args('ohos_build_enable_ccache', 'true',  quota=False)
 
         if cmd_args is None:
             cmd_args = defaultdict(list)
