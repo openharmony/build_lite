@@ -58,7 +58,6 @@ build/lite                      # Primary directory
 │   ├── kernel                  # Build configuration parameters of the kernel
 │   └── subsystem               # Subsystem template
 ├── ndk                          # NDK-related build scripts and configuration parameters
-├── product                     # Full configuration tables of the product, which contain configuration units, the subsystem list, and the compiler
 └── toolchain                   # Build toolchain, which contain the compiler directories, build options, and linking options
 ```
 
