@@ -20,6 +20,8 @@ import os
 
 from hb.common.config import Config
 from hb.common.utils import get_input
+from hb.common.utils import OHOSException
+from hb.common.utils import hb_info
 from hb.common.product import Product
 from hb.common.device import Device
 
@@ -47,7 +49,11 @@ def exec_command(args):
 def set_root_path(root_path=None):
     config = Config()
     if root_path is None:
-        root_path = get_input('[OHOS INFO] Input code path: ')
+        try:
+            hb_info(f'hb root path: {config.root_path}')
+            return 0
+        except OHOSException:
+            root_path = get_input('[OHOS INFO] Input code path: ')
     config.root_path = root_path
     return 0
 
