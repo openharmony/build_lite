@@ -183,11 +183,12 @@ def args_factory(args_dict):
     return args
 
 
-def get_current_time(type='timestamp'):
+def get_current_time(type='default'):
     if type == 'timestamp':
         return int(datetime.utcnow().timestamp() * 1000)
     if type == 'datetime':
         return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    return datetime.now().replace(microsecond=0)
 
 
 def hb_info(msg):

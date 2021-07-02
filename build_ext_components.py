@@ -22,9 +22,11 @@ import argparse
 import shlex
 from tempfile import NamedTemporaryFile
 from shutil import copyfile
+from datetime import datetime
 
 
 def cmd_exec(command, temp_file, error_log_path):
+    start_time = datetime.now().replace(microsecond=0)
     cmd = shlex.split(command)
 
     proc = subprocess.Popen(cmd,
@@ -40,6 +42,8 @@ def cmd_exec(command, temp_file, error_log_path):
         os.remove(temp_file.name)
         return ret_code
 
+    end_time = datetime.now().replace(microsecond=0)
+    temp_file.write(f'cmd:{command}\ncost time:{end_time-start_time}\n')
     return ret_code
 
 
