@@ -97,6 +97,33 @@
       }
     },
     {
+      "component": "blackbox",
+      "description": "Blackbox services for liteos-m kernel.",
+      "optional": "false",
+      "dirs": [
+        "base/hiviewdfx/hiview_lite/blackbox"
+      ],
+      "targets": [
+        "//base/hiviewdfx/hiview_lite/blackbox:blackbox"
+      ],
+      "rom": "10KB",
+      "ram": "~5KB",
+      "output": [
+	"libblackbox.a"
+      ],
+      "adapted_kernel": [
+        "liteos_m"
+      ],
+      "features": [],
+      "deps": {
+        "components": [
+          "utils_base",
+          "liteos_m"
+        ],
+        "third_party": []
+      }
+    },
+    {
       "component": "hievent_lite",
       "description": "event log for liteos-m kernel.",
       "optional": "false",
