@@ -26,6 +26,7 @@ from hb.common.utils import remove_path
 from hb.common.utils import hb_info
 from hb.common.utils import hb_warning
 from hb.common.utils import OHOSException
+from hb.common.utils import get_current_time
 from hb.common.config import Config
 from hb.cts.cts import CTS
 from hb.common.device import Device
@@ -33,6 +34,7 @@ from hb.common.product import Product
 from hb.build.fs_process import Packer
 from hb.build.patch_process import Patch
 from distutils.spawn import find_executable
+
 
 class Build():
     def __init__(self, component=None):
@@ -45,6 +47,7 @@ class Build():
         self._test = None
 
         self.target = component
+        self.start_time = get_current_time()
         self.check_in_device()
 
     @property
@@ -102,6 +105,10 @@ class Build():
         else:
             raise OHOSException('Error: wrong input of test')
 
+    @property
+    def build_time(self):
+        return get_current_time() - self.start_time
+
     def register_args(self, args_name, args_value, quota=True):
         quota = False if args_value in ['true', 'false'] else quota
         if quota:
@@ -129,6 +136,7 @@ class Build():
             exec_cmd(cmd_args)
 
         hb_info(f'{os.path.basename(self.config.out_path)} build success')
+        hb_info(f'cost time: {self.build_time}')
         return 0
 
     def get_cmd(self, full_compile, patch, ninja):
