@@ -109,7 +109,34 @@
       "rom": "10KB",
       "ram": "~5KB",
       "output": [
-	"libblackbox.a"
+        "libblackbox.a"
+      ],
+      "adapted_kernel": [
+        "liteos_m"
+      ],
+      "features": [],
+      "deps": {
+        "components": [
+          "utils_base",
+          "liteos_m"
+        ],
+        "third_party": []
+      }
+    },
+    {
+      "component": "hidumper_mini",
+      "description": "system information dump for liteos-m kernel.",
+      "optional": "false",
+      "dirs": [
+        "base/hiviewdfx/hiview_lite/hidumper_lite/mini"
+      ],
+      "targets": [
+        "//base/hiviewdfx/hiview_lite/hidumper_lite/mini:hidumper_mini"
+      ],
+      "rom": "~10KB",
+      "ram": "~5KB",
+      "output": [
+        "libhidumper_mini.a"
       ],
       "adapted_kernel": [
         "liteos_m"
