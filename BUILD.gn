@@ -89,14 +89,16 @@ group("ohos") {
         }
       }
     }
-    # Skip device and product target for userspace only scenario.
+    # Skip device target for userspace only scenario.
     if (!ohos_build_userspace_only) {
       # Step 7: Add device and product target by default.
       deps += [
-        "${device_path}/../",
-        "${product_path}",
+        "${device_path}/../"
       ]
     }
+    deps += [
+      "${product_path}"
+    ]
   } else {
     deps += string_split(ohos_build_target, "&&")
   }
