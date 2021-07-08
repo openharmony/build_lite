@@ -17,5 +17,5 @@ import("//build/lite/config/subsystem/aafwk/path.gni")
 
 declare_args() {
   # build feature ability, dependent window
-  enable_ohos_appexecfwk_feature_ability = true
+  enable_ohos_appexecfwk_feature_ability = false
 }
