@@ -90,3 +90,7 @@ declare_args() {
   enable_tee_ree = false
   enable_ohos_security_dmverity = false
 }
+
+declare_args() {
+  ohos_build_userspace_only = false
+}
