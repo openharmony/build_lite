@@ -81,7 +81,6 @@ group("ohos") {
             # Skip kernel target for userspace only scenario.
             if (!ohos_build_userspace_only ||
                 (ohos_build_userspace_only && subsystem_name != "kernel" && subsystem_name != "vendor")) {
-                  print("$subsystem_name ")
               foreach(component_target, component.targets) {
                 deps += [ component_target ]
               }
@@ -98,7 +97,6 @@ group("ohos") {
         "${product_path}",
       ]
     }
-    print("$deps")
   } else {
     deps += string_split(ohos_build_target, "&&")
   }
