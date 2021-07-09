@@ -5,10 +5,10 @@
       "description": "",
       "optional": "false",
       "dirs": [
-        "device/hisilicon/build/hi3516dv300"
+        "device/hisilicon/build/hi3516dv300/liteos"
       ],
       "targets": [
-        "//device/hisilicon/build/hi3516dv300:hi3516dv300_image"
+        "//device/hisilicon/build/hi3516dv300/liteos:hi3516dv300_image"
       ],
       "rom": "",
       "ram": "",
