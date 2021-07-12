@@ -16,8 +16,10 @@ import("//build/lite/ndk/ndk.gni")
 assert(gn_version >= 1714, "GN version 1714 required, please upgrade!")
 
 # write version info.
-version_info = [ "VERSION=\"$ohos_version\"",
-                 "BUILD_TIME=\"$ohos_build_datetime\""]
+version_info = [
+  "VERSION=\"$ohos_version\"",
+  "BUILD_TIME=\"$ohos_build_datetime\"",
+]
 write_file("$root_build_dir/etc/version-info", version_info)
 
 group("prebuilts") {
@@ -65,7 +67,7 @@ group("ohos") {
           if (component.component == product_configed_component.component) {
             # Step 6.1.1: Loop OS components adapted kernel type.
             foreach(component_adapted_kernel, component.adapted_kernel) {
-              if (component_adapted_kernel == product_cfg.kernel_type && 
+              if (component_adapted_kernel == product_cfg.kernel_type &&
                   kernel_valid == false) {
                 kernel_valid = true
               }
@@ -76,17 +78,25 @@ group("ohos") {
                 "Invalid component configed, ${subsystem_name}:${product_configed_component.component} " + "not available for kernel: ${product_cfg.kernel_type}!")
 
             # Step 6.1.2: Add valid component for compiling.
-            foreach(component_target, component.targets) {
-              deps += [ component_target ]
+            # Skip kernel target for userspace only scenario.
+            if (!ohos_build_userspace_only ||
+                (ohos_build_userspace_only && subsystem_name != "kernel" && subsystem_name != "vendor")) {
+              foreach(component_target, component.targets) {
+                deps += [ component_target ]
+              }
             }
           }
         }
       }
     }
-
-    # Step 7: Add device and product target by default.
+    # Skip device target for userspace only scenario.
+    if (!ohos_build_userspace_only) {
+      # Step 7: Add device and product target by default.
+      deps += [
+        "${device_path}/../"
+      ]
+    }
     deps += [
-      "${device_path}/../",
       "${product_path}"
     ]
   } else {
