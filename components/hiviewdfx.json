@@ -69,6 +69,34 @@
       }
     },
     {
+      "component": "hidumper",
+      "description": "System information dump service for liteos-a kernel.",
+      "optional": "false",
+      "dirs": [
+        "base/hiviewdfx/hiview_lite/hidumper_lite"
+      ],
+      "targets": [
+        "//base/hiviewdfx/hiview_lite/hidumper_lite:hidumper"
+      ],
+      "rom": "26KB",
+      "ram": "~10KB",
+      "output": [
+        "libhidumper.a"
+      ],
+      "adapted_kernel": [
+        "liteos_a"
+      ],
+      "features": [],
+      "deps": {
+        "components": [
+        ],
+        "third_party": [
+          "cjson",
+          "bounds_checking_function"
+        ]
+      }
+    },
+    {
       "component": "hilog_lite",
       "description": "Log services for liteos-m kernel.",
       "optional": "false",
