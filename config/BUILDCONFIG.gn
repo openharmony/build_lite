@@ -21,7 +21,7 @@ if (target_cpu == "") {
   target_cpu = board_cpu
 }
 
-target_arch_cflags = board_cflags + board_ld_flags
+target_arch_cflags = board_cflags
 if (board_arch != "") {
   target_arch_cflags += [ "-march=$board_arch" ]
 }
