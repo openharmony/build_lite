@@ -15,7 +15,6 @@
       "targets": [
         "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_static",
         "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
-        "//base/hiviewdfx/hilog_lite/services/hilogcat:hilogcat",
         "//base/hiviewdfx/hilog_lite/services/apphilogcat:apphilogcat"
       ],
       "rom": "10KB",
@@ -23,7 +22,6 @@
       "output": [
         "libhilog_shared.so",
         "libhilog_static.a",
-        "hilogcat",
         "libhilogcat.a",
         "apphilogcat"
       ],
