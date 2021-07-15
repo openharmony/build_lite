@@ -19,7 +19,6 @@ test_common_include_dirs = [ "//third_party/googletest/googletest/include" ]
 
 test_include_dirs = [
   "//utils/native/lite/include",
-  "//kernel/liteos_a/kernel/include",
   "//third_party/bounds_checking_function/include",
 ]
 
