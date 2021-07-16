@@ -80,7 +80,8 @@ group("ohos") {
             # Step 6.1.2: Add valid component for compiling.
             # Skip kernel target for userspace only scenario.
             if (!ohos_build_userspace_only ||
-                (ohos_build_userspace_only && subsystem_name != "kernel" && subsystem_name != "vendor")) {
+                (ohos_build_userspace_only && subsystem_name != "kernel" &&
+                 subsystem_name != "vendor")) {
               foreach(component_target, component.targets) {
                 deps += [ component_target ]
               }
@@ -89,18 +90,23 @@ group("ohos") {
         }
       }
     }
+
     # Skip device target for userspace only scenario.
     if (!ohos_build_userspace_only) {
       # Step 7: Add device and product target by default.
-      deps += [
-        "${device_path}/../"
-      ]
+      deps += [ "${device_path}/../" ]
     }
-    deps += [
-      "${product_path}"
-    ]
   } else {
     deps += string_split(ohos_build_target, "&&")
+  }
+}
+
+group("product") {
+  deps = []
+
+  # build product, skip build single component scenario.
+  if (ohos_build_target == "") {
+    deps += [ "${product_path}" ]
   }
 }
 
