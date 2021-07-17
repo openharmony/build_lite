@@ -67,6 +67,43 @@
       }
     },
     {
+      "component": "dsoftbus",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/dsoftbus"
+      ],
+      "targets": [
+        "//foundation/communication/dsoftbus:dsoftbus"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [
+
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux",
+        "liteos_m"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "mbedtls",
+          "bounds_checking_function",
+          "cjson",
+          "wpa_supplicant"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "hichainsdk",
+          "syspara_lite",
+          "permission"
+        ]
+      }
+    },
+    {
       "component": "wpa_supplicant",
       "description": "WPA supplicant open sources software.",
       "optional": "true",
