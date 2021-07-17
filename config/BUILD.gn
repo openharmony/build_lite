@@ -15,6 +15,7 @@ config("cpu_arch") {
   cflags = target_arch_cflags
   cflags_cc = cflags
   ldflags = cflags
+  asmflags = cflags
 }
 
 config("language_c") {
@@ -113,6 +114,10 @@ config("ohos_clang") {
       "__BUILD_LINUX_WITH_CLANG",
     ]
   }
+  ldflags = [
+    "-fuse-ld=lld",
+    "--rtlib=compiler-rt",
+  ]
 }
 
 config("release") {
