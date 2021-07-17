@@ -76,7 +76,7 @@
       "targets": [
         "//foundation/communication/dsoftbus:dsoftbus"
       ],
-      "rom": "",
+      "rom": "1.92M",
       "ram": "",
       "output": [
         "libsoftbus_client_frame.z.so",
