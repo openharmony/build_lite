@@ -68,7 +68,7 @@
     },
     {
       "component": "dsoftbus",
-      "description": "",
+      "description": "dsoftbus open sources software",
       "optional": "true",
       "dirs": [
         "foundation/communication/dsoftbus"
@@ -79,7 +79,8 @@
       "rom": "",
       "ram": "",
       "output": [
-
+        "libsoftbus_client_frame.z.so",
+        "libsoftbus_server.z.so"
       ],
       "adapted_kernel": [
         "liteos_a",
