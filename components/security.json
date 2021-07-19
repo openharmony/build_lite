@@ -206,11 +206,11 @@
       }
     },
     {
-      "component": "hichain_3_0",
+      "component": "deviceauth_lite",
       "description": "hichain3.0",
       "optional": "true",
       "dirs": [ "//base/security/deviceauth" ],
-      "targets": [ "//base/security/deviceauth:hichain_3_0" ],
+      "targets": [ "//base/security/deviceauth:deviceauth_lite" ],
       "rom": "600K",
       "ram": "~80K",
       "output": [
