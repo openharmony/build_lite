@@ -16,7 +16,7 @@ declare_args() {
   # OHOS version
   name = "OpenHarmony"
   major = "2"
-  minor = "2"
+  minor = "3"
   revision = "beta"
   ohos_version = "$name $major.$minor $revision"
   ohos_build_time = ""
