@@ -76,9 +76,10 @@ if (board_toolchain != "" && use_board_toolchain) {
   } else if (board_toolchain_type == "clang") {
     ohos_current_cc_command = "${compile_prefix}clang$toolchain_cmd_suffix"
     ohos_current_cxx_command = "${compile_prefix}clang++$toolchain_cmd_suffix"
-    ohos_current_ar_command = "${compile_prefix}llvm-ar$toolchain_cmd_suffix"
+    compile_prefix += "llvm-"
+    ohos_current_ar_command = "${compile_prefix}ar$toolchain_cmd_suffix"
     ohos_current_ld_command = ohos_current_cc_command
-    ohos_current_strip_command = "$compile_prefix/llvm-objcopy$toolchain_cmd_suffix --strip-all"
+    ohos_current_strip_command = "${compile_prefix}objcopy$toolchain_cmd_suffix --strip-all"
     default_target_configs = [ "//build/lite/config:clang_opt" ]
   }
   # Overwrite ld cmd by customed cmd.
@@ -89,13 +90,13 @@ if (board_toolchain != "" && use_board_toolchain) {
   # OHOS default toolchain
   ohos_build_compiler = "clang"
   ohos_clang_toolchain_dir = rebase_path("${ohos_build_compiler_dir}/bin")
-  compile_prefix += rebase_path("${ohos_build_compiler_dir}/bin")
-  ohos_current_cc_command = "${compile_prefix}/clang$toolchain_cmd_suffix"
-  ohos_current_cxx_command = "${compile_prefix}/clang++$toolchain_cmd_suffix"
-  ohos_current_ar_command = "${compile_prefix}/llvm-ar$toolchain_cmd_suffix"
+  compile_prefix += "$ohos_clang_toolchain_dir/"
+  ohos_current_cc_command = "${compile_prefix}clang$toolchain_cmd_suffix"
+  ohos_current_cxx_command = "${compile_prefix}clang++$toolchain_cmd_suffix"
+  compile_prefix += "llvm-"
+  ohos_current_ar_command = "${compile_prefix}ar$toolchain_cmd_suffix"
   ohos_current_ld_command = ohos_current_cxx_command
-  ohos_current_strip_command =
-      "$ohos_clang_toolchain_dir/llvm-objcopy$toolchain_cmd_suffix --strip-all"
+  ohos_current_strip_command = "${compile_prefix}objcopy$toolchain_cmd_suffix --strip-all"
   set_default_toolchain("//build/lite/toolchain:linux_x86_64_ohos_clang")
   default_target_configs = [ "//build/lite/config:ohos_clang" ]
   default_target_configs += [ "//build/lite/config:clang_opt" ]
