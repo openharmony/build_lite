@@ -1,62 +1,6 @@
 {
   "components": [
     {
-      "component": "hi3516dv300_init",
-      "description": "",
-      "optional": "false",
-      "dirs": [
-        "device/hisilicon/build/hi3516dv300/liteos"
-      ],
-      "targets": [
-        "//device/hisilicon/build/hi3516dv300/liteos:hi3516dv300_image"
-      ],
-      "rom": "",
-      "ram": "",
-      "output": [ "OHOS_image.bin" ],
-      "adapted_board": [
-        "hi3516dv300",
-        "hi3516dv300_openharmony"
-      ],
-      "adapted_kernel": [ "liteos_a" ],
-      "features": [],
-      "deps": {
-        "third_party": [],
-        "kernel_special": {},
-        "board_special": {},
-        "components": [
-          "liteos_a"
-        ]
-      }
-    },
-    {
-      "component": "hi3518ev300_init",
-      "description": "",
-      "optional": "false",
-      "dirs": [
-        "device/hisilicon/build/hi3518ev300"
-      ],
-      "targets": [
-        "//device/hisilicon/build/hi3518ev300:hi3518ev300_make_kernel"
-      ],
-      "rom": "",
-      "ram": "",
-      "output": [ "OHOS_image.bin" ],
-      "adapted_board": [
-        "hi3518ev300",
-        "hi3518ev300_openharmony"
-      ],
-      "adapted_kernel": [ "liteos_a" ],
-      "features": [],
-      "deps": {
-        "third_party": [],
-        "kernel_special": {},
-        "board_special": {},
-        "components": [
-          "liteos_a"
-        ]
-      }
-    },
-    {
       "component": "hardware",
       "description": "",
       "optional": "false",
