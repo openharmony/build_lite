@@ -25,6 +25,9 @@ import json
 from collections import namedtuple
 import yaml
 from datetime import datetime
+import requests
+import tarfile
+import zipfile
 
 
 def encode(data, encoding='utf-8'):
@@ -230,3 +233,47 @@ class Singleton(type):
 
 class OHOSException(Exception):
     pass
+
+
+def download_tool(url, dst):
+    try:
+        res = requests.get(url, stream=True, timeout=(5, 9))
+    except OSError:
+        raise OHOSException(f'download {url} timeout!')
+
+    if res.status_code == 200:
+        hb_info(f'Downloading {url} ...')
+    else:
+        hb_error(f'Downloading {url} failed with code: {res.status_code}!')
+        return res.status_code
+
+    total_size = int(res.headers['content-length'])
+    download_size = 0
+    download_percent = 0
+
+    try:
+        with open(dst, "wb") as f:
+            for chunk in res.iter_content(chunk_size=1024):
+                if chunk:
+                    f.write(chunk)
+                    download_size += len(chunk)
+                    download_percent = round(float(download_size / total_size * 100), 2)
+                    print('Progress: %s%%\r' % download_percent, end=' ')
+            hb_info(f'Download complete!')
+    except OSError:
+        raise OHOSException(f'{url} download failed, please install it manually!')
+
+
+def extract_tool(src, tgt_dir):
+    hb_info(f'Extracting to {tgt_dir}, please wait...')
+    try:
+        if src.endswith(('.tar.gz', '.gz', '.tar')):
+            ef = tarfile.open(src)
+        elif src.endswith('.zip'):
+            ef = zipfile.ZipFile(src)
+        else:
+            raise OHOSException(f'Extract file type not support!')
+        ef.extractall(tgt_dir)
+        ef.close()
+    except OSError:
+        raise OHOSException(f'{src} extract failed, please install it manually!')

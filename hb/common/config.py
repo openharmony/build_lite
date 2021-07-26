@@ -21,10 +21,13 @@ from distutils.spawn import find_executable
 
 from hb import CONFIG_JSON
 from hb import CONFIG_STRUCT
+from hb import BUILD_TOOLS_URL
 from hb.common.utils import read_json_file
 from hb.common.utils import dump_json_file
 from hb.common.utils import Singleton
 from hb.common.utils import OHOSException
+from hb.common.utils import download_tool
+from hb.common.utils import extract_tool
 
 
 class Config(metaclass=Singleton):
@@ -176,26 +179,42 @@ class Config(metaclass=Singleton):
     @property
     def gn_path(self):
         repo_gn_path = os.path.join(self.build_tools_path, 'gn')
+        # gn exist.
         if os.path.isfile(repo_gn_path):
             return repo_gn_path
 
-        env_gn_path = find_executable('gn')
-        if env_gn_path is not None:
-            return env_gn_path
-
-        raise OHOSException('gn not found, install it please')
+        # gn not install, download and extract it.
+        if not os.path.exists(self.build_tools_path):
+            os.makedirs(self.build_tools_path)
+        host = platform.system()
+        if host == 'Linux':
+            gn_url = BUILD_TOOLS_URL["gn"]["linux-x86"]
+            gn_dst = os.path.join(self.build_tools_path, 'gn.tar.gz')
+        elif host == 'Windows':
+            gn_url = BUILD_TOOLS_URL["gn"]["windows-amd64"]
+            gn_dst = os.path.join(self.build_tools_path, 'gn.zip')
+        download_tool(gn_url, gn_dst)
+        extract_tool(gn_dst, self.build_tools_path)
+        return repo_gn_path
 
     @property
     def ninja_path(self):
         repo_ninja_path = os.path.join(self.build_tools_path, 'ninja')
+        # ninja exist.
         if os.path.isfile(repo_ninja_path):
             return repo_ninja_path
 
-        env_ninja_path = find_executable('ninja')
-        if env_ninja_path is not None:
-            return env_ninja_path
-
-        raise OHOSException('ninja not found, install it please')
+        # ninja not install, download and extract.
+        host = platform.system()
+        if host == 'Linux':
+            ninja_url = BUILD_TOOLS_URL["ninja"]["linux-x86"]
+            ninja_dst = os.path.join(self.build_tools_path, 'ninja.tar.gz')
+        elif host == 'Windows':
+            ninja_url = BUILD_TOOLS_URL["ninja"]["windows"]
+            ninja_dst = os.path.join(self.build_tools_path, 'ninja.zip')
+        download_tool(ninja_url, ninja_dst)
+        extract_tool(ninja_dst, self.build_tools_path)
+        return repo_ninja_path
 
     @property
     def clang_path(self):
@@ -204,19 +223,33 @@ class Config(metaclass=Singleton):
                                        'ohos',
                                        'linux-x86_64',
                                        'llvm')
+        # clang exist
         if os.path.isdir(repo_clang_path):
             return f'//{repo_clang_path}'
+        # clang installed manually or auto download
+        else:
+            # already installed manually
+            env_clang_bin_path = find_executable('clang')
+            if env_clang_bin_path is not None:
+                env_clang_path = os.path.abspath(os.path.join(env_clang_bin_path,
+                                                              os.pardir,
+                                                              os.pardir))
 
-        env_clang_bin_path = find_executable('clang')
-        if env_clang_bin_path is not None:
-            env_clang_path = os.path.abspath(os.path.join(env_clang_bin_path,
-                                                          os.pardir,
-                                                          os.pardir))
+                if os.path.basename(env_clang_path) == 'llvm':
+                    return env_clang_path
 
-            if os.path.basename(env_clang_path) == 'llvm':
-                return env_clang_path
-
-        raise OHOSException('clang not found, install it please')
+            # need auto download and extract clang.
+            clang_path = os.path.join('prebuilts',
+                                      'clang',
+                                      'ohos',
+                                      'linux-x86_64')
+            if not os.path.exists(clang_path):
+                os.makedirs(clang_path)
+            clang_url = BUILD_TOOLS_URL["clang"]["linux"]
+            clang_dst = os.path.join(clang_path, 'llvm.tar.gz')
+            download_tool(clang_url, clang_dst)
+            extract_tool(clang_dst, clang_path)
+            return f'//{repo_clang_path}'
 
     @property
     def patch_cache(self):
