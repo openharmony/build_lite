@@ -42,6 +42,7 @@ setup(
     package_data={'hb': ['common/config.json']},
     install_requires=[
         'prompt_toolkit==1.0.14',
+        'kconfiglib>=14.1.0',
         'PyYAML'
     ],
     entry_points={
