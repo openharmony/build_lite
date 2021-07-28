@@ -21,13 +21,13 @@ from distutils.spawn import find_executable
 
 from hb import CONFIG_JSON
 from hb import CONFIG_STRUCT
-from hb import BUILD_TOOLS_URL
+from hb import BUILD_TOOLS_CFG
 from hb.common.utils import read_json_file
 from hb.common.utils import dump_json_file
 from hb.common.utils import Singleton
 from hb.common.utils import OHOSException
 from hb.common.utils import download_tool
-from hb.common.utils import extract_tool
+from hb.common.utils import makedirs
 
 
 class Config(metaclass=Singleton):
@@ -44,6 +44,7 @@ class Config(metaclass=Singleton):
         self._patch_cache = config_content.get('patch_cache', None)
         self._out_path = None
         self.fs_attr = set()
+        self.platform = platform.system()
 
     @property
     def root_path(self):
@@ -160,21 +161,11 @@ class Config(metaclass=Singleton):
 
     @property
     def build_tools_path(self):
-        platform_name = platform.system()
-        if platform_name == 'Linux':
-            return os.path.join(self.root_path,
-                                'prebuilts',
-                                'build-tools',
-                                'linux-x86',
-                                'bin')
-        if platform_name == 'Windows':
-            return os.path.join(self.root_path,
-                                'prebuilts',
-                                'build-tools',
-                                'win-x86',
-                                'bin')
-
-        raise OHOSException(f'unidentified platform: {platform_name}')
+        try:
+            tools_path = BUILD_TOOLS_CFG[self.platform]['build_tools_path']
+            return os.path.join(self.root_path, tools_path)
+        except KeyError:
+            raise OHOSException(f'unidentified platform: {self.platform}')
 
     @property
     def gn_path(self):
@@ -184,17 +175,12 @@ class Config(metaclass=Singleton):
             return repo_gn_path
 
         # gn not install, download and extract it.
-        if not os.path.exists(self.build_tools_path):
-            os.makedirs(self.build_tools_path)
-        host = platform.system()
-        if host == 'Linux':
-            gn_url = BUILD_TOOLS_URL["gn"]["linux-x86"]
-            gn_dst = os.path.join(self.build_tools_path, 'gn.tar.gz')
-        elif host == 'Windows':
-            gn_url = BUILD_TOOLS_URL["gn"]["windows-amd64"]
-            gn_dst = os.path.join(self.build_tools_path, 'gn.zip')
-        download_tool(gn_url, gn_dst)
-        extract_tool(gn_dst, self.build_tools_path)
+        makedirs(self.build_tools_path, exist_ok=True)
+
+        gn_url = BUILD_TOOLS_CFG[self.platform].get('gn')
+        gn_dst = os.path.join(self.build_tools_path, 'gn_pkg')
+        download_tool(gn_url, gn_dst, tgt_dir=self.build_tools_path)
+
         return repo_gn_path
 
     @property
@@ -205,15 +191,10 @@ class Config(metaclass=Singleton):
             return repo_ninja_path
 
         # ninja not install, download and extract.
-        host = platform.system()
-        if host == 'Linux':
-            ninja_url = BUILD_TOOLS_URL["ninja"]["linux-x86"]
-            ninja_dst = os.path.join(self.build_tools_path, 'ninja.tar.gz')
-        elif host == 'Windows':
-            ninja_url = BUILD_TOOLS_URL["ninja"]["windows"]
-            ninja_dst = os.path.join(self.build_tools_path, 'ninja.zip')
-        download_tool(ninja_url, ninja_dst)
-        extract_tool(ninja_dst, self.build_tools_path)
+        ninja_url = BUILD_TOOLS_CFG[self.platform].get('ninja')
+        ninja_dst = os.path.join(self.build_tools_path, 'ninja_pkg')
+        download_tool(ninja_url, ninja_dst, tgt_dir=self.build_tools_path)
+
         return repo_ninja_path
 
     @property
@@ -239,16 +220,13 @@ class Config(metaclass=Singleton):
                     return env_clang_path
 
             # need auto download and extract clang.
-            clang_path = os.path.join('prebuilts',
-                                      'clang',
-                                      'ohos',
-                                      'linux-x86_64')
-            if not os.path.exists(clang_path):
-                os.makedirs(clang_path)
-            clang_url = BUILD_TOOLS_URL["clang"]["linux"]
-            clang_dst = os.path.join(clang_path, 'llvm.tar.gz')
-            download_tool(clang_url, clang_dst)
-            extract_tool(clang_dst, clang_path)
+            clang_path = os.path.abspath(os.path.join(repo_clang_path,
+                                                      os.pardir))
+            makedirs(clang_path, exist_ok=True)
+
+            clang_url = BUILD_TOOLS_CFG[self.platform].get('clang')
+            clang_dst = os.path.join(clang_path, 'clang_pkg')
+            download_tool(clang_url, clang_dst, tgt_dir=clang_path)
             return f'//{repo_clang_path}'
 
     @property

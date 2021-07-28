@@ -235,7 +235,7 @@ class OHOSException(Exception):
     pass
 
 
-def download_tool(url, dst):
+def download_tool(url, dst, tgt_dir=None):
     try:
         res = requests.get(url, stream=True, timeout=(5, 9))
     except OSError:
@@ -259,17 +259,20 @@ def download_tool(url, dst):
                     download_size += len(chunk)
                     download_percent = round(float(download_size / total_size * 100), 2)
                     print('Progress: %s%%\r' % download_percent, end=' ')
-            hb_info(f'Download complete!')
+            hb_info('Download complete!')
     except OSError:
         raise OHOSException(f'{url} download failed, please install it manually!')
+
+    if tgt_dir is not None:
+        extract_tool(dst, tgt_dir)
 
 
 def extract_tool(src, tgt_dir):
     hb_info(f'Extracting to {tgt_dir}, please wait...')
     try:
-        if src.endswith(('.tar.gz', '.gz', '.tar')):
+        if tarfile.is_tarfile(src):
             ef = tarfile.open(src)
-        elif src.endswith('.zip'):
+        elif zipfile.is_zipfile(src):
             ef = zipfile.ZipFile(src)
         else:
             raise OHOSException(f'Extract file type not support!')

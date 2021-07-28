@@ -45,21 +45,21 @@ CONFIG_STRUCT = {
 
 VERSION = '0.4.3'
 
-BUILD_TOOLS_URL = {
-    "gn": {
-        "linux-x86": 'https://repo.huaweicloud.com/harmonyos/compiler/gn/' +\
-                     '1717/linux/gn-linux-x86-1717.tar.gz',
-        "windows-amd64": 'https://repo.huaweicloud.com/harmonyos/compiler/gn/' +\
-                         '1744/windows/gn-windows-amd64.zip'
-    },
-    "ninja": {
-        "linux-x86": 'https://repo.huaweicloud.com/harmonyos/compiler/ninja/' +\
-                     '1.10.1/linux/ninja-linux-x86-1.10.1.tar.gz',
-        "windows": 'https://repo.huaweicloud.com/harmonyos/compiler/ninja/' +\
-                   '1.9.0/windows/ninja-win.zip'
-    },
-    "clang": {
-        "linux": 'https://repo.huaweicloud.com/harmonyos/compiler/clang/' +\
+BUILD_TOOLS_CFG = {
+    "Linux": {
+        "build_tools_path": 'prebuilts/build-tools/linux-x86/bin',
+        "gn": 'https://repo.huaweicloud.com/harmonyos/compiler/gn/' +\
+              '1717/linux/gn-linux-x86-1717.tar.gz',
+        "ninja": 'https://repo.huaweicloud.com/harmonyos/compiler/ninja/' +\
+                 '1.10.1/linux/ninja-linux-x86-1.10.1.tar.gz',
+        "clang": 'https://repo.huaweicloud.com/harmonyos/compiler/clang/' +\
                  '10.0.1-62608/linux/llvm.tar.gz'
+    },
+    "Windows": {
+        "build_tools_path": 'prebuilts\\build-tools\\win-x86\\bin',
+        "gn": 'https://repo.huaweicloud.com/harmonyos/compiler/gn/' +\
+              '1744/windows/gn-windows-amd64.zip',
+        "ninja": 'https://repo.huaweicloud.com/harmonyos/compiler/ninja/' +\
+                 '1.9.0/windows/ninja-win.zip'
     }
 }
