@@ -11,7 +11,48 @@
       ],
       "rom": "22KB",
       "ram": "~10KB",
-      "output": [],
+      "output": [
+        "libpowermgr.so",
+        "libpowermgrservice.so"
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "liteos_m",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "components": [
+          "utils_base",
+          "samgr_lite",
+          "peripheral_input",
+          "ui",
+          "ipc_lite",
+          "aafwk_lite",
+          "appexecfwk_lite",
+          "hilog",
+          "wms"
+        ],
+        "third_party": [
+          "bounds_checking_function"
+        ]
+      }
+    },
+    {
+      "component": "battery_lite",
+      "optional": "true",
+      "dirs": [
+        "base/powermgr/battery_lite"
+      ],
+      "targets": [
+        "//base/powermgr/battery_lite:batterymgr_lite"
+      ],
+      "rom": "22KB",
+      "ram": "~10KB",
+      "output": [
+        "libbatterymgr.so",
+        "libbatteryservice.so"
+      ],
       "adapted_kernel": [
         "liteos_a",
         "liteos_m",
