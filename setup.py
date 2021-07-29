@@ -43,7 +43,8 @@ setup(
     install_requires=[
         'prompt_toolkit==1.0.14',
         'kconfiglib>=14.1.0',
-        'PyYAML'
+        'PyYAML',
+        'requests'
     ],
     entry_points={
         'console_scripts': [

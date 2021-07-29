@@ -21,10 +21,13 @@ from distutils.spawn import find_executable
 
 from hb import CONFIG_JSON
 from hb import CONFIG_STRUCT
+from hb import BUILD_TOOLS_CFG
 from hb.common.utils import read_json_file
 from hb.common.utils import dump_json_file
 from hb.common.utils import Singleton
 from hb.common.utils import OHOSException
+from hb.common.utils import download_tool
+from hb.common.utils import makedirs
 
 
 class Config(metaclass=Singleton):
@@ -41,6 +44,7 @@ class Config(metaclass=Singleton):
         self._patch_cache = config_content.get('patch_cache', None)
         self._out_path = None
         self.fs_attr = set()
+        self.platform = platform.system()
 
     @property
     def root_path(self):
@@ -157,45 +161,41 @@ class Config(metaclass=Singleton):
 
     @property
     def build_tools_path(self):
-        platform_name = platform.system()
-        if platform_name == 'Linux':
-            return os.path.join(self.root_path,
-                                'prebuilts',
-                                'build-tools',
-                                'linux-x86',
-                                'bin')
-        if platform_name == 'Windows':
-            return os.path.join(self.root_path,
-                                'prebuilts',
-                                'build-tools',
-                                'win-x86',
-                                'bin')
-
-        raise OHOSException(f'unidentified platform: {platform_name}')
+        try:
+            tools_path = BUILD_TOOLS_CFG[self.platform]['build_tools_path']
+            return os.path.join(self.root_path, tools_path)
+        except KeyError:
+            raise OHOSException(f'unidentified platform: {self.platform}')
 
     @property
     def gn_path(self):
         repo_gn_path = os.path.join(self.build_tools_path, 'gn')
+        # gn exist.
         if os.path.isfile(repo_gn_path):
             return repo_gn_path
 
-        env_gn_path = find_executable('gn')
-        if env_gn_path is not None:
-            return env_gn_path
+        # gn not install, download and extract it.
+        makedirs(self.build_tools_path, exist_ok=True)
 
-        raise OHOSException('gn not found, install it please')
+        gn_url = BUILD_TOOLS_CFG[self.platform].get('gn')
+        gn_dst = os.path.join(self.build_tools_path, 'gn_pkg')
+        download_tool(gn_url, gn_dst, tgt_dir=self.build_tools_path)
+
+        return repo_gn_path
 
     @property
     def ninja_path(self):
         repo_ninja_path = os.path.join(self.build_tools_path, 'ninja')
+        # ninja exist.
         if os.path.isfile(repo_ninja_path):
             return repo_ninja_path
 
-        env_ninja_path = find_executable('ninja')
-        if env_ninja_path is not None:
-            return env_ninja_path
+        # ninja not install, download and extract.
+        ninja_url = BUILD_TOOLS_CFG[self.platform].get('ninja')
+        ninja_dst = os.path.join(self.build_tools_path, 'ninja_pkg')
+        download_tool(ninja_url, ninja_dst, tgt_dir=self.build_tools_path)
 
-        raise OHOSException('ninja not found, install it please')
+        return repo_ninja_path
 
     @property
     def clang_path(self):
@@ -204,19 +204,30 @@ class Config(metaclass=Singleton):
                                        'ohos',
                                        'linux-x86_64',
                                        'llvm')
+        # clang exist
         if os.path.isdir(repo_clang_path):
             return f'//{repo_clang_path}'
+        # clang installed manually or auto download
+        else:
+            # already installed manually
+            env_clang_bin_path = find_executable('clang')
+            if env_clang_bin_path is not None:
+                env_clang_path = os.path.abspath(os.path.join(env_clang_bin_path,
+                                                              os.pardir,
+                                                              os.pardir))
 
-        env_clang_bin_path = find_executable('clang')
-        if env_clang_bin_path is not None:
-            env_clang_path = os.path.abspath(os.path.join(env_clang_bin_path,
-                                                          os.pardir,
-                                                          os.pardir))
+                if os.path.basename(env_clang_path) == 'llvm':
+                    return env_clang_path
 
-            if os.path.basename(env_clang_path) == 'llvm':
-                return env_clang_path
+            # need auto download and extract clang.
+            clang_path = os.path.abspath(os.path.join(repo_clang_path,
+                                                      os.pardir))
+            makedirs(clang_path, exist_ok=True)
 
-        raise OHOSException('clang not found, install it please')
+            clang_url = BUILD_TOOLS_CFG[self.platform].get('clang')
+            clang_dst = os.path.join(clang_path, 'clang_pkg')
+            download_tool(clang_url, clang_dst, tgt_dir=clang_path)
+            return f'//{repo_clang_path}'
 
     @property
     def patch_cache(self):
