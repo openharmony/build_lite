@@ -46,7 +46,10 @@
       ],
       "rom": "22KB",
       "ram": "~10KB",
-      "output": [],
+      "output": [
+	    "libbatterymgr.so",
+	    "libbatteryservice.so"
+	  ],
       "adapted_kernel": [
         "liteos_a",
         "liteos_m",
