@@ -12,9 +12,9 @@
       "rom": "22KB",
       "ram": "~10KB",
       "output": [
-	    "libpowermgr.so",
-	    "libpowermgrservice.so"
-	  ],
+      "libpowermgr.so",
+      "libpowermgrservice.so"
+      ],
       "adapted_kernel": [
         "liteos_a",
         "liteos_m",
@@ -50,9 +50,9 @@
       "rom": "22KB",
       "ram": "~10KB",
       "output": [
-	    "libbatterymgr.so",
-	    "libbatteryservice.so"
-	  ],
+      "libbatterymgr.so",
+      "libbatteryservice.so"
+      ],
       "adapted_kernel": [
         "liteos_a",
         "liteos_m",
