@@ -11,7 +11,10 @@
       ],
       "rom": "22KB",
       "ram": "~10KB",
-      "output": [],
+      "output": [
+	    "libpowermgr.so",
+	    "libpowermgrservice.so"
+	  ],
       "adapted_kernel": [
         "liteos_a",
         "liteos_m",
