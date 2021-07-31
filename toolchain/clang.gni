@@ -73,7 +73,7 @@ template("clang_toolchain") {
 
       command += "$ld -shared {{ldflags}} {{inputs}} {{libs}} -o $unstripped_outfile"
       if (need_strip) {
-        command += " && $strip \"$unstripped_outfile\" \"$outfile\""
+        command += " && $strip \"$unstripped_outfile\" -o \"$outfile\""
       }
 
       default_output_extension = ".so"
@@ -98,7 +98,7 @@ template("clang_toolchain") {
       command +=
           "$ld {{ldflags}} {{inputs}} {{libs}} $custom_ld_flags -o $unstripped_outfile"
       if (need_strip) {
-        command += " && $strip \"$unstripped_outfile\" \"$outfile\""
+        command += " && $strip \"$unstripped_outfile\" -o \"$outfile\""
       }
 
       description = "LLVM LINK $outfile"

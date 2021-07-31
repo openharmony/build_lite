@@ -79,7 +79,7 @@ if (board_toolchain != "" && use_board_toolchain) {
     compile_prefix += "llvm-"
     ohos_current_ar_command = "${compile_prefix}ar$toolchain_cmd_suffix"
     ohos_current_ld_command = ohos_current_cc_command
-    ohos_current_strip_command = "${compile_prefix}objcopy$toolchain_cmd_suffix --strip-all"
+    ohos_current_strip_command = "${compile_prefix}strip$toolchain_cmd_suffix --strip-unneeded"
     default_target_configs = [ "//build/lite/config:clang_opt" ]
   }
   # Overwrite ld cmd by customed cmd.
@@ -96,7 +96,7 @@ if (board_toolchain != "" && use_board_toolchain) {
   compile_prefix += "llvm-"
   ohos_current_ar_command = "${compile_prefix}ar$toolchain_cmd_suffix"
   ohos_current_ld_command = ohos_current_cxx_command
-  ohos_current_strip_command = "${compile_prefix}objcopy$toolchain_cmd_suffix --strip-all"
+  ohos_current_strip_command = "${compile_prefix}strip$toolchain_cmd_suffix --strip-unneeded"
   set_default_toolchain("//build/lite/toolchain:linux_x86_64_ohos_clang")
   default_target_configs = [ "//build/lite/config:ohos_clang" ]
   default_target_configs += [ "//build/lite/config:clang_opt" ]
