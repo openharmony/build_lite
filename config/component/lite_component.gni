@@ -131,6 +131,9 @@ template("build_ext_component") {
     args += [ "--out_dir=${out_dir}" ]
     script = "//build/lite/build_ext_components.py"
     outputs = [ "$target_out_dir/${target_name}_build_ext_components.txt" ]
+    if (defined(invoker.outputs)) {
+      outputs += invoker.outputs
+    }
   }
 }
 
