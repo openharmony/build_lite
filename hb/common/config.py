@@ -191,6 +191,8 @@ class Config(metaclass=Singleton):
             return repo_ninja_path
 
         # ninja not install, download and extract.
+        makedirs(self.build_tools_path, exist_ok=True)
+
         ninja_url = BUILD_TOOLS_CFG[self.platform].get('ninja')
         ninja_dst = os.path.join(self.build_tools_path, 'ninja_pkg')
         download_tool(ninja_url, ninja_dst, tgt_dir=self.build_tools_path)
