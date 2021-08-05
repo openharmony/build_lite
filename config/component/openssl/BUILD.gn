@@ -20,11 +20,12 @@ config("openssl_config") {
     "//third_party/openssl/include",
     "//third_party/openssl/crypto/include",
     "//third_party/openssl/crypto/ec",
-    "//third_party/openssl"
+    "//third_party/openssl",
   ]
 
   cflags = [
     "-fPIC",
+    "-DOPENSSL_ARM_PLATFORM",
   ]
 }
 
@@ -36,17 +37,13 @@ openssl_source = [
 ]
 
 lite_library("openssl_shared") {
-    target_type = "shared_library"
-    sources = openssl_source
-    public_configs = [
-      ":openssl_config"
-    ]
+  target_type = "shared_library"
+  sources = openssl_source
+  public_configs = [ ":openssl_config" ]
 }
 
 lite_library("openssl_static") {
-    target_type = "static_library"
-    sources = openssl_source
-    public_configs = [
-      ":openssl_config"
-    ]
+  target_type = "static_library"
+  sources = openssl_source
+  public_configs = [ ":openssl_config" ]
 }
