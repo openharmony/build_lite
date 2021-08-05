@@ -281,6 +281,36 @@
           "adapter_uhdf"
         ]
       }
+    },
+    {
+      "component": "peripheral_usb",
+      "description": "",
+      "optional": "true",
+      "dirs": ["drivers/peripheral/usb"],
+      "targets": [
+        "//drivers/peripheral/usb/sample/device/liteos:usbfn_sample",
+        "//drivers/peripheral/usb/sample/host:usbhost_ddk_test",
+        "//drivers/peripheral/usb/sample/host/liteos_test:liteos_host_speed_test",
+        "//drivers/peripheral/usb/test:hdf_test_usb_device"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": [
+          "hilog",
+          "adapter_uhdf"
+        ]
+      }
     }
   ]
 }
