@@ -168,7 +168,7 @@
           "graphic_utils",
           "resmgr_lite",
           "ui",
-          "ace_engine_lite"
+          "ace_native_engine_lite"
         ]
       }
     },
