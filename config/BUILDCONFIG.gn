@@ -57,6 +57,12 @@ if (ohos_build_enable_ccache) {
   compile_prefix = ""
 }
 
+# Load board adapter dir from board config.
+if (board_adapter_dir != "") {
+  ohos_board_adapter_dir = board_adapter_dir
+  ohos_vendor_adapter_dir = board_adapter_dir
+}
+
 # Set current toolchain with to board configuration.
 if (board_toolchain != "" && use_board_toolchain) {
   ohos_build_compiler = board_toolchain_type
@@ -71,7 +77,8 @@ if (board_toolchain != "" && use_board_toolchain) {
     ohos_current_cxx_command = "${compile_prefix}g++$toolchain_cmd_suffix"
     ohos_current_ar_command = "${compile_prefix}ar$toolchain_cmd_suffix"
     ohos_current_ld_command = ohos_current_cc_command
-    ohos_current_strip_command = "${compile_prefix}strip$toolchain_cmd_suffix --strip-unneeded"
+    ohos_current_strip_command =
+        "${compile_prefix}strip$toolchain_cmd_suffix --strip-unneeded"
     default_target_configs = [ "//build/lite/config:gcc_opt" ]
   } else if (board_toolchain_type == "clang") {
     ohos_current_cc_command = "${compile_prefix}clang$toolchain_cmd_suffix"
@@ -79,11 +86,13 @@ if (board_toolchain != "" && use_board_toolchain) {
     compile_prefix += "llvm-"
     ohos_current_ar_command = "${compile_prefix}ar$toolchain_cmd_suffix"
     ohos_current_ld_command = ohos_current_cc_command
-    ohos_current_strip_command = "${compile_prefix}strip$toolchain_cmd_suffix --strip-unneeded"
+    ohos_current_strip_command =
+        "${compile_prefix}strip$toolchain_cmd_suffix --strip-unneeded"
     default_target_configs = [ "//build/lite/config:clang_opt" ]
   }
+
   # Overwrite ld cmd by customed cmd.
-  if(defined(board_customed_ld_cmd) && board_customed_ld_cmd != "") {
+  if (defined(board_customed_ld_cmd) && board_customed_ld_cmd != "") {
     ohos_current_ld_command = board_customed_ld_cmd
   }
 } else {
@@ -96,7 +105,8 @@ if (board_toolchain != "" && use_board_toolchain) {
   compile_prefix += "llvm-"
   ohos_current_ar_command = "${compile_prefix}ar$toolchain_cmd_suffix"
   ohos_current_ld_command = ohos_current_cxx_command
-  ohos_current_strip_command = "${compile_prefix}strip$toolchain_cmd_suffix --strip-unneeded"
+  ohos_current_strip_command =
+      "${compile_prefix}strip$toolchain_cmd_suffix --strip-unneeded"
   set_default_toolchain("//build/lite/toolchain:linux_x86_64_ohos_clang")
   default_target_configs = [ "//build/lite/config:ohos_clang" ]
   default_target_configs += [ "//build/lite/config:clang_opt" ]
@@ -116,9 +126,8 @@ if (ohos_build_type == "debug") {
 }
 
 if (ohos_kernel_type == "liteos_a") {
-  default_target_configs += [
-    "//build/lite/config/kernel/liteos/cortex_a:default"
-  ]
+  default_target_configs +=
+      [ "//build/lite/config/kernel/liteos/cortex_a:default" ]
 }
 
 if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "linux") {
@@ -194,6 +203,7 @@ Variables_Dependent_Configs = [
 
 Variables_General = [
   "check_includes",
+
   #"configs", # configs are set by set_defaults
   "data",
   "friend",
@@ -230,7 +240,8 @@ Variables_Action = [
 ]
 
 Variables_Action_Foreach = Variables_Action
-Variables_Source_Set = Variables_Flags + Variables_Deps + Variables_Dependent_Configs + Variables_General
+Variables_Source_Set = Variables_Flags + Variables_Deps +
+                       Variables_Dependent_Configs + Variables_General
 Variables_Executable = Variables_Source_Set + Variables_Rust_Variables
 Variables_Shared_Library = Variables_Executable
 Variables_Static_Library = Variables_Executable + [ "complete_static_lib" ]
