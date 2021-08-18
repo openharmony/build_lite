@@ -17,11 +17,11 @@ declare_args() {
   ohos_sign_haps_by_server = false
   hapsigner = "//prebuilts/signcenter/hapsigntool/hapsigntoolv2.jar"
   packtool = "//developtools/packing_tool/jar/hmos_app_packing_tool.jar"
-  jks_file = "//base/security/appverify/interfaces/innerkits/appverify_lite/OpenHarmonyCer/OpenHarmony.jks"
-  cert_file = "//base/security/appverify/interfaces/innerkits/appverify_lite/OpenHarmonyCer/OpenHarmony.cer"
+  jks_file = "//prebuilts/signcenter/key/OpenHarmony.p12"
+  cert_file = "//prebuilts/signcenter/certificates/OpenHarmonyApplication.pem"
   default_hap_signature_algorithm = "SHA256withECDSA"
   sign_server = "rnd-signserver.huawei.com"
-  privatekey = "OpenHarmony Software Signature"
+  privatekey = "OpenHarmony Application Release"
   keystorepasswd = "123456"
 }
 
@@ -31,7 +31,7 @@ template("hap_pack") {
   assert(defined(invoker.privatekey), "privatekey in required.")
 
   if(ohos_sign_haps_by_server == false) {
-    invoker.privatekey = "OpenHarmony Software Signature"
+    invoker.privatekey = "OpenHarmony Application Release"
   }
 
   unsignhap_path =
