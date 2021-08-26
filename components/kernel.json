@@ -94,10 +94,10 @@
       "description": "linux 4.1.9",
       "optional": "false",
       "dirs": [
-        "kernel/linux/patches"
+        "kernel/linux/build"
       ],
       "targets": [
-        "//kernel/linux/patches:linux_kernel"
+        "//kernel/linux/build:linux_kernel"
       ],
       "rom": "",
       "ram": "",
