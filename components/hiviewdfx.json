@@ -71,10 +71,10 @@
       "description": "System information dump service for liteos-a kernel.",
       "optional": "false",
       "dirs": [
-        "base/hiviewdfx/hiview_lite/hidumper_lite"
+        "base/hiviewdfx/hidumper_lite"
       ],
       "targets": [
-        "//base/hiviewdfx/hiview_lite/hidumper_lite:hidumper"
+        "//base/hiviewdfx/hidumper_lite:hidumper"
       ],
       "rom": "26KB",
       "ram": "~10KB",
@@ -127,10 +127,10 @@
       "description": "Blackbox services for liteos-m kernel.",
       "optional": "false",
       "dirs": [
-        "base/hiviewdfx/hiview_lite/blackbox"
+        "base/hiviewdfx/blackbox"
       ],
       "targets": [
-        "//base/hiviewdfx/hiview_lite/blackbox:blackbox"
+        "//base/hiviewdfx/blackbox:blackbox"
       ],
       "rom": "10KB",
       "ram": "~5KB",
@@ -154,10 +154,10 @@
       "description": "system information dump for liteos-m kernel.",
       "optional": "false",
       "dirs": [
-        "base/hiviewdfx/hiview_lite/hidumper_lite/mini"
+        "base/hiviewdfx/hidumper_lite/mini"
       ],
       "targets": [
-        "//base/hiviewdfx/hiview_lite/hidumper_lite/mini:hidumper_mini"
+        "//base/hiviewdfx/hidumper_lite/mini:hidumper_mini"
       ],
       "rom": "~10KB",
       "ram": "~5KB",
