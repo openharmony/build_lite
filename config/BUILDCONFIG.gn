@@ -172,155 +172,70 @@ set_defaults("source_set") {
   configs = default_target_configs
 }
 
-Variables_Flags = [
-  "cflags",
-  "cflags_c",
-  "cflags_cc",
-  "cflags_objc",
-  "cflags_objcc",
-  "asmflags",
-  "defines",
-  "include_dirs",
-  "inputs",
-  "ldflags",
-  "lib_dirs",
-  "libs",
-  "precompiled_header",
-  "precompiled_source",
-  "rustflags",
-  "rustenv",
-]
-
-Variables_Deps = [
-  "data_deps",
-  "deps",
-  "public_deps",
-]
-
-Variables_Dependent_Configs = [
-  "all_dependent_configs",
-  "public_configs",
-]
-
-Variables_General = [
-  "check_includes",
-
-  #"configs", # configs are set by set_defaults
-  "data",
-  "friend",
-  "inputs",
-  "metadata",
-  "output_dir",
-  "output_name",
-  "output_extension",
-  "public",
-  "sources",
-  "testonly",
-  "visibility",
-]
-
-Variables_Rust_Variables = [
-  "aliased_deps",
-  "crate_root",
-  "crate_name",
-]
-
-Variables_Action = [
-  "args",
-  "data",
-  "data_deps",
-  "depfile",
-  "deps",
-  "inputs",
-  "metadata",
-  "outputs",
-  "pool",
-  "response_file_contents",
-  "script",
-  "sources",
-]
-
-Variables_Action_Foreach = Variables_Action
-Variables_Source_Set = Variables_Flags + Variables_Deps +
-                       Variables_Dependent_Configs + Variables_General
-Variables_Executable = Variables_Source_Set + Variables_Rust_Variables
-Variables_Shared_Library = Variables_Executable
-Variables_Static_Library = Variables_Executable + [ "complete_static_lib" ]
-
 template("executable") {
   executable(target_name) {
-    forward_variables_from(invoker, Variables_Executable)
-    if (!defined(invoker.deps)) {
-      deps = [ "//build/lite:prebuilts" ]
-    } else {
-      deps += [ "//build/lite:prebuilts" ]
-    }
-    if (defined(invoker.configs)) {
-      configs = []
-      configs += invoker.configs
-    }
+    deps = []
+    forward_variables_from(invoker, "*")
+    deps += [ "//build/lite:prebuilts" ]
   }
 }
 
 template("static_library") {
   static_library(target_name) {
-    forward_variables_from(invoker, Variables_Static_Library)
-    if (!defined(invoker.deps)) {
-      deps = [ "//build/lite:prebuilts" ]
-    } else {
-      deps += [ "//build/lite:prebuilts" ]
-    }
-    if (defined(invoker.configs)) {
-      configs = []
-      configs += invoker.configs
-    }
+    deps = []
+    forward_variables_from(invoker, "*")
+    deps += [ "//build/lite:prebuilts" ]
   }
 }
 
 template("shared_library") {
   shared_library(target_name) {
-    forward_variables_from(invoker, Variables_Shared_Library)
-    if (!defined(invoker.deps)) {
-      deps = [ "//build/lite:prebuilts" ]
-    } else {
-      deps += [ "//build/lite:prebuilts" ]
-    }
-    if (defined(invoker.configs)) {
-      configs = []
-      configs += invoker.configs
-    }
+    deps = []
+    forward_variables_from(invoker, "*")
+    deps += [ "//build/lite:prebuilts" ]
   }
 }
 
 template("source_set") {
   source_set(target_name) {
-    forward_variables_from(invoker, Variables_Source_Set)
-    if (!defined(invoker.deps)) {
-      deps = [ "//build/lite:prebuilts" ]
-    } else {
-      deps += [ "//build/lite:prebuilts" ]
-    }
-    if (defined(invoker.configs)) {
-      configs = []
-      configs += invoker.configs
-    }
+    deps = []
+    forward_variables_from(invoker, "*")
+    deps += [ "//build/lite:prebuilts" ]
   }
 }
 
 template("action") {
   action(target_name) {
-    forward_variables_from(invoker, Variables_Action)
-    if (!defined(invoker.deps) || invoker.deps == []) {
-      deps = [ "//build/lite:prebuilts" ]
+    deps = []
+    forward_variables_from(invoker, "*")
+    marked_as_prebuilts = false
+    foreach(d, deps) {
+      what = "label_no_toolchain"
+      if (get_label_info(d, what) == get_label_info("//build/lite:mark_as_prebuilts", what)) {
+        print(get_label_info(":$target_name", what), "is marked as prebuilts")
+        marked_as_prebuilts = true
+      }
+    }
+    if (!marked_as_prebuilts) {
+      deps += [ "//build/lite:prebuilts" ]
     }
   }
 }
 
 template("action_foreach") {
   action_foreach(target_name) {
-    forward_variables_from(invoker, Variables_Action_Foreach)
-    if (!defined(invoker.deps) || invoker.deps == []) {
-      deps = [ "//build/lite:prebuilts" ]
+    deps = []
+    forward_variables_from(invoker, "*")
+    marked_as_prebuilts = false
+    foreach(d, deps) {
+      what = "label_no_toolchain"
+      if (get_label_info(d, what) == get_label_info("//build/lite:mark_as_prebuilts", what)) {
+        print(get_label_info(":$target_name", what), "is marked as prebuilts")
+        marked_as_prebuilts = true
+      }
+    }
+    if (!marked_as_prebuilts) {
+      deps += [ "//build/lite:prebuilts" ]
     }
   }
 }
