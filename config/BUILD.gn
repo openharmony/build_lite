@@ -53,14 +53,12 @@ config("werror") {
 config("common") {
   defines = [ "_XOPEN_SOURCE=700" ]
   cflags = [
-    "-nostdlib",
     "-fno-common",
     "-fno-builtin",
     "-fno-strict-aliasing",
     "-Wall",
   ]
   cflags_cc = cflags
-  ldflags = [ "-lc" ]
   cflags += [ "-fsigned-char" ]
 }
 
@@ -142,11 +140,7 @@ config("gcc_opt") {
 }
 
 config("default_link_path") {
-  out_dir = rebase_path(root_build_dir)
-  ldflags = [
-    "-L${out_dir}",
-    "-Wl,-rpath-link=${out_dir}",
-  ]
+  ldflags = [ "-L." ]
 }
 
 config("board_config") {

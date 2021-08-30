@@ -22,6 +22,10 @@ version_info = [
 ]
 write_file("$root_build_dir/etc/version-info", version_info)
 
+# this group will mark the dependent target as prebuilts
+group("mark_as_prebuilts") {
+}
+
 group("prebuilts") {
   public_deps = [ "//prebuilts/lite/sysroot" ]
 }
