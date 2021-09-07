@@ -45,7 +45,8 @@
         "base/powermgr/battery_lite"
       ],
       "targets": [
-        "//base/powermgr/battery_lite:batterymgr_lite"
+        "//base/powermgr/battery_lite:batterymgr_lite",
+        "//base/powermgr/battery_lite/interfaces/kits/js:battery_utils_kits"
       ],
       "rom": "22KB",
       "ram": "~10KB",
