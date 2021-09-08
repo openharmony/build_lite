@@ -140,7 +140,10 @@ config("gcc_opt") {
 }
 
 config("default_link_path") {
-  ldflags = [ "-L." ]
+  ldflags = [
+    "-L.",
+    "-Wl,-rpath-link=.",
+  ]
 }
 
 config("board_config") {
