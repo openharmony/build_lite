@@ -13,9 +13,9 @@
         "rom": "",
         "ram": "",
         "output": [
-		  "libdevicemanager.so",
+          "libdevicemanager.so",
           "libdevicemanagersdk.so",
-		  "libdevicemanagerutils.so",
+          "libdevicemanagerutils.so",
           "devicemanagerservice"
         ],
         "adapted_kernel": [
@@ -33,7 +33,7 @@
             "utils_base",
             "ipc_lite",
             "hilog",
-			"dsoftbus",
+            "dsoftbus",
             "deviceauth_lite"
           ]
         }
