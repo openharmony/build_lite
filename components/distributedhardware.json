@@ -13,8 +13,10 @@
         "rom": "",
         "ram": "",
         "output": [
+		  "libdevicemanager.so",
           "libdevicemanagersdk.so",
-          "devicemanager_service"
+		  "libdevicemanagerutils.so",
+          "devicemanagerservice"
         ],
         "adapted_kernel": [
           "liteos_a",
