@@ -19,6 +19,7 @@
           "devicemanagerservice"
         ],
         "adapted_kernel": [
+          "liteos_a",
           "linux"
         ],
         "features": [],
