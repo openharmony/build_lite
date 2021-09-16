@@ -10,7 +10,7 @@
         "targets": [
           "//foundation/distributedhardware/devicemanager:devicemanager_lite"
         ],
-        "rom": "",
+        "rom": "543KB",
         "ram": "",
         "output": [
           "libdevicemanager.so",
