@@ -232,6 +232,34 @@
       }
     },
     {
+      "component": "hitrace",
+      "description": "hitrace for liteos-a kernel",
+      "optional": "false",
+      "dirs": [
+        "base/hiviewdfx/hitrace/"
+      ],
+      "targets": [
+        "//base/hiviewdfx/hitrace/lite:hitrace",
+        "//base/hiviewdfx/hitrace/lite/test:unittest"
+      ],
+      "rom": "500KB",
+      "ram": "~500KB",
+      "output": [
+        "libhitrace"
+      ],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": []
+      }
+    },
+    {
       "component": "hiview_tunnel",
       "description": "log upload service for liteos-a kernel",
       "optional": "false",
