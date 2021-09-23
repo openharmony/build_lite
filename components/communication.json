@@ -128,7 +128,7 @@
     },
     {
       "component": "wifi_lite",
-      "description": "Wifi service based on liteos-m.",
+      "description": "Wifi service based on liteos-m and linux.",
       "optional": "true",
       "dirs": [
         "foundation/communication/wifi_lite"
@@ -139,7 +139,7 @@
       "rom": "",
       "ram": "",
       "output": [ ],
-      "adapted_kernel": [ "liteos_m" ],
+      "adapted_kernel": [ "liteos_m", "linux" ],
       "features": [],
       "deps": {
         "third_party": [
@@ -175,6 +175,31 @@
         "components": [
         ],
         "third_party": []
+      }
+    },
+		{
+      "component": "bluetooth",
+      "description": "bt service based on linux.",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/bluetooth"
+      ],
+      "targets": [
+        "//foundation/communication/bluetooth:bluetooth"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ ],
+      "adapted_kernel": [ "liteos_m", "linux" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+        ]
       }
     }
   ]
