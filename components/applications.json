@@ -154,6 +154,28 @@
       }
     },
     {
+      "component": "bearpi_hm_nano_sample_app",
+      "description": "bearpi_hm_nano samples.",
+      "optional": "true",
+      "dirs": [
+        "device/bearpi/bearpi_hm_nano/app"
+      ],
+      "targets": [
+        "//device/bearpi/bearpi_hm_nano/app"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [ "hi3861v100" ],
+      "adapted_kernel": [ "liteos_m" ],
+      "features": [],
+      "deps": {
+          "components": [
+            "utils_base"
+        ]
+      }
+    },
+    {
       "component": "kit_framework",
       "description": "",
       "optional": "true",
