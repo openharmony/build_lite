@@ -215,10 +215,12 @@
       "ram": "~80K",
       "output": [
         "libdeviceauth_sdk.so",
-        "deviceauth_service"
+        "deviceauth_service",
+        "deviceauth.a"
       ],
       "adapted_kernel": [
         "liteos_a",
+        "liteos_m",
         "linux"
       ],
       "features": [ ],
