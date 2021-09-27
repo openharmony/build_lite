@@ -277,6 +277,59 @@
           "utils_base"
         ]
       }
+    },
+    {
+      "component": "bearpi_hi3861_sdk",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "device/bearpi/bearpi_hm_nano/sdk_liteos"
+      ],
+      "targets": [
+        "//device/bearpi/bearpi_hm_nano/sdk_liteos:wifiiot_sdk"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3861v100"
+      ],
+      "adapted_kernel": [ "liteos_m" ],
+      "features": [],
+      "deps": {
+        "components": [
+          "utils_base"
+        ]
+      }
+    },
+    {
+      "component": "bearpi_hi3861_adapter",
+      "description": "",
+      "optional": "false",
+      "dirs": [
+        "device/bearpi/bearpi_hm_nano/hi3861_adapter/hals/utils/file",
+        "utils/native/lite/hals/file",
+        "device/bearpi/bearpi_hm_nano/hi3861_adapter/hals/iot_hardware/wifiiot_lite",
+        "base/update/ota_lite/hals",
+        "device/bearpi/bearpi_hm_nano/hi3861_adapter/hals/update",
+        "device/bearpi/bearpi_hm_nano/hi3861_adapter/hals/communication/wifi_lite/wifiaware",
+        "foundation/communication/wifi_lite/interfaces/wifiservice",
+        "device/bearpi/bearpi_hm_nano/hi3861_adapter/hals/communication/wifi_lite/wifiservice"
+      ],
+      "targets": [],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [
+        "hi3861v100"
+      ],
+      "adapted_kernel": [ "liteos_m" ],
+      "features": [],
+      "deps": {
+        "components": [
+          "hi3861_sdk"
+        ]
+      }
     }
   ]
 }
