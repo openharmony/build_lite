@@ -291,8 +291,7 @@
         "//drivers/peripheral/usb/sample/device/liteos:usbfn_sample",
         "//drivers/peripheral/usb/sample/host:usbhost_ddk_test",
         "//drivers/peripheral/usb/sample/host/liteos_test:liteos_host_speed_test",
-        "//drivers/peripheral/usb/test:hdf_test_usb_device",
-        "//drivers/peripheral/usb/test:hdf_test_usb_host"
+        "//drivers/peripheral/usb/test:hdf_test_usb_device"
       ],
       "rom": "",
       "ram": "",
