@@ -45,7 +45,8 @@
         "launcher.so",
         "setting.so",
         "gallery.so",
-        "camera_sample"
+        "camera_sample",
+        "player_sample"
       ],
       "adapted_kernel": [ "liteos_a","linux" ],
       "features": [],
