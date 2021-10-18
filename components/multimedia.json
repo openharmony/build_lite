@@ -44,7 +44,8 @@
           "camera_lite",
           "permission",
           "ipc_lite",
-          "ui"
+          "ui",
+          "syspara_lite"
         ]
       }
     },
