@@ -77,7 +77,8 @@
         "base/startup/init_lite"
       ],
       "targets": [
-        "//base/startup/init_lite/services:init_lite"
+        "//base/startup/init_lite/services:init_lite",
+        "//base/startup/init_lite/watchdog:watchdog"
       ],
       "rom": "31KB",
       "ram": "~200KB",
