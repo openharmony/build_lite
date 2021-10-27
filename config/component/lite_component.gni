@@ -100,14 +100,16 @@ template("lite_component") {
 }
 
 template("build_ext_component") {
+  forward_variables_from(invoker, [ "testonly" ])
   if (defined(invoker.version)) {
     print(invoker.version)
   }
   action(target_name) {
-    deps = []
-    if (defined(invoker.deps)) {
-      deps += invoker.deps
-    }
+    forward_variables_from(invoker,
+                           [
+                             "no_default_deps",
+                             "deps",
+                           ])
     args = []
     if (defined(invoker.exec_path)) {
       args += [ "--path=${invoker.exec_path}" ]

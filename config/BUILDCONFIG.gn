@@ -172,70 +172,25 @@ set_defaults("source_set") {
   configs = default_target_configs
 }
 
-template("executable") {
-  executable(target_name) {
-    deps = []
-    forward_variables_from(invoker, "*")
-    deps += [ "//build/lite:prebuilts" ]
-  }
-}
+_target_type_list = [
+  "executable",
+  "static_library",
+  "shared_library",
+  "source_set",
+  "action",
+  "action_foreach",
+]
 
-template("static_library") {
-  static_library(target_name) {
-    deps = []
-    forward_variables_from(invoker, "*")
-    deps += [ "//build/lite:prebuilts" ]
-  }
-}
-
-template("shared_library") {
-  shared_library(target_name) {
-    deps = []
-    forward_variables_from(invoker, "*")
-    deps += [ "//build/lite:prebuilts" ]
-  }
-}
-
-template("source_set") {
-  source_set(target_name) {
-    deps = []
-    forward_variables_from(invoker, "*")
-    deps += [ "//build/lite:prebuilts" ]
-  }
-}
-
-template("action") {
-  action(target_name) {
-    deps = []
-    forward_variables_from(invoker, "*")
-    marked_as_prebuilts = false
-    foreach(d, deps) {
-      what = "label_no_toolchain"
-      if (get_label_info(d, what) == get_label_info("//build/lite:mark_as_prebuilts", what)) {
-        print(get_label_info(":$target_name", what), "is marked as prebuilts")
-        marked_as_prebuilts = true
+foreach(_target_type, _target_type_list) {
+  template(_target_type) {
+    target(_target_type, target_name) {
+      forward_variables_from(invoker, "*", [ "no_default_deps" ])
+      if (!defined(deps)) {
+        deps = []
       }
-    }
-    if (!marked_as_prebuilts) {
-      deps += [ "//build/lite:prebuilts" ]
-    }
-  }
-}
-
-template("action_foreach") {
-  action_foreach(target_name) {
-    deps = []
-    forward_variables_from(invoker, "*")
-    marked_as_prebuilts = false
-    foreach(d, deps) {
-      what = "label_no_toolchain"
-      if (get_label_info(d, what) == get_label_info("//build/lite:mark_as_prebuilts", what)) {
-        print(get_label_info(":$target_name", what), "is marked as prebuilts")
-        marked_as_prebuilts = true
+      if (!defined(invoker.no_default_deps) || !invoker.no_default_deps) {
+        deps += [ "//build/lite:prebuilts" ]
       }
-    }
-    if (!marked_as_prebuilts) {
-      deps += [ "//build/lite:prebuilts" ]
     }
   }
 }
