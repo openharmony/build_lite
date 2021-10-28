@@ -52,6 +52,10 @@ def add_options(parser):
                         help='sign haps by server', action='store_true')
     parser.add_argument('--patch', help='apply product patch before compiling',
                         action='store_true')
+    parser.add_argument('--compact-mode',
+                        help='compactiable with standard build system'
+                        'set to true if we use build.sh as build entrance',
+                        action='store_true', default=False)
     parser.add_argument('--gn-args', nargs=1, default='',
                         help='specifies gn build arguments, '
                              'eg: --gn-args="foo="bar" enable=true blah=7"')
@@ -62,7 +66,7 @@ def exec_command(args):
         product, company = args.product[0].split('@')
         set_product(product_name=product, company=company)
 
-    build = Build(args.component)
+    build = Build(args.component, args.compact_mode)
     cmd_args = defaultdict(list)
 
     build.register_args('ohos_build_type', args.build_type[0])
@@ -87,7 +91,8 @@ def exec_command(args):
     if args.ndk:
         build.register_args('ohos_build_ndk', 'true', quota=False)
 
-    if hasattr(args, 'target') and len(args.target):
+    if args.compact_mode is False and hasattr(args, 'target') and len(
+            args.target):
         build.register_args('ohos_build_target', args.target)
 
     if hasattr(args, 'verbose') and args.verbose:
@@ -109,5 +114,12 @@ def exec_command(args):
                 build.register_args(variable, value)
             except ValueError:
                 raise OHOSException(f'Invalid gn args: {gn_arg}')
+
+    # Add build target, order is important
+    if args.compact_mode:
+        if hasattr(args, 'target') and len(args.target):
+            cmd_args['ninja'].extend(args.target)
+        else:
+            cmd_args['ninja'].append('packages')
 
     return build.build(args.full, patch=args.patch, cmd_args=cmd_args)
