@@ -311,6 +311,34 @@
           "adapter_uhdf"
         ]
       }
+    },
+    {
+      "component": "peripheral_camera",
+      "description": "",
+      "optional": "true",
+      "dirs": ["drivers/peripheral/camera"],
+      "targets": [
+        "//drivers/peripheral/camera/hal:camera_hal",
+        "//drivers/peripheral/camera/hal:unittest"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_board": [],
+      "adapted_kernel": [
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "components": [
+          "hilog",
+          "adapter_uhdf"
+        ]
+      }
     }
   ]
 }
