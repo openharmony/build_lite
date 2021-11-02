@@ -262,10 +262,16 @@
       "description": "",
       "optional": "true",
       "dirs": ["drivers/peripheral/audio"],
-      "targets": [],
+      "targets": [
+        "//drivers/peripheral/audio:hdi_audio",
+        "//drivers/peripheral/audio:audio_sample_client",
+        "//drivers/peripheral/audio/test/systemtest:systemtest"
+      ],
       "rom": "",
       "ram": "",
-      "output": [],
+      "output": [
+        "libhdi_audio.so"
+      ],
       "adapted_board": [],
       "adapted_kernel": [
         "liteos_a",
