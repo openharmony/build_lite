@@ -325,7 +325,7 @@
       "dirs": ["drivers/peripheral/camera"],
       "targets": [
         "//drivers/peripheral/camera/hal:camera_hal",
-        "//drivers/peripheral/camera/hal:unittest"
+        "//drivers/peripheral/camera/hal:camera_hal_lite_unittest"
       ],
       "rom": "",
       "ram": "",
