@@ -37,6 +37,7 @@ declare_args() {
   ohos_build_target = ""
   ohos_build_compiler_dir = ""
   ohos_kernel_type = ""
+  ohos_kernel_is_prebuilt = false
   use_board_toolchain = true
 
   # hb set it to true if ccache installed.
@@ -62,6 +63,9 @@ if (product_path != "") {
 
   # Supported kernel: "liteos_a", "liteos_m", "linux"
   ohos_kernel_type = product_config.kernel_type
+  if (defined(product_config.kernel_is_prebuilt)) {
+    ohos_kernel_is_prebuilt = product_config.kernel_is_prebuilt
+  }
 
   # To be deleted, and will use board config.
   if (defined(product_config.vendor_adapter_dir)) {
