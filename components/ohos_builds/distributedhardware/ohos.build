@@ -1,0 +1,10 @@
+{
+  "parts": {
+    "devicemanager_lite": {
+      "module_list": [
+        "//foundation/distributedhardware/devicemanager:devicemanager_lite"
+      ]
+    }
+  },
+  "subsystem_name": "distributedhardware"
+}

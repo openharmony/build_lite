@@ -1,0 +1,14 @@
+{
+  "parts": {
+    "sensor_lite": {
+      "module_list": [
+        "//base/sensors/sensor_lite/services:sensor_service",
+        "//base/sensors/sensor_lite/frameworks:sensor_lite"
+      ],
+      "test_list": [
+        "//base/sensors/sensor_lite/interfaces/kits/native:unittest"
+      ]
+    }
+  },
+  "subsystem_name": "sensors"
+}
