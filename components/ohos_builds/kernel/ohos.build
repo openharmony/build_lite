@@ -1,0 +1,30 @@
+{
+  "parts": {
+    "linux_4_1_9": {
+      "module_list": [
+        "//kernel/linux/build:linux_kernel"
+      ]
+    },
+    "linux_hi3516dv300": {
+      "module_list": [
+        "//vendor/hisi/camera/dvkit_product/linux/hi3516dv300/Hi3516CV500_SDK_V2.0.2.0:linux_kernel"
+      ]
+    },
+    "linux_hi3518ev300": {
+      "module_list": [
+        "//vendor/hisi/camera/dvkit_product/linux/hi3518ev300/Hi3516EV200_SDK_V1.0.1.2_LINUX:linux_kernel"
+      ]
+    },
+    "liteos_a": {
+      "module_list": [
+        "//kernel/liteos_a:kernel"
+      ]
+    },
+    "liteos_m": {
+      "module_list": [
+        "//kernel/liteos_m:kernel"
+      ]
+    }
+  },
+  "subsystem_name": "kernel"
+}
