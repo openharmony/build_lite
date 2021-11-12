@@ -1,0 +1,28 @@
+{
+  "parts": {
+    "ace_common_lite": {
+      "module_list": [
+        "//foundation/ace/ace_engine_lite/frameworks/common:ace_common_lite"
+      ]
+    },
+    "ace_engine_lite": {
+      "module_list": [
+        "//foundation/ace/ace_engine_lite/frameworks:jsfwk"
+      ],
+      "test_list": [
+        "//foundation/ace/ace_engine_lite/test:unittest"
+      ]
+    },
+    "ace_module_manager_lite": {
+      "module_list": [
+        "//foundation/ace/ace_engine_lite/frameworks/module_manager:ace_module_manager_lite"
+      ]
+    },
+    "ace_native_engine_lite": {
+      "module_list": [
+        "//foundation/ace/ace_engine_lite/frameworks/native_engine:ace_native_engine_lite"
+      ]
+    }
+  },
+  "subsystem_name": "ace"
+}

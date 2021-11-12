@@ -1,0 +1,15 @@
+{
+  "parts": {
+    "dbm_kv_store": {
+      "module_list": [
+        "//foundation/distributeddatamgr/appdatamgr/frameworks/innerkitsimpl/dbm_kv_store:dbm_kv_store"
+      ]
+    },
+    "objectstore": {
+      "module_list": [
+        "//foundation/distributeddatamgr/objectstore:objectstoremgr"
+      ]
+    }
+  },
+  "subsystem_name": "distributeddatamgr"
+}
