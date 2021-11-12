@@ -37,7 +37,7 @@ from distutils.spawn import find_executable
 
 
 class Build():
-    def __init__(self, component=None):
+    def __init__(self, component=None, compact_mode=False):
         self.config = Config()
 
         # Get gn args ready
@@ -45,6 +45,7 @@ class Build():
         self._target = None
         self._compiler = None
         self._test = None
+        self._compact_mode = compact_mode
 
         self.target = component
         self.start_time = get_current_time()
@@ -181,10 +182,13 @@ class Build():
         gn_cmd = [gn_path,
                   'gen',
                   self.config.out_path,
-                  '--root={}'.format(self.config.root_path),
-                  '--dotfile={}/.gn'.format(self.config.build_path),
                   f'--script-executable={sys.executable}',
                   '--args={}'.format(" ".join(self._args_list))] + gn_args
+        if self._compact_mode is False:
+            gn_cmd += [
+                '--root={}'.format(self.config.root_path),
+                '--dotfile={}/.gn'.format(self.config.build_path),
+            ]
         exec_command(gn_cmd, log_path=self.config.log_path)
 
     def gn_clean(self, out_path=None):
@@ -204,10 +208,13 @@ class Build():
             return
 
         gn_cmd = [gn_path,
-                  '--root={}'.format(self.config.root_path),
-                  '--dotfile={}/.gn'.format(self.config.build_path),
                   'clean',
                   self.config.out_path]
+        if self._compact_mode is False:
+            gn_cmd += [
+                '--root={}'.format(self.config.root_path),
+                '--dotfile={}/.gn'.format(self.config.build_path),
+            ]
         exec_command(gn_cmd, log_path=self.config.log_path)
 
     def ninja_build(self, cmd_args):
@@ -246,6 +253,8 @@ class Build():
             # Compile product in "hb set"
             self.compiler = Device.get_compiler(self.config.device_path)
             self.register_args('product_path', self.config.product_path)
+            if self._compact_mode:
+                self.register_args('product_name', self.config.product)
             self.register_args('device_path', self.config.device_path)
             self.register_args('ohos_kernel_type', self.config.kernel)
 
