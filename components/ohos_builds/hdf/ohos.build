@@ -34,7 +34,6 @@
         "//drivers/peripheral/camera/hal:camera_hal"
       ],
       "test_list": [
-        "//drivers/peripheral/camera/hal:camera_hal_lite_unittest"
       ]
     },
     "peripheral_display": {
