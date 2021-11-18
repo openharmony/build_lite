@@ -41,6 +41,7 @@ class Config(metaclass=Singleton):
         self._product = config_content.get('product', None)
         self._product_path = config_content.get('product_path', None)
         self._device_path = config_content.get('device_path', None)
+        self._device_company = config_content.get('device_company', None)
         self._patch_cache = config_content.get('patch_cache', None)
         self._out_path = None
         self.fs_attr = set()
@@ -76,6 +77,18 @@ class Config(metaclass=Singleton):
     def board(self, value):
         self._board = value
         self.config_update('board', self._board)
+
+    @property
+    def device_company(self):
+        if self._device_company is None:
+            raise OHOSException('Please run command "hb set" to '
+                                'init OHOS development environment')
+        return self._device_company
+
+    @device_company.setter
+    def device_company(self, value):
+        self._device_company = value
+        self.config_update('device_company', self._device_company)
 
     @property
     def kernel(self):
