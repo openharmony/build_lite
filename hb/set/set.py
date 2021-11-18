@@ -69,11 +69,16 @@ def set_product(product_name=None, company=None):
     config.product_path = product_path
 
     product_json = os.path.join(config.product_path, 'config.json')
-    config.board, config.kernel, kernel_version, dev_company =\
+    config.board, config.kernel, kernel_version, device_company =\
         Product.get_device_info(product_json)
 
+    config.device_company = device_company
     board_path = os.path.join(config.root_path, 'device',
-                              dev_company, config.board)
+                              device_company, config.board)
+    # board and soc decoupling feature will add boards directory path here.
+    if not os.path.exists(board_path):
+        board_path = os.path.join(config.root_path, 'device', 'board',
+                                  device_company, config.board)
     config.device_path = Device.get_device_path(board_path,
                                                 config.kernel,
                                                 kernel_version)

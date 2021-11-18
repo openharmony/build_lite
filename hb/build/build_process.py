@@ -248,6 +248,7 @@ class Build():
             gn_kernel_path = device_path
             self.register_args('ohos_build_target', [gn_device_path])
             self.register_args('device_path', gn_kernel_path)
+            self.register_args('device_company', self.config.device_company)
             self.register_args('ohos_kernel_type', kernel)
         else:
             # Compile product in "hb set"
@@ -256,6 +257,7 @@ class Build():
             if self._compact_mode:
                 self.register_args('product_name', self.config.product)
             self.register_args('device_path', self.config.device_path)
+            self.register_args('device_company', self.config.device_company)
             self.register_args('ohos_kernel_type', self.config.kernel)
 
             product_json = os.path.join(self.config.product_path,
