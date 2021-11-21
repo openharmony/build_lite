@@ -94,7 +94,10 @@ group("ohos") {
     # Skip device target for userspace only scenario.
     if (!ohos_build_userspace_only) {
       # Step 7: Add device and product target by default.
-      deps += [ "${device_path}/../" ]
+      # liteos_m kernel organise device build targets, but not by default.
+      if (product_cfg.kernel_type != "liteos_m") {
+        deps += [ "${device_path}/../" ]
+      }
     }
   } else {
     deps += string_split(ohos_build_target, "&&")
