@@ -40,6 +40,7 @@ CONFIG_STRUCT = {
     "product": None,
     "product_path": None,
     "device_path": None,
+    "device_company": None,
     "patch_cache": None
 }
 

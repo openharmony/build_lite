@@ -33,6 +33,7 @@ def exec_command(args):
     product = json_data.get('product', 'not set')
     product_path = json_data.get('product_path', 'not set')
     device_path = json_data.get('device_path', 'not set')
+    device_company = json_data.get('device_company', 'not set')
 
     hb_info('root path: {}'.format(root_path))
     hb_info('board: {}'.format(board))
@@ -40,3 +41,4 @@ def exec_command(args):
     hb_info('product: {}'.format(product))
     hb_info('product path: {}'.format(product_path))
     hb_info('device path: {}'.format(device_path))
+    hb_info('device company: {}'.format(device_company))
