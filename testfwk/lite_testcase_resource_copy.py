@@ -21,7 +21,7 @@ import xml.etree.ElementTree as ET
 sys.path.append(
     os.path.dirname(os.path.dirname(os.path.dirname(
         os.path.abspath(__file__)))))
-from scripts.util.file_utils import read_json_file, write_json_file  # noqa: E402
+from scripts.util.file_utils import read_json_file, write_json_file
 from scripts.util import build_utils  # noqa: E402
 
 
@@ -175,7 +175,7 @@ def copy_testcase_resources(resource_infos):
         dest_file = resource_info.get('dest')
         dest_dir = os.path.dirname(dest_file)
         if os.path.isdir(src_file):
-           copy_dir(src_file, dest_file)
+            copy_dir(src_file, dest_file)
         else:
             if not os.path.exists(dest_dir):
                 os.makedirs(dest_dir, exist_ok=True)
