@@ -71,7 +71,7 @@ template("unittest") {
   if (defined(invoker.deps)) {
     _deps += invoker.deps
   }
-  
+
   # generate module list file in gn stage
   # format like: unittest("componentName_test_xx")
   list_tmp = string_split(target_name, "_test")
