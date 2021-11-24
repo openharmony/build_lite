@@ -22,7 +22,7 @@ sys.path.append(
     os.path.dirname(os.path.dirname(os.path.dirname(
         os.path.abspath(__file__)))))
 from scripts.util.file_utils import read_json_file, write_json_file
-from scripts.util import build_utils  # noqa: E402
+from scripts.util import build_utils
 
 
 def copy_dir(src, dest):
