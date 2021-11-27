@@ -21,6 +21,7 @@
       ],
       "adapted_kernel": [
         "liteos_a",
+        "liteos_m",
         "linux"
       ],
       "features": [],
