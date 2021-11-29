@@ -8,13 +8,12 @@
         "foundation/ace/ace_engine_lite"
       ],
       "targets": [
-        "//foundation/ace/ace_engine_lite/frameworks:jsfwk",
-        "//foundation/ace/ace_engine_lite/test:unittest"
+        "//foundation/ace/ace_engine_lite/frameworks:jsfwk"
       ],
       "rom": "521KB",
       "ram": "~82KB",
-      "output": [ "libace_lite.so" ],
-      "adapted_kernel": [ "liteos_a", "linux"],
+      "output": [ "libace_lite.a" ],
+      "adapted_kernel": [ "liteos_a", "liteos_m", "linux"],
       "features": [],
       "deps": {
         "third_party": [
@@ -57,8 +56,8 @@
       ],
       "rom": "9KB",
       "ram": "~2KB",
-      "output": [ "libace_common.so" ],
-      "adapted_kernel": [ "liteos_a", "linux"],
+      "output": [ "libace_common.a" ],
+      "adapted_kernel": [ "liteos_a", "liteos_m", "linux"],
       "features": [],
       "deps": {
         "third_party": [
@@ -83,8 +82,8 @@
       ],
       "rom": "32KB",
       "ram": "~5KB",
-      "output": [ "libace_native_engine.so" ],
-      "adapted_kernel": [ "liteos_a", "linux"],
+      "output": [ "libace_native_engine.a" ],
+      "adapted_kernel": [ "liteos_a", "liteos_m", "linux"],
       "features": [],
       "deps": {
         "third_party": [
@@ -110,8 +109,8 @@
       ],
       "rom": "12KB",
       "ram": "~2KB",
-      "output": [ "libace_module_manager.so" ],
-      "adapted_kernel": [ "liteos_a", "linux"],
+      "output": [ "libace_module_manager.a" ],
+      "adapted_kernel": [ "liteos_a", "liteos_m", "linux"],
       "features": [],
       "deps": {
         "third_party": [

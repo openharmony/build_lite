@@ -125,6 +125,7 @@
       "output": [],
       "adapted_kernel": [
         "liteos_a",
+        "liteos_m",
         "linux"
       ],
       "features": [],
@@ -152,6 +153,7 @@
       "output": [],
       "adapted_kernel": [
         "liteos_a",
+        "liteos_m",
         "linux"
       ],
       "features": [],
@@ -187,6 +189,7 @@
       "output": [],
       "adapted_kernel": [
         "liteos_a",
+        "liteos_m",
         "linux"
       ],
       "features": [],
