@@ -22,6 +22,43 @@ test_include_dirs = [
   "//third_party/bounds_checking_function/include",
 ]
 
+template("_lite_testcase_resources") {
+  assert(defined(invoker.testcase_target_name))
+  assert(defined(invoker._output_dir))
+  _deps = []
+  if (defined(invoker.deps)) {
+    _deps += invoker.deps
+  }
+  action(target_name) {
+    if (defined(invoker.testonly)) {
+      testonly = invoker.testonly
+    }
+    deps = _deps
+    inputs = []
+    script = "//build/lite/testfwk/lite_testcase_resource_copy.py"
+    output_file = "$target_out_dir/$target_name.json"
+    outputs = [ output_file ]
+    args = []
+    if (defined(invoker.resource_config_file)) {
+      args += [
+        "--resource-config-file",
+        rebase_path(invoker.resource_config_file, root_build_dir),
+      ]
+      inputs += [ invoker.resource_config_file ]
+    }
+    args += [
+      "--testcase-target-name",
+      invoker.testcase_target_name,
+      "--part-build-out-path",
+      rebase_path(root_out_dir, root_build_dir),
+      "--resource-output-path",
+      rebase_path(invoker._output_dir + "/resource", root_build_dir),
+      "--output-file",
+      rebase_path(output_file, root_build_dir),
+    ]
+  }
+}
+
 template("unittest") {
   archive_dir_name = "test_info"
   _output_dir = ""
@@ -29,6 +66,10 @@ template("unittest") {
     _output_dir = invoker.output_dir
   } else {
     _output_dir = "${root_out_dir}/${archive_dir_name}/unittest"
+  }
+  _deps = []
+  if (defined(invoker.deps)) {
+    _deps += invoker.deps
   }
 
   # generate module list file in gn stage
@@ -75,6 +116,16 @@ template("unittest") {
   ]
   _gen_module_list_script = "//build/lite/testfwk/gen_module_list_files.py"
   exec_script(_gen_module_list_script, _arguments)
+
+  # copy testcase resource
+  testcase_target_name = target_name
+  _lite_testcase_resources("${testcase_target_name}_resource_copy") {
+    if (defined(invoker.resource_config_file)) {
+      resource_config_file = invoker.resource_config_file
+    }
+    deps = _deps
+    testonly = true
+  }
 
   executable(target_name) {
     if (defined(invoker.output_dir)) {
