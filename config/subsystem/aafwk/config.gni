@@ -18,4 +18,8 @@ import("//build/lite/config/subsystem/aafwk/path.gni")
 declare_args() {
   # build feature ability, dependent window
   enable_ohos_appexecfwk_feature_ability = false
+
+  # configuration for aafwk created ams task's stack size.
+  # positive values will be accepted.
+  config_ohos_aafwk_ams_task_size = 2048
 }
