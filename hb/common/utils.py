@@ -62,10 +62,7 @@ def read_json_file(input_file):
 
 def dump_json_file(dump_file, json_data):
     with open(dump_file, 'wt', encoding='utf-8') as json_file:
-        json.dump(json_data,
-                  json_file,
-                  ensure_ascii=False,
-                  indent=2)
+        json.dump(json_data, json_file, ensure_ascii=False, indent=2)
 
 
 def read_yaml_file(input_file):
@@ -116,19 +113,15 @@ def exec_command(cmd, log_path='out/build.log', **kwargs):
         if is_log_filter:
             get_failed_log(log_path)
 
-        hb_error('you can check build log in {}'.format(log_path))
-        if isinstance(cmd, list):
-            cmd = ' '.join(cmd)
-        raise OHOSException(f'command: "{cmd}" failed\n'
-                            f'return code: {ret_code}\n'
-                            f'execution path: {kwargs.get("cwd", os.getcwd())}')
+        raise OHOSException('Please check build log in {}'.format(log_path))
 
 
 def get_failed_log(log_path):
     with open(log_path, 'rt', encoding='utf-8') as log_file:
         data = log_file.read()
-    failed_pattern = re.compile(r'(\[\d+/\d+\].*?)(?=\[\d+/\d+\]|'
-                                'ninja: build stopped)', re.DOTALL)
+    failed_pattern = re.compile(
+        r'(\[\d+/\d+\].*?)(?=\[\d+/\d+\]|'
+        'ninja: build stopped)', re.DOTALL)
     failed_log = failed_pattern.findall(data)
     for log in failed_log:
         if 'FAILED:' in log:
@@ -194,6 +187,14 @@ def get_current_time(type='default'):
     return datetime.now().replace(microsecond=0)
 
 
+class Colors:
+    HEADER = '\033[95m'
+    WARNING = '\033[93m'
+    ERROR = '\033[91m'
+    INFO = '\033[92m'
+    END = '\033[0m'
+
+
 def hb_info(msg):
     level = 'info'
     for line in str(msg).splitlines():
@@ -218,7 +219,13 @@ def hb_error(msg):
 def message(level, msg):
     if isinstance(msg, str) and not msg.endswith('\n'):
         msg += '\n'
-    return '[OHOS {}] {}'.format(level.upper(), msg)
+    if level == 'error':
+        msg = msg.replace('error:', f'{Colors.ERROR}error{Colors.END}:')
+        return f'{Colors.ERROR}[OHOS {level.upper()}]{Colors.END} {msg}'
+    elif level == 'info':
+        return f'[OHOS {level.upper()}] {msg}'
+    else:
+        return f'{Colors.WARNING}[OHOS {level.upper()}]{Colors.END} {msg}'
 
 
 class Singleton(type):
@@ -226,8 +233,8 @@ class Singleton(type):
 
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
-            cls._instances[cls] = super(Singleton, cls).__call__(*args,
-                                                                 **kwargs)
+            cls._instances[cls] = super(Singleton,
+                                        cls).__call__(*args, **kwargs)
         return cls._instances[cls]
 
 
@@ -257,11 +264,13 @@ def download_tool(url, dst, tgt_dir=None):
                 if chunk:
                     f.write(chunk)
                     download_size += len(chunk)
-                    download_percent = round(float(download_size / total_size * 100), 2)
+                    download_percent = round(
+                        float(download_size / total_size * 100), 2)
                     print('Progress: %s%%\r' % download_percent, end=' ')
             hb_info('Download complete!')
     except OSError:
-        raise OHOSException(f'{url} download failed, please install it manually!')
+        raise OHOSException(
+            f'{url} download failed, please install it manually!')
 
     if tgt_dir is not None:
         extract_tool(dst, tgt_dir)
@@ -279,4 +288,5 @@ def extract_tool(src, tgt_dir):
         ef.extractall(tgt_dir)
         ef.close()
     except OSError:
-        raise OHOSException(f'{src} extract failed, please install it manually!')
+        raise OHOSException(
+            f'{src} extract failed, please install it manually!')
