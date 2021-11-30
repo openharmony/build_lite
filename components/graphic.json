@@ -6,11 +6,12 @@
       "optional": "true",
       "dirs": ["foundation/graphic/utils"],
       "targets": [
-        "//foundation/graphic/utils:lite_graphic_utils"
+        "//foundation/graphic/utils:lite_graphic_utils",
+        "//foundation/graphic/utils/test:lite_graphic_utils_test"
       ],
       "rom": "",
       "ram": "",
-      "output": ["libgraphic_utils.a"],
+      "output": [ "libgraphic_utils.a", "libgraphic_utils.so" ],
       "adapted_kernel": [
         "liteos_a",
         "liteos_m",
@@ -117,11 +118,12 @@
       "optional": "true",
       "dirs": ["foundation/graphic/ui"],
       "targets": [
+        "//foundation/graphic/ui/test/unittest:lite_graphic_ui_test",
         "//foundation/graphic/ui:lite_ui"
       ],
       "rom": "900KB",
       "ram": "~90KB",
-      "output": ["libui.a"],
+      "output": [ "libui.a", "libui.so" ],
       "adapted_kernel": [
         "liteos_a",
         "liteos_m",
