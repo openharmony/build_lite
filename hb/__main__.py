@@ -18,65 +18,62 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath(os.path.join(__file__,
-                                                os.pardir,
-                                                os.pardir)))
 import argparse
 import importlib
 import traceback
 
-from hb import VERSION
-from hb.common.utils import hb_warning
-from hb.common.utils import hb_error
-from hb.common.utils import OHOSException
+VERSION = "0.4.3"
+
+
+def find_top():
+    cur_dir = os.getcwd()
+    while cur_dir != "/":
+        hb_internal = os.path.join(cur_dir, 'build/lite/hb_internal')
+        if os.path.exists(hb_internal):
+            return cur_dir
+
+        cur_dir = os.path.dirname(cur_dir)
+    raise Exception("Please call hb utilities inside source root directory")
 
 
 def main():
+    topdir = find_top()
+    sys.path.insert(0, os.path.join(topdir, 'build/lite'))
     parser = argparse.ArgumentParser(description='OHOS Build System '
-                                                 f'version {VERSION}')
-    parser.add_argument('-v', '--version',
+                                     f'version {VERSION}')
+    parser.add_argument('-v',
+                        '--version',
                         action='version',
                         version=f'[OHOS INFO] hb version {VERSION}')
 
     subparsers = parser.add_subparsers()
     parser_list = []
-    parser_list.append({
-        'name': 'build',
-        'help': 'Build source code'
-    })
 
-    parser_list.append({
-        'name': 'set',
-        'help': 'OHOS build settings'
-    })
-
-    parser_list.append({
-        'name': 'env',
-        'help': 'Show OHOS build env'
-    })
-
-    parser_list.append({
-        'name': 'clean',
-        'help': 'Clean output'
-    })
-
-    parser_list.append({
-        'name': 'deps',
-        'help': 'OHOS components deps'
-    })
+    parser_list.append({'name': 'build', 'help': 'Build source code'})
+    parser_list.append({'name': 'set', 'help': 'OHOS build settings'})
+    parser_list.append({'name': 'env', 'help': 'Show OHOS build env'})
+    parser_list.append({'name': 'clean', 'help': 'Clean output'})
+    parser_list.append({'name': 'deps', 'help': 'OHOS components deps'})
 
     for each in parser_list:
         module_parser = subparsers.add_parser(name=each.get('name'),
                                               help=each.get('help'))
-        module = importlib.import_module('.{}'.format(each.get('name')),
-                                         'hb.{}'.format(each.get('name')))
+        module = importlib.import_module('hb_internal.{0}.{0}'.format(
+            each.get('name')))
         module.add_options(module_parser)
         module_parser.set_defaults(parser=module_parser,
                                    command=module.exec_command)
 
     args = parser.parse_args()
 
+    module = importlib.import_module('hb_internal.common.utils')
+    hb_error = getattr(module, 'hb_error')
+    hb_warning = getattr(module, 'hb_warning')
+    OHOSException = getattr(module, 'OHOSException')
     try:
+        if args.parser.prog == 'hb set' and 'root_path' in vars(args):
+            # Root_path is topdir.
+            args.root_path = topdir
         status = args.command(args)
     except KeyboardInterrupt:
         hb_warning('User Abort')

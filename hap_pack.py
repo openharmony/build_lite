@@ -30,8 +30,8 @@ def cmd_popen(cmd):
     proc.wait()
     ret_code = proc.returncode
     if ret_code != 0:
-        print("hap warning: {} failed, return code is {}"
-              .format(cmd, ret_code))
+        print("hap warning: {} failed, return code is {}".format(
+            cmd, ret_code))
 
 
 def parse_args():
@@ -65,20 +65,20 @@ def hap_packing(args):
     if not args.packing_tool_path:
         print('hap warning: packing tool path empty')
         return
-    packing_tool_path = os.path.join(os.environ['HOME'],
-                                     args.packing_tool_path)
-    packing_cmd = ['java', '-jar', packing_tool_path]
-    cmd_dict = {'--mode': args.mode,
-                '--json-path': args.json_path,
-                '--resources-path': args.resources_path,
-                '--assets-path': args.assets_path,
-                '--lib-path': args.lib_path,
-                '--shared-libs-path': args.shared_libs_path,
-                '--ability-so-path': args.ability_so_path,
-                '--index-path': args.index_path,
-                '--out-path': args.unsignhap_path,
-                '--force': args.force,
-                '--sign-by-server': args.sign_by_server}
+    packing_cmd = ['java', '-jar', args.packing_tool_path]
+    cmd_dict = {
+        '--mode': args.mode,
+        '--json-path': args.json_path,
+        '--resources-path': args.resources_path,
+        '--assets-path': args.assets_path,
+        '--lib-path': args.lib_path,
+        '--shared-libs-path': args.shared_libs_path,
+        '--ability-so-path': args.ability_so_path,
+        '--index-path': args.index_path,
+        '--out-path': args.unsignhap_path,
+        '--force': args.force,
+        '--sign-by-server': args.sign_by_server
+    }
     for key, value in cmd_dict.items():
         if value:
             packing_cmd.extend([key, value])
@@ -108,34 +108,42 @@ def hap_signing(args):
                   'ONLINE_PASSWD are needed for app signning. ' +
                   'Please export it in bash.')
             return
-        signing_cmd = ['java', '-jar', args.signtool_path, 'sign', '-mode',
-                       'remote', '-profileSigned', '1']
-        cmd_dict = {'-privatekey': args.privatekey,
-                    '-server': args.sign_server,
-                    '-inputFile': args.unsignhap_path,
-                    '-outputFile': args.signhap_path,
-                    '-username': user_name,
-                    '-password': password,
-                    '-signAlg': args.sign_algo,
-                    '-profile': args.cert_profile}
+        signing_cmd = [
+            'java', '-jar', args.signtool_path, 'sign', '-mode', 'remote',
+            '-profileSigned', '1'
+        ]
+        cmd_dict = {
+            '-privatekey': args.privatekey,
+            '-server': args.sign_server,
+            '-inputFile': args.unsignhap_path,
+            '-outputFile': args.signhap_path,
+            '-username': user_name,
+            '-password': password,
+            '-signAlg': args.sign_algo,
+            '-profile': args.cert_profile
+        }
     # sign by software.
     else:
-        signtool_path = os.path.join(os.environ['HOME'], args.signtool_path)
+        signtool_path = args.signtool_path
         #The default password of the key is 123456.
         # You are advised to use a key and certificate management tool (
         # such as keytool) to change the default password.
         # For details, see section "Application Signature Verification
         # Development Guide" in the Security Subsystem Development Guide.
-        signing_cmd = ['java', '-jar', signtool_path, 'sign', '-mode',
-                       'localjks', '-profileSigned', '1', '-keystorepasswd',
-                       '123456', '-keyaliaspasswd', '123456']
-        cmd_dict = {'-privatekey': args.privatekey,
-                    '-inputFile': args.unsignhap_path,
-                    '-outputFile': args.signhap_path,
-                    '-signAlg': args.sign_algo,
-                    '-profile': args.cert_profile,
-                    '-keystore': args.jks_path,
-                    '-certpath': args.cert_path}
+        signing_cmd = [
+            'java', '-jar', signtool_path, 'sign', '-mode', 'localjks',
+            '-profileSigned', '1', '-keystorepasswd', '123456',
+            '-keyaliaspasswd', '123456'
+        ]
+        cmd_dict = {
+            '-privatekey': args.privatekey,
+            '-inputFile': args.unsignhap_path,
+            '-outputFile': args.signhap_path,
+            '-signAlg': args.sign_algo,
+            '-profile': args.cert_profile,
+            '-keystore': args.jks_path,
+            '-certpath': args.cert_path
+        }
     for key, value in cmd_dict.items():
         if value:
             signing_cmd.extend([key, value])
