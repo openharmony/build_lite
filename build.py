@@ -18,6 +18,7 @@
 
 import os
 import sys
+import importlib
 import subprocess
 
 
@@ -38,8 +39,9 @@ def check_output(cmd, **kwargs):
 
 
 def set_root_path(path):
-    cmd = ['python3', 'build/lite/hb/__main__.py', 'set', '-root', path]
-    return check_output(cmd, cwd=path)
+    sys.path.insert(0, os.path.join(path, 'build/lite'))
+    module = importlib.import_module('hb_internal.set.set')
+    return module.set_root_path(root_path=path)
 
 
 def build(path, args_list):
