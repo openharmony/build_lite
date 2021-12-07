@@ -87,7 +87,6 @@ def add_options(parser):
 
 
 def exec_command(args):
-    print(args)
     if len(args.product):
         if '@' in args.product[0]:
             product, company = args.product[0].split('@')
@@ -146,7 +145,7 @@ def exec_command(args):
 
     if args.compact_mode:
         if hasattr(args, 'target') and len(args.target):
-            cmd_args['ninja']['target'] = args.target
+            cmd_args['ninja']['targets'] = args.target[0].split(' ')
         else:
             cmd_args['ninja']['default_target'] = 'packages'
     if args.keep_ninja_going:
