@@ -84,6 +84,9 @@ def add_options(parser):
     parser.add_argument('--keep-ninja-going',
                         action='store_true',
                         help='keeps ninja going until 1000000 jobs fail')
+    parser.add_argument('--build-only-gn',
+                        action='store_true',
+                        help='only do gn parse, donot run ninja')
 
 
 def exec_command(args):
@@ -129,9 +132,6 @@ def exec_command(args):
     if hasattr(args, 'verbose') and args.verbose:
         cmd_args['ninja']['verbose'] = True
 
-    if hasattr(args, 'ninja'):
-        return build.build(args.full, ninja=args.ninja)
-
     if args.sign_haps_by_server:
         build.register_args('ohos_sign_haps_by_server', 'true', quota=False)
 
@@ -151,4 +151,10 @@ def exec_command(args):
     if args.keep_ninja_going:
         cmd_args['ninja']['keep_ninja_going'] = True
 
-    return build.build(args.full, patch=args.patch, cmd_args=cmd_args)
+    ninja = True
+    if args.build_only_gn:
+        ninja = False
+    return build.build(args.full,
+                       patch=args.patch,
+                       cmd_args=cmd_args,
+                       ninja=ninja)
