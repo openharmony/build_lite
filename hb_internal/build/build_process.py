@@ -155,35 +155,32 @@ class Build():
         return 0
 
     def get_cmd(self, full_compile, patch, ninja):
-        if not ninja:
-            self.register_args('ohos_full_compile', 'true', quota=False)
-            return [self.gn_build]
-
         cmd_list = []
 
         pre_build = PreBuild(self.config)
         cmd_list.append(pre_build.prepare)
 
-        preloader = Preloader(self.config)
-        cmd_list.append(preloader.run)
-
         if patch:
             patch = Patch()
             cmd_list.append(patch.patch_make)
 
-        build_ninja = os.path.join(self.config.out_path, 'build.ninja')
-        if not os.path.isfile(build_ninja):
-            self.register_args('ohos_full_compile', 'true', quota=False)
-            makedirs(self.config.out_path)
-            cmd_list.extend([self.gn_build, self.ninja_build])
-        elif full_compile:
-            self.register_args('ohos_full_compile', 'true', quota=False)
+        preloader = Preloader(self.config)
+        cmd_list.append(preloader.run)
+
+        # if full_compile is set, remove out and do full build
+        # if build_only_gn is set, only do gn parse
+        # else do incremental build.
+        if full_compile:
             remove_path(self.config.out_path)
-            makedirs(self.config.out_path)
+            makedirs(self.config.out_path, exist_ok=True)
             cmd_list.extend([self.gn_build, self.ninja_build])
+        elif not ninja:
+            makedirs(self.config.out_path, exist_ok=True)
+            cmd_list.append(self.gn_build)
+            return cmd_list
         else:
-            self.register_args('ohos_full_compile', 'false', quota=False)
-            cmd_list.append(self.ninja_build)
+            makedirs(self.config.out_path, exist_ok=True)
+            cmd_list.extend([self.gn_build, self.ninja_build])
 
         if self.config.fs_attr is not None:
             packer = Packer()
