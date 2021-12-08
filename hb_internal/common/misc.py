@@ -67,7 +67,7 @@ class PreBuild:
         if os.path.exists(logfile):
             mtime = os.stat(logfile).st_mtime
             os.rename(logfile,
-                      '{}/build.{}.log'.format(self._root_path, mtime))
+                      '{}/build.{}.log'.format(self._out_path, mtime))
 
     def prepare(self, args):
         actions = [self.set_ccache, self.set_pycache, self.rename_last_logfile]
