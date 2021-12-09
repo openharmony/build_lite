@@ -200,10 +200,6 @@ class Build():
         return os.environ
 
     def gn_build(self, cmd_args):
-        # Clean out path
-        remove_path(self.config.out_path)
-        makedirs(self.config.out_path)
-
         # Gn cmd init and execute
         gn_path = self.config.gn_path
         gn_args = cmd_args.get('gn', [])
