@@ -19,7 +19,9 @@
 import os
 import subprocess
 from datetime import datetime
+from distutils.spawn import find_executable
 from hb_internal.common.utils import exec_command
+from hb_internal.common.utils import hb_warning
 
 
 class PreBuild:
@@ -41,6 +43,11 @@ class PreBuild:
                 os.unlink(oldfile)
             os.rename(logfile, oldfile)
 
+        ccache_path = find_executable('ccache')
+        if ccache_path is None:
+            hb_warning('Failed to find ccache, ccache disabled.')
+            return
+        os.environ['CCACHE_EXEC'] = ccache_path
         os.environ['CCACHE_LOGFILE'] = logfile
         os.environ['USE_CCACHE'] = '1'
         os.environ['CCACHE_DIR'] = ccache_base
@@ -66,8 +73,7 @@ class PreBuild:
         logfile = os.path.join(self._out_path, 'build.log')
         if os.path.exists(logfile):
             mtime = os.stat(logfile).st_mtime
-            os.rename(logfile,
-                      '{}/build.{}.log'.format(self._out_path, mtime))
+            os.rename(logfile, '{}/build.{}.log'.format(self._out_path, mtime))
 
     def prepare(self, args):
         actions = [self.set_ccache, self.set_pycache, self.rename_last_logfile]
