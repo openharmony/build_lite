@@ -182,9 +182,10 @@ class Build():
             makedirs(self.config.out_path, exist_ok=True)
             cmd_list.extend([self.gn_build, self.ninja_build])
 
-        if self.config.fs_attr is not None:
-            packer = Packer()
-            cmd_list.append(packer.fs_make)
+        if self.config.os_level != "standard":
+            if self.config.fs_attr is not None:
+                packer = Packer()
+                cmd_list.append(packer.fs_make)
 
         return cmd_list
 
@@ -296,7 +297,9 @@ class Build():
                                        'true')
 
             self.register_args('device_path', self.config.device_path)
-            self.register_args('device_company', self.config.device_company)
+            if self.config.os_level != "standard":
+                self.register_args('device_company',
+                                   self.config.device_company)
             self.register_args('ohos_kernel_type', self.config.kernel)
 
             self._args_list += Product.get_features(self.config.product_json)
