@@ -15,14 +15,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from hb_internal.cts.prompt import prompt
-from hb_internal.cts.common import get_style
+import importlib
+import sys
 
 
 class Menuconfig():
     @classmethod
     def _promt(cls, questions, **kwargs):
-        return prompt(questions, style=get_style('answer'), **kwargs)
+        print(sys.path)
+        prompt = importlib.import_module('hb_internal.cts.prompt')
+        common = importlib.import_module('hb_internal.cts.common')
+        return prompt.prompt(questions,
+                             style=common.get_style('answer'),
+                             **kwargs)
 
     def list_promt(self, name, message, choices, **kwargs):
         questions = self.get_questions('list', name, message, choices)
@@ -36,15 +41,13 @@ class Menuconfig():
 
     @classmethod
     def get_questions(cls, promt_type, name, message, choices):
-        questions = [
-            {
-                'type': promt_type,
-                'qmark': 'OHOS',
-                'name': name,
-                'message': message,
-                'choices': choices
-            }
-        ]
+        questions = [{
+            'type': promt_type,
+            'qmark': 'OHOS',
+            'name': name,
+            'message': message,
+            'choices': choices
+        }]
 
         return questions
 

@@ -24,10 +24,9 @@ import sys
 import json
 import tarfile
 import zipfile
+import importlib
 from datetime import datetime
 from collections import namedtuple
-import yaml
-import requests
 
 
 def encode(data, encoding='utf-8'):
@@ -69,6 +68,7 @@ def read_yaml_file(input_file):
     if not os.path.isfile(input_file):
         raise OHOSException(f'{input_file} not found')
 
+    yaml = importlib.import_module('yaml')
     with open(input_file, 'rt', encoding='utf-8') as yaml_file:
         try:
             return yaml.safe_load(yaml_file)
@@ -243,6 +243,7 @@ class OHOSException(Exception):
 
 
 def download_tool(url, dst, tgt_dir=None):
+    requests = importlib('requests')
     try:
         res = requests.get(url, stream=True, timeout=(5, 9))
     except OSError:
