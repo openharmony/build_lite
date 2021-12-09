@@ -257,7 +257,10 @@ class Build():
             ninja_path, '-w', 'dupbuild=warn', '-C', self.config.out_path
         ] + my_ninja_args
 
-        exec_command(ninja_cmd, log_path=self.config.log_path, env=self.env())
+        exec_command(ninja_cmd,
+                     log_path=self.config.log_path,
+                     log_filter=True,
+                     env=self.env())
 
     def check_in_device(self):
         if self._target is None and Device.is_in_device():
