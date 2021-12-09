@@ -16,39 +16,38 @@
 # limitations under the License.
 
 import os
+import importlib
 try:
     from queue import Queue
 except ImportError:
     from Queue import Queue
 from collections import defaultdict
 
-from prompt_toolkit.styles import style_from_dict
-from prompt_toolkit.token import Token
-from prompt_toolkit.mouse_events import MouseEventTypes
-
 from hb_internal.common.utils import read_json_file
 
 
 def get_style(style_type):
+    style = importlib.import_module('prompt_toolkit.styles')
+    token = importlib.import_module('prompt_toolkit.token')
     if style_type == 'terminal':
-        return style_from_dict({
-            Token.Separator: '#75c951',
-            Token.QuestionMark: '#5F819D',
-            Token.Selected: '',  # default
-            Token.Pointer: '#FF9D00 bold',  # AWS orange
-            Token.Instruction: '',  # default
-            Token.Answer: '#FF9D00 bold',  # AWS orange
-            Token.Question: 'bold',
+        return style.style_from_dict({
+            token.Token.Separator: '#75c951',
+            token.Token.QuestionMark: '#5F819D',
+            token.Token.Selected: '',  # default
+            token.Token.Pointer: '#FF9D00 bold',  # AWS orange
+            token.Token.Instruction: '',  # default
+            token.Token.Answer: '#FF9D00 bold',  # AWS orange
+            token.Token.Question: 'bold',
         })
     if style_type == 'answer':
-        return style_from_dict({
-            Token.Separator: '#75c951',
-            Token.QuestionMark: '#E91E63 bold',
-            Token.Selected: '#cc5454',  # default
-            Token.Pointer: '#ed9164 bold',
-            Token.Instruction: '',  # default
-            Token.Answer: '#f44336 bold',
-            Token.Question: '',
+        return style.style_from_dict({
+            token.Token.Separator: '#75c951',
+            token.Token.QuestionMark: '#E91E63 bold',
+            token.Token.Selected: '#cc5454',  # default
+            token.Token.Pointer: '#ed9164 bold',
+            token.Token.Instruction: '',  # default
+            token.Token.Answer: '#f44336 bold',
+            token.Token.Question: '',
         })
 
     return None
@@ -56,7 +55,8 @@ def get_style(style_type):
 
 def if_mousedown(handler):
     def handle_if_mouse_down(cli, mouse_event):
-        if mouse_event.event_type == MouseEventTypes.MOUSE_DOWN:
+        mouse_events = importlib.import_module('prompt_toolkit.mouse_events')
+        if mouse_event.event_type == mouse_events.MouseEventTypes.MOUSE_DOWN:
             return handler(cli, mouse_event)
         else:
             return NotImplemented
@@ -84,9 +84,10 @@ def get_deps(platform_json):
             component_deps[cname] = deps
             component_targets[cname] = component['targets']
             component_dirs[cname] = [
-                os.path.join(os.path.dirname(platform_json),
-                    os.pardir, os.pardir, os.pardir, os.pardir, path)
-                        for path in component['dirs']]
+                os.path.join(os.path.dirname(platform_json), os.pardir,
+                             os.pardir, os.pardir, os.pardir, path)
+                for path in component['dirs']
+            ]
 
     return subsystem_dict, component_deps, component_targets, component_dirs
 
