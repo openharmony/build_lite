@@ -253,6 +253,8 @@ class Build():
         if ninja_args.get('default_target') is not None:
             if self.config.os_level == "standard":
                 my_ninja_args.append('images')
+            else:
+                my_ninja_args.append('packages')
         if ninja_args.get('targets'):
             my_ninja_args.extend(ninja_args.get('targets'))
         ninja_cmd = [
