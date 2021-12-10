@@ -264,8 +264,7 @@
       "dirs": ["drivers/peripheral/audio"],
       "targets": [
         "//drivers/peripheral/audio:hdi_audio",
-        "//drivers/peripheral/audio:audio_sample_client",
-        "//drivers/peripheral/audio/test/systemtest:systemtest"
+        "//drivers/peripheral/audio:audio_sample_client"
       ],
       "rom": "",
       "ram": "",
