@@ -197,6 +197,10 @@ class Build():
                 self.config.root_path,
                 f'prebuilts/python/{system}-x86/3.8.5/bin')
             os.environ['PATH'] = f'{my_python}:{path}'
+        path = os.environ.get('PATH')
+        my_build_tools = os.path.join(
+            self.config.root_path, f'prebuilts/build-tools/{system}-x86/bin')
+        os.environ['PATH'] = f'{my_build_tools}:{path}'
         return os.environ
 
     def gn_build(self, cmd_args):
@@ -220,20 +224,7 @@ class Build():
         exec_command(gn_cmd, log_path=self.config.log_path, env=self.env())
 
     def gn_clean(self, out_path=None):
-        # Gn cmd init and execute
-        gn_path = self.config.gn_path
-
-        if not os.path.isdir(self.config.out_path):
-            hb_warning('{} not found'.format(self.config.out_path))
-            return
-
-        gn_cmd = [gn_path, 'clean', self.config.out_path]
-        if self._compact_mode is False:
-            gn_cmd += [
-                '--root={}'.format(self.config.root_path),
-                '--dotfile={}/.gn'.format(self.config.build_path),
-            ]
-        exec_command(gn_cmd, log_path=self.config.log_path, env=self.env())
+        remove_path(self.config.out_path)
 
     def ninja_build(self, cmd_args):
         ninja_path = self.config.ninja_path
@@ -248,7 +239,10 @@ class Build():
         # Keep targets to the last
         if ninja_args.get('default_target') is not None:
             if self.config.os_level == "standard":
-                my_ninja_args.append('images')
+                if self.config.product == 'ohos-sdk':
+                    my_ninja_args.append('build_ohos_sdk')
+                else:
+                    my_ninja_args.append('images')
             else:
                 my_ninja_args.append('packages')
         if ninja_args.get('targets'):
@@ -297,6 +291,9 @@ class Build():
                     self.register_args(f'is_{self.config.os_level}_system',
                                        'true')
 
+            if self.config.product == 'ohos-sdk':
+                self.register_args('build_ohos_sdk', 'true')
+                self.register_args('build_ohos_ndk', 'true')
             self.register_args('device_path', self.config.device_path)
             if self.config.os_level != "standard":
                 self.register_args('device_company',
