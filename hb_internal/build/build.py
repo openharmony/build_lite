@@ -118,7 +118,7 @@ def exec_command(args):
                             quota=False)
         build.config.fs_attr.add('dmverity_enable')
 
-    if args.tee:
+    if hasattr(args, 'tee') and args.tee:
         build.register_args('tee_enable', 'true', quota=False)
         build.config.fs_attr.add('tee_enable')
 
@@ -132,10 +132,10 @@ def exec_command(args):
     if hasattr(args, 'verbose') and args.verbose:
         cmd_args['ninja']['verbose'] = True
 
-    if args.sign_haps_by_server:
+    if hasattr(args, 'sign_haps_by_server') and args.sign_haps_by_server:
         build.register_args('ohos_sign_haps_by_server', 'true', quota=False)
 
-    if len(args.gn_args):
+    if hasattr(args, 'gn_args') and len(args.gn_args):
         for gn_arg in args.gn_args[0].split(' '):
             try:
                 variable, value = gn_arg.split('=')
@@ -143,16 +143,16 @@ def exec_command(args):
             except ValueError:
                 raise OHOSException(f'Invalid gn args: {gn_arg}')
 
-    if args.compact_mode:
+    if hasattr(args, 'compact_mode') and args.compact_mode:
         if hasattr(args, 'target') and len(args.target):
             cmd_args['ninja']['targets'] = args.target[0].split(' ')
         else:
             cmd_args['ninja']['default_target'] = 'packages'
-    if args.keep_ninja_going:
+    if hasattr(args, 'keep_ninja_going') and args.keep_ninja_going:
         cmd_args['ninja']['keep_ninja_going'] = True
 
     ninja = True
-    if args.build_only_gn:
+    if hasattr(args, 'build_only_gn') and args.build_only_gn:
         ninja = False
     return build.build(args.full,
                        patch=args.patch,
