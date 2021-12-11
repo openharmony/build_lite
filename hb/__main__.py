@@ -53,7 +53,6 @@ def main():
     parser_list.append({'name': 'set', 'help': 'OHOS build settings'})
     parser_list.append({'name': 'env', 'help': 'Show OHOS build env'})
     parser_list.append({'name': 'clean', 'help': 'Clean output'})
-    parser_list.append({'name': 'deps', 'help': 'OHOS components deps'})
 
     for each in parser_list:
         module_parser = subparsers.add_parser(name=each.get('name'),
