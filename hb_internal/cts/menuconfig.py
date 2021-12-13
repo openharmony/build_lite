@@ -22,7 +22,6 @@ import sys
 class Menuconfig():
     @classmethod
     def _promt(cls, questions, **kwargs):
-        print(sys.path)
         prompt = importlib.import_module('hb_internal.cts.prompt')
         common = importlib.import_module('hb_internal.cts.common')
         return prompt.prompt(questions,
