@@ -8,7 +8,7 @@
         "kernel/liteos_a"
       ],
       "targets": [
-        "//kernel/liteos_a:kernel"
+        "//kernel/liteos_a:liteos_a"
       ],
       "rom": "1.98MB",
       "ram": "",
