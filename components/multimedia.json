@@ -12,7 +12,8 @@
         "//foundation/multimedia/media_lite/services:media_lite",
         "//foundation/multimedia/camera_lite/test:lite_camera_test",
         "//foundation/multimedia/media_lite/test/unittest:lite_medialite_test",
-        "//foundation/multimedia/audio_lite/test:lite_audio_test"
+        "//foundation/multimedia/audio_lite/test:lite_audio_test",
+        "//foundation/multimedia/media_lite/services:camera_config"
       ],
       "rom": "622KB",
       "ram": "",
