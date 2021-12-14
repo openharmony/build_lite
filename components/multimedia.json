@@ -14,7 +14,7 @@
         "//foundation/multimedia/media_lite/test/unittest:lite_medialite_test",
         "//foundation/multimedia/audio_lite/test:lite_audio_test",
         "//foundation/multimedia/media_lite/services:camera_config",
-        "//foundation/multimedia/media_lite/interfaces/kits/player_lite/js/builtin"
+        "//foundation/multimedia/media_lite/interfaces/kits/player_lite/js/builtin:audio_lite_api"
       ],
       "rom": "622KB",
       "ram": "",
