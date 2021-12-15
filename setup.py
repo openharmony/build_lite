@@ -19,7 +19,7 @@
 import os
 from setuptools import setup
 
-from hb import VERSION
+from hb.__main__ import VERSION
 
 WORK_PATH = os.path.abspath(os.path.dirname('__file__'))
 README_PATH = os.path.join(WORK_PATH, 'README.md')
@@ -36,19 +36,13 @@ setup(
     url='https://gitee.com/openharmony/build_lite',
     license='Apache 2.0',
     python_requires='>=3.7',
-    packages=['hb', 'hb.build', 'hb.set', 'hb.cts',
-              'hb.common', 'hb.env', 'hb.clean', 'hb.deps'],
+    packages=['hb'],
     package_dir={'hb': 'hb'},
     package_data={'hb': ['common/config.json']},
     install_requires=[
-        'prompt_toolkit==1.0.14',
-        'kconfiglib>=14.1.0',
-        'PyYAML',
-        'requests'
+        'prompt_toolkit==1.0.14', 'kconfiglib>=14.1.0', 'PyYAML', 'requests'
     ],
-    entry_points={
-        'console_scripts': [
-            'hb=hb.__main__:main',
-        ]
-    },
+    entry_points={'console_scripts': [
+        'hb=hb.__main__:main',
+    ]},
 )

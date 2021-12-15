@@ -22,7 +22,7 @@ import argparse
 import importlib
 import traceback
 
-VERSION = "0.4.3"
+VERSION = "0.4.4"
 
 
 def find_top():
