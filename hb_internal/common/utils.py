@@ -243,7 +243,7 @@ class OHOSException(Exception):
 
 
 def download_tool(url, dst, tgt_dir=None):
-    requests = importlib('requests')
+    requests = importlib.import_module('requests')
     try:
         res = requests.get(url, stream=True, timeout=(5, 9))
     except OSError:
