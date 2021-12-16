@@ -72,10 +72,10 @@ def add_options(parser):
                         help='apply product patch before compiling',
                         action='store_true')
     parser.add_argument('--compact-mode',
+                        action='store_false',
                         help='compactiable with standard build system'
-                        'set to true if we use build.sh as build entrance',
-                        action='store_true',
-                        default=False)
+                        'set to false if we use build.sh as build entrance',
+                        default=True)
     parser.add_argument('--gn-args',
                         nargs=1,
                         default='',
