@@ -7,7 +7,7 @@
     },
     "hardware": {
       "module_list": [
-        "//device/hisilicon/hardware:hardware_media_sdk"
+        "//device/soc/hisilicon/common/hi35xx_hal/media:hardware_media_sdk"
       ]
     },
     "hi3516dv300_adapter": {
@@ -33,12 +33,12 @@
     },
     "hi3861_sdk": {
       "module_list": [
-        "//device/hisilicon/hispark_pegasus/sdk_liteos:wifiiot_sdk"
+        "//device/soc/hisilicon/hi3861v100/sdk_liteos:wifiiot_sdk"
       ]
     },
     "middleware": {
       "module_list": [
-        "//device/hisilicon/modules/middleware:middleware_source_sdk"
+        "//device/soc/hisilicon/common/hi35xx_hal/middleware:middleware_source_sdk"
       ]
     },
     "oem_iotlink": {
