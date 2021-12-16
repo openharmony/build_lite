@@ -82,7 +82,7 @@
       "module_list": [
         "//drivers/peripheral/wlan/hal:wifi_hal",
         "//drivers/peripheral/wlan/client:wifi_driver_client",
-        "//device/hisilicon/drivers/firmware/common/wlan:wifi_firmware"
+        "//device/soc/hisilicon/common/platform/wifi/hi3881v100/firmware:wifi_firmware"
       ],
       "test_list": [
         "//drivers/peripheral/wlan/test:hdf_test_wlan"
