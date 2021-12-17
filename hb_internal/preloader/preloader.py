@@ -178,9 +178,7 @@ class MyProduct():
         if self._parsed is False:
             self._config = read_json_file(self._config_file)
 
-            version = self._config.get('version')
-            if version is None:
-                version = "1.0"
+            version = self._config.get('version', '3.0')
 
             if version == "1.0":
                 self._parse_config_v1()
@@ -198,7 +196,7 @@ class MyProduct():
     def _parse_config_v2(self, config):
         all_parts = {}
 
-        os_level = config.get("type")
+        os_level = config.get("type", "standard")
         device_name = config.get('product_device')
         current_product_parts = config.get("parts")
         if current_product_parts:
@@ -268,7 +266,7 @@ class MyProduct():
             all_parts.update(self._device.get_device_specific_parts())
 
         build_vars = {}
-        build_vars['os_level'] = config.get('type')
+        build_vars['os_level'] = config.get('type', 'mini')
         build_vars['product_name'] = config.get('product_name')
         build_vars['device_name'] = config.get('board')
         if config.get('product_company'):
@@ -298,16 +296,16 @@ class MyProduct():
             raise Exception(
                 "product name configuration incorrect for '{}'".format(
                     self._name))
-        os_level = config.get("type")
-        if os_level not in ['standard', 'large', 'mini', 'small']:
-            raise Exception("product config incorrect.")
 
     # parse v2 and plus
     def _parse_config_v2p(self, config, version):
         self._sanitize(config)
 
         # 1. inherit parts infomation from base config
-        os_level = config.get("type")
+        if version == "2.0":
+            os_level = config.get("type", "standard")
+        else:
+            os_level = config.get("type", "mini")
         self._parts = _get_base_parts(self._dirs.built_in_base_dir, os_level)
         # 2. inherit parts information from inherit config
         inherit = config.get('inherit')
