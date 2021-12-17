@@ -46,8 +46,8 @@ class Product():
                             'company': company,
                             "name": product_name,
                             'path': product_path,
-                            'version': info.get('version'),
-                            'os_level': info.get('type'),
+                            'version': info.get('version', '3.0'),
+                            'os_level': info.get('type', "mini"),
                             'config': config_path
                         }
         bip_path = config.built_in_product_path
@@ -59,8 +59,8 @@ class Product():
                 'company': 'built-in',
                 "name": product_name,
                 'path': bip_path,
-                'version': info.get('version'),
-                'os_level': info.get('type'),
+                'version': info.get('version', '2.0'),
+                'os_level': info.get('type', 'standard'),
                 'config': config_path
             }
 
@@ -68,7 +68,7 @@ class Product():
     def get_device_info(product_json):
         info = read_json_file(product_json)
         config = Config()
-        version = info.get('version')
+        version = info.get('version', '3.0')
 
         if version == '2.0':
             device_json = os.path.join(config.built_in_device_path,

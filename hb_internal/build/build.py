@@ -139,7 +139,7 @@ def exec_command(args):
         for gn_arg in args.gn_args[0].split(' '):
             try:
                 variable, value = gn_arg.split('=')
-                build.register_args(variable, value)
+                build.register_args(variable, value, False)
             except ValueError:
                 raise OHOSException(f'Invalid gn args: {gn_arg}')
 
