@@ -145,9 +145,11 @@ def exec_command(args):
 
     if hasattr(args, 'compact_mode') and args.compact_mode:
         if hasattr(args, 'target') and len(args.target):
-            cmd_args['ninja']['targets'] = args.target[0].split(' ')
+            cmd_args['ninja']['targets'] = args.target
         else:
             cmd_args['ninja']['default_target'] = 'packages'
+        if hasattr(args, 'full') and args.full:
+            cmd_args['ninja']['targets'] = ['make_all', 'make_test']
     if hasattr(args, 'keep_ninja_going') and args.keep_ninja_going:
         cmd_args['ninja']['keep_ninja_going'] = True
 
