@@ -5,10 +5,10 @@
       "description": "",
       "optional": "false",
       "dirs": [
-        "device/soc/hisilicon/common/hi35xx_hal"
+        "device/soc/hisilicon/common/hal"
       ],
       "targets": [
-        "//device/soc/hisilicon/common/hi35xx_hal/media:hardware_media_sdk"
+        "//device/soc/hisilicon/common/hal/media:hardware_media_sdk"
       ],
       "rom": "",
       "ram": "",
@@ -28,10 +28,10 @@
       "description": "",
       "optional": "false",
       "dirs": [
-        "device/soc/hisilicon/common/hi35xx_hal/middleware"
+        "device/soc/hisilicon/common/hal/middleware"
       ],
       "targets": [
-        "//device/soc/hisilicon/common/hi35xx_hal/middleware:middleware_source_sdk"
+        "//device/soc/hisilicon/common/hal/middleware:middleware_source_sdk"
       ],
       "rom": "",
       "ram": "",
@@ -51,7 +51,7 @@
       "description": "",
       "optional": "false",
       "dirs": [
-        "device/soc/hisilicon/common/hi35xx_hal"
+        "device/soc/hisilicon/common/hal"
       ],
       "targets": [],
       "rom": "",
@@ -82,7 +82,7 @@
       "description": "",
       "optional": "false",
       "dirs": [
-          "device/soc/hisilicon/common/hi35xx_hal"
+          "device/soc/hisilicon/common/hal"
       ],
       "targets": [],
       "rom": "",
