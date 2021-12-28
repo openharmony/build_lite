@@ -5,10 +5,10 @@
       "description": "",
       "optional": "false",
       "dirs": [
-        "device/hisilicon/hardware"
+        "device/soc/hisilicon/common/hal"
       ],
       "targets": [
-        "//device/hisilicon/hardware:hardware_media_sdk"
+        "//device/soc/hisilicon/common/hal/media:hardware_media_sdk"
       ],
       "rom": "",
       "ram": "",
@@ -28,10 +28,10 @@
       "description": "",
       "optional": "false",
       "dirs": [
-        "device/hisilicon/modules/middleware"
+        "device/soc/hisilicon/common/hal/middleware"
       ],
       "targets": [
-        "//device/hisilicon/modules/middleware:middleware_source_sdk"
+        "//device/soc/hisilicon/common/hal/middleware:middleware_source_sdk"
       ],
       "rom": "",
       "ram": "",
@@ -51,7 +51,7 @@
       "description": "",
       "optional": "false",
       "dirs": [
-        "device/hisilicon/hardware"
+        "device/soc/hisilicon/common/hal"
       ],
       "targets": [],
       "rom": "",
@@ -82,7 +82,7 @@
       "description": "",
       "optional": "false",
       "dirs": [
-          "device/hisilicon/hardware"
+          "device/soc/hisilicon/common/hal"
       ],
       "targets": [],
       "rom": "",
@@ -173,10 +173,10 @@
       "description": "",
       "optional": "false",
       "dirs": [
-        "device/hisilicon/hispark_pegasus/sdk_liteos"
+        "device/soc/hisilicon/hi3861v100/sdk_liteos"
       ],
       "targets": [
-        "//device/hisilicon/hispark_pegasus/sdk_liteos:wifiiot_sdk"
+        "//device/soc/hisilicon/hi3861v100/sdk_liteos:wifiiot_sdk"
       ],
       "rom": "",
       "ram": "",
@@ -229,14 +229,14 @@
       "description": "",
       "optional": "false",
       "dirs": [
-        "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/utils/file",
+        "device/soc/hisilicon/hi3861v100/hi3861_adapter/hals/utils/file",
         "utils/native/lite/hals/file",
-        "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/iot_hardware/wifiiot_lite",
+        "device/soc/hisilicon/hi3861v100/hi3861_adapter/hals/iot_hardware/wifiiot_lite",
         "base/update/ota_lite/hals",
-        "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/update",
-        "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/communication/wifi_lite/wifiaware",
+        "device/soc/hisilicon/hi3861v100/hi3861_adapter/hals/update",
+        "device/soc/hisilicon/hi3861v100/hi3861_adapter/hals/communication/wifi_lite/wifiaware",
         "foundation/communication/wifi_lite/interfaces/wifiservice",
-        "device/hisilicon/hispark_pegasus/hi3861_adapter/hals/communication/wifi_lite/wifiservice"
+        "device/soc/hisilicon/hi3861v100/hi3861_adapter/hals/communication/wifi_lite/wifiservice"
       ],
       "targets": [],
       "rom": "",
