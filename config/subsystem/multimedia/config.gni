@@ -19,6 +19,7 @@ declare_args() {
   enable_histreamer_plugin_hdi_adapter = true
   enable_histreamer_plugin_file_source = true
   enable_histreamer_plugin_stream_source = true
+  enable_histreamer_plugin_minimp3_adapter = false
 
   # configuration for histreamer created thread's stack size.
   # 0 means using system default thread stack size, other positive values will be accepted.
