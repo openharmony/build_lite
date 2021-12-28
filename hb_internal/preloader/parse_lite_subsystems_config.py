@@ -13,10 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import argparse
-import sys
 import json
 import os
+
+from hb_internal.common.utils import read_json_file
 
 
 def _read_lite_component_configs(file):
@@ -54,8 +54,8 @@ def _save_as_ohos_build(config, ohos_build):
 
 
 def parse_lite_subsystem_config(lite_components_dir, output_dir,
-                                source_root_dir):
-    subsystem_infos = {}
+                                source_root_dir, subsystem_config_file):
+    subsystem_infos = read_json_file(subsystem_config_file)
     for root, _, files in os.walk(lite_components_dir):
         for file in files:
             if file[-5:] == '.json':
@@ -74,18 +74,3 @@ def parse_lite_subsystem_config(lite_components_dir, output_dir,
                                     source_root_dir),
                 }
     return subsystem_infos
-
-
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--output-dir', required=True)
-    parser.add_argument('--source-root-dir', required=True)
-    parser.add_argument('--subsystem-config-file', required=True)
-    parser.add_argument('--lite-components-dir', required=True)
-    options = parser.parse_args()
-    parse_lite_subsystem_config(options.lite_components_dir,
-                                options.output_dir, options.source_root_dir)
-
-
-if __name__ == '__main__':
-    sys.exit(main())
