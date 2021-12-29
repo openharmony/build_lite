@@ -127,6 +127,11 @@ def get_failed_log(log_path):
         if 'FAILED:' in log:
             hb_error(log)
 
+    failed_pattern = re.compile(r'(ninja: error:.*?)\n', re.DOTALL)
+    failed_log = failed_pattern.findall(data)
+    for log in failed_log:
+        hb_error(log)
+
     error_log = os.path.join(os.path.dirname(log_path), 'error.log')
     if os.path.isfile(error_log):
         with open(error_log, 'rt', encoding='utf-8') as log_file:
