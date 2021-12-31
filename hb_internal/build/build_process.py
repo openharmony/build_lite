@@ -205,7 +205,10 @@ class Build():
 
     def gn_build(self, cmd_args):
         # Gn cmd init and execute
-        gn_path = self.config.gn_path
+        if self.config.os_level == "standard":
+            gn_path = 'gn'
+        else:
+            gn_path = self.config.gn_path
         gn_args = cmd_args.get('gn', [])
         os_level = self.config.os_level
         gn_cmd = [
@@ -227,7 +230,10 @@ class Build():
         remove_path(self.config.out_path)
 
     def ninja_build(self, cmd_args):
-        ninja_path = self.config.ninja_path
+        if self.config.os_level == "standard":
+            ninja_path = 'ninja'
+        else:
+            ninja_path = self.config.ninja_path
 
         ninja_args = cmd_args.get('ninja', {})
         my_ninja_args = []
