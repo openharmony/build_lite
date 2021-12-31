@@ -18,11 +18,12 @@
 
 import os
 import sys
+import json
 import argparse
 import importlib
 import traceback
 
-VERSION = "0.4.4"
+VERSION = "0.4.5"
 
 
 def find_top():
@@ -34,6 +35,14 @@ def find_top():
 
         cur_dir = os.path.dirname(cur_dir)
     raise Exception("Please call hb utilities inside source root directory")
+
+
+def get_hb_commands(config_file):
+    if not os.path.exists(config_file):
+        raise Exception('Error: {} not exist, couldnot get hb command set'.format(config_file))
+    with open(config_file, 'r') as file:
+        config = json.load(file)
+        return config
 
 
 def main():
@@ -49,10 +58,9 @@ def main():
     subparsers = parser.add_subparsers()
     parser_list = []
 
-    parser_list.append({'name': 'build', 'help': 'Build source code'})
-    parser_list.append({'name': 'set', 'help': 'OHOS build settings'})
-    parser_list.append({'name': 'env', 'help': 'Show OHOS build env'})
-    parser_list.append({'name': 'clean', 'help': 'Clean output'})
+    command_set = get_hb_commands(os.path.join(topdir, 'build/lite/hb_internal/hb_command_set.json'))
+    for key, val in command_set.items():
+        parser_list.append({'name': key, 'help': val})
 
     for each in parser_list:
         module_parser = subparsers.add_parser(name=each.get('name'),
