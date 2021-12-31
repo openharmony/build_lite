@@ -201,6 +201,33 @@
         "components": [
         ]
       }
+    },
+    {
+      "component": "rpc",
+      "description": "Remote procedure call open sources software.",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/ipc"
+      ],
+      "targets": [
+        "//foundation/communication/ipc/interfaces/innerkits/c/ipc:ipc_single"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ ],
+      "adapted_kernel": [ "liteos_m", "linux" ],
+      "features": [],
+      "deps": {
+        "adapted_kernel": [
+          "liteos_a",
+          "linux",
+          "liteos_m"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+        ]
+      }
     }
   ]
 }
