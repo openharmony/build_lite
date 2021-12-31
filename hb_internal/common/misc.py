@@ -118,6 +118,9 @@ class PostBuild:
         exec_command(cmd, log_path=self._log_path)
 
     def stat_ccache(self):
+        ccache_path = find_executable('ccache')
+        if ccache_path is None:
+            return
         cmd = [
             'python3', '{}/build/scripts/summary_ccache_hitrate.py'.format(
                 self._root_path), '{}/ccache.log'.format(self._root_path)
