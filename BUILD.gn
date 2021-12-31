@@ -83,7 +83,14 @@ group("ohos") {
                 (ohos_build_userspace_only && subsystem_name != "kernel" &&
                  subsystem_name != "vendor")) {
               foreach(component_target, component.targets) {
-                deps += [ component_target ]
+                if (product_configed_component.component == "liteos_m") {
+                  if (component_target !=
+                      "//kernel/liteos_m:build_kernel_image") {
+                    deps += [ component_target ]
+                  }
+                } else {
+                  deps += [ component_target ]
+                }
               }
             }
           }
