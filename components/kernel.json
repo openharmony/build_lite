@@ -45,7 +45,8 @@
         "kernel/liteos_m"
       ],
       "targets": [
-        "//kernel/liteos_m:kernel"
+        "//kernel/liteos_m:kernel",
+        "//kernel/liteos_m:build_kernel_image"
       ],
       "rom": "40KB",
       "ram": "",
