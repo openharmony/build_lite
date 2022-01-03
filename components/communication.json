@@ -210,7 +210,7 @@
         "foundation/communication/ipc"
       ],
       "targets": [
-        "//foundation/communication/ipc/interfaces/innerkits/c/ipc:ipc_single"
+        "//foundation/communication/ipc/interfaces/innerkits/c:rpc"
       ],
       "rom": "",
       "ram": "",
