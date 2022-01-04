@@ -80,7 +80,7 @@ def _get_org_subsytem_info(subsystem_config_file, os_level, config_dirs):
                                              '{}_system'.format(os_level))
         subsystem_info = parse_lite_subsystem_config(
             config_dirs.lite_components_dir, ohos_build_output_dir,
-            config_dirs.source_root_dir)
+            config_dirs.source_root_dir, subsystem_config_file)
     return subsystem_info
 
 
@@ -142,6 +142,7 @@ def _output_parts_json(all_parts, output_file):
 
 
 class MyProduct():
+
     def __init__(self, product_name, config_dirs, config_json):
         self._name = product_name
         self._dirs = config_dirs
@@ -329,6 +330,7 @@ class MyProduct():
 
 
 class MyDevice():
+
     def __init__(self, device_name, config_dirs, device_info=None):
         self._name = device_name
         self._dirs = config_dirs
@@ -370,6 +372,7 @@ class MyDevice():
 
 @dataclass
 class Dirs:
+
     def __init__(self, config):
         self.__post_init__(config)
 
@@ -400,6 +403,7 @@ class Dirs:
 
 @dataclass
 class Outputs:
+
     def __init__(self, output_dir):
         self.__post_init__(output_dir)
 
@@ -415,6 +419,7 @@ class Outputs:
 
 
 class Preloader():
+
     def __init__(self, config):
         # All kinds of directories and subsystem_config_json
         self._dirs = Dirs(config)
