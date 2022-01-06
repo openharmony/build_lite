@@ -22,4 +22,6 @@ declare_args() {
   # configuration for aafwk created ams task's stack size.
   # positive values will be accepted.
   config_ohos_aafwk_ams_task_size = 2048
+
+  config_ohos_aafwk_aafwk_lite_task_stack_size = 12288
 }
