@@ -91,11 +91,11 @@ config("pie_executable_config") {
 config("clang") {
   include_dirs = [
     "//clang/include/c++/v1",
-    "//sysroot/usr/include/arm-liteos",
+    "//sysroot/usr/include/arm-liteos-ohos",
   ]
 
   cflags = [
-    "--target=arm-liteos",
+    "--target=arm-liteos-ohos",
     "-mcpu=cortex-a7",
     "-march=armv7-a",
     "-mfloat-abi=softfp",
@@ -106,10 +106,10 @@ config("clang") {
   ldflags = cflags
 
   ldflags += [
-    "-L../clang/arm-liteos/c++",
-    "-L../lite/sysroot/usr/lib/arm-liteos",
-    "-L../clang/current/lib/arm-liteos",
-    "-L../clang/arm-liteos/c++",
+    "-L../clang/arm-liteos-ohos/c++",
+    "-L../lite/sysroot/usr/lib/arm-liteos-ohos",
+    "-L../clang/current/lib/arm-liteos-ohos",
+    "-L../clang/arm-liteos-ohos/c++",
     "-lclang_rt.builtins",
     "-lc",
     "-lc++",
