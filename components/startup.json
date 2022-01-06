@@ -9,7 +9,8 @@
       ],
       "targets": [
         "//base/startup/syspara_lite/frameworks/parameter",
-        "//base/startup/syspara_lite/frameworks/token"
+        "//base/startup/syspara_lite/frameworks/token",
+        "//base/startup/syspara_lite/frameworks/unittest/parameter:unittest"
       ],
       "rom": "23KB",
       "ram": "",
@@ -79,7 +80,8 @@
       "targets": [
         "//base/startup/init_lite/services:init_lite",
         "//base/startup/init_lite/watchdog:watchdog",
-        "//base/startup/init_lite/ueventd:ueventd"
+        "//base/startup/init_lite/ueventd:ueventd",
+        "//base/startup/init_lite/test/unittest/common:unittest"
       ],
       "rom": "31KB",
       "ram": "~200KB",
@@ -109,7 +111,8 @@
           "base/startup/appspawn_lite"
         ],
         "targets": [
-          "//base/startup/appspawn_lite/services:appspawn_lite"
+          "//base/startup/appspawn_lite/services:appspawn_lite",
+          "//base/startup/appspawn_lite/services/test/unittest/common:unittest"
         ],
         "rom": "26KB",
         "ram": "~1.8M",
