@@ -129,7 +129,7 @@
         "base/security/appverify"
       ],
       "targets": [
-        "//base/security/appverify/interfaces/innerkits/appverify_lite:verify"
+        "//base/security/appverify/interfaces/innerkits/appverify_lite:verify_lite"
       ],
       "rom": "",
       "ram": "",
