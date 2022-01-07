@@ -14,24 +14,24 @@
 #
 
 action("doc") {
-    deps = ["//build/lite/ndk:ndk_build"]
-    script = "//build/lite/ndk/doc/gen_doc.py"
-    depfile = "${target_gen_dir}/${target_name}.d"
+  deps = [ "//build/lite/ndk:ndk_build" ]
+  script = "//build/lite/ndk/doc/gen_doc.py"
+  depfile = "${target_gen_dir}/${target_name}.d"
 
-    exclude_dir = "*/gcc/* \ */arm-liteos/*"
-    doxygen_file = "//build/lite/ndk/doc/config/Doxyfile_C"
+  exclude_dir = "*/gcc/* \ */arm-liteos-ohos/*"
+  doxygen_file = "//build/lite/ndk/doc/config/Doxyfile_C"
 
-    args = [
-        "--exclude_dir",
-        exclude_dir,
-        "--working-dir",
-        rebase_path("$root_build_dir/ndk"),
-        "--version",
-        ohos_version,
-        "--output",
-        rebase_path("$root_build_dir/ndk/doc"),
-        "--doxygen-file",
-        rebase_path(doxygen_file, root_build_dir),
-    ]
-    outputs = [ "$root_build_dir/ndk/doc/index.html" ]
+  args = [
+    "--exclude_dir",
+    exclude_dir,
+    "--working-dir",
+    rebase_path("$root_build_dir/ndk"),
+    "--version",
+    ohos_version,
+    "--output",
+    rebase_path("$root_build_dir/ndk/doc"),
+    "--doxygen-file",
+    rebase_path(doxygen_file, root_build_dir),
+  ]
+  outputs = [ "$root_build_dir/ndk/doc/index.html" ]
 }
