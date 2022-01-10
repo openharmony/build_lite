@@ -145,10 +145,6 @@ class Config(metaclass=Singleton):
 
     @property
     def kernel(self):
-        if self._kernel is None:
-            raise OHOSException('Failed to get kernel. '
-                                'Please run command "hb set" to '
-                                'init OHOS development environment')
         return self._kernel
 
     @kernel.setter
