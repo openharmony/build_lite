@@ -32,9 +32,7 @@ def add_options(parser):
                         nargs='?',
                         default=None,
                         help='Set OHOS root path')
-    parser.add_argument('-p',
-                        '--product',
-                        help='Set OHOS board and kernel')
+    parser.add_argument('-p', '--product', help='Set OHOS board and kernel')
 
 
 def exec_command(args):
@@ -92,7 +90,10 @@ def set_product(product_name=None, company=None):
     if config.version == '2.0':
         config.device_path = board_path
     else:
-        config.device_path = Device.get_device_path(board_path, config.kernel,
-                                                    kernel_version)
+        if config.os_level == "standard":
+            config.device_path = board_path
+        else:
+            config.device_path = Device.get_device_path(
+                board_path, config.kernel, kernel_version)
 
     return 0

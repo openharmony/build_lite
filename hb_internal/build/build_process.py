@@ -304,6 +304,7 @@ class Build():
             if self.config.os_level != "standard":
                 self.register_args('device_company',
                                    self.config.device_company)
-            self.register_args('ohos_kernel_type', self.config.kernel)
+            if self.config.kernel:
+                self.register_args('ohos_kernel_type', self.config.kernel)
 
             self._args_list += Product.get_features(self.config.product_json)
