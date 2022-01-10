@@ -52,11 +52,8 @@ def read_json_file(input_file):
         raise OHOSException(f'{input_file} not found')
 
     with open(input_file, 'rb') as input_f:
-        try:
-            data = json.load(input_f)
-            return data
-        except json.JSONDecodeError:
-            raise OHOSException(f'{input_file} parsing error!')
+        data = json.load(input_f)
+        return data
 
 
 def dump_json_file(dump_file, json_data):
