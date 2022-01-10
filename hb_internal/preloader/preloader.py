@@ -227,7 +227,7 @@ class MyProduct():
         # Product_name, device_company are necessary for
         # config.json, DON NOT use .get to replace []
         device_info = {
-            'device_name': config['product_name'],
+            'device_name': config['board'],
             'device_company': config['device_company']
         }
         if config.get('target_os'):
