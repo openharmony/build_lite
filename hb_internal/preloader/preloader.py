@@ -239,6 +239,7 @@ class MyProduct():
             device_info['target_cpu'] = config['target_cpu']
         else:
             # Target cpu is used to set default toolchain for standard system.
+            print("The target_cpu needs to be specified.")
             device_info['target_cpu'] = 'unknown'
         if config.get('kernel_version'):
             device_info['kernel_version'] = config.get('kernel_version')
@@ -279,6 +280,8 @@ class MyProduct():
             build_vars['product_company'] = relpath.split('/')[0]
         else:
             build_vars['product_company'] = config.get('device_company')
+        if 'enable_ramdisk' in config:
+            build_vars['enable_ramdisk'] = config.get('enable_ramdisk')
         if 'support_jsapi' in config:
             build_vars['support_jsapi'] = config.get('support_jsapi')
 
