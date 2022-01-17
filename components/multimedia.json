@@ -88,6 +88,44 @@
       }
     },
     {
+      "component": "histreamer",
+      "description": "Histreamer engine.",
+      "optional": "true",
+      "dirs": [
+        "foundation/multimedia/histreamer"
+      ],
+      "targets": [
+        "//foundation/multimedia/histreamer:histreamer"
+      ],
+      "rom": "622KB",
+      "ram": "",
+      "output": [
+        "libhistreamer.so",
+        "libhistreamer.a"
+      ],
+      "adapted_kernel": [ "liteos_a","liteos_m","linux" ],
+      "features": [ "multimedia_histreamer_enable_plugin_hdi_adapter = true" ],
+      "deps": {
+        "third_party": [
+          "ffmpeg",
+          "minimp3",
+          "minimp4"
+        ],
+        "kernel_special": {},
+        "board_special": {
+          "hi3516dv300": [
+            "hi3516dv300_adapter"
+          ],
+          "hi3518ev300": [
+            "hi3518ev300_adapter"
+          ]
+        },
+        "components": [
+          "hilog_lite"
+        ]
+      }
+    },
+    {
       "component": "media_lite",
       "description": "recoder service and player service.",
       "optional": "true",
