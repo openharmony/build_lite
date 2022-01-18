@@ -33,23 +33,6 @@
             "utils_base"
           ]
         }
-    },
-    {
-        "component": "objectstore",
-        "description": "distributed objectstore",
-        "optional": "true",
-        "dirs": ["foundation/distributeddatamgr/objectstore"],
-        "targets": ["//foundation/distributeddatamgr/objectstore:objectstoremgr"],
-        "rom": "20KB",
-        "ram": "",
-        "output": ["objectstore.so"],
-        "adapted_kernel": ["liteos_a",
-        "linux"],
-        "deps": {
-            "components": ["utils_base",
-            "hilog"]
-        },
-        "features": []
     }
 ]
 }
