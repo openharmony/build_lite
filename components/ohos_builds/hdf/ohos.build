@@ -54,10 +54,12 @@
     },
     "peripheral_misc": {
       "module_list": [
-        "//drivers/peripheral/misc/vibrator/hal:hdi_vibrator"
+        "//drivers/peripheral/misc/vibrator/hal:hdi_vibrator",
+        "//drivers/peripheral/misc/light/hal:hdi_light"
       ],
       "test_list": [
-        "//drivers/peripheral/misc/vibrator/test/:hdf_test_vibrator"
+        "//drivers/peripheral/misc/vibrator/test/:hdf_test_vibrator",
+        "//drivers/peripheral/misc/light/test/:hdf_test_light"
       ]
     },
     "peripheral_sensor": {
