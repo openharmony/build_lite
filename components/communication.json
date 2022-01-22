@@ -123,7 +123,7 @@
         "third_party": [],
         "kernel_special": {},
         "board_special": {},
-        "components": ["peripheral_wlan"]
+        "components": ["wlan_device_driver"]
       }
     },
     {
@@ -150,9 +150,8 @@
         "board_special": {},
         "components": [
           "samgr_lite",
-          "drivers_framework",
-          "adapter_uhdf",
-          "peripheral_wlan"
+          "device_driver_framework",
+          "wlan_device_driver"
         ]
       }
     },
