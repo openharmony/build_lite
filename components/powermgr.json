@@ -25,7 +25,7 @@
         "components": [
           "utils_base",
           "samgr_lite",
-          "peripheral_input",
+          "input_device_driver",
           "ui",
           "ipc_lite",
           "aafwk_lite",

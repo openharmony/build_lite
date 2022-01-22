@@ -74,8 +74,8 @@
         "components": [
           "hilog_lite",
           "ipc_lite",
-          "peripheral_display",
-          "peripheral_input"
+          "display_device_driver",
+          "input_device_driver"
         ],
         "board_special": {}
       }
