@@ -49,29 +49,6 @@
           "utils_base"
         ]
       }
-    },
-    {
-      "component": "global_cust",
-      "description": "",
-      "optional": "true",
-      "dirs": [
-        "base/global/cust_lite"
-      ],
-      "targets": [
-        "//base/global/cust_lite/frameworks/cust_lite:cust"
-      ],
-      "rom": "9KB",
-      "ram": "~40KB",
-      "output": [ "cust.so" ],
-      "adapted_kernel": [ "linux" ],
-      "features": [],
-      "deps": {
-        "third_party": [
-          "bounds_checking_function"
-        ],
-        "components": [
-        ]
-      }
     }
   ]
 }

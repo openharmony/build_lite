@@ -1,10 +1,5 @@
 {
   "parts": {
-    "global_cust": {
-      "module_list": [
-        "//base/global/cust_lite/frameworks/cust_lite:cust"
-      ]
-    },
     "i18n_lite": {
       "module_list": [
         "//base/global/i18n_lite/frameworks/i18n:global_i18n",
