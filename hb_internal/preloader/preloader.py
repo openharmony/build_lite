@@ -150,6 +150,7 @@ class MyProduct():
         self._config = {}
         self._build_vars = {}
         self._parts = {}
+        self._syscap_info = {}
         self._parsed = False
         self._config_file = config_json
 
@@ -180,7 +181,20 @@ class MyProduct():
             self._config = read_json_file(self._config_file)
 
             version = self._config.get('version', '3.0')
-
+            product_name = self._config.get('product_name')
+            if product_name == None:
+                product_name = ""
+            os_level = self._config.get('type')
+            if os_level == None:
+                os_level = ""
+            api_version = self._config.get('api_version')
+            if api_version == None:
+                api_version = 0
+            manufacturer_id = self._config.get('manufacturer_id')
+            if manufacturer_id == None:
+                manufacturer_id = 0
+            self._syscap_info = {'product':product_name, 'api_version':api_version,
+                'system_type':os_level, 'manufacturer_id':manufacturer_id}
             if version == "1.0":
                 self._parse_config_v1()
             else:
@@ -420,6 +434,7 @@ class Outputs:
         self.subsystem_config_json = os.path.join(output_dir,
                                                   'subsystem_config.json')
         self.platforms_build = os.path.join(output_dir, 'platforms.build')
+        self.systemcapability_json = os.path.join(output_dir, 'SystemCapability.json')
 
 
 class Preloader():
@@ -444,6 +459,7 @@ class Preloader():
             if device_info:
                 build_vars.update(device_info)
 
+        dump_json_file(self._outputs.systemcapability_json, self._product._syscap_info)
         # save parts to parts_json
         _output_parts_json(all_parts, self._outputs.parts_json)
 
