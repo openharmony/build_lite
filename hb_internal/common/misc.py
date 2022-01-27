@@ -76,7 +76,7 @@ class PreBuild:
             os.rename(logfile, '{}/build.{}.log'.format(self._out_path, mtime))
 
     def prepare(self, args):
-        actions = [self.set_ccache, self.set_pycache, self.rename_last_logfile]
+        actions = [self.set_ccache, self.rename_last_logfile]
         for action in actions:
             action()
 
@@ -89,9 +89,6 @@ class PostBuild:
 
     def clean(self, start_time):
         self.stat_ccache()
-        self.stat_pycache()
-        self.manage_cache_data()
-        self.stop_pyd()
         self.generate_ninja_trace(start_time)
         self.get_warning_list()
         self.compute_overlap_rate()
