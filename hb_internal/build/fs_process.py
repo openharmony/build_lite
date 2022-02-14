@@ -32,6 +32,7 @@ class Packer():
     def __init__(self) -> None:
         self.config = Config()
         self.replace_items = {
+            r'${product_name}': self.config.product,
             r'${root_path}': self.config.root_path,
             r'${out_path}': self.config.out_path
         }
@@ -225,15 +226,15 @@ class Packer():
             for fs_process_func in self.packing_process:
                 fs_process_func()
 
-
 if __name__ == "__main__":
     packer = Packer()
     ConfigTest = namedtuple(
         'config',
-        ['root_path', 'out_path', 'log_path', 'product_path', 'fs_attr'])
+        ['product', 'root_path', 'out_path', 'log_path', 'product_path', 'fs_attr'])
     packer.config = ConfigTest('', '', '', '', set())
     packer.config.fs_attr.add('dmverity_enable')
     packer.replace_items = {
+        r'${product_name}': packer.config.product,
         r'${root_path}': packer.config.root_path,
         r'${out_path}': packer.config.out_path
     }
