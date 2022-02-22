@@ -5,8 +5,7 @@
       "discription": "",
       "optional": "true",
       "dirs": [
-        "utils/native/lite/kv_store",
-        "utils/native/lite/unittest/kv_store"
+        "utils/native/lite/kv_store"
       ],
       "targets": [
         "//utils/native/lite/kv_store"
