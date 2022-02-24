@@ -140,6 +140,14 @@ def _output_parts_json(all_parts, output_file):
     parts_info = {"parts": sorted(list(all_parts.keys()))}
     dump_json_file(output_file, parts_info)
 
+def _output_parts_config_json(all_parts, output_file):
+    parts_config = {}
+    for part in all_parts:
+        part = part.replace(":", "_")
+        part = part.replace("-", "_")
+        part = part.replace(".", "_")
+        parts_config[part] = True
+    dump_json_file(output_file, parts_config)
 
 class MyProduct():
 
@@ -429,6 +437,7 @@ class Outputs:
         self.build_prop = os.path.join(output_dir, 'build.prop')
         self.build_config_json = os.path.join(output_dir, 'build_config.json')
         self.parts_json = os.path.join(output_dir, 'parts.json')
+        self.parts_config_json = os.path.join(output_dir, 'parts_config.json')
         self.build_gnargs_prop = os.path.join(output_dir, 'build_gnargs.prop')
         self.features_json = os.path.join(output_dir, 'features.json')
         self.subsystem_config_json = os.path.join(output_dir,
@@ -462,6 +471,7 @@ class Preloader():
         dump_json_file(self._outputs.systemcapability_json, self._product._syscap_info)
         # save parts to parts_json
         _output_parts_json(all_parts, self._outputs.parts_json)
+        _output_parts_config_json(all_parts, self._outputs.parts_config_json)
 
         # save features to features_json
         all_features = _output_parts_features(all_parts,
