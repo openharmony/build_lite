@@ -15,10 +15,10 @@ import("//build/lite/config/subsystem/aafwk/path.gni")
 
 declare_args() {
   ohos_sign_haps_by_server = false
-  hapsigner = "//developtools/hapsigner/dist/hap-sign-tool.jar"
+  hapsigner = "//prebuilts/signcenter/hapsigntool/hapsigntoolv2.jar"
   packtool = "//developtools/packing_tool/jar/hmos_app_packing_tool.jar"
-  jks_file = "//developtools/hapsigner/dist/OpenHarmony.p12"
-  cert_file = "//developtools/hapsigner/dist/OpenHarmonyApplication.pem"
+  jks_file = "//prebuilts/signcenter/key/OpenHarmony.p12"
+  cert_file = "//prebuilts/signcenter/certificates/OpenHarmonyApplication.pem"
   default_hap_signature_algorithm = "SHA256withECDSA"
   sign_server = "rnd-signserver.huawei.com"
   privatekey = "OpenHarmony Application Release"
@@ -30,7 +30,7 @@ template("hap_pack") {
   assert(defined(invoker.hap_name), "hap_name in required.")
   assert(defined(invoker.privatekey), "privatekey in required.")
 
-  if (ohos_sign_haps_by_server == false) {
+  if(ohos_sign_haps_by_server == false) {
     invoker.privatekey = "OpenHarmony Application Release"
   }
 
