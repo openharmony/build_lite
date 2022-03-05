@@ -131,18 +131,18 @@ def hap_signing(args):
         # For details, see section "Application Signature Verification
         # Development Guide" in the Security Subsystem Development Guide.
         signing_cmd = [
-            'java', '-jar', signtool_path, 'sign-app', '-mode', 'localsign',
-            '-profileSigned', '1', '-keystorePwd', '123456',
-            '-keyPwd', '123456','inForm','zip'
+            'java', '-jar', signtool_path, 'sign', '-mode', 'localjks',
+            '-profileSigned', '1', '-keystorepasswd', '123456',
+            '-keyaliaspasswd', '123456'
         ]
         cmd_dict = {
-            '-keyAlias': args.privatekey,
-            '-inFile': args.unsignhap_path,
-            '-outFile': args.signhap_path,
+            '-privatekey': args.privatekey,
+            '-inputFile': args.unsignhap_path,
+            '-outputFile': args.signhap_path,
             '-signAlg': args.sign_algo,
-            '-profileFile': args.cert_profile,
-            '-keystoreFile': args.jks_path,
-            '-appCertFile': args.cert_path
+            '-profile': args.cert_profile,
+            '-keystore': args.jks_path,
+            '-certpath': args.cert_path
         }
     for key, value in cmd_dict.items():
         if value:
