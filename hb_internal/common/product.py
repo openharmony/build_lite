@@ -52,7 +52,7 @@ class Product():
                         }
         bip_path = config.built_in_product_path
         for item in os.listdir(bip_path):
-            if item[0] == ".":
+            if item[0] in ".":
                 continue
             else:
                 product_name = item[0:-len('.json')] if item.endswith('.json') else item
