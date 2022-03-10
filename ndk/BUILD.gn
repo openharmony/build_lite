@@ -102,7 +102,6 @@ group("ndk_build") {
     "//base/startup/syspara_lite/frameworks/parameter:parameter_notes",
     "//base/update/ota_lite/frameworks:update_api",
     "//build/lite/config/subsystem/hiviewdfx:hilog_ndk",
-    "//foundation/communication/softbus_lite:softbus_lite_ndk",
     "//utils/native/lite:native_api",
   ]
   if (ohos_kernel_type != "liteos_m") {
