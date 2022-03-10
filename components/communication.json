@@ -29,44 +29,6 @@
       }
     },
     {
-      "component": "softbus_lite",
-      "description": "",
-      "optional": "true",
-      "dirs": [
-        "foundation/communication/softbus_lite"
-      ],
-      "targets": [
-        "//foundation/communication/softbus_lite:softbus"
-      ],
-      "rom": "",
-      "ram": "",
-      "output": [
-        "softbus_lite.so",
-        "discovery.a"
-      ],
-      "adapted_kernel": [
-        "liteos_a",
-        "linux",
-        "liteos_m"
-      ],
-      "features": [],
-      "deps": {
-        "third_party": [
-          "mbedtls",
-          "bounds_checking_function",
-          "cjson",
-          "wpa_supplicant"
-        ],
-        "kernel_special": {},
-        "board_special": {},
-        "components": [
-          "hichainsdk",
-          "syspara_lite",
-          "permission"
-        ]
-      }
-    },
-    {
       "component": "dsoftbus",
       "description": "dsoftbus open sources software",
       "optional": "true",
