@@ -15,11 +15,6 @@
         "//foundation/communication/ipc_lite:liteipc_adapter"
       ]
     },
-    "softbus_lite": {
-      "module_list": [
-        "//foundation/communication/softbus_lite:softbus"
-      ]
-    },
     "wifi_aware": {
       "module_list": [
         "//foundation/communication/wifi_aware:wifiaware"
