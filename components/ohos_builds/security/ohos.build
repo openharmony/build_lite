@@ -10,19 +10,17 @@
         "//base/security/huks/frameworks/crypto_lite/cipher:cipher_shared"
       ]
     },
-    "deviceauth_lite": {
-      "module_list": [
-        "//base/security/deviceauth:deviceauth_lite"
-      ]
-    },
     "dm-verity": {
       "module_list": [
         "//third_party/cryptsetup:veritysetup"
       ]
     },
-    "hichainsdk": {
+    "deviceauth_standard": {
       "module_list": [
-        "//base/security/deviceauth/frameworks/deviceauth_lite:hichainsdk"
+        "//base/security/deviceauth/frameworks/deviceauth_lite:hichainsdk",
+        "//base/security/deviceauth/services:deviceauth",
+        "//base/security/deviceauth/services:deviceauth_sdk",
+        "//base/security/deviceauth/services:deviceauth_service"
       ]
     },
     "huks": {
