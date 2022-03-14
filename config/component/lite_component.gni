@@ -64,11 +64,11 @@ template("lite_library") {
 
 # Defines a component
 #
-# The lite_subsystem template defines all the modules contained in a subsystem
+# The lite_component template defines all the modules contained in a subsystem
 #
 # Parameters
 #
-#   component_features (required)
+#   features (required)
 #     [list of scopes] Defines all features in the component.
 template("lite_component") {
   assert(defined(invoker.features), "Component features is required.")
