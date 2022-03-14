@@ -1,38 +1,6 @@
 {
   "components": [
     {
-      "component": "hichainsdk",
-      "description": "",
-      "optional": "true",
-      "dirs": [
-        "base/security/deviceauth"
-      ],
-      "targets": [
-        "//base/security/deviceauth/frameworks/deviceauth_lite:hichainsdk"
-      ],
-      "rom": "",
-      "ram": "",
-      "output": [ "libhichainsdk.so" ],
-      "adapted_kernel": [
-        "liteos_a",
-        "liteos_m",
-        "linux"
-      ],
-      "features": [],
-      "deps": {
-        "third_party": [
-          "bounds_checking_function",
-          "cjson"
-
-        ],
-        "kernel_special": {},
-        "board_special": {},
-        "components": [
-          "huks"
-        ]
-      }
-    },
-    {
       "component": "huks",
       "description": "",
       "optional": "true",
@@ -206,11 +174,16 @@
       }
     },
     {
-      "component": "deviceauth_lite",
+      "component": "deviceauth_standard",
       "description": "hichain3.0",
       "optional": "true",
       "dirs": [ "//base/security/deviceauth" ],
-      "targets": [ "//base/security/deviceauth:deviceauth_lite" ],
+      "targets": [
+        "//base/security/deviceauth/frameworks/deviceauth_lite:hichainsdk",
+        "//base/security/deviceauth/services:deviceauth",
+        "//base/security/deviceauth/services:deviceauth_sdk",
+        "//base/security/deviceauth/services:deviceauth_service"
+      ],
       "rom": "600K",
       "ram": "~80K",
       "output": [
