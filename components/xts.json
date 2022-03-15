@@ -97,28 +97,6 @@
       }
     },
     {
-      "component": "developer_test",
-      "description": "",
-      "optional": "true",
-      "dirs": [
-        "test/developertest/examples/lite",
-        "test/developertest/third_party"
-      ],
-      "targets": [
-        "//test/developertest/examples/lite:test",
-        "//test/developertest/third_party/lib/cpp:gtest_main"
-      ],
-      "rom": "",
-      "ram": "",
-      "output": [],
-      "adapted_kernel": [
-        "liteos_a",
-        "linux"
-      ],
-      "features": [],
-      "deps": {}
-    },
-    {
       "component": "xts_ists",
       "description": "",
       "optional": "true",
