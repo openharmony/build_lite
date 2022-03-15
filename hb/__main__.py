@@ -46,57 +46,60 @@ def get_hb_commands(config_file):
 
 
 def main():
-    topdir = find_top()
-    sys.path.insert(0, os.path.join(topdir, 'build/lite'))
-    parser = argparse.ArgumentParser(description='OHOS Build System '
-                                     f'version {VERSION}')
-    parser.add_argument('-v',
-                        '--version',
-                        action='version',
-                        version=f'[OHOS INFO] hb version {VERSION}')
-
-    subparsers = parser.add_subparsers()
-    parser_list = []
-
-    command_set = get_hb_commands(os.path.join(topdir, 'build/lite/hb_internal/hb_command_set.json'))
-    for key, val in command_set.items():
-        parser_list.append({'name': key, 'help': val})
-
-    for each in parser_list:
-        module_parser = subparsers.add_parser(name=each.get('name'),
-                                              help=each.get('help'))
-        module = importlib.import_module('hb_internal.{0}.{0}'.format(
-            each.get('name')))
-        module.add_options(module_parser)
-        module_parser.set_defaults(parser=module_parser,
-                                   command=module.exec_command)
-
-    args = parser.parse_args()
-
-    module = importlib.import_module('hb_internal.common.utils')
-    hb_error = getattr(module, 'hb_error')
-    hb_warning = getattr(module, 'hb_warning')
-    OHOSException = getattr(module, 'OHOSException')
     try:
-        if args.parser.prog == 'hb set' and 'root_path' in vars(args):
-            # Root_path is topdir.
-            args.root_path = topdir
-        status = args.command(args)
-    except KeyboardInterrupt:
-        hb_warning('User Abort')
-        status = -1
-    except OHOSException as exception:
-        hb_error(exception.args[0])
-        status = -1
-    except Exception as exception:
-        if not hasattr(args, 'command'):
-            parser.print_help()
-        else:
-            hb_error(traceback.format_exc())
-            hb_error(f'Unhandled error: {exception}')
-        status = -1
+        topdir = find_top()
+        sys.path.insert(0, os.path.join(topdir, 'build/lite'))
+        parser = argparse.ArgumentParser(description='OHOS Build System '
+                                        f'version {VERSION}')
+        parser.add_argument('-v',
+                            '--version',
+                            action='version',
+                            version=f'[OHOS INFO] hb version {VERSION}')
 
-    return status
+        subparsers = parser.add_subparsers()
+        parser_list = []
+
+        command_set = get_hb_commands(os.path.join(topdir, 'build/lite/hb_internal/hb_command_set.json'))
+        for key, val in command_set.items():
+            parser_list.append({'name': key, 'help': val})
+
+        for each in parser_list:
+            module_parser = subparsers.add_parser(name=each.get('name'),
+                                                help=each.get('help'))
+            module = importlib.import_module('hb_internal.{0}.{0}'.format(
+                each.get('name')))
+            module.add_options(module_parser)
+            module_parser.set_defaults(parser=module_parser,
+                                    command=module.exec_command)
+
+        args = parser.parse_args()
+
+        module = importlib.import_module('hb_internal.common.utils')
+        hb_error = getattr(module, 'hb_error')
+        hb_warning = getattr(module, 'hb_warning')
+        OHOSException = getattr(module, 'OHOSException')
+        try:
+            if args.parser.prog == 'hb set' and 'root_path' in vars(args):
+                # Root_path is topdir.
+                args.root_path = topdir
+            status = args.command(args)
+        except KeyboardInterrupt:
+            hb_warning('User Abort')
+            status = -1
+        except OHOSException as exception:
+            hb_error(exception.args[0])
+            status = -1
+        except Exception as exception:
+            if not hasattr(args, 'command'):
+                parser.print_help()
+            else:
+                hb_error(traceback.format_exc())
+                hb_error(f'Unhandled error: {exception}')
+            status = -1
+
+        return status
+    except Exception as ex:
+        print("hb_error：Please call hb utilities inside source root directory")
 
 
 if __name__ == "__main__":
