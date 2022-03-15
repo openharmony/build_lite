@@ -51,6 +51,7 @@ class Product():
                             'config': config_path
                         }
         bip_path = config.built_in_product_path
+
         for item in os.listdir(bip_path):
             if item[0] in ".":
                 continue
@@ -201,5 +202,9 @@ class Product():
         menu = Menuconfig()
         product = menu.list_promt('product', 'Which product do you need?',
                                   choices).get('product')
-        product_key = f'{product[0]}@{product[1]}'
-        return product_path_dict[product_key]
+        filters= [product[0],product[1]]
+        if all(f not in product for f in filters):
+             raise OHOSException(f'product {filters} not found')
+        else:
+            product_key = f'{product[0]}@{product[1]}'
+            return product_path_dict[product_key]
