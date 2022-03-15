@@ -51,7 +51,6 @@ class Product():
                             'config': config_path
                         }
         bip_path = config.built_in_product_path
-
         for item in os.listdir(bip_path):
             if item[0] in ".":
                 continue
@@ -67,7 +66,7 @@ class Product():
                     'os_level': info.get('type', 'standard'),
                     'config': config_path
                 }
-
+                
     @staticmethod
     def get_device_info(product_json):
         info = read_json_file(product_json)
@@ -202,9 +201,5 @@ class Product():
         menu = Menuconfig()
         product = menu.list_promt('product', 'Which product do you need?',
                                   choices).get('product')
-        filters= [product[0],product[1]]
-        if all(f not in product for f in filters):
-             raise OHOSException(f'product {filters} not found')
-        else:
-            product_key = f'{product[0]}@{product[1]}'
-            return product_path_dict[product_key]
+        product_key = f'{product[0]}@{product[1]}'
+        return product_path_dict[product_key]
