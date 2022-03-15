@@ -66,6 +66,7 @@ class Product():
                     'os_level': info.get('type', 'standard'),
                     'config': config_path
                 }
+
     @staticmethod
     def get_device_info(product_json):
         info = read_json_file(product_json)
