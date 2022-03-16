@@ -52,17 +52,20 @@ class Product():
                         }
         bip_path = config.built_in_product_path
         for item in os.listdir(bip_path):
-            product_name = item[0:-len('.json')] if item.endswith('.json') else item
-            config_path = os.path.join(bip_path, item)
-            info = read_json_file(config_path)
-            yield {
-                'company': 'built-in',
-                "name": product_name,
-                'path': bip_path,
-                'version': info.get('version', '2.0'),
-                'os_level': info.get('type', 'standard'),
-                'config': config_path
-            }
+            if item[0] in ".":
+                continue
+            else:
+                product_name = item[0:-len('.json')] if item.endswith('.json') else item
+                config_path = os.path.join(bip_path, item)
+                info = read_json_file(config_path)
+                yield {
+                    'company': 'built-in',
+                    "name": product_name,
+                    'path': bip_path,
+                    'version': info.get('version', '2.0'),
+                    'os_level': info.get('type', 'standard'),
+                    'config': config_path
+                }
 
     @staticmethod
     def get_device_info(product_json):
