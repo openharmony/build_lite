@@ -46,7 +46,10 @@ def get_hb_commands(config_file):
 
 
 def main():
-    topdir = find_top()
+    try:
+        topdir = find_top()
+    except Exception as ex:
+        return print("hb_error: Please call hb utilities inside source root directory")
     sys.path.insert(0, os.path.join(topdir, 'build/lite'))
     parser = argparse.ArgumentParser(description='OHOS Build System '
                                      f'version {VERSION}')
