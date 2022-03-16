@@ -1,12 +1,5 @@
 {
   "parts": {
-    "developer_test": {
-      "module_list": [],
-      "test_list": [
-        "//test/developertest/examples/lite:test",
-        "//test/developertest/third_party/lib/cpp:gtest_main"
-      ]
-    },
     "xts_acts": {
       "module_list": [
         "//test/xts/acts/build_lite:acts"
