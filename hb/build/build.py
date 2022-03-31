@@ -33,7 +33,7 @@ def add_options(parser):
     parser.add_argument('--dmverity', help='Enable dmverity',
                         action="store_true")
     parser.add_argument('-p', '--product', help='build a specified product '
-                        'with {product_name}@{company}, eg: camera@huawei',
+                        'with {product_name}@{company}',
                         nargs=1, default=[])
     parser.add_argument('-f', '--full',
                         help='full code compilation', action='store_true')
