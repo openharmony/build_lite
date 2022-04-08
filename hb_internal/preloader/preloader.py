@@ -71,7 +71,7 @@ def _output_gnargs_prop(all_features, output_file):
         fobj.write('\n'.join(features_list))
 
 
-def _get_org_subsytem_info(subsystem_config_file, os_level, config_dirs):
+def _get_org_subsystem_info(subsystem_config_file, os_level, config_dirs):
     subsystem_info = {}
     if os_level == "standard":
         subsystem_info = read_json_file(subsystem_config_file)
@@ -86,7 +86,7 @@ def _get_org_subsytem_info(subsystem_config_file, os_level, config_dirs):
 
 def _merge_subsystem_config(product, device, config_dirs, os_level,
                             output_file):
-    subsystem_info = _get_org_subsytem_info(config_dirs.subsystem_config_json,
+    subsystem_info = _get_org_subsystem_info(config_dirs.subsystem_config_json,
                                             os_level, config_dirs)
     if subsystem_info:
         subsystem_info.update(product.get_product_specific_subsystem())
@@ -332,7 +332,7 @@ class MyProduct():
     def _parse_config_v2p(self, config, version):
         self._sanitize(config)
 
-        # 1. inherit parts infomation from base config
+        # 1. inherit parts information from base config
         if version == "2.0":
             os_level = config.get("type", "standard")
         else:

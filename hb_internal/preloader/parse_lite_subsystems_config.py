@@ -20,9 +20,9 @@ from hb_internal.common.utils import read_json_file
 
 
 def _read_lite_component_configs(file):
-    subsytem_name = os.path.basename(file)[:-5]
+    subsystem_name = os.path.basename(file)[:-5]
     configs = {}
-    configs['subsystem_name'] = subsytem_name
+    configs['subsystem_name'] = subsystem_name
     with open(file, 'rb') as fin:
         data = json.load(fin)
         components = data.get('components')
