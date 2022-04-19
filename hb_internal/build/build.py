@@ -40,6 +40,10 @@ def add_options(parser):
                         nargs=1,
                         default=['clang'])
     parser.add_argument('-t', '--test', help='compile test suit', nargs='*')
+    parser.add_argument('-cpu',
+                        '--target-cpu',
+                        help='select cpu',
+                        default="")
     parser.add_argument('--dmverity',
                         help='Enable dmverity',
                         action="store_true")
@@ -111,6 +115,9 @@ def exec_command(args):
 
     if args.test is not None:
         build.test = args.test
+
+    if args.target_cpu:
+        cmd_args['target_cpu']= args.target_cpu
 
     if args.dmverity:
         build.register_args('enable_ohos_security_dmverity',
