@@ -117,7 +117,7 @@ def exec_command(args):
         build.test = args.test
 
     if args.target_cpu:
-        cmd_args['target_cpu']= args.target_cpu
+        cmd_args['target_cpu'] = args.target_cpu
 
     if args.dmverity:
         build.register_args('enable_ohos_security_dmverity',
