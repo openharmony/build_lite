@@ -130,6 +130,8 @@ class Build():
             self.config.fs_attr = None
 
     def build(self, full_compile, patch=False, ninja=True, cmd_args=None):
+        if 'target_cpu' in str(cmd_args):
+            self.config.target_cpu = cmd_args["target_cpu"]
         cmd_list = self.get_cmd(full_compile, patch, ninja)
 
         # enable ccache if it installed.
