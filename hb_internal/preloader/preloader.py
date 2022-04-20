@@ -448,9 +448,19 @@ class Outputs:
 
 class Preloader():
 
+    @property
+    def target_cpu(self):
+        return self._target_cpu
+
+    @target_cpu.setter
+    def target_cpu(self, value):
+        self._target_cpu = value
+
     def __init__(self, config):
         # All kinds of directories and subsystem_config_json
         self._dirs = Dirs(config)
+
+        self._target_cpu = config.target_cpu
 
         # Product & Device
         self._product = MyProduct(config.product, self._dirs,
@@ -466,6 +476,8 @@ class Preloader():
         if self._device:
             device_info = self._device.get_device_info()
             if device_info:
+                if self._target_cpu:
+                    device_info["target_cpu"] = self._target_cpu
                 build_vars.update(device_info)
 
         dump_json_file(self._outputs.systemcapability_json, self._product._syscap_info)
