@@ -77,7 +77,7 @@ def add_options(parser):
                         action='store_true')
     parser.add_argument('--compact-mode',
                         action='store_false',
-                        help='compactiable with standard build system'
+                        help='compatible with standard build system '
                         'set to false if we use build.sh as build entrance',
                         default=True)
     parser.add_argument('--gn-args',
