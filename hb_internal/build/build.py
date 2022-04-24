@@ -91,6 +91,12 @@ def add_options(parser):
     parser.add_argument('--build-only-gn',
                         action='store_true',
                         help='only do gn parse, donot run ninja')
+    parser.add_argument('--fast-rebuild',
+                        action='store_true',
+                        default=False,
+                        help='it will skip prepare, preloader, '
+                        'gn_gen steps so we can enable it only '
+                        'when there is no change for gn related script')
 
 
 def exec_command(args):
@@ -163,6 +169,8 @@ def exec_command(args):
     ninja = True
     if hasattr(args, 'build_only_gn') and args.build_only_gn:
         ninja = False
+    if args.fast_rebuild:
+        cmd_args['fast_rebuild'] = args.fast_rebuild
     return build.build(args.full,
                        patch=args.patch,
                        cmd_args=cmd_args,
