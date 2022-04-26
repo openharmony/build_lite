@@ -132,7 +132,7 @@ class Build():
     def build(self, full_compile, patch=False, ninja=True, cmd_args=None):
         if 'target_cpu' in str(cmd_args):
             self.config.target_cpu = cmd_args["target_cpu"]
-        cmd_list = self.get_cmd(full_compile, patch, ninja)
+        cmd_list = self.get_cmd(full_compile, patch, ninja, cmd_args)
 
         # enable ccache if it installed.
         ccache_path = find_executable('ccache')
@@ -156,18 +156,19 @@ class Build():
         hb_info(f'cost time: {self.build_time}')
         return 0
 
-    def get_cmd(self, full_compile, patch, ninja):
+    def get_cmd(self, full_compile, patch, ninja, cmd_args):
         cmd_list = []
-
-        pre_build = PreBuild(self.config)
-        cmd_list.append(pre_build.prepare)
+        if not cmd_args.get('fast_rebuild'):
+            pre_build = PreBuild(self.config)
+            cmd_list.append(pre_build.prepare)
 
         if patch:
             patch = Patch()
             cmd_list.append(patch.patch_make)
 
-        preloader = Preloader(self.config)
-        cmd_list.append(preloader.run)
+        if not cmd_args.get('fast_rebuild'):
+            preloader = Preloader(self.config)
+            cmd_list.append(preloader.run)
 
         # if full_compile is set, remove out and do full build
         # if build_only_gn is set, only do gn parse
@@ -175,14 +176,20 @@ class Build():
         if full_compile:
             remove_path(self.config.out_path)
             makedirs(self.config.out_path, exist_ok=True)
-            cmd_list.extend([self.gn_build, self.ninja_build])
+            if not cmd_args.get('fast_rebuild'):
+                cmd_list.append(self.gn_build)
+            cmd_list.append(self.ninja_build)
         elif not ninja:
             makedirs(self.config.out_path, exist_ok=True)
-            cmd_list.append(self.gn_build)
+            if not cmd_args.get('fast_rebuild'):
+                cmd_list.append(self.gn_build)
             return cmd_list
         else:
             makedirs(self.config.out_path, exist_ok=True)
-            cmd_list.extend([self.gn_build, self.ninja_build])
+            if not cmd_args.get('fast_rebuild'):
+                cmd_list.append(self.gn_build)
+            cmd_list.append(self.ninja_build)
+
 
         if self.config.os_level != "standard":
             if self.config.fs_attr is not None:
