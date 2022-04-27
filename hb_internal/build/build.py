@@ -40,6 +40,10 @@ def add_options(parser):
                         nargs=1,
                         default=['clang'])
     parser.add_argument('-t', '--test', help='compile test suit', nargs='*')
+    parser.add_argument('-cpu',
+                        '--target-cpu',
+                        help='select cpu',
+                        default="")
     parser.add_argument('--dmverity',
                         help='enable dmverity',
                         action="store_true")
@@ -73,7 +77,7 @@ def add_options(parser):
                         action='store_true')
     parser.add_argument('--compact-mode',
                         action='store_false',
-                        help='compactiable with standard build system'
+                        help='compatible with standard build system '
                         'set to false if we use build.sh as build entrance',
                         default=True)
     parser.add_argument('--gn-args',
@@ -92,6 +96,12 @@ def add_options(parser):
                         'you can select three levels: debug, info and error',
                         nargs=1,
                         default=['info'])
+    parser.add_argument('--fast-rebuild',
+                        action='store_true',
+                        default=False,
+                        help='it will skip prepare, preloader, '
+                        'gn_gen steps so we can enable it only '
+                        'when there is no change for gn related script')
 
 
 def exec_command(args):
@@ -116,6 +126,9 @@ def exec_command(args):
 
     if args.test is not None:
         build.test = args.test
+
+    if args.target_cpu:
+        cmd_args['target_cpu'] = args.target_cpu
 
     if args.dmverity:
         build.register_args('enable_ohos_security_dmverity',
@@ -163,6 +176,8 @@ def exec_command(args):
     ninja = True
     if hasattr(args, 'build_only_gn') and args.build_only_gn:
         ninja = False
+    if args.fast_rebuild:
+        cmd_args['fast_rebuild'] = args.fast_rebuild
     return build.build(args.full,
                        patch=args.patch,
                        cmd_args=cmd_args,
