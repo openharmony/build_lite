@@ -45,7 +45,7 @@ def add_options(parser):
                         help='select cpu',
                         default="")
     parser.add_argument('--dmverity',
-                        help='Enable dmverity',
+                        help='enable dmverity',
                         action="store_true")
     parser.add_argument('--tee', help='Enable tee', action="store_true")
     parser.add_argument('-p',
@@ -61,7 +61,7 @@ def add_options(parser):
     parser.add_argument('-n', '--ndk', help='compile ndk', action='store_true')
     parser.add_argument('-T',
                         '--target',
-                        help='Compile single target',
+                        help='compile single target',
                         nargs='*',
                         default=[])
     parser.add_argument('-v',
@@ -91,6 +91,11 @@ def add_options(parser):
     parser.add_argument('--build-only-gn',
                         action='store_true',
                         help='only do gn parse, donot run ninja')
+    parser.add_argument('--log-level',
+                        help='specifies the log level during compilation'
+                        'you can select three levels: debug, info and error',
+                        nargs=1,
+                        default=['info'])
     parser.add_argument('--fast-rebuild',
                         action='store_true',
                         default=False,
@@ -165,6 +170,8 @@ def exec_command(args):
             cmd_args['ninja']['targets'] = ['make_all', 'make_test']
     if hasattr(args, 'keep_ninja_going') and args.keep_ninja_going:
         cmd_args['ninja']['keep_ninja_going'] = True
+    if hasattr(args, 'log_level') and args.log_level: 
+        cmd_args['log_level'] = args.log_level
 
     ninja = True
     if hasattr(args, 'build_only_gn') and args.build_only_gn:

@@ -218,6 +218,13 @@ def hb_error(msg):
         sys.stderr.flush()
 
 
+def hb_debug(msg):
+    level = 'debug'
+    for line in str(msg).splitlines():
+        sys.stderr.write(message(level, line))
+        sys.stderr.flush()
+
+
 def message(level, msg):
     if isinstance(msg, str) and not msg.endswith('\n'):
         msg += '\n'
