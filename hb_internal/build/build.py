@@ -102,6 +102,12 @@ def add_options(parser):
                         help='it will skip prepare, preloader, '
                         'gn_gen steps so we can enable it only '
                         'when there is no change for gn related script')
+    parser.add_argument('--device-type',
+                        help='specifies device type',
+                        default='default')
+    parser.add_argument('--is-usermod',
+                        help='specifies device operating mode',
+                        default='true')
 
 
 def exec_command(args):
@@ -178,6 +184,10 @@ def exec_command(args):
         ninja = False
     if args.fast_rebuild:
         cmd_args['fast_rebuild'] = args.fast_rebuild
+    if hasattr(args, 'device_type') and args.device_type:
+        cmd_args['device_type'] = args.device_type
+    if hasattr(args, 'is_usermod') and args.is_usermod:
+        cmd_args['is_usermod'] = args.is_usermod
     return build.build(args.full,
                        patch=args.patch,
                        cmd_args=cmd_args,

@@ -151,6 +151,7 @@ class Build():
         finally:
             post_build = PostBuild(self.config)
             post_build.clean(self.start_time)
+            post_build.patch_ohos_para(cmd_args)
 
         hb_info(f'{os.path.basename(self.config.out_path)} build success')
         hb_info(f'cost time: {self.build_time}')
