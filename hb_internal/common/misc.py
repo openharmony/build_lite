@@ -105,12 +105,12 @@ class PostBuild:
             support_device = ['tabel', 'watch', 'kidwatch', 'tv', 'mobiletv', 'car']
             if not support_device.__contains__(cmd_args.get('device_type')):
                 raise OHOSException(f'Unsupported device type :' + cmd_args.get('device_type'))
-            for i in range(len(ohos_para_data)):
+            for i, line in enumerate(ohos_para_data):
                 if ohos_para_data[i].__contains__('const.build.characteristics'):
                     ohos_para_data[i] = ohos_para_data[i].replace('default', cmd_args.get('device_type'))
                     break
         if cmd_args.get('is_usermod'):
-            for i in range(len(ohos_para_data)):
+            for i, line in enumerate(ohos_para_data):
                 if ohos_para_data[i].__contains__('const.secure'):
                     if cmd_args.get('is_usermod') == True:
                         ohos_para_data[i] = 'const.secure=1\n'
