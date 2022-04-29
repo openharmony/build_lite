@@ -20,7 +20,7 @@ import os
 import subprocess
 from datetime import datetime
 from distutils.spawn import find_executable
-from hb_internal.common.utils import exec_command
+from hb_internal.common.utils import OHOSException, exec_command
 from hb_internal.common.utils import hb_warning
 
 
@@ -92,6 +92,38 @@ class PostBuild:
         self.generate_ninja_trace(start_time)
         self.get_warning_list()
         self.compute_overlap_rate()
+
+    def patch_ohos_para(self, cmd_args):
+        ohos_para_data = []
+        ohos_para_file_path = os.path.join(self._out_path, 'packages/phone/system/etc/param/ohos.para')
+        with open(ohos_para_file_path, 'r', encoding='utf-8') as ohos_para_file:
+            for line in ohos_para_file:
+                ohos_para_data.append(line)
+        if cmd_args.get('device_type') and cmd_args.get('device_type') != 'default':
+            support_device = ['tabel', 'watch', 'kidwatch', 'tv', 'mobiletv', 'car']
+            if not support_device.__contains__(cmd_args.get('device_type')):
+                raise OHOSException(f'Unsupported device type :' + cmd_args.get('device_type'))
+            for i in range(len(ohos_para_data)):
+                if ohos_para_data[i].__contains__('const.build.characteristics'):
+                    ohos_para_data[i] = ohos_para_data[i].replace('default', cmd_args.get('device_type'))
+                    break
+        if cmd_args.get('is_usermod'):
+            for i in range(len(ohos_para_data)):
+                if ohos_para_data[i].__contains__('const.secure'):
+                    if cmd_args.get('is_usermod') == True:
+                        ohos_para_data[i] = 'const.secure=1\n'
+                    else:
+                        ohos_para_data[i] = 'const.secure=0\n'
+                if ohos_para_data[i].__contains__('const.debuggable'):
+                    if cmd_args.get('is_usermod') == True:
+                        ohos_para_data[i] = 'const.debuggable=0\n'
+                    else:
+                        ohos_para_data[i] = 'const.debuggable=1\n'
+        data = ''
+        for line in ohos_para_data:
+            data += line
+        with open(ohos_para_file_path, 'w', encoding='utf-8') as ohos_para_file:
+            ohos_para_file.write(data)
 
     def stat_pycache(self):
         cmd = [
