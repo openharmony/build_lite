@@ -96,6 +96,8 @@ class PostBuild:
     def patch_ohos_para(self, cmd_args):
         ohos_para_data = []
         ohos_para_file_path = os.path.join(self._out_path, 'packages/phone/system/etc/param/ohos.para')
+        if not os.path.exists(ohos_para_file_path):
+            return
         with open(ohos_para_file_path, 'r', encoding='utf-8') as ohos_para_file:
             for line in ohos_para_file:
                 ohos_para_data.append(line)
