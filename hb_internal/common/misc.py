@@ -102,12 +102,9 @@ class PostBuild:
             for line in ohos_para_file:
                 ohos_para_data.append(line)
         if cmd_args.get('device_type') and cmd_args.get('device_type') != 'default':
-            support_device = ['tabel', 'watch', 'kidwatch', 'tv', 'mobiletv', 'car']
-            if not support_device.__contains__(cmd_args.get('device_type')):
-                raise OHOSException(f'Unsupported device type :' + cmd_args.get('device_type'))
             for i, line in enumerate(ohos_para_data):
                 if ohos_para_data[i].__contains__('const.build.characteristics'):
-                    ohos_para_data[i] = ohos_para_data[i].replace('default', cmd_args.get('device_type'))
+                    ohos_para_data[i] = 'const.build.characteristics=' + cmd_args.get('device_type') + '\n'
                     break
         if cmd_args.get('is_usermod'):
             for i, line in enumerate(ohos_para_data):
