@@ -106,15 +106,17 @@ class PostBuild:
                 if ohos_para_data[i].__contains__('const.build.characteristics'):
                     ohos_para_data[i] = 'const.build.characteristics=' + cmd_args.get('device_type') + '\n'
                     break
-        if cmd_args.get('is_usermod'):
+        if cmd_args.get('build_variant'):
+            if cmd_args.get('build_variant') != 'user' and cmd_args.get('build_variant') != 'root':
+                raise OHOSException('Error: --build-variant support user or root mode currently')
             for i, line in enumerate(ohos_para_data):
                 if ohos_para_data[i].__contains__('const.secure'):
-                    if cmd_args.get('is_usermod') == True:
+                    if cmd_args.get('build_variant') == 'user':
                         ohos_para_data[i] = 'const.secure=1\n'
                     else:
                         ohos_para_data[i] = 'const.secure=0\n'
                 if ohos_para_data[i].__contains__('const.debuggable'):
-                    if cmd_args.get('is_usermod') == True:
+                    if cmd_args.get('build_variant') == 'user':
                         ohos_para_data[i] = 'const.debuggable=0\n'
                     else:
                         ohos_para_data[i] = 'const.debuggable=1\n'
