@@ -105,10 +105,9 @@ def add_options(parser):
     parser.add_argument('--device-type',
                         help='specifies device type',
                         default='default')
-    parser.add_argument('--is-usermod',
+    parser.add_argument('--build-variant',
                         help='specifies device operating mode',
-                        type=bool,
-                        default=False)
+                        default='user')
 
 
 def exec_command(args):
@@ -187,11 +186,8 @@ def exec_command(args):
         cmd_args['fast_rebuild'] = args.fast_rebuild
     if hasattr(args, 'device_type') and args.device_type:
         cmd_args['device_type'] = args.device_type
-    if hasattr(args, 'is_usermod'):
-        if args.is_usermod == 'true':
-            cmd_args['is_usermod'] = True
-        else:
-            cmd_args['is_usermod'] = False
+    if hasattr(args, 'build_variant') and args.build_variant:
+        cmd_args['build_variant'] = args.build_variant
     return build.build(args.full,
                        patch=args.patch,
                        cmd_args=cmd_args,
