@@ -167,7 +167,7 @@
           "aafwk_lite",
           "syspara_lite",
           "graphic_utils",
-          "resmgr_lite",
+          "resource_management_lite",
           "ui",
           "ace_native_engine_lite"
         ]
