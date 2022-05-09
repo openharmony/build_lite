@@ -94,8 +94,7 @@ def add_options(parser):
     parser.add_argument('--log-level',
                         help='specifies the log level during compilation'
                         'you can select three levels: debug, info and error',
-                        nargs=1,
-                        default=['info'])
+                        default='info')
     parser.add_argument('--fast-rebuild',
                         action='store_true',
                         default=False,
