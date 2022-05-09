@@ -89,6 +89,62 @@
       }
     },
     {
+      "component": "wifi",
+      "description": "Wifi service based on linux.",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/wifi/wifi"
+      ],
+      "targets": [
+        "//foundation/communication/wifi/wifi:wifi"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ ],
+      "adapted_kernel": [ "linux" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "wpa_supplicant",
+          "bounds_checking_function"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "samgr_lite",
+          "device_driver_framework",
+          "wlan_device_driver"
+        ]
+      }
+    },
+    {
+      "component": "dhcp",
+      "description": "dhcp service based on linux.",
+      "optional": "true",
+      "dirs": [
+        "foundation/communication/wifi/dhcp"
+      ],
+      "targets": [
+        "//foundation/communication/wifi/dhcp:dhcp"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [ ],
+      "adapted_kernel": [ "linux" ],
+      "features": [],
+      "deps": {
+        "third_party": [
+          "bounds_checking_function"
+        ],
+        "kernel_special": {},
+        "board_special": {},
+        "components": [
+          "device_driver_framework",
+          "wlan_device_driver"
+        ]
+      }
+    },
+    {
       "component": "wifi_lite",
       "description": "Wifi service based on liteos-m and linux.",
       "optional": "true",
