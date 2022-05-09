@@ -5,10 +5,10 @@
       "discription": "",
       "optional": "true",
       "dirs": [
-        "utils/native/lite/kv_store"
+        "foundation/distributeddatamgr/appdatamgr/frameworks/native/kv_store"
       ],
       "targets": [
-        "//utils/native/lite/kv_store"
+        "//foundation/distributeddatamgr/appdatamgr/frameworks/native/kv_store"
       ],
       "rom": "13KB",
       "ram": "80k",
