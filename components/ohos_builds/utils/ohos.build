@@ -17,7 +17,7 @@
     },
     "kv_store": {
       "module_list": [
-        "//utils/native/lite/kv_store"
+        "//foundation/distributeddatamgr/appdatamgr/frameworks/native/kv_store"
       ]
     },
     "os_dump": {
