@@ -220,7 +220,7 @@ class Build():
         else:
             gn_path = self.config.gn_path
         gn_args = cmd_args.get('gn', [])
-        if cmd_args.get('log_level')[0] == 'debug':
+        if cmd_args.get('log_level') == 'debug':
             gn_args.append('-v')
         os_level = self.config.os_level
         gn_cmd = [
@@ -249,7 +249,7 @@ class Build():
 
         ninja_args = cmd_args.get('ninja', {})
         my_ninja_args = []
-        if ninja_args.get('verbose') == True or cmd_args.get('log_level')[0] == 'debug':
+        if ninja_args.get('verbose') == True or cmd_args.get('log_level') == 'debug':
             my_ninja_args.append('-v')
         if ninja_args.get('keep_ninja_going') == True:
             my_ninja_args.append('-k1000000')
