@@ -339,14 +339,17 @@ class MyProduct():
             os_level = config.get("type", "standard")
         else:
             os_level = config.get("type", "mini")
-        self._parts = _get_base_parts(self._dirs.built_in_base_dir, os_level)
-        # 2. inherit parts information from inherit config
+        # 2. product config based on default mininum system
+        based_on_mininum_system = config.get('based_on_mininum_system')
+        if based_on_mininum_system == "true":
+            self._parts = _get_base_parts(self._dirs.built_in_base_dir, os_level)
+        # 3. inherit parts information from inherit config
         inherit = config.get('inherit')
         if inherit:
             self._parts.update(
                 _get_inherit_parts(inherit, self._dirs.source_root_dir))
 
-        # 3. get parts information from product config
+        # 4. get parts information from product config
         if version == '2.0':
             self._parse_config_v2(config)
         else:
