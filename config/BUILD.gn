@@ -56,10 +56,14 @@ config("common") {
     "-fno-common",
     "-fno-builtin",
     "-fno-strict-aliasing",
-    "-funwind-tables",
-    "-fasynchronous-unwind-tables",
     "-Wall",
   ]
+  if (ohos_kernel_type == "linux") {
+    cflags += [
+      "-funwind-tables",
+      "-fasynchronous-unwind-tables",
+    ]
+  }
   cflags_cc = cflags
   cflags += [ "-fsigned-char" ]
 }
