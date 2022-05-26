@@ -53,7 +53,7 @@ class PreBuild:
         os.environ['CCACHE_DIR'] = ccache_base
         os.environ['CCACHE_MASK'] = '002'
 
-        cmd = ['ccache', '-M', '50G']
+        cmd = ['ccache', '-M', '100G']
         exec_command(cmd, log_path=self._log_path)
 
     def set_pycache(self):
