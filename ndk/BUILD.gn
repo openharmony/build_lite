@@ -110,7 +110,7 @@ group("ndk_build") {
       "${appexecfwk_lite_path}/frameworks/bundle_lite:bundle_notes",
       "//base/security/permission/interfaces/kits/permission_lite:permission_notes",
       "//base/sensors/sensor_lite/interfaces/kits/native:sensors_api",
-      "//base/startup/syspara_lite/frameworks/token:token_notes",
+      "//base/startup/init_lite/interfaces/kits/token:token_notes",
       "//build/lite/config/component/cJSON:cjson_ndk",
       "//drivers/adapter/khdf/liteos/ndk:hdf_api",
       "//foundation/communication/ipc_lite:liteipc_ndk",
