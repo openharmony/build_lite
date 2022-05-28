@@ -52,8 +52,11 @@ class PreBuild:
         os.environ['USE_CCACHE'] = '1'
         os.environ['CCACHE_DIR'] = ccache_base
         os.environ['CCACHE_MASK'] = '002'
+        ccache_max_size = os.environ.get('CCACHE_MAXSIZE')
+        if not ccache_max_size:
+            ccache_max_size = '100G'
 
-        cmd = ['ccache', '-M', '100G']
+        cmd = ['ccache', '-M', ccache_max_size]
         exec_command(cmd, log_path=self._log_path)
 
     def set_pycache(self):
