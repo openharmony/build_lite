@@ -67,6 +67,54 @@
       }
     },
     {
+      "component": "faultloggerd",
+      "description": "Collecting c/c++ runtime crash log",
+      "optional": "false",
+      "dirs": [
+        "base/hiviewdfx/faultloggerd"
+      ],
+      "targets": [
+        "//base/hiviewdfx/faultloggerd/interfaces/innerkits/signal_handler:dfx_signalhandler",
+        "//base/hiviewdfx/faultloggerd/interfaces/innerkits/dump_catcher:lib_dfx_dump_catcher",
+        "//base/hiviewdfx/faultloggerd/interfaces/innerkits/faultloggerd_client:libfaultloggerd",
+        "//base/hiviewdfx/faultloggerd/tools/process_dump:processdump",
+        "//base/hiviewdfx/faultloggerd/services:faultloggerd",
+        "//base/hiviewdfx/faultloggerd/tools/crasher_c:crasher_c",
+        "//base/hiviewdfx/faultloggerd/tools/crasher_cpp:crasher_cpp",
+        "//base/hiviewdfx/faultloggerd/services/test/unittest:test_service",
+        "//base/hiviewdfx/faultloggerd/test/moduletest:FaultloggerdModuleTest",
+        "//base/hiviewdfx/faultloggerd/test/systemtest:test_faultloggerd",
+        "//base/hiviewdfx/faultloggerd/tools/process_dump/test/unittest:test_processdump"
+      ],
+      "rom": "1024KB",
+      "ram": "~1024KB",
+      "output": [
+        "libdfx_signalhandler.so",
+        "lib_dfx_dump_catcher.so",
+        "libfaultloggerd.so",
+        "faultloggerd",
+        "processdump",
+        "crasher_c",
+        "crasher_cpp",
+        "test_service",
+        "FaultloggerdModuleTest",
+        "test_faultloggerd",
+        "test_processdump"
+      ],
+      "adapted_kernel": [
+        "linux"
+      ],
+      "features": [],
+      "deps": {
+        "components": [
+          "utils_base"
+        ],
+        "third_party": [
+          "libunwind"
+        ]
+      }
+    },
+    {
       "component": "hidumper",
       "description": "System information dump service for liteos-a kernel.",
       "optional": "false",
