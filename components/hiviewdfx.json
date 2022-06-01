@@ -78,13 +78,7 @@
         "//base/hiviewdfx/faultloggerd/interfaces/innerkits/dump_catcher:lib_dfx_dump_catcher",
         "//base/hiviewdfx/faultloggerd/interfaces/innerkits/faultloggerd_client:libfaultloggerd",
         "//base/hiviewdfx/faultloggerd/tools/process_dump:processdump",
-        "//base/hiviewdfx/faultloggerd/services:faultloggerd",
-        "//base/hiviewdfx/faultloggerd/tools/crasher_c:crasher_c",
-        "//base/hiviewdfx/faultloggerd/tools/crasher_cpp:crasher_cpp",
-        "//base/hiviewdfx/faultloggerd/services/test/unittest:test_service",
-        "//base/hiviewdfx/faultloggerd/test/moduletest:FaultloggerdModuleTest",
-        "//base/hiviewdfx/faultloggerd/test/systemtest:test_faultloggerd",
-        "//base/hiviewdfx/faultloggerd/tools/process_dump/test/unittest:test_processdump"
+        "//base/hiviewdfx/faultloggerd/services:faultloggerd"
       ],
       "rom": "1024KB",
       "ram": "~1024KB",
@@ -93,13 +87,7 @@
         "lib_dfx_dump_catcher.so",
         "libfaultloggerd.so",
         "faultloggerd",
-        "processdump",
-        "crasher_c",
-        "crasher_cpp",
-        "test_service",
-        "FaultloggerdModuleTest",
-        "test_faultloggerd",
-        "test_processdump"
+        "processdump"
       ],
       "adapted_kernel": [
         "linux"
