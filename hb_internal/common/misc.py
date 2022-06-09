@@ -31,9 +31,12 @@ class PreBuild:
         self._log_path = config.log_path
 
     def set_ccache(self):
+        ccache_local_dir = os.environ.get('CCACHE_LOCAL_DIR')
+        if not ccache_local_dir:
+            ccache_local_dir = '.ccache'
         ccache_base = os.environ.get('CCACHE_BASE')
         if ccache_base is None:
-            ccache_base = os.path.join(self._root_path, '.ccache')
+            ccache_base = os.path.join(self._root_path, ccache_local_dir)
             if not os.path.exists(ccache_base):
                 os.makedirs(ccache_base)
         logfile = os.path.join(self._root_path, 'ccache.log')
