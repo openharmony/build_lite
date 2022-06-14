@@ -91,10 +91,10 @@ class Patch():
             try:
                 exec_command(cmd, log_path=self.config.log_path,
                              cwd=src_path, shell=True)
-            except OHOSException as ohos_exeception:
+            except OHOSException as ohos_exception:
                 # Failed to roll back the patch, clear patch cache
                 self.config.patch_cache = None
-                raise ohos_exeception
+                raise ohos_exception
 
     def patch_cache_update(self):
         """Try to update patch cache and Check whether rollback is required
