@@ -14,10 +14,8 @@
 import("//build/toolchain/${ohos_build_compiler}.gni")
 
 group("ohos") {
-    deps = []
-    if (target_os == "ohos") {
-        deps += [
-            "//sample"
-        ]
-    }
+  deps = []
+  if (target_os == "ohos") {
+    deps += [ "//sample" ]
+  }
 }
