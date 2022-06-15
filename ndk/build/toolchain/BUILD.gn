@@ -13,47 +13,47 @@
 
 import("//build/toolchain/${ohos_build_compiler}.gni")
 
-if(ohos_build_compiler == "gcc") {
-    gcc_toolchain("linux_x86_64_ohos_gcc") {
-        cc = "$ohos_build_compiler_dir/arm-linux-ohoseabi-gcc"
-        cxx = "$ohos_build_compiler_dir/arm-linux-ohoseabi-g++"
-        ar = "$ohos_build_compiler_dir/arm-linux-ohoseabi-ar"
-        ld = cc
-        if (ohos_build_type == "release") {
-            strip = "$ohos_build_compiler_dir/arm-linux-ohoseabi-strip --strip-unneeded"
-        }
+if (ohos_build_compiler == "gcc") {
+  gcc_toolchain("linux_x86_64_ohos_gcc") {
+    cc = "$ohos_build_compiler_dir/arm-linux-ohoseabi-gcc"
+    cxx = "$ohos_build_compiler_dir/arm-linux-ohoseabi-g++"
+    ar = "$ohos_build_compiler_dir/arm-linux-ohoseabi-ar"
+    ld = cc
+    if (ohos_build_type == "release") {
+      strip =
+          "$ohos_build_compiler_dir/arm-linux-ohoseabi-strip --strip-unneeded"
     }
+  }
 
-    gcc_toolchain("host_linux_x86_64_gcc") {
-        cc = "gcc"
-        cxx = "g++"
-        ar = "ar"
-        ld = cxx
-        strip = "strip"
-    }
+  gcc_toolchain("host_linux_x86_64_gcc") {
+    cc = "gcc"
+    cxx = "g++"
+    ar = "ar"
+    ld = cxx
+    strip = "strip"
+  }
 }
 
 if (ohos_build_compiler == "clang") {
-    clang_toolchain("linux_x86_64_clang") {
-        cc = "$ohos_build_compiler_dir/clang"
-        cxx = "$ohos_build_compiler_dir/clang++"
-        ar = "$ohos_build_compiler_dir/llvm-ar"
-        as = "$ohos_build_compiler_dir/llvm-as"
-        ld = cc
-        if (ohos_build_type == "release") {
-            strip = "$ohos_build_compiler_dir/llvm-objcopy --strip-all"
-        }
+  clang_toolchain("linux_x86_64_clang") {
+    cc = "$ohos_build_compiler_dir/clang"
+    cxx = "$ohos_build_compiler_dir/clang++"
+    ar = "$ohos_build_compiler_dir/llvm-ar"
+    as = "$ohos_build_compiler_dir/llvm-as"
+    ld = cc
+    if (ohos_build_type == "release") {
+      strip = "$ohos_build_compiler_dir/llvm-objcopy --strip-all"
     }
+  }
 
-    clang_toolchain("win_x86_64_clang") {
-        cc = "$ohos_build_compiler_dir/clang"
-        cxx = "$ohos_build_compiler_dir/clang++"
-        ar = "$ohos_build_compiler_dir/llvm-ar"
-        as = "$ohos_build_compiler_dir/llvm-as"
-        ld = cc
-        if (ohos_build_type == "release") {
-            strip = "$ohos_build_compiler_dir/llvm-objcopy --strip-all"
-        }
+  clang_toolchain("win_x86_64_clang") {
+    cc = "$ohos_build_compiler_dir/clang"
+    cxx = "$ohos_build_compiler_dir/clang++"
+    ar = "$ohos_build_compiler_dir/llvm-ar"
+    as = "$ohos_build_compiler_dir/llvm-as"
+    ld = cc
+    if (ohos_build_type == "release") {
+      strip = "$ohos_build_compiler_dir/llvm-objcopy --strip-all"
     }
+  }
 }
-
