@@ -41,10 +41,10 @@ def copytree(src, dst, symlinks=False, ignore=None):
 
 def main():
     parser = argparse.ArgumentParser(
-        description='A common diretory and file copy.')
+        description='A common directory and file copy.')
     parser.add_argument(
         '--src_type',
-        help='src tyepe to copy.')
+        help='src type to copy.')
     parser.add_argument(
         '--src',
         help='List the sources to copy.',
