@@ -12,9 +12,9 @@
 # limitations under the License.
 
 config("default") {
-    cflags = [
-        "-mno-unaligned-access",
-        "-fno-omit-frame-pointer",
-    ]
-    cflags_cc = cflags
+  cflags = [
+    "-mno-unaligned-access",
+    "-fno-omit-frame-pointer",
+  ]
+  cflags_cc = cflags
 }

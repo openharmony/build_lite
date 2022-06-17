@@ -112,7 +112,7 @@
         "board_special": {},
         "components": [
           "samgr_lite",
-          "device_driver_framework",
+          "hdf_core",
           "wlan_device_driver"
         ]
       }
@@ -139,7 +139,7 @@
         "kernel_special": {},
         "board_special": {},
         "components": [
-          "device_driver_framework",
+          "hdf_core",
           "wlan_device_driver"
         ]
       }
@@ -168,7 +168,7 @@
         "board_special": {},
         "components": [
           "samgr_lite",
-          "device_driver_framework",
+          "hdf_core",
           "wlan_device_driver"
         ]
       }

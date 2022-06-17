@@ -12,20 +12,14 @@
 # limitations under the License.
 
 static_library("hello_world") {
-    sources = [
-        "src/hello_world.c",
-    ]
+  sources = [ "src/hello_world.c" ]
 
-    include_dirs = [
-        "include",
-    ]
+  include_dirs = [ "include" ]
 }
 
 executable("sample") {
-    ldflags = [
-        # libraries needed by app, e.g.: "-lsys_parameter", "-lsec_shared"
-    ]
-    deps = [
-        ":hello_world",
-    ]
+  ldflags = [
+    # libraries needed by app, e.g.: "-lsys_parameter", "-lsec_shared"
+  ]
+  deps = [ ":hello_world" ]
 }
