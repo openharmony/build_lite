@@ -112,7 +112,7 @@ group("ndk_build") {
       "//base/sensors/sensor_lite/interfaces/kits/native:sensors_api",
       "//base/startup/init_lite/interfaces/kits/token:token_notes",
       "//build/lite/config/component/cJSON:cjson_ndk",
-      "//drivers/adapter/khdf/liteos/ndk:hdf_api",
+      "//drivers/hdf_core/adapter/khdf/liteos/ndk:hdf_api",
       "//foundation/communication/ipc_lite:liteipc_ndk",
       "//foundation/distributedschedule/samgr_lite:samgr_lite_ndk",
       "//foundation/graphic/surface:lite_surface_ndk",
