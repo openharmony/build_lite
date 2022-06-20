@@ -15,5 +15,5 @@
 
 declare_args() {
   aafwk_lite_path = "//foundation/ability/ability_lite"
-  appexecfwk_lite_path = "//foundation/appexecfwk/appexecfwk_lite"
+  appexecfwk_lite_path = "//foundation/bundlemanager/bundle_framework_lite"
 }
