@@ -111,6 +111,17 @@ def _output_parts_features(all_parts, output_file):
     return all_features
 
 
+def _output_exclusion_modules_json(all_parts, output_file):
+    exclusions = {}
+    for _part_name, vals in all_parts.items():
+        _exclusions = vals.get('exclusions')
+        if _exclusions:
+            pair = dict()
+            pair[_part_name] = _exclusions
+            exclusions.update(pair)
+    dump_json_file(output_file, exclusions)
+
+
 def _part_features_to_list(all_part_features):
     attr_list = []
     for key, val in all_part_features.items():
@@ -445,6 +456,8 @@ class Outputs:
         self.parts_config_json = os.path.join(output_dir, 'parts_config.json')
         self.build_gnargs_prop = os.path.join(output_dir, 'build_gnargs.prop')
         self.features_json = os.path.join(output_dir, 'features.json')
+        self.exclusion_modules_json = os.path.join(output_dir,
+                                                   'exclusion_modules.json')
         self.subsystem_config_json = os.path.join(output_dir,
                                                   'subsystem_config.json')
         self.platforms_build = os.path.join(output_dir, 'platforms.build')
@@ -496,6 +509,10 @@ class Preloader():
 
         # Save gn args to build_gnargs_prop
         _output_gnargs_prop(all_features, self._outputs.build_gnargs_prop)
+
+        # save exclusion modules to exclusion_modules_json
+        _output_exclusion_modules_json(all_parts,
+                                       self._outputs.exclusion_modules_json)
 
         # generate toolchain
         os_level = build_vars.get('os_level')
