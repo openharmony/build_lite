@@ -38,6 +38,7 @@ from hb_internal.build.patch_process import Patch
 from hb_internal.preloader.preloader import Preloader
 from hb_internal.common.misc import PreBuild
 from hb_internal.common.misc import PostBuild
+from hb_internal.build.part_rom_statistics import output_part_rom_status
 
 
 class Build():
@@ -152,6 +153,7 @@ class Build():
             post_build = PostBuild(self.config)
             post_build.clean(self.start_time)
             post_build.patch_ohos_para(cmd_args)
+            output_part_rom_status(self.config.root_path)
 
         hb_info(f'{os.path.basename(self.config.out_path)} build success')
         hb_info(f'cost time: {self.build_time}')
