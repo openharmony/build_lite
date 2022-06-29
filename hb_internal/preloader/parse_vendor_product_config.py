@@ -23,18 +23,22 @@ import os
 def get_features(features):
     feats = {}
     for feat in features:
-        match = re.match(r'(\w*?)(\s*=\s*)(["\w]*?)$', feat)
-        if match:
-            key = match.group(1)
-            val = match.group(3)
-            if val == 'true':
-                feats[key] = True
-            elif val == 'false':
-                feats[key] = False
-            elif re.match(r'[0-9]+', val):
-                feats[key] = int(val)
-            else:
-                feats[key] = val.replace('\"', '"')
+        if not feat:
+            continue
+        match = feat.index("=")
+        if match <= 0:
+            print("Warning: invalid feature [" + feat + "]")
+            continue
+        key = feat[:match].strip()
+        val = feat[match+1:].strip().strip('"')
+        if val == 'true':
+            feats[key] = True
+        elif val == 'false':
+            feats[key] = False
+        elif re.match(r'[0-9]+', val):
+            feats[key] = int(val)
+        else:
+            feats[key] = val.replace('\"', '"')
 
     pairs = dict()
     pairs['features'] = feats
@@ -55,6 +59,11 @@ def from_ss_to_parts(subsystems):
                     parts['{}:{}'.format(ss_name, com_name)] = pairs
                 else:
                     parts['{}:{}'.format(ss_name, com_name)] = dict()
+                # Copy other key-values
+                for key, val in com.items():
+                    if key in [ 'component', 'features' ]:
+                        continue
+                    parts['{}:{}'.format(ss_name, com_name)][key] = val
     return parts
 
 
