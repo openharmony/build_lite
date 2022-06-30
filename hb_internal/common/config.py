@@ -49,8 +49,18 @@ class Config(metaclass=Singleton):
         self._target_cpu = config_content.get('target_cpu', None)
         self._target_os = config_content.get('target_os', None)
         self._out_path = config_content.get('out_path', None)
+        self._component_type = config_content.get('component_type', None)
         self.fs_attr = set()
         self.platform = platform.system()
+
+    @property
+    def component_type(self):
+        return self._component_type
+
+    @component_type.setter
+    def component_type(self, value):
+        self._component_type = value
+        self.config_update('component_type', self._component_type)
 
     @property
     def target_os(self):
