@@ -48,7 +48,8 @@ class Product():
                             'path': product_path,
                             'version': info.get('version', '3.0'),
                             'os_level': info.get('type', "mini"),
-                            'config': config_path
+                            'config': config_path,
+                            'component_type': info.get('component_type', '')
                         }
         bip_path = config.built_in_product_path
         for item in os.listdir(bip_path):
@@ -64,7 +65,8 @@ class Product():
                     'path': bip_path,
                     'version': info.get('version', '2.0'),
                     'os_level': info.get('type', 'standard'),
-                    'config': config_path
+                    'config': config_path,
+                    'component_type': info.get('component_type', '')
                 }
 
     @staticmethod
