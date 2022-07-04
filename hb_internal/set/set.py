@@ -71,6 +71,7 @@ def set_product(product_name=None, company=None):
     config.version = product_info.get('version')
     config.os_level = product_info.get('os_level')
     config.product_json = product_info.get('config')
+    config.component_type = product_info.get('component_type')
 
     device_info = Product.get_device_info(config.product_json)
     config.board = device_info.get('board')

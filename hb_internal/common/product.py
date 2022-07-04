@@ -23,7 +23,7 @@ from hb_internal.common.utils import OHOSException
 from hb_internal.common.config import Config
 from hb_internal.cts.menuconfig import Menuconfig
 from hb_internal.cts.common import Separator
-
+from hb_internal.preloader.parse_vendor_product_config import get_vendor_parts_list
 
 class Product():
     @staticmethod
@@ -48,7 +48,8 @@ class Product():
                             'path': product_path,
                             'version': info.get('version', '3.0'),
                             'os_level': info.get('type', "mini"),
-                            'config': config_path
+                            'config': config_path,
+                            'component_type': info.get('component_type', '')
                         }
         bip_path = config.built_in_product_path
         for item in os.listdir(bip_path):
@@ -64,7 +65,8 @@ class Product():
                     'path': bip_path,
                     'version': info.get('version', '2.0'),
                     'os_level': info.get('type', 'standard'),
-                    'config': config_path
+                    'config': config_path,
+                    'component_type': info.get('component_type', '')
                 }
 
     @staticmethod
@@ -113,34 +115,42 @@ class Product():
         if not os.path.isfile(product_json):
             raise OHOSException(f'features {product_json} not found')
 
-        features_list = []
         config = Config()
-        if config.version == '3.0':
-            subsystems = read_json_file(product_json).get('subsystems', [])
-            for subsystem in subsystems:
-                for component in subsystem.get('components', []):
-                    features = component.get('features', [])
-                    features_list += [
-                        feature for feature in features if len(feature)
-                    ]
-        elif config.version == '2.0':
-            features = read_json_file(product_json).get('parts', {}).values()
-            for feature in features:
-                if feature.get('features'):
-                    features_kv = feature.get('features')
-                    for key, val in features_kv.items():
-                        _item = ''
-                        if isinstance(val, bool):
-                            _item = f'{key}={str(val).lower()}'
-                        elif isinstance(val, int):
-                            _item = f'{key}={val}'
-                        elif isinstance(val, str):
-                            _item = f'{key}="{val}"'
-                        else:
-                            raise Exception(
-                                "part feature '{key}:{val}' type not support.")
-                        features_list.append(_item)
+        # Get all inherit files
+        files = [ os.path.join(config.root_path, file) for file in read_json_file(product_json).get('inherit', []) ]
+        # Add the product config file to last with highest priority
+        files.append(product_json)
 
+        # Read all parts in order
+        all_parts = {}
+        for _file in files:
+            if not os.path.isfile(_file):
+                continue
+            _info = read_json_file(_file)
+            parts = _info.get('parts')
+            if parts:
+                all_parts.update(parts)
+            else:
+                # v3 config files
+                all_parts.update(get_vendor_parts_list(_info))
+
+        # Get all features
+        features_list = []
+        for part, val in all_parts.items():
+            if "features" not in val:
+                continue
+            for key, val in val["features"].items():
+                _item = ''
+                if isinstance(val, bool):
+                    _item = f'{key}={str(val).lower()}'
+                elif isinstance(val, int):
+                    _item = f'{key}={val}'
+                elif isinstance(val, str):
+                    _item = f'{key}="{val}"'
+                else:
+                    raise Exception(
+                        "part feature '{key}:{val}' type not support.")
+                features_list.append(_item)
         return features_list
 
     @staticmethod

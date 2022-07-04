@@ -107,6 +107,10 @@ def add_options(parser):
     parser.add_argument('--build-variant',
                         help='specifies device operating mode',
                         default='user')
+    parser.add_argument('--share-ccache',
+                        default="",
+                        help='It is customized path to place ccache, which allow'
+                        'one ccache shared with many project')
 
 
 def exec_command(args):
@@ -187,6 +191,8 @@ def exec_command(args):
         cmd_args['device_type'] = args.device_type
     if hasattr(args, 'build_variant') and args.build_variant:
         cmd_args['build_variant'] = args.build_variant
+    if hasattr(args, 'share_ccache') and args.share_ccache:
+        build.register_args('share_ccache', args.share_ccache)
     return build.build(args.full,
                        patch=args.patch,
                        cmd_args=cmd_args,
