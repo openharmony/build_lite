@@ -39,6 +39,8 @@ def _get_inherit_parts(inherit, source_root_dir):
         parts = _info.get('parts')
         if parts:
             inherit_parts.update(parts)
+        else:
+            inherit_parts.update(get_vendor_parts_list(_info))
     return inherit_parts
 
 
@@ -195,6 +197,14 @@ class MyProduct():
     def _get_product_build_path(self):
         return self._config.get('product_build_path')
 
+    def _remove_excluded_components(self):
+        items_to_remove = []
+        for part, val in self._parts.items():
+            if "exclude" in val and val["exclude"] == "true":
+                items_to_remove.append(part)
+        for item in items_to_remove:
+            del self._parts[item]
+
     def _do_parse(self):
         if self._parsed is False:
             self._config = read_json_file(self._config_file)
@@ -218,6 +228,7 @@ class MyProduct():
                 self._parse_config_v1()
             else:
                 self._parse_config_v2p(self._config, version)
+            self._remove_excluded_components()
             self._parsed = True
 
     def _get_product_specific_parts(self):
