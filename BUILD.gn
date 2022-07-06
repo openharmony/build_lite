@@ -67,7 +67,6 @@ group("ohos") {
           # Step 6: Loop OS components and check validity of product configuration.
           foreach(part_name, subsystem_parts_info.parts) {
             kernel_valid = true
-            board_valid = false
 
             # Step 6.1: Skip component which not configured by product.
             if (part_name == product_configed_component.component) {
