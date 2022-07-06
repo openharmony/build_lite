@@ -15,7 +15,12 @@
 
 from dataclasses import dataclass
 import os
+import sys
+import argparse
 
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__)))))
 from hb_internal.common.utils import read_json_file
 from hb_internal.common.utils import dump_json_file
 from hb_internal.preloader.parse_lite_subsystems_config import parse_lite_subsystem_config
@@ -148,6 +153,7 @@ def _output_parts_config_json(all_parts, output_file):
         part = part.replace(":", "_")
         part = part.replace("-", "_")
         part = part.replace(".", "_")
+        part = part.replace("/", "_")
         parts_config[part] = True
     dump_json_file(output_file, parts_config)
 
@@ -535,3 +541,25 @@ class Preloader():
         # output subsystem info to file
         _merge_subsystem_config(self._product, self._device, self._dirs,
                                 os_level, self._outputs.subsystem_config_json)
+
+def main(argv):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--product', required=True)
+    parser.add_argument('--root-path', required=True)
+    parser.add_argument('--built-in-product-path', required=True)
+    parser.add_argument('--built-in-device-path', required=True)
+    parser.add_argument('--project-json', required=True)
+    parser.add_argument('--vendor-path', required=True)
+    parser.add_argument('--lite-components-dir', required=True)
+    parser.add_argument('--preloader-output-dir', required=True)
+    parser.add_argument('--device-dir', required=True)
+    parser.add_argument('--target-cpu', required=True)
+    parser.add_argument('--subsystem-config-file', required=True)
+    
+    args = parser.parse_args(argv)
+    preloader = Preloader(args)
+    preloader.run()
+    return 0
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))
