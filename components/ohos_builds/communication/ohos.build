@@ -10,11 +10,6 @@
         "//foundation/communication/dsoftbus:dsoftbus"
       ]
     },
-    "ipc_lite": {
-      "module_list": [
-        "//foundation/communication/ipc_lite:liteipc_adapter"
-      ]
-    },
     "wifi_aware": {
       "module_list": [
         "//foundation/communication/wifi_aware:wifiaware"
