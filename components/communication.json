@@ -1,34 +1,6 @@
 {
   "components": [
     {
-      "component": "ipc_lite",
-      "description": "Lite interprosses communication.",
-      "optional": "true",
-      "dirs": [
-        "foundation/communication/ipc_lite"
-      ],
-      "targets": [
-        "//foundation/communication/ipc_lite:liteipc_adapter"
-      ],
-      "rom": "",
-      "ram": "",
-      "output": [ "libliteipc_adapter.so" ],
-      "adapted_kernel": [
-        "liteos_a",
-        "linux"
-      ],
-      "features": [],
-      "deps": {
-        "third_party": [
-          "bounds_checking_function"
-        ],
-        "components": [
-          "hilog",
-          "utils_base"
-        ]
-      }
-    },
-    {
       "component": "dsoftbus",
       "description": "dsoftbus open sources software",
       "optional": "true",
