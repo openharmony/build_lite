@@ -54,7 +54,7 @@ def main():
 
     src = args.src_dir
     assert os.path.exists(src), \
-        'NDK build diretory not exist, please confirm NDK build result.'
+        'NDK build directory not exist, please confirm NDK build result.'
 
     dest = args.dest_dir
     if not os.path.exists(dest):
