@@ -43,7 +43,7 @@ ndk_linux_tools_out_dir = "${ndk_out_dir}/$linux_system/tools"
 
 template("copy_files") {
   assert(defined(invoker.src) && defined(invoker.dest_dir),
-         "sources and dest_dir are neccessary")
+         "sources and dest_dir are necessary")
   if (defined(invoker.src_type)) {
     src_type = invoker.src_type
   } else {
@@ -124,7 +124,7 @@ template("ndk_lib") {
 #
 template("ndk_toolchains") {
   assert(defined(invoker.src_dir) && defined(invoker.dest_dir),
-         "sources and dest_dir are neccessary")
+         "sources and dest_dir are necessary")
 
   if (ohos_build_ndk) {
     group(target_name) {

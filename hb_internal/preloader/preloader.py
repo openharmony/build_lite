@@ -356,7 +356,7 @@ class MyProduct():
             os_level = config.get("type", "standard")
         else:
             os_level = config.get("type", "mini")
-        # 2. product config based on default mininum system
+        # 2. product config based on default minimum system
         based_on_mininum_system = config.get('based_on_mininum_system')
         if based_on_mininum_system == "true":
             self._parts = _get_base_parts(self._dirs.built_in_base_dir, os_level)
