@@ -131,7 +131,14 @@ class PostBuild:
             data += line
         with open(ohos_para_file_path, 'w', encoding='utf-8') as ohos_para_file:
             ohos_para_file.write(data)
-
+            
+    def package_image(self):
+        image_path = os.path.join(self._out_path, 'packages/phone/images/')
+        if os.path.exists(image_path):
+            packaged_file_path = os.path.join(self._out_path, 'images.tar.gz')
+            cmd = ['tar', '-zcvf', packaged_file_path, image_path]
+            exec_command(cmd, log_path=self._log_path)
+            
     def stat_pycache(self):
         cmd = [
             'python3', '{}/build/scripts/util/pyd.py'.format(self._root_path),
