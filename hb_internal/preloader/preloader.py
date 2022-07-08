@@ -548,7 +548,7 @@ def main(argv):
     parser.add_argument('--root-path', required=True)
     parser.add_argument('--built-in-product-path', required=True)
     parser.add_argument('--built-in-device-path', required=True)
-    parser.add_argument('--project-json', required=True)
+    parser.add_argument('--product-json', required=True)
     parser.add_argument('--vendor-path', required=True)
     parser.add_argument('--lite-components-dir', required=True)
     parser.add_argument('--preloader-output-dir', required=True)
