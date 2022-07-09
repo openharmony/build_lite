@@ -478,11 +478,19 @@ class Preloader():
     def target_cpu(self, value):
         self._target_cpu = value
 
+    @property
+    def compile_config(self):
+        return self._compile_config
+
+    @target_cpu.setter
+    def compile_config(self, value):
+        self._compile_config = value
+
     def __init__(self, config):
         # All kinds of directories and subsystem_config_json
         self._dirs = Dirs(config)
-
         self._target_cpu = config.target_cpu
+        self._compile_config = config.compile_config
 
         # Product & Device
         self._product = MyProduct(config.product, self._dirs,
@@ -500,6 +508,8 @@ class Preloader():
             if device_info:
                 if self._target_cpu:
                     device_info["target_cpu"] = self._target_cpu
+                if self._compile_config:
+                    device_info[self._compile_config] = True
                 build_vars.update(device_info)
 
         dump_json_file(self._outputs.systemcapability_json, self._product._syscap_info)
