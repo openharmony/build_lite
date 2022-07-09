@@ -49,6 +49,7 @@ class Config(metaclass=Singleton):
         self._target_cpu = config_content.get('target_cpu', None)
         self._target_os = config_content.get('target_os', None)
         self._out_path = config_content.get('out_path', None)
+        self._compile_config = config_content.get('compile_config', None)
         self._component_type = config_content.get('component_type', None)
         self.fs_attr = set()
         self.platform = platform.system()
@@ -88,6 +89,15 @@ class Config(metaclass=Singleton):
     def version(self, value):
         self._version = value
         self.config_update('version', self._version)
+
+    @property
+    def compile_config(self):
+        return self._compile_config
+
+    @compile_config.setter
+    def compile_config(self, value):
+        self._compile_config = value
+        self.config_update('compile_config', self._compile_config)
 
     @property
     def os_level(self):
