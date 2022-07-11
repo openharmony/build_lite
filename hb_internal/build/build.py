@@ -16,12 +16,15 @@
 # limitations under the License.
 #
 
+import os
+import sys
 from collections import defaultdict
-
 from hb_internal.build.build_process import Build
 from hb_internal.set.set import set_product
 from hb_internal.common.utils import get_current_time
 from hb_internal.common.utils import OHOSException
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),"../../../")))
+from scripts.tools_checker import check_build_requried_packages,check_os_version
 
 
 def add_options(parser):
@@ -114,6 +117,8 @@ def add_options(parser):
 
 
 def exec_command(args):
+    host_info = check_os_version()
+    check_build_requried_packages(host_info[1])
     if len(args.product):
         if '@' in args.product[0]:
             product, company = args.product[0].split('@')
