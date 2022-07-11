@@ -44,6 +44,10 @@ def add_options(parser):
                         '--target-cpu',
                         help='select cpu',
                         default="")
+    parser.add_argument('-cc',
+                        '--compile-config',
+                        help='Compile the configuration',
+                        default=False)
     parser.add_argument('--dmverity',
                         help='enable dmverity',
                         action="store_true")
@@ -138,6 +142,9 @@ def exec_command(args):
 
     if args.target_cpu:
         cmd_args['target_cpu'] = args.target_cpu
+
+    if args.compile_config:
+        cmd_args['compile_config']= args.compile_config
 
     if args.dmverity:
         build.register_args('enable_ohos_security_dmverity',

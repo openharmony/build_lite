@@ -133,6 +133,8 @@ class Build():
     def build(self, full_compile, patch=False, ninja=True, cmd_args=None):
         if 'target_cpu' in str(cmd_args):
             self.config.target_cpu = cmd_args["target_cpu"]
+        if 'compile_config' in str(cmd_args):
+            self.config.compile_config = cmd_args["compile_config"]
         cmd_list = self.get_cmd(full_compile, patch, ninja, cmd_args)
 
         # enable ccache if it installed.
