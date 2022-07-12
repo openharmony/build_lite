@@ -63,4 +63,12 @@ lite_library("zlib_static") {
   sources = zlib_source
 
   public_configs = [ ":zlib_config" ]
+
+  if (board_toolchain_type == "iccarm") {
+    cflags = [
+      "--diag_suppress",
+      "Pe111,Pe147,Pe223",
+    ]
+    defines = [ "IOAPO_NO_64" ]
+  }
 }
