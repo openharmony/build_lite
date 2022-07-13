@@ -32,6 +32,7 @@ class PreBuild:
 
     def set_ccache(self):
         ccache_local_dir = os.environ.get('CCACHE_LOCAL_DIR')
+        ccache_log_suffix = os.environ.get('CCACHE_LOG_SUFFIX')
         if not ccache_local_dir:
             ccache_local_dir = '.ccache'
         ccache_base = os.environ.get('CCACHE_BASE')
@@ -39,9 +40,14 @@ class PreBuild:
             ccache_base = os.path.join(self._root_path, ccache_local_dir)
             if not os.path.exists(ccache_base):
                 os.makedirs(ccache_base)
-        logfile = os.path.join(self._root_path, 'ccache.log')
+        ccache_log_file_name = "ccache.log"
+        if ccache_log_suffix:
+            ccache_log_file_name = "ccache." + ccache_log_suffix + ".log"
+
+        logfile = os.path.join(self._root_path, ccache_log_file_name)
         if os.path.exists(logfile):
-            oldfile = os.path.join(self._root_path, 'ccache.log.old')
+            oldfile_name = ccache_log_file_name + ".old"
+            oldfile = os.path.join(self._root_path, oldfile_name)
             if os.path.exists(oldfile):
                 os.unlink(oldfile)
             os.rename(logfile, oldfile)
