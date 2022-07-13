@@ -121,8 +121,6 @@ def add_options(parser):
 
 
 def exec_command(args):
-    host_info = check_os_version()
-    check_build_requried_packages(host_info[1])
     if len(args.product):
         if '@' in args.product[0]:
             product, company = args.product[0].split('@')
