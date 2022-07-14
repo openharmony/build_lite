@@ -21,6 +21,7 @@ import argparse
 sys.path.append(
     os.path.dirname(os.path.dirname(os.path.dirname(
         os.path.abspath(__file__)))))
+from hb_internal.common.config import Config
 from hb_internal.common.utils import read_json_file
 from hb_internal.common.utils import dump_json_file
 from hb_internal.preloader.parse_lite_subsystems_config import parse_lite_subsystem_config
@@ -488,18 +489,34 @@ class Preloader():
 
     def __init__(self, config):
         # All kinds of directories and subsystem_config_json
-        self._dirs = Dirs(config)
-        self._target_cpu = config.target_cpu
-        self._compile_config = config.compile_config
+        if isinstance(config, Config):
+            self._dirs = Dirs(config)
+            self._target_cpu = config.target_cpu
+            self._compile_config = config.compile_config
 
-        # Product & Device
-        self._product = MyProduct(config.product, self._dirs,
-                                  config.product_json)
-        self._device = self._product.get_device()
+            # Product & Device
+            self._product = MyProduct(config.product, self._dirs,
+                                    config.product_json)
+            self._device = self._product.get_device()
 
-        # All kinds of output files
-        os.makedirs(self._dirs.preloader_output_dir, exist_ok=True)
-        self._outputs = Outputs(self._dirs.preloader_output_dir)
+            # All kinds of output files
+            os.makedirs(self._dirs.preloader_output_dir, exist_ok=True)
+            self._outputs = Outputs(self._dirs.preloader_output_dir)
+        
+        if isinstance(config, argparse.Namespace):
+            self._dirs = Dirs(config)
+            self._target_cpu = config.target_cpu
+            self._compile_config = None
+
+            # Product & Device
+            self._product = MyProduct(config.product, self._dirs,
+                                    config.product_json)
+            self._device = self._product.get_device()
+
+            # All kinds of output files
+            os.makedirs(self._dirs.preloader_output_dir, exist_ok=True)
+            self._outputs = Outputs(self._dirs.preloader_output_dir)
+            
 
     def run(self, *args):
         all_parts, build_vars = self._product.parse_config()
