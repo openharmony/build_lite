@@ -41,6 +41,16 @@ def _get_inherit_parts(inherit, source_root_dir):
             inherit_parts.update(parts)
     return inherit_parts
 
+def _get_sys_relate_parts(system_component_info, _parts, source_root_dir):
+    _info = read_json_file(os.path.join(source_root_dir, system_component_info))
+    ret = {}
+    parts = _info.get('parts')
+    if not parts:
+        parts = get_vendor_parts_list(_info)
+    for part, featrue in parts.items():
+        if not _parts.get(part):
+            ret[part] = featrue
+    return ret
 
 def _get_device_info(device_name, config_dir):
     device_config_file = os.path.join(config_dir,
@@ -349,7 +359,13 @@ class MyProduct():
             self._parts.update(
                 _get_inherit_parts(inherit, self._dirs.source_root_dir))
 
-        # 4. get parts information from product config
+        # 4. chipset products relate system parts config
+        sys_info_path = config.get('system_component')
+        if sys_info_path:
+            sys_parts = _get_sys_relate_parts(sys_info_path, self._parts, self._dirs.source_root_dir)
+            self._parts.update(sys_parts)
+
+        # 5. get parts information from product config
         if version == '2.0':
             self._parse_config_v2(config)
         else:
