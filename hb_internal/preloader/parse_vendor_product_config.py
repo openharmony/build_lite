@@ -68,7 +68,7 @@ def from_ss_to_parts(subsystems):
                     parts['{}:{}'.format(ss_name, com_name)] = dict()
                 if exclusions:
                     pairs = get_exclusion_modules(exclusions)
-                    parts['{}:{}'.format(ss_name, com_name)].update(pairs)
+                    parts.get('{}:{}'.format(ss_name, com_name)).update(pairs)
                 # Copy other key-values
                 for key, val in com.items():
                     if key in [ 'component', 'features', 'exclusions' ]:
