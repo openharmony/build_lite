@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 #
-# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Copyright (c) 2022 Huawei Device Co., Ltd.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -20,6 +20,18 @@ import os
 import sys
 import importlib
 import subprocess
+
+
+def get_python():
+    hb_main = importlib.import_module("hb.__main__")
+    topdir = hb_main.find_top()
+    python_base_dir = os.path.join(topdir, 'prebuilts/python')
+    if os.path.exists(python_base_dir):
+        python_dir = hb_main.search(python_base_dir, 'python3')
+        return os.path.join(python_dir, 'python3')
+    else:
+        print("please execute preload_download.sh")
+        sys.exit()
 
 
 def check_output(cmd, **kwargs):
@@ -45,7 +57,8 @@ def set_root_path(path):
 
 
 def build(path, args_list):
-    cmd = ['python3', 'build/lite/hb/__main__.py', 'build'] + args_list
+    python_executable = get_python()
+    cmd = [python_executable, 'build/lite/hb/__main__.py', 'build'] + args_list
     return check_output(cmd, cwd=path)
 
 
