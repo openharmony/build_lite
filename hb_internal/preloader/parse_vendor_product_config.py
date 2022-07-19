@@ -45,6 +45,12 @@ def get_features(features):
     return pairs
 
 
+def get_exclusion_modules(exclusions):
+    pairs = dict()
+    pairs['exclusions'] = exclusions
+    return pairs
+
+
 def from_ss_to_parts(subsystems):
     parts = dict()
     for subsystem in subsystems:
@@ -54,14 +60,18 @@ def from_ss_to_parts(subsystems):
             for com in components:
                 com_name = com.get('component')
                 features = com.get('features')
+                exclusions = com.get('exclusions')
                 if features:
                     pairs = get_features(features)
                     parts['{}:{}'.format(ss_name, com_name)] = pairs
                 else:
                     parts['{}:{}'.format(ss_name, com_name)] = dict()
+                if exclusions:
+                    pairs = get_exclusion_modules(exclusions)
+                    parts.get('{}:{}'.format(ss_name, com_name)).update(pairs)
                 # Copy other key-values
                 for key, val in com.items():
-                    if key in [ 'component', 'features' ]:
+                    if key in [ 'component', 'features', 'exclusions' ]:
                         continue
                     parts['{}:{}'.format(ss_name, com_name)][key] = val
     return parts
