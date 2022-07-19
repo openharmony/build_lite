@@ -99,7 +99,7 @@ config("clang") {
     "-mcpu=cortex-a7",
     "-march=armv7-a",
     "-mfloat-abi=softfp",
-    "--sysroot=${ohos_root_path}prebuilts/lite/sysroot",
+    "--sysroot=${root_out_dir}/sysroot",
   ]
   cflags_cc = cflags
 
@@ -107,14 +107,14 @@ config("clang") {
 
   ldflags += [
     "-L../clang/arm-liteos-ohos/c++",
-    "-L../lite/sysroot/usr/lib/arm-liteos-ohos",
+    "-L${root_out_dir}/sysroot/usr/lib/arm-liteos-ohos",
     "-L../clang/current/lib/arm-liteos-ohos",
     "-L../clang/arm-liteos-ohos/c++",
     "-lclang_rt.builtins",
     "-lc",
     "-lc++",
     "-lc++abi",
-    "--sysroot=${ohos_root_path}prebuilts/lite/sysroot",
+    "--sysroot=${root_out_dir}/sysroot",
   ]
 }
 
