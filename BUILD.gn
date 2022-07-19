@@ -23,7 +23,7 @@ version_info = [
 write_file("$root_build_dir/etc/version-info", version_info)
 
 group("prebuilts") {
-  public_deps = [ "//prebuilts/lite/sysroot" ]
+  public_deps = [ "//third_party/musl:sysroot_lite" ]
 }
 
 group("ohos") {
