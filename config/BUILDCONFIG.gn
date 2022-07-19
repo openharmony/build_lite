@@ -89,6 +89,12 @@ if (board_toolchain != "" && use_board_toolchain) {
     ohos_current_strip_command =
         "${compile_prefix}strip$toolchain_cmd_suffix --strip-unneeded"
     default_target_configs = [ "//build/lite/config:clang_opt" ]
+  } else if (board_toolchain_type == "iccarm") {
+    ohos_current_cc_command = "${compile_prefix}iccarm$toolchain_cmd_suffix"
+    ohos_current_cxx_command = "${compile_prefix}iccarm$toolchain_cmd_suffix"
+    ohos_current_ar_command = "${compile_prefix}iarchive$toolchain_cmd_suffix"
+    ohos_current_as_command = "${compile_prefix}iasmarm$toolchain_cmd_suffix"
+    ohos_current_ld_command = "${compile_prefix}ilinkarm$toolchain_cmd_suffix"
   }
 
   # Overwrite ld cmd by customed cmd.
@@ -112,17 +118,25 @@ if (board_toolchain != "" && use_board_toolchain) {
   default_target_configs += [ "//build/lite/config:clang_opt" ]
 }
 
-default_target_configs += [
-  "//build/lite/config:board_config",
-  "//build/lite/config:cpu_arch",
-  "//build/lite/config:common",
-  "//build/lite/config:default_link_path",
-]
+if (board_toolchain_type != "iccarm") {
+  default_target_configs += [
+    "//build/lite/config:board_config",
+    "//build/lite/config:cpu_arch",
+    "//build/lite/config:common",
+    "//build/lite/config:default_link_path",
+    "//build/lite/config:language_c",
+    "//build/lite/config:language_cpp",
+    "//build/lite/config:kernel_macros",
+  ]
+  if (ohos_build_type == "debug") {
+    default_target_configs += [ "//build/lite/config:debug" ]
+  } else if (ohos_build_type == "release") {
+    default_target_configs += [ "//build/lite/config:release" ]
+  }
 
-if (ohos_build_type == "debug") {
-  default_target_configs += [ "//build/lite/config:debug" ]
-} else if (ohos_build_type == "release") {
-  default_target_configs += [ "//build/lite/config:release" ]
+  if (ohos_kernel_type == "liteos_m") {
+    default_target_configs += [ "//build/lite/config:stack_protector" ]
+  }
 }
 
 if (ohos_kernel_type == "liteos_a") {
@@ -135,16 +149,7 @@ if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "linux") {
     "//build/lite/config:security",
     "//build/lite/config:exceptions",
   ]
-} else if (ohos_kernel_type == "liteos_m") {
-  default_target_configs += [ "//build/lite/config:stack_protector" ]
 }
-
-default_target_configs += [
-  "//build/lite/config:language_c",
-  "//build/lite/config:language_cpp",
-  "//build/lite/config:kernel_macros",
-]
-
 default_shared_library_configs =
     default_target_configs + [ "//build/lite/config:shared_library_config" ]
 default_static_library_configs = default_target_configs
