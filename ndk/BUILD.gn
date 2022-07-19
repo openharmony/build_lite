@@ -78,8 +78,8 @@ ndk_toolchains("source") {
   ]
   if (ohos_build_compiler == "clang") {
     src_dir += [
-      "//prebuilts/lite/sysroot/usr/lib",
-      "//prebuilts/lite/sysroot/usr/include",
+      "$root_out_dir/sysroot/usr/lib",
+      "$root_out_dir/sysroot/usr/include",
     ]
     dest_dir += [
       "$root_out_dir/ndk/sysroot/usr/lib",
@@ -123,15 +123,11 @@ group("ndk_build") {
       "//third_party/mbedtls:mbedtls_ndk",
       "//third_party/wpa_supplicant/wpa_supplicant-2.9:wpa_supplicant",
     ]
-    if (ohos_build_type == "debug") {
-      deps += [ "//prebuilts/lite/sysroot/apidoc:lite_kernel_ndk" ]
-    }
   } else {
     deps += [
       "$ohos_vendor_adapter_dir/hals/communication/wifi_lite/wifiservice:wifiservice_ndk",
       "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite_ndk",
       "//base/iot_hardware/peripheral:iothardware_ndk",
-      "//prebuilts/lite/sysroot/apidoc:lite_kernel_ndk",
     ]
   }
 }
