@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 """
-Copyright (c) 2021 Huawei Device Co., Ltd.
+Copyright 2022 Huawei Device Co., Ltd.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -16,11 +16,10 @@ limitations under the License.
 
 """
 
-import sys
 import os
-import argparse
 import re
 import json
+from hb_internal.common.utils import hb_info
 
 
 file_paths = []
@@ -31,24 +30,24 @@ standard_part_rom = {}
 standard_part_roms = []
 
 
-def part_size_compare(out_path,part_name,part_size,fp):
+def part_size_compare(out_path, part_name, part_size, fp):
     for standard_part in standard_part_roms:
         if standard_part['part_name'] == part_name and standard_part['part_size'] != 'None':
             sta_size = re.findall(r"\d+",standard_part['part_size'])
             rea_size = re.findall(r"\d+",part_size)
-            if int(sta_size[0]) > int(rea_size[0]):
-                print(("部件名:"+ part_name).ljust(45),("实际大小:"+ part_size).ljust(25),("标准大小:"+ standard_part['part_size']).ljust(25), " rom合规")
-                print(("部件名:"+ part_name).ljust(45),("实际大小:"+ part_size).ljust(25),("标准大小:"+ standard_part['part_size']).ljust(25), " rom合规",file=fp)
-            elif int(sta_size[0]) == int(rea_size[0]):
-                print(("部件名:"+ part_name).ljust(45),("实际大小:"+ part_size).ljust(25),("标准大小:"+ standard_part['part_size']).ljust(25), " rom合规")
-                print(("部件名:"+ part_name).ljust(45),("实际大小:"+ part_size).ljust(25),("标准大小:"+ standard_part['part_size']).ljust(25), " rom合规",file=fp)
+            if int(sta_size[0]) >= int(rea_size[0]):
+                conform_str = ("part_name: " + part_name).ljust(55) + ("actual_size: " + part_size).ljust(25) + ("standard_size: " + standard_part['part_size']).ljust(25) + " 'rom' conform to the rules"
+                hb_info(conform_str)
+                print(("part_name: " + part_name).ljust(55),("actual_size: " + part_size).ljust(25),("standard_size: " + standard_part['part_size']).ljust(25), " 'rom' conform to the rules",file = fp)
             elif int(sta_size[0]) < int(rea_size[0]):
-                print(("部件名:"+ part_name).ljust(45),("实际大小:"+ part_size).ljust(25),("标准大小:"+ standard_part['part_size']).ljust(25), " rom超标")
-                print(("部件名:"+ part_name).ljust(45),("实际大小:"+ part_size).ljust(25),("标准大小:"+ standard_part['part_size']).ljust(25), " rom超标",file=fp)
+                out_of_standard_str = ("part_name: "+ part_name).ljust(55) + ("actual_size: "+ part_size).ljust(25) + ("standard_size: "+ standard_part['part_size']).ljust(25) + " 'rom' out of standard"
+                hb_info(out_of_standard_str)
+                print(("part_name: " + part_name).ljust(55),("actual_size: " + part_size).ljust(25),("standard_size: " + standard_part['part_size']).ljust(25), " 'rom' out of standard",file = fp)
         else:
             if standard_part['part_name'] == part_name and standard_part['part_size'] == 'None':
-                print(("部件名:"+ part_name).ljust(45),("实际大小:"+ part_size).ljust(50),'此部件尚未标准rom'.ljust(25))
-                print(("部件名:"+ part_name).ljust(45),("实际大小:"+ part_size).ljust(50),'此部件尚未标准rom'.ljust(25),file=fp)
+                not_yet_standard_str = ("part_name: " + part_name).ljust(55) + ("actual_size: " + part_size).ljust(50) + "This part is not yet standard 'rom'".ljust(25)
+                hb_info(not_yet_standard_str)
+                print(("part_name:" + part_name).ljust(55),("actual_size:" + part_size).ljust(50),"This part is not yet standard 'rom'".ljust(25),file = fp)
 
 
 
@@ -62,11 +61,11 @@ def collect_part_name(root_path):
                 part_names.append(part_name)
 
 
-def _colletct_modules_json_path(root_path,part_name):
+def _colletct_modules_json_path(root_path, part_name):
     for file in os.listdir(root_path):
         file_path = os.path.join(root_path, file)
         if file == f'{part_name}_modules.json':
-            part_modules_path = {}
+            part_modules_path.clear()
             part_modules_path["part_name"] = part_name 
             part_modules_path["part_path"] = file_path
             part_modules_paths.append(part_modules_path)
@@ -74,7 +73,7 @@ def _colletct_modules_json_path(root_path,part_name):
             _colletct_modules_json_path(file_path,part_name)   
 
 
-def actual_rom_statistics(out_path,board):
+def actual_rom_statistics(out_path, board):
     collect_part_name(out_path)
     module_json_path = os.path.join(out_path,'gen/out',board)
     for part_name in part_names:
@@ -104,7 +103,7 @@ def actual_rom_statistics(out_path,board):
 def read_bundle_json_file(file_path):
     with open(file_path, 'r') as file:
         file_json = json.load(file)
-        standard_part_rom = {}
+        standard_part_rom.clear()
         standard_part_rom["part_name"] = file_json["component"]["name"]
         if 'rom' not in file_json["component"].keys() or file_json["component"]["rom"] == '':           
             standard_part_rom["part_size"] = 'None'
@@ -139,6 +138,9 @@ def read_ohos_config(root_path):
     file_path = os.path.join(root_path, "ohos_config.json")
     with open(file_path, 'r') as file:
         file_json = json.load(file)
+        os_level = file_json["os_level"]
+        if os_level == 'mini' or os_level == 'small':
+            return -1
         out_path = file_json["out_path"]
         board = file_json["board"]
         product = file_json["product"]
@@ -147,6 +149,8 @@ def read_ohos_config(root_path):
 
 def output_part_rom_status(root_path):
     ohos_config = read_ohos_config(root_path)
+    if ohos_config == -1:
+        return -1     
     part_paths = read_subsystem_config(root_path)
     for part_path in part_paths:
         part_root_path = os.path.join(root_path,part_path)
