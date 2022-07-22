@@ -50,7 +50,7 @@ declare_args() {
   ohos_current_ld_command = ""
   ohos_current_strip_command = ""
 
-  # Current sysroot path. E.g. "//prebuilts/lite/sysroot".
+  # Current sysroot path. E.g. "//out/hispark_taurus/ipcamera_hispark_taurus/sysroot".
   ohos_current_sysroot = "$root_out_dir/sysroot"
 }
 
