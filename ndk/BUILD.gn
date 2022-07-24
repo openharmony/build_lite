@@ -108,7 +108,7 @@ group("ndk_build") {
     deps += [
       "${aafwk_lite_path}/frameworks/ability_lite:ability_notes",
       "${appexecfwk_lite_path}/frameworks/bundle_lite:bundle_notes",
-      "//base/security/permission/interfaces/kits/permission_lite:permission_notes",
+      "//base/security/permission_lite/interfaces/kits:permission_notes",
       "//base/sensors/sensor_lite/interfaces/kits/native:sensors_api",
       "//base/startup/syspara_lite/frameworks/token:token_notes",
       "//build/lite/config/component/cJSON:cjson_ndk",
