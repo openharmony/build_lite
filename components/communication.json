@@ -165,31 +165,6 @@
         ],
         "third_party": []
       }
-    },
-		{
-      "component": "bluetooth",
-      "description": "bt service based on linux.",
-      "optional": "true",
-      "dirs": [
-        "foundation/communication/bluetooth"
-      ],
-      "targets": [
-        "//foundation/communication/bluetooth:bluetooth"
-      ],
-      "rom": "",
-      "ram": "",
-      "output": [ ],
-      "adapted_kernel": [ "liteos_m", "linux" ],
-      "features": [],
-      "deps": {
-        "third_party": [
-          "bounds_checking_function"
-        ],
-        "kernel_special": {},
-        "board_special": {},
-        "components": [
-        ]
-      }
     }
   ]
 }
