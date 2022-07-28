@@ -127,7 +127,7 @@ group("ndk_build") {
     deps += [
       "$ohos_vendor_adapter_dir/hals/communication/wifi_lite/wifiservice:wifiservice_ndk",
       "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite_ndk",
-      "//base/iot_hardware/peripheral:iothardware_ndk",
+      "//base/iothardware/peripheral:iothardware_ndk",
     ]
   }
 }
