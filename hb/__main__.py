@@ -19,6 +19,8 @@
 import os
 import sys
 
+
+VERSION = "0.4.6"
 # execv execution fragment
 EXECV_FRAGMENT = """
 import sys
