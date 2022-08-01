@@ -274,6 +274,8 @@ class MyProduct():
         build_vars['product_company'] = config.get('product_company')
         if 'support_jsapi' in config:
             build_vars['support_jsapi'] = config.get('support_jsapi')
+        if 'build_seccomp' in config:
+            build_vars['build_seccomp'] = config.get('build_seccomp')
 
         self._build_vars = build_vars
         self._parts.update(all_parts)
