@@ -346,6 +346,8 @@ class MyProduct():
             build_vars['enable_ramdisk'] = config.get('enable_ramdisk')
         if 'build_selinux' in config:
             build_vars['build_selinux'] = config.get('build_selinux')
+        if 'build_seccomp' in config:
+            build_vars['build_seccomp'] = config.get('build_seccomp')
         if 'support_jsapi' in config:
             build_vars['support_jsapi'] = config.get('support_jsapi')
 
