@@ -158,12 +158,16 @@ config("board_config") {
   ldflags = []
   include_dirs = []
   defines = []
+  asmflags = []
   cflags += board_cflags
   cflags_cc += board_cxx_flags
   ldflags += board_ld_flags
   include_dirs += board_include_dirs
   if (defined(board_macro_defines)) {
     defines += board_macro_defines
+  }
+  if (defined(board_asmflags)) {
+    asmflags += board_asmflags
   }
 }
 
