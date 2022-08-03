@@ -65,7 +65,7 @@ def main():
         os.environ['PATH'] = python_dir + ":" + os.getenv('PATH')
         os.execv(python_executable, param_list)
     else:
-        print("please execute preload_download.sh")
+        print("please execute build/prebuilts_download.sh")
 
 
 if __name__ == "__main__":
