@@ -45,7 +45,8 @@ class Product():
                         yield {
                             'company': company,
                             "name": product_name,
-                            'path': product_path,
+                            'product_config_path': product_path,
+                            'product_path': product_path,
                             'version': info.get('version', '3.0'),
                             'os_level': info.get('type', "mini"),
                             'config': config_path,
@@ -62,12 +63,48 @@ class Product():
                 yield {
                     'company': 'built-in',
                     "name": product_name,
-                    'path': bip_path,
+                    'product_config_path': bip_path,
+                    'product_path': bip_path,
                     'version': info.get('version', '2.0'),
                     'os_level': info.get('type', 'standard'),
                     'config': config_path,
                     'component_type': info.get('component_type', '')
                 }
+        # ext products configuration
+        _ext_scan_path = os.path.join(config.root_path,
+                                      'out/products_ext/vendor')
+        if os.path.exists(_ext_scan_path):
+            for company in os.listdir(_ext_scan_path):
+                company_path = os.path.join(_ext_scan_path, company)
+                if not os.path.isdir(company_path):
+                    continue
+
+                for product in os.listdir(company_path):
+                    p_config_path = os.path.join(company_path, product)
+                    config_path = os.path.join(p_config_path, 'config.json')
+
+                    if os.path.isfile(config_path):
+                        info = read_json_file(config_path)
+                        product_name = info.get('product_name')
+                        if info.get('product_path'):
+                            product_path = os.path.join(
+                                config.root_path, info.get('product_path'))
+                        else:
+                            product_path = p_config_path
+                        if product_name is not None:
+                            yield {
+                                'company': company,
+                                "name": product_name,
+                                'product_config_path': p_config_path,
+                                'product_path': product_path,
+                                'version': info.get('version', '3.0'),
+                                'os_level': info.get('type', "mini"),
+                                'build_out_path': info.get('build_out_path'),
+                                'subsystem_config_json':
+                                info.get('subsystem_config_json'),
+                                'config': config_path,
+                                'component_type': info.get('component_type', '')
+                            }
 
     @staticmethod
     def get_device_info(product_json):
@@ -91,12 +128,22 @@ class Product():
         elif version == '3.0':
             device_company = info.get('device_company')
             board = info.get('board')
-            board_path = os.path.join(config.root_path, 'device',
-                                      device_company, board)
-            # board and soc decoupling feature will add boards directory path here.
-            if not os.path.exists(board_path):
-                board_path = os.path.join(config.root_path, 'device', 'board',
+            _board_path = info.get('board_path')
+            if _board_path and os.path.exists(
+                    os.path.json(config.root_path, _board_path)):
+                board_path = os.path.json(config.root_path, _board_path)
+            else:
+                board_path = os.path.join(config.root_path, 'device',
                                           device_company, board)
+                # board and soc decoupling feature will add boards
+                # directory path here.
+                if not os.path.exists(board_path):
+                    board_path = os.path.join(config.root_path, 'device',
+                                              'board', device_company, board)
+            board_config_path = None
+            if info.get('board_config_path'):
+                board_config_path = os.path.join(config.root_path,
+                                                 info.get('board_config_path'))
 
             return {
                 'board': info.get('board'),
@@ -104,6 +151,7 @@ class Product():
                 'kernel_version': info.get('kernel_version'),
                 'company': info.get('device_company'),
                 'board_path': board_path,
+                'board_config_path': board_config_path,
                 'target_cpu': info.get('target_cpu'),
                 'target_os': info.get('target_os')
             }
