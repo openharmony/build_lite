@@ -26,6 +26,9 @@ declare_args() {
   device_path = ""
   product_path = ""
 
+  device_config_path = ""
+  product_config_path = ""
+
   device_company = ""
   ohos_product_adapter_dir = ""
 
@@ -54,8 +57,8 @@ declare_args() {
   ohos_current_sysroot = "$root_out_dir/sysroot"
 }
 
-if (product_path != "") {
-  product_config = read_file("${product_path}/config.json", "json")
+if (product_config_path != "") {
+  product_config = read_file("${product_config_path}/config.json", "json")
 
   # Board selected by product.
   board_name = product_config.board
