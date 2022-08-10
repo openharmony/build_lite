@@ -231,6 +231,7 @@ class Build():
         gn_args = cmd_args.get('gn', [])
         if cmd_args.get('log_level') == 'debug':
             gn_args.append('-v')
+            gn_args.append('--tracelog={}/gn_trace.log'.format(self.config._out_path))
         os_level = self.config.os_level
         gn_cmd = [
             gn_path,
