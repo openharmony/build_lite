@@ -618,7 +618,9 @@ def main(argv):
     parser.add_argument('--preloader-output-dir', required=True)
     parser.add_argument('--device-dir', required=True)
     parser.add_argument('--target-cpu', required=True)
-    parser.add_argument('--subsystem-config-file', required=True)
+    parser.add_argument('--subsystem-config-file',
+                        dest='subsystem_config_json',
+                        required=True)
 
     args = parser.parse_args(argv)
     preloader = Preloader(args)
