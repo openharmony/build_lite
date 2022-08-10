@@ -321,6 +321,10 @@ class Build():
                 self.register_args('build_ohos_sdk', 'true')
                 self.register_args('build_ohos_ndk', 'true')
             self.register_args('device_path', self.config.device_path)
+            self.register_args('device_config_path',
+                               self.config.device_config_path)
+            self.register_args('product_config_path',
+                               self.config.product_config_path)
             if self.config.os_level != "standard":
                 self.register_args('device_company',
                                    self.config.device_company)

@@ -471,8 +471,8 @@ class Dirs:
         # ${device_dir} directory.
         self.device_dir = os.path.join(config.root_path, 'device')
 
-        self.subsystem_config_json = os.path.join(
-            config.root_path, 'build/subsystem_config.json')
+        self.subsystem_config_json = os.path.join(config.root_path,
+                                                  config.subsystem_config_json)
         self.lite_components_dir = os.path.join(config.root_path,
                                                 'build/lite/components')
 
@@ -535,7 +535,7 @@ class Preloader():
             # All kinds of output files
             os.makedirs(self._dirs.preloader_output_dir, exist_ok=True)
             self._outputs = Outputs(self._dirs.preloader_output_dir)
-        
+
         if isinstance(config, argparse.Namespace):
             self._dirs = Dirs(config)
             self._target_cpu = config.target_cpu
@@ -549,7 +549,7 @@ class Preloader():
             # All kinds of output files
             os.makedirs(self._dirs.preloader_output_dir, exist_ok=True)
             self._outputs = Outputs(self._dirs.preloader_output_dir)
-            
+
 
     def run(self, *args):
         all_parts, build_vars = self._product.parse_config()
@@ -619,7 +619,7 @@ def main(argv):
     parser.add_argument('--device-dir', required=True)
     parser.add_argument('--target-cpu', required=True)
     parser.add_argument('--subsystem-config-file', required=True)
-    
+
     args = parser.parse_args(argv)
     preloader = Preloader(args)
     preloader.run()
