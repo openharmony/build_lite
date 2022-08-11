@@ -12,6 +12,7 @@
 # limitations under the License.
 import("//build/lite/toolchain/clang.gni")
 import("//build/lite/toolchain/gcc.gni")
+import("//build/lite/toolchain/iccarm.gni")
 
 # Set toolchain configured by board.
 if (board_toolchain != "" && use_board_toolchain) {
@@ -27,6 +28,15 @@ if (board_toolchain != "" && use_board_toolchain) {
     clang_toolchain(board_toolchain) {
       cc = ohos_current_cc_command
       cxx = ohos_current_cxx_command
+      ar = ohos_current_ar_command
+      ld = ohos_current_ld_command
+      strip = ohos_current_strip_command
+    }
+  } else if (board_toolchain_type == "iccarm") {
+    iccarm_toolchain(board_toolchain) {
+      cc = ohos_current_cc_command
+      cxx = ohos_current_cxx_command
+      as = ohos_current_as_command
       ar = ohos_current_ar_command
       ld = ohos_current_ld_command
       strip = ohos_current_strip_command
