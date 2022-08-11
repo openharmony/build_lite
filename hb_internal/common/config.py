@@ -51,6 +51,12 @@ class Config(metaclass=Singleton):
         self._out_path = config_content.get('out_path', None)
         self._compile_config = config_content.get('compile_config', None)
         self._component_type = config_content.get('component_type', None)
+        self._device_config_path = config_content.get('device_config_path',
+                                                      None)
+        self._product_config_path = config_content.get('product_config_path',
+                                                       None)
+        self._subsystem_config_json = config_content.get(
+            'subsystem_config_json', None)
         self.fs_attr = set()
         self.platform = platform.system()
 
@@ -234,6 +240,34 @@ class Config(metaclass=Singleton):
     def out_path(self, value):
         self._out_path = value
         self.config_update('out_path', self._out_path)
+
+    @property
+    def device_config_path(self):
+        return self._device_config_path
+
+    @device_config_path.setter
+    def device_config_path(self, value):
+        self._device_config_path = value
+        self.config_update('device_config_path', self._device_config_path)
+
+    @property
+    def product_config_path(self):
+        return self._product_config_path
+
+    @product_config_path.setter
+    def product_config_path(self, value):
+        self._product_config_path = value
+        self.config_update('product_config_path', self._product_config_path)
+
+    @property
+    def subsystem_config_json(self):
+        return self._subsystem_config_json
+
+    @subsystem_config_json.setter
+    def subsystem_config_json(self, value):
+        self._subsystem_config_json = value
+        self.config_update('subsystem_config_json',
+                           self._subsystem_config_json)
 
     @property
     def log_path(self):
