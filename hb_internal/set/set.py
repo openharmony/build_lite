@@ -67,11 +67,15 @@ def set_product(product_name=None, company=None):
 
     config = Config()
     config.product = product_info.get('name')
-    config.product_path = product_info.get('path')
+    config.product_path = product_info.get('product_path')
     config.version = product_info.get('version')
     config.os_level = product_info.get('os_level')
     config.product_json = product_info.get('config')
     config.component_type = product_info.get('component_type')
+    if product_info.get('product_config_path'):
+        config.product_config_path = product_info.get('product_config_path')
+    else:
+        config.product_config_path = product_info('product_path')
 
     device_info = Product.get_device_info(config.product_json)
     config.board = device_info.get('board')
@@ -82,11 +86,22 @@ def set_product(product_name=None, company=None):
     config.device_company = device_info.get('company')
     board_path = device_info.get('board_path')
 
-    if config.os_level == 'standard':
-        config.out_path = os.path.join(config.root_path, 'out', config.board)
+    if product_info.get('build_out_path'):
+        config.out_path = os.path.join(config.root_path,
+                                       product_info.get('build_out_path'))
     else:
-        config.out_path = os.path.join(config.root_path, 'out', config.board,
-                                       config.product)
+        if config.os_level == 'standard':
+            config.out_path = os.path.join(config.root_path, 'out',
+                                           config.board)
+        else:
+            config.out_path = os.path.join(config.root_path, 'out',
+                                           config.board, config.product)
+
+    if product_info.get('subsystem_config_json'):
+        config.subsystem_config_json = product_info.get(
+            'subsystem_config_json')
+    else:
+        config.subsystem_config_json = 'build/subsystem_config.json'
 
     if config.version == '2.0':
         config.device_path = board_path
@@ -96,5 +111,10 @@ def set_product(product_name=None, company=None):
         else:
             config.device_path = Device.get_device_path(
                 board_path, config.kernel, kernel_version)
+
+    if device_info.get('board_config_path'):
+        config.device_config_path = device_info.get('board_config_path')
+    else:
+        config.device_config_path = config.device_path
 
     return 0
