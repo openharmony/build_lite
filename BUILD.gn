@@ -30,10 +30,10 @@ group("ohos") {
   deps = []
   if (ohos_build_target == "") {
     # Step 1: Read product configuration profile.
-    product_cfg = read_file("${product_path}/config.json", "json")
+    product_cfg = read_file("${product_config_path}/config.json", "json")
 
     parts_targets_info = read_file(
-            "//out/${device_name}/${product_name}/build_configs/parts_info/parts_modules_info.json",
+            "${root_build_dir}/build_configs/parts_info/parts_modules_info.json",
             "json")
 
     # Step 2: Loop subsystems configured by product.
@@ -45,7 +45,7 @@ group("ohos") {
         subsystem_parts_info = {
         }
         subsystem_parts_info = read_file(
-                "//out/${device_name}/${product_name}/build_configs/mini_adapter/${subsystem_name}.json",
+                "${root_build_dir}/build_configs/mini_adapter/${subsystem_name}.json",
                 "json")
 
         # Step 4: Loop components configured by product.
