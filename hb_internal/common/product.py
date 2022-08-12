@@ -130,8 +130,8 @@ class Product():
             board = info.get('board')
             _board_path = info.get('board_path')
             if _board_path and os.path.exists(
-                    os.path.json(config.root_path, _board_path)):
-                board_path = os.path.json(config.root_path, _board_path)
+                    os.path.join(config.root_path, _board_path)):
+                board_path = os.path.join(config.root_path, _board_path)
             else:
                 board_path = os.path.join(config.root_path, 'device',
                                           device_company, board)
