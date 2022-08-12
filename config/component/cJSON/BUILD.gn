@@ -19,6 +19,7 @@ import("//build/lite/ndk/ndk.gni")
 config("cjson_config") {
   include_dirs = [ "//third_party/cJSON" ]
   ldflags = [ "-lm" ]
+  defines = [ "CJSON_NESTING_LIMIT=(128)" ]
   if (board_toolchain_type == "iccarm") {
     cflags = [
       "--diag_suppress",
