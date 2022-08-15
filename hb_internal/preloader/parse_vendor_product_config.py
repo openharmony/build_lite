@@ -44,6 +44,28 @@ def get_features(features):
     pairs['features'] = feats
     return pairs
 
+def get_syscap(syscap):
+    feats = {}
+    for feat in syscap:
+        if not feat:
+            continue
+        if '=' not in feat:
+            raise Exception("Error: invalid syscap [{}]".format(feat))
+        match = feat.index("=")
+        key = feat[:match].strip()
+        val = feat[match+1:].strip().strip('"')
+        if val == 'true':
+            feats[key] = True
+        elif val == 'false':
+            feats[key] = False
+        elif re.match(r'[0-9]+', val):
+            feats[key] = int(val)
+        else:
+            feats[key] = val.replace('\"', '"')
+
+    pairs = dict()
+    pairs['syscap'] = feats
+    return pairs
 
 def get_exclusion_modules(exclusions):
     pairs = dict()
@@ -60,18 +82,22 @@ def from_ss_to_parts(subsystems):
             for com in components:
                 com_name = com.get('component')
                 features = com.get('features')
+                syscap = com.get('syscap')
                 exclusions = com.get('exclusions')
                 if features:
                     pairs = get_features(features)
                     parts['{}:{}'.format(ss_name, com_name)] = pairs
                 else:
                     parts['{}:{}'.format(ss_name, com_name)] = dict()
+                if syscap:
+                    pairs = get_syscap(syscap)
+                    parts.get('{}:{}'.format(ss_name, com_name)).update(pairs)
                 if exclusions:
                     pairs = get_exclusion_modules(exclusions)
                     parts.get('{}:{}'.format(ss_name, com_name)).update(pairs)
                 # Copy other key-values
                 for key, val in com.items():
-                    if key in [ 'component', 'features', 'exclusions' ]:
+                    if key in [ 'component', 'features', 'syscap', 'exclusions' ]:
                         continue
                     parts['{}:{}'.format(ss_name, com_name)][key] = val
     return parts

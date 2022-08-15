@@ -128,6 +128,20 @@ def _output_parts_features(all_parts, output_file):
     dump_json_file(output_file, parts_feature_info)
     return all_features
 
+def _output_parts_syscap(all_parts, output_file):
+    all_syscap = {}
+    part_syscap_map = {}
+    for _part_name, vals in all_parts.items():
+        _syscap = vals.get('syscap')
+        if _syscap:
+            all_syscap.update(_syscap)
+            part_syscap_map[_part_name.split(':')[1]] = _syscap
+    parts_syscap_info = {
+        "syscap": all_syscap,
+        "part_to_syscap": part_syscap_map
+    }
+    dump_json_file(output_file, parts_syscap_info)
+
 
 def _output_exclusion_modules_json(all_parts, output_file):
     exclusions = {}
@@ -494,6 +508,7 @@ class Outputs:
         self.parts_config_json = os.path.join(output_dir, 'parts_config.json')
         self.build_gnargs_prop = os.path.join(output_dir, 'build_gnargs.prop')
         self.features_json = os.path.join(output_dir, 'features.json')
+        self.syscap_json = os.path.join(output_dir, 'syscap.json')
         self.exclusion_modules_json = os.path.join(output_dir,
                                                    'exclusion_modules.json')
         self.subsystem_config_json = os.path.join(output_dir,
@@ -570,6 +585,9 @@ class Preloader():
         # save features to features_json
         all_features = _output_parts_features(all_parts,
                                               self._outputs.features_json)
+
+       # save syscap to syscap_json
+        _output_parts_syscap(all_parts, self._outputs.syscap_json)
 
         # Save gn args to build_gnargs_prop
         _output_gnargs_prop(all_features, self._outputs.build_gnargs_prop)
