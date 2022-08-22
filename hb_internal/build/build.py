@@ -113,6 +113,11 @@ def add_options(parser):
                         default=False,
                         help='it will skip package image process'
                         'you can enable it if you do not need package image')
+    parser.add_argument('--disable-post-build',
+                        action='store_true',
+                        default=False,
+                        help='it will skip post build process, '
+                        'you can enable it if you do not need post build')
     parser.add_argument('--device-type',
                         help='specifies device type',
                         default='default')
@@ -204,6 +209,8 @@ def exec_command(args):
         cmd_args['fast_rebuild'] = args.fast_rebuild
     if args.disable_package_image:
         cmd_args['disable_package_image'] = args.disable_package_image
+    if args.disable_post_build:
+        cmd_args['disable_post_build'] = args.disable_post_build
     if hasattr(args, 'device_type') and args.device_type:
         cmd_args['device_type'] = args.device_type
     if hasattr(args, 'build_variant') and args.build_variant:
