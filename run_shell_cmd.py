@@ -15,12 +15,12 @@
 # limitations under the License.
 #
 
-import os
+import subprocess
 import sys
 
 
 def main():
-    return os.WEXITSTATUS(os.system(' '.join(sys.argv[1:])))
+    return subprocess.Popen(' '.join(sys.argv[1:]),shell=True).wait()
 
 
 if __name__ == '__main__':
