@@ -99,7 +99,7 @@ elif [ "${FSTYPE}" = "ext4" ]; then
                 EMMC_ROOTFS_SIZE=50
             fi
         fi
-        COUNT_SIZE=`expr $EMMC_ROOTFS_SIZE \* 1024 \* 2`
+        COUNT_SIZE="$(expr ${EMMC_ROOTFS_SIZE} \* 1024 \* 2)"
         dd if=/dev/zero of=${ROOTFS_IMG} bs=512 count=${COUNT_SIZE}
         ${EXT4_TOOL} ${ROOTFS_IMG}
         ${EXT4_SH} ${ROOTFS_DIR} ${ROOTFS_IMG} ${CONFIG_PATH}
