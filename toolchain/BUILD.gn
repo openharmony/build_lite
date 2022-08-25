@@ -39,6 +39,7 @@ if (board_toolchain != "" && use_board_toolchain) {
       as = ohos_current_as_command
       ar = ohos_current_ar_command
       ld = ohos_current_ld_command
+      strip = ohos_current_strip_command
     }
   }
 } else {
