@@ -152,15 +152,17 @@ class Build():
         except Exception:
             raise
         else:
-            post_build = PostBuild(self.config)
-            post_build.patch_ohos_para(cmd_args)
-            if not cmd_args.get('disable_package_image'):
-                post_build.package_image()
-            output_part_rom_status(self.config.root_path)
-        finally:
-            if 'post_build' not in locals():
+            if not cmd_args.get('disable_post_build'):
                 post_build = PostBuild(self.config)
-            post_build.clean(self.start_time)
+                post_build.patch_ohos_para(cmd_args)
+                if not cmd_args.get('disable_package_image'):
+                    post_build.package_image()
+                output_part_rom_status(self.config.root_path)
+        finally:
+            if not cmd_args.get('disable_post_build'):
+                if 'post_build' not in locals():
+                    post_build = PostBuild(self.config)
+                post_build.clean(self.start_time)
 
         hb_info(f'{os.path.basename(self.config.out_path)} build success')
         hb_info(f'cost time: {self.build_time}')
