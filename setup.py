@@ -21,9 +21,11 @@ from setuptools import setup
 
 from hb.__main__ import VERSION
 
+LONG_DESCRIPTION = ""
 WORK_PATH = os.path.abspath(os.path.dirname('__file__'))
 README_PATH = os.path.join(WORK_PATH, 'README.md')
-LONG_DESCRIPTION = open(README_PATH, 'r', encoding='utf-8').read()
+with open(README_PATH, 'r', encoding='utf-8') as FILE_DESCRIPTION:
+    LONG_DESCRIPTION = FILE_DESCRIPTION.read()
 
 setup(
     name='ohos-build',
