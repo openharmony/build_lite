@@ -99,11 +99,15 @@ class PostBuild:
         self._out_path = config.out_path
         self._log_path = config.log_path
 
-    def clean(self, start_time):
-        self.stat_ccache()
-        self.generate_ninja_trace(start_time)
-        self.get_warning_list()
-        self.compute_overlap_rate()
+    def clean(self, start_time, disable_post_build_args):
+        if not disable_post_build_args or 'stat_ccache' not in disable_post_build_args:
+                self.stat_ccache()
+        if not disable_post_build_args or 'generate_ninja_trace' not in disable_post_build_args:
+                self.generate_ninja_trace(start_time)
+        if not disable_post_build_args or 'get_warning_list' not in disable_post_build_args:
+                self.get_warning_list()
+        if not disable_post_build_args or 'compute_overlap_rate' not in disable_post_build_args:
+                self.compute_overlap_rate()
 
     def patch_ohos_para(self, cmd_args):
         ohos_para_data = []
