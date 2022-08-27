@@ -118,6 +118,12 @@ def add_options(parser):
                         default=False,
                         help='it will skip post build process, '
                         'you can enable it if you do not need post build')
+    parser.add_argument('--disable-part-of-post-build',
+                        default=[],
+                        nargs='*',
+                        help='it will skip part of post build process, which includes output_part_rom_status, stat_ccache, generate_ninja_trace, get_warning_list, compute_overlap_rate. '
+                        'you can choose which subprocess to skip by passing in parameters. '
+                        'eg:--disable-part-of-post-build output_part_rom_status --disable-part-of-post-build stat_ccache')
     parser.add_argument('--device-type',
                         help='specifies device type',
                         default='default')
@@ -211,6 +217,8 @@ def exec_command(args):
         cmd_args['disable_package_image'] = args.disable_package_image
     if args.disable_post_build:
         cmd_args['disable_post_build'] = args.disable_post_build
+    if args.disable_part_of_post_build:
+        cmd_args['disable_part_of_post_build'] = args.disable_part_of_post_build
     if hasattr(args, 'device_type') and args.device_type:
         cmd_args['device_type'] = args.device_type
     if hasattr(args, 'build_variant') and args.build_variant:
