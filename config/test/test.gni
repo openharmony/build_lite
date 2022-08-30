@@ -18,7 +18,7 @@ import("//build/lite/config/subsystem/aafwk/path.gni")
 test_common_include_dirs = [ "//third_party/googletest/googletest/include" ]
 
 test_include_dirs = [
-  "//utils/native/lite/include",
+  "//commonlibrary/utils_lite/include",
   "//third_party/bounds_checking_function/include",
 ]
 
