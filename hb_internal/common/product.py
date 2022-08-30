@@ -29,6 +29,41 @@ class Product():
     @staticmethod
     def get_products():
         config = Config()
+        # ext products configuration
+        _ext_scan_path = os.path.join(config.root_path,
+                                      'out/products_ext/vendor')
+        if os.path.exists(_ext_scan_path):
+            for company in os.listdir(_ext_scan_path):
+                company_path = os.path.join(_ext_scan_path, company)
+                if not os.path.isdir(company_path):
+                    continue
+
+                for product in os.listdir(company_path):
+                    p_config_path = os.path.join(company_path, product)
+                    config_path = os.path.join(p_config_path, 'config.json')
+
+                    if os.path.isfile(config_path):
+                        info = read_json_file(config_path)
+                        product_name = info.get('product_name')
+                        if info.get('product_path'):
+                            product_path = os.path.join(
+                                config.root_path, info.get('product_path'))
+                        else:
+                            product_path = p_config_path
+                        if product_name is not None:
+                            yield {
+                                'company': company,
+                                "name": product_name,
+                                'product_config_path': p_config_path,
+                                'product_path': product_path,
+                                'version': info.get('version', '3.0'),
+                                'os_level': info.get('type', "mini"),
+                                'build_out_path': info.get('build_out_path'),
+                                'subsystem_config_json':
+                                info.get('subsystem_config_json'),
+                                'config': config_path,
+                                'component_type': info.get('component_type', '')
+                            }
         for company in os.listdir(config.vendor_path):
             company_path = os.path.join(config.vendor_path, company)
             if not os.path.isdir(company_path):
@@ -70,41 +105,6 @@ class Product():
                     'config': config_path,
                     'component_type': info.get('component_type', '')
                 }
-        # ext products configuration
-        _ext_scan_path = os.path.join(config.root_path,
-                                      'out/products_ext/vendor')
-        if os.path.exists(_ext_scan_path):
-            for company in os.listdir(_ext_scan_path):
-                company_path = os.path.join(_ext_scan_path, company)
-                if not os.path.isdir(company_path):
-                    continue
-
-                for product in os.listdir(company_path):
-                    p_config_path = os.path.join(company_path, product)
-                    config_path = os.path.join(p_config_path, 'config.json')
-
-                    if os.path.isfile(config_path):
-                        info = read_json_file(config_path)
-                        product_name = info.get('product_name')
-                        if info.get('product_path'):
-                            product_path = os.path.join(
-                                config.root_path, info.get('product_path'))
-                        else:
-                            product_path = p_config_path
-                        if product_name is not None:
-                            yield {
-                                'company': company,
-                                "name": product_name,
-                                'product_config_path': p_config_path,
-                                'product_path': product_path,
-                                'version': info.get('version', '3.0'),
-                                'os_level': info.get('type', "mini"),
-                                'build_out_path': info.get('build_out_path'),
-                                'subsystem_config_json':
-                                info.get('subsystem_config_json'),
-                                'config': config_path,
-                                'component_type': info.get('component_type', '')
-                            }
 
     @staticmethod
     def get_device_info(product_json):
