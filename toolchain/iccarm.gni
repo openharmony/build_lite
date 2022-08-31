@@ -81,7 +81,7 @@ template("iccarm_toolchain") {
       }
       command += "$ld -shared {{ldflags}} $extra_ldflags " + "-Wl, --start-group {{inputs}} {{libs}} -Wl, --end-group -o $unstripped_outfile"
       if (need_strip) {
-        command += " && $strip \"$unstripped_outfile\" -o \"$outfile\""
+        command += " && $strip \"$unstripped_outfile\" \"$outfile\""
       }
       description = "SOLINK $outfile"
       outputs = [ outfile ]
@@ -104,7 +104,7 @@ template("iccarm_toolchain") {
       command += "$ld {{ldflags}} $extra_ldflags " +
                  "{{inputs}} {{libs}} -o $unstripped_outfile"
       if (need_strip) {
-        command += " && $strip \"$unstripped_outfile\" -o \"$outfile\""
+        command += " && $strip \"$unstripped_outfile\" \"$outfile\""
       }
 
       description = "LINK $outfile $command"
