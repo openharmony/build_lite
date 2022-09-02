@@ -235,6 +235,8 @@ class Build():
             gn_args.append('-v')
             gn_args.append('--tracelog={}/gn_trace.log'.format(self.config._out_path))
         os_level = self.config.os_level
+        if cmd_args.get('build_variant'):
+            self.register_args('build_variant', cmd_args.get('build_variant'))
         gn_cmd = [
             gn_path,
             'gen',
