@@ -36,7 +36,7 @@ template("lite_library") {
     }
   } else {
     target(target_type, target_name) {
-      forward_variables_from(invoker, "*")
+      forward_variables_from(invoker, "*", [ "remove_configs" ])
       cflags = []
       cflags_cc = []
       ldflags = []
@@ -49,6 +49,9 @@ template("lite_library") {
       }
       if (defined(invoker.ldflags)) {
         ldflags += invoker.ldflags
+      }
+      if (defined(invoker.remove_configs)) {
+        configs -= invoker.remove_configs
       }
       shared_lib = target_type == "shared_library"
       if (shared_lib) {
