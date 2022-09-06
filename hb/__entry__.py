@@ -25,6 +25,7 @@ import traceback
 
 VERSION = "0.4.6"
 
+
 def find_top():
     cur_dir = os.getcwd()
     while cur_dir != "/":
