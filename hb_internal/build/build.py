@@ -23,8 +23,8 @@ from hb_internal.build.build_process import Build
 from hb_internal.set.set import set_product
 from hb_internal.common.utils import get_current_time
 from hb_internal.common.utils import OHOSException
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),"../../../")))
-from scripts.tools_checker import check_build_requried_packages,check_os_version
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../")))
+from scripts.tools_checker import check_build_requried_packages, check_os_version
 
 
 def add_options(parser):

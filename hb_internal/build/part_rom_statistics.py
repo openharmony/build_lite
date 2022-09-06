@@ -134,7 +134,7 @@ def check_image_size(out_path):
         for file in os.listdir(image_path):
             if file.endswith(".img"):
                 image_dict = {}
-                img_path = os.path.join(image_path,file)
+                img_path = os.path.join(image_path, file)
                 image_dict['img_size'] = f'{round(os.path.getsize(img_path) / 1024, 2)}KB'
                 image_dict['img_name'] = file
                 image_list.append(image_dict)
