@@ -18,14 +18,14 @@ import os
 import sys
 import argparse
 
-sys.path.append(
-    os.path.dirname(os.path.dirname(os.path.dirname(
-        os.path.abspath(__file__)))))
 from hb_internal.common.config import Config
 from hb_internal.common.utils import read_json_file
 from hb_internal.common.utils import dump_json_file
 from hb_internal.preloader.parse_lite_subsystems_config import parse_lite_subsystem_config
 from hb_internal.preloader.parse_vendor_product_config import get_vendor_parts_list
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__)))))
 
 
 def _get_base_parts(base_config_dir, os_level):
@@ -49,6 +49,7 @@ def _get_inherit_parts(inherit, source_root_dir):
             inherit_parts.update(get_vendor_parts_list(_info))
     return inherit_parts
 
+
 def _get_sys_relate_parts(system_component_info, _parts, source_root_dir):
     _info = read_json_file(os.path.join(source_root_dir, system_component_info))
     ret = {}
@@ -59,6 +60,7 @@ def _get_sys_relate_parts(system_component_info, _parts, source_root_dir):
         if not _parts.get(part):
             ret[part] = featrue
     return ret
+
 
 def _get_device_info(device_name, config_dir):
     device_config_file = os.path.join(config_dir,

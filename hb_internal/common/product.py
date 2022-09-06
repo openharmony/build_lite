@@ -165,7 +165,7 @@ class Product():
 
         config = Config()
         # Get all inherit files
-        files = [ os.path.join(config.root_path, file) for file in read_json_file(product_json).get('inherit', []) ]
+        files = [os.path.join(config.root_path, file) for file in read_json_file(product_json).get('inherit', [])]
         # Add the product config file to last with highest priority
         files.append(product_json)
 

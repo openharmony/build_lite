@@ -21,8 +21,8 @@ import sys
 from hb_internal import CONFIG_JSON
 from hb_internal.common.utils import read_json_file
 from hb_internal.common.utils import hb_info
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),"../../../")))
-from scripts.tools_checker import check_build_requried_packages,check_os_version
+from scripts.tools_checker import check_build_requried_packages, check_os_version
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../")))
 
 
 OPTIONS_FUN_LIST = [  
@@ -41,7 +41,7 @@ def add_options(parser):
 
 def check_dep():
     host_info = check_os_version()
-    packages_info = check_build_requried_packages(host_info[1],check=False)
+    packages_info = check_build_requried_packages(host_info[1], check=False)
     hb_info('necessary_package: {}'.format(','.join(packages_info[0])))      
     hb_info('installed_package: {}'.format(','.join(packages_info[1])))
     hb_info('uninstalled_package: {}'.format(','.join(packages_info[2])))
