@@ -144,6 +144,11 @@ class Build():
 
         if cmd_args is None:
             cmd_args = defaultdict(list)
+
+        if cmd_args.get('disable_part_of_post_build'):
+            disable_post_build_args = cmd_args['disable_part_of_post_build']
+        else:
+            disable_post_build_args = []
         try:
             for exec_cmd in cmd_list:
                 exec_cmd(cmd_args)
@@ -157,12 +162,13 @@ class Build():
                 post_build.patch_ohos_para(cmd_args)
                 if not cmd_args.get('disable_package_image'):
                     post_build.package_image()
-                output_part_rom_status(self.config.root_path)
+                if not disable_post_build_args or 'output_part_rom_status' not in disable_post_build_args:
+                    output_part_rom_status(self.config.root_path)
         finally:
             if not cmd_args.get('disable_post_build'):
                 if 'post_build' not in locals():
                     post_build = PostBuild(self.config)
-                post_build.clean(self.start_time)
+                post_build.clean(self.start_time, disable_post_build_args)
 
         hb_info(f'{os.path.basename(self.config.out_path)} build success')
         hb_info(f'cost time: {self.build_time}')
