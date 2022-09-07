@@ -18,14 +18,14 @@ import os
 import sys
 import argparse
 
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__)))))
 from hb_internal.common.config import Config
 from hb_internal.common.utils import read_json_file
 from hb_internal.common.utils import dump_json_file
 from hb_internal.preloader.parse_lite_subsystems_config import parse_lite_subsystem_config
 from hb_internal.preloader.parse_vendor_product_config import get_vendor_parts_list
-sys.path.append(
-    os.path.dirname(os.path.dirname(os.path.dirname(
-        os.path.abspath(__file__)))))
 
 
 def _get_base_parts(base_config_dir, os_level):
