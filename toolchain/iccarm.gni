@@ -101,8 +101,8 @@ template("iccarm_toolchain") {
       if (need_strip) {
         unstripped_outfile = "{{output_dir}}/unstripped/bin/{{target_output_name}}{{output_extension}}"
       }
-      command += "$ld {{ldflags}} $extra_ldflags " +
-                 "{{inputs}} {{libs}} -o $unstripped_outfile"
+      link_helper = rebase_path("//build/lite/toolchain/iccarm_link_helper.sh")
+      command += "$ld {{ldflags}} $extra_ldflags \$($link_helper {{inputs}} {{libs}}) -o $unstripped_outfile"
       if (need_strip) {
         command += " && $strip \"$unstripped_outfile\" \"$outfile\""
       }
