@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import("//build/lite/config/toolchain/config.gni")
+
 template("iccarm_toolchain") {
   toolchain(target_name) {
     assert(defined(invoker.ar), "gcc_toolchain() must specify a \"ar\" value")
@@ -101,8 +103,15 @@ template("iccarm_toolchain") {
       if (need_strip) {
         unstripped_outfile = "{{output_dir}}/unstripped/bin/{{target_output_name}}{{output_extension}}"
       }
-      link_helper = rebase_path("//build/lite/toolchain/iccarm_link_helper.sh")
-      command += "$ld {{ldflags}} $extra_ldflags \$($link_helper {{inputs}} {{libs}}) -o $unstripped_outfile"
+
+      if (enable_iccarm_link_helper) {
+        link_helper =
+            rebase_path("//build/lite/toolchain/iccarm_link_helper.sh")
+        command += "$ld {{ldflags}} $extra_ldflags \$($link_helper {{inputs}} {{libs}}) -o $unstripped_outfile"
+      } else {
+        command += "$ld {{ldflags}} $extra_ldflags " +
+                   "{{inputs}} {{libs}} -o $unstripped_outfile"
+      }
       if (need_strip) {
         command += " && $strip \"$unstripped_outfile\" \"$outfile\""
       }
