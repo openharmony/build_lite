@@ -22,7 +22,7 @@ import json
 
 from hb_internal.common.utils import hb_info
 
-file_paths = []
+budle_json_files = []
 standard_part_roms = []
 part_info_list = []
 
@@ -175,12 +175,11 @@ def read_bundle_json_file(file_path):
 
 
 def collect_bundle_json_path(part_root_path):
-    for file in os.listdir(part_root_path):
-        file_path = os.path.join(part_root_path, file)
-        if file == 'bundle.json':
-            file_paths.append(file_path)
-        if os.path.isdir(file_path):
-            collect_bundle_json_path(file_path)
+    for root, dirs, files in os.walk(part_root_path):
+        abs_path = os.path.abspath(root)
+        for file_name in files:
+            if file_name == 'bundle.json':
+                budle_json_files.append(os.path.join(abs_path, file_name))
 
 
 def read_subsystem_config(root_path):
@@ -219,7 +218,8 @@ def output_part_rom_status(root_path):
             part_root_path = os.path.join(root_path, part_path)
             if os.path.isdir(part_root_path):
                 collect_bundle_json_path(part_root_path)
-        for json_file in file_paths:
-            read_bundle_json_file(json_file)
+        for json_file in budle_json_files:
+            if os.path.exists(json_file):
+                read_bundle_json_file(json_file)
         actual_rom_statistics(ohos_config[0])
     return 0
