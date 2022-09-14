@@ -128,7 +128,7 @@
         "test/xdevice"
       ],
       "targets": [
-        "//test/xdevice:xdevice"
+        "//test/testfwk/xdevice:xdevice"
       ],
       "rom": "",
       "ram": "",

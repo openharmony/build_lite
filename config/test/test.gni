@@ -155,7 +155,7 @@ template("unittest") {
       defines = invoker.defines
     }
     if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "linux") {
-      deps += [ "//test/developertest/third_party/lib/cpp:gtest_main" ]
+      deps += [ "//test/testfwk/developer_test/third_party/lib/cpp:gtest_main" ]
     }
     if (defined(invoker.configs)) {
       configs += invoker.configs
@@ -198,7 +198,7 @@ template("moduletest") {
       deps = []
     }
     if (ohos_kernel_type == "liteos_a" || ohos_kernel_type == "linux") {
-      deps += [ "//test/developertest/third_party/lib/cpp:gtest_main" ]
+      deps += [ "//test/testfwk/developer_test/third_party/lib/cpp:gtest_main" ]
     }
     if (!defined(configs)) {
       configs = []
@@ -250,7 +250,7 @@ template("fuzztest") {
     }
     if (ohos_kernel_type == "liteos_a") {
       deps += [
-        "//test/developertest/third_party/lib/cpp:gtest_main",
+        "//test/testfwk/developer_test/third_party/lib/cpp:gtest_main",
         "//test/tools/Secodefuzz:secodefuzz",
       ]
     }
