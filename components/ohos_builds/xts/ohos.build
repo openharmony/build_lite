@@ -27,7 +27,7 @@
     },
     "xts_xdevice": {
       "module_list": [
-        "//test/xdevice:xdevice"
+        "//test/testfwk/xdevice:xdevice"
       ]
     }
   },
