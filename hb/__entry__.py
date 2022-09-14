@@ -72,17 +72,20 @@ def main():
         module_parser.set_defaults(parser=module_parser,
                                    command=module.exec_command)
 
-    args = parser.parse_args()
+    args = parser.parse_known_args()
 
     module = importlib.import_module('hb_internal.common.utils')
     hb_error = getattr(module, 'hb_error')
     hb_warning = getattr(module, 'hb_warning')
     ohos_exception = getattr(module, 'OHOSException')
     try:
-        if args.parser.prog == 'hb set' and 'root_path' in vars(args):
+        if args[0].parser.prog == 'hb set' and 'root_path' in vars(args[0]):
             # Root_path is topdir.
-            args.root_path = topdir
-        status = args.command(args)
+            args[0].root_path = topdir
+        if "tool" in args[0].parser.prog:
+            status = args[0].command(args)
+        else:
+            status = args[0].command(args[0])
     except KeyboardInterrupt:
         hb_warning('User Abort')
         status = -1
