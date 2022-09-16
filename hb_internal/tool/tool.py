@@ -61,7 +61,7 @@ class Tool():
         else:
             self.out_path = read_json_file(os.path.join(find_top(), 'ohos_config.json'))['out_path']
         if not os.path.isdir(self.out_path):
-            raise FileNotFoundError(f"{self.out_path} doesn't exist.")
+            raise OHOSException(f"{self.out_path} doesn't exist.")
         
     def register_target(self, component, module):
         target_name = self.get_target_name(component, module)
@@ -97,7 +97,7 @@ class Tool():
             
     def read_gn_file(self, input_file):
         if not os.path.exists(input_file):
-            raise FileNotFoundError("file '{}' doesn't exist.".format(input_file))
+            raise OHOSException("file '{}' doesn't exist.".format(input_file))
         data = None
         with open(input_file, 'r') as input_f:
             data = input_f.read()
