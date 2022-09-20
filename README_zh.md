@@ -186,7 +186,6 @@ build/lite                      # 编译构建主目录
 
 ## 相关仓<a name="section1371113476307"></a>
 
-编译构建子系统
+**[编译构建子系统](https://gitee.com/openharmony/docs/blob/master/zh-cn/readme/编译构建子系统.md)**
 
-**[build\_lite](https://gitee.com/openharmony/build_lite)**
-
+**[build](https://gitee.com/openharmony/build/blob/master/README_zh.md)**
