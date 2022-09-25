@@ -174,9 +174,14 @@ class PostBuild:
         ccache_path = find_executable('ccache')
         if ccache_path is None:
             return
+
+        ccache_log_file_name = "ccache.log"
+        ccache_log_suffix = os.environ.get('CCACHE_LOG_SUFFIX')
+        if ccache_log_suffix:
+            ccache_log_file_name = "ccache." + ccache_log_suffix + ".log"
         cmd = [
             'python3', '{}/build/scripts/summary_ccache_hitrate.py'.format(
-                self._root_path), '{}/ccache.log'.format(self._root_path)
+                self._root_path), '{}/{}'.format(self._root_path, ccache_log_file_name)
         ]
         exec_command(cmd, log_path=self._log_path)
 
