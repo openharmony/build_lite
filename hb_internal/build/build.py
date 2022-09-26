@@ -121,9 +121,11 @@ def add_options(parser):
     parser.add_argument('--disable-part-of-post-build',
                         default=[],
                         nargs='*',
-                        help='it will skip part of post build process, which includes output_part_rom_status, stat_ccache, generate_ninja_trace, get_warning_list, compute_overlap_rate. '
+                        help='it will skip part of post build process, which includes output_part_rom_status, \
+                        stat_ccache, generate_ninja_trace, get_warning_list, compute_overlap_rate. '
                         'you can choose which subprocess to skip by passing in parameters. '
-                        'eg:--disable-part-of-post-build output_part_rom_status --disable-part-of-post-build stat_ccache')
+                        'eg:--disable-part-of-post-build output_part_rom_status \
+                        --disable-part-of-post-build stat_ccache')
     parser.add_argument('--device-type',
                         help='specifies device type',
                         default='default')
