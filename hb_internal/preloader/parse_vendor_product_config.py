@@ -30,7 +30,7 @@ def get_features(features):
             print("Warning: invalid feature [" + feat + "]")
             continue
         key = feat[:match].strip()
-        val = feat[match+1:].strip().strip('"')
+        val = feat[match + 1:].strip().strip('"')
         if val == 'true':
             feats[key] = True
         elif val == 'false':
@@ -44,6 +44,7 @@ def get_features(features):
     pairs['features'] = feats
     return pairs
 
+
 def get_syscap(syscap):
     feats = {}
     for feat in syscap:
@@ -53,7 +54,7 @@ def get_syscap(syscap):
             raise Exception("Error: invalid syscap [{}]".format(feat))
         match = feat.index("=")
         key = feat[:match].strip()
-        val = feat[match+1:].strip().strip('"')
+        val = feat[match + 1:].strip().strip('"')
         if val == 'true':
             feats[key] = True
         elif val == 'false':
@@ -66,6 +67,7 @@ def get_syscap(syscap):
     pairs = dict()
     pairs['syscap'] = feats
     return pairs
+
 
 def get_exclusion_modules(exclusions):
     pairs = dict()
@@ -97,7 +99,7 @@ def from_ss_to_parts(subsystems):
                     parts.get('{}:{}'.format(ss_name, com_name)).update(pairs)
                 # Copy other key-values
                 for key, val in com.items():
-                    if key in [ 'component', 'features', 'syscap', 'exclusions' ]:
+                    if key in ['component', 'features', 'syscap', 'exclusions']:
                         continue
                     parts['{}:{}'.format(ss_name, com_name)][key] = val
     return parts

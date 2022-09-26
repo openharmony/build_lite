@@ -130,6 +130,7 @@ def _output_parts_features(all_parts, output_file):
     dump_json_file(output_file, parts_feature_info)
     return all_features
 
+
 def _output_parts_syscap(all_parts, output_file):
     all_syscap = {}
     part_syscap_map = {}
