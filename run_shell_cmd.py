@@ -20,7 +20,7 @@ import sys
 
 
 def main():
-    return subprocess.Popen(' '.join(sys.argv[1:]),shell=True).wait()
+    return subprocess.Popen(' '.join(sys.argv[1:]), shell=True).wait()
 
 
 if __name__ == '__main__':
