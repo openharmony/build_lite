@@ -19,7 +19,8 @@ template("lite_library") {
   target_type = invoker.target_type
   shared_lib = target_type == "shared_library"
 
-  if (shared_lib && ohos_kernel_type == "liteos_m") {
+  if (shared_lib &&
+      (ohos_kernel_type == "liteos_m" || ohos_kernel_type == "uniproton")) {
     group(target_name) {
       if (defined(invoker.sources)) {
         assert(invoker.sources != "")
@@ -57,7 +58,8 @@ template("lite_library") {
       if (shared_lib) {
         cflags += [ "-fPIC" ]
         cflags_cc += [ "-fPIC" ]
-      } else if (!shared_lib && ohos_kernel_type != "liteos_m") {
+      } else if (!shared_lib && (ohos_kernel_type != "liteos_m" &&
+                                 ohos_kernel_type != "uniproton")) {
         cflags += [ "-fPIE" ]
         cflags_cc += [ "-fPIE" ]
       }
