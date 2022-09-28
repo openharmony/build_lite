@@ -41,7 +41,8 @@ if (defined(board_configed_sysroot) && board_configed_sysroot != "") {
 }
 
 # Only gcc available for liteos_m.
-if (ohos_kernel_type == "liteos_m" || ohos_kernel_type == "linux") {
+if (ohos_kernel_type == "liteos_m" || ohos_kernel_type == "uniproton" ||
+    ohos_kernel_type == "linux") {
   use_board_toolchain = true
 }
 
@@ -154,7 +155,7 @@ default_shared_library_configs =
     default_target_configs + [ "//build/lite/config:shared_library_config" ]
 default_static_library_configs = default_target_configs
 default_executable_configs = default_static_library_configs
-if (ohos_kernel_type != "liteos_m") {
+if (ohos_kernel_type != "liteos_m" && ohos_kernel_type != "uniproton") {
   default_static_library_configs += [ "//build/lite/config:static_pie_config" ]
   default_executable_configs += [ "//build/lite/config:static_pie_config" ]
   default_executable_configs += [ "//build/lite/config:pie_executable_config" ]

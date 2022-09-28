@@ -64,7 +64,7 @@ if (product_config_path != "") {
   board_name = product_config.board
   device_company = product_config.device_company
 
-  # Supported kernel: "liteos_a", "liteos_m", "linux"
+  # Supported kernel: "liteos_a", "liteos_m", "linux", "uniproton"
   ohos_kernel_type = product_config.kernel_type
   if (defined(product_config.kernel_is_prebuilt)) {
     ohos_kernel_is_prebuilt = product_config.kernel_is_prebuilt
