@@ -37,6 +37,11 @@ config("kernel_macros") {
       "__LITEOS__",
       "__LITEOS_M__",
     ]
+  } else if (ohos_kernel_type == "uniproton") {
+    defines = [
+      "__uniproton__",
+      "__UNIPROTON__",
+    ]
   } else if (ohos_kernel_type == "linux") {
     defines = [
       "__linux__",
