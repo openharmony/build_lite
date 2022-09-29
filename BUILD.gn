@@ -90,6 +90,12 @@ group("ohos") {
                             "//kernel/liteos_m:build_kernel_image") {
                           deps += [ component_target ]
                         }
+                      } else if (product_configed_component.component ==
+                                 "uniproton") {
+                        if (component_target !=
+                            "//kernel/uniproton:build_kernel_image") {
+                          deps += [ component_target ]
+                        }
                       } else {
                         deps += [ component_target ]
                       }
