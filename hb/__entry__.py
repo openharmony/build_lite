@@ -94,7 +94,7 @@ def main():
         hb_error(exception.args[0])
         status = -1
     except Exception as exception:
-        if not hasattr(args, 'command'):
+        if not hasattr(args[0], 'command'):
             parser.print_help()
         else:
             hb_error(traceback.format_exc())
