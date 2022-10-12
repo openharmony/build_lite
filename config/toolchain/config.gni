@@ -15,4 +15,7 @@ declare_args() {
   # using iccarm_link_helper.sh to link static library
   # which adds '--whole_archive' option for each static library while linking
   enable_iccarm_link_helper = false
+
+  # save temp files for debug
+  enable_save_temps = false
 }
