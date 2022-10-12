@@ -40,13 +40,25 @@ template("iccarm_toolchain") {
 
     tool("cc") {
       command = "$cc {{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} -c {{source}} -o {{output}}"
-      description = "iccarm cross compiler {{output}}"
+      if (enable_save_temps) {
+        preprocess_outfile = "{{output}}.i"
+        list_outfile = "{{output}}.lst"
+        asm_outfile = "{{output}}.s"
+        command += " --preprocess $preprocess_outfile -lCN $list_outfile -lA $asm_outfile"
+      }
+      description = "iccarm CC {{output}}"
       outputs =
           [ "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o" ]
     }
     tool("cxx") {
       depfile = "{{output}}.d"
       command = "$cxx {{defines}} {{include_dirs}} {{cflags_cc}} -c {{source}} -o {{output}}"
+      if (enable_save_temps) {
+        preprocess_outfile = "{{output}}.i"
+        list_outfile = "{{output}}.lst"
+        asm_outfile = "{{output}}.s"
+        command += " --preprocess $preprocess_outfile -lCN $list_outfile -lA $asm_outfile"
+      }
       description = "iccarm CXX {{output}}"
       outputs =
           [ "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o" ]
@@ -54,7 +66,7 @@ template("iccarm_toolchain") {
     tool("asm") {
       depfile = "{{output}}.d"
       command = "$as {{defines}} {{include_dirs}} {{asmflags}} {{source}} -o {{output}}"
-      description = "iccarm cross compiler {{output}}"
+      description = "iccarm ASM {{output}}"
       outputs =
           [ "{{source_out_dir}}/{{target_output_name}}.{{source_name_part}}.o" ]
     }
@@ -64,7 +76,7 @@ template("iccarm_toolchain") {
       rspfile_content = "{{inputs}}"
       command = "rm -f {{output}} && $ar {{inputs}} -o {{output}}"
 
-      description = "AR {{output}}"
+      description = "iccarm AR {{output}}"
       outputs = [ outfile ]
 
       default_output_dir = "{{root_out_dir}}/libs"
@@ -85,7 +97,7 @@ template("iccarm_toolchain") {
       if (need_strip) {
         command += " && $strip \"$unstripped_outfile\" \"$outfile\""
       }
-      description = "SOLINK $outfile"
+      description = "iccarm SOLINK $outfile"
       outputs = [ outfile ]
       if (unstripped_outfile != outfile) {
         outputs += [ unstripped_outfile ]
@@ -116,7 +128,7 @@ template("iccarm_toolchain") {
         command += " && $strip \"$unstripped_outfile\" \"$outfile\""
       }
 
-      description = "LINK $outfile $command"
+      description = "iccarm LINK $outfile"
       default_output_dir = "{{root_out_dir}}"
       rspfile_content = "{{inputs}}"
       outputs = [ outfile ]
