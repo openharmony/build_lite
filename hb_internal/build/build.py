@@ -165,7 +165,7 @@ def exec_command(args):
         cmd_args['target_cpu'] = args.target_cpu
 
     if args.compile_config:
-        cmd_args['compile_config']= args.compile_config
+        cmd_args['compile_config'] = args.compile_config
 
     if args.dmverity:
         build.register_args('enable_ohos_security_dmverity',
