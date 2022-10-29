@@ -100,7 +100,7 @@ group("ndk_build") {
     ":source",
     "//base/startup/bootstrap_lite/services:bootstrap_lite_ndk",
     "//base/startup/syspara_lite/frameworks/parameter:parameter_notes",
-    "//base/update/ota_lite/frameworks:update_api",
+    "//base/update/sys_installer_lite/frameworks:update_api",
     "//build/lite/config/subsystem/hiviewdfx:hilog_ndk",
     "//commonlibrary/utils_lite:native_api",
   ]
