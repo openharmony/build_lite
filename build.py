@@ -58,7 +58,11 @@ def set_root_path(path):
 
 def build(path, args_list):
     python_executable = get_python()
-    cmd = [python_executable, 'build/lite/hb/__main__.py', 'build'] + args_list
+    cmd = [python_executable, 'build/hb/main.py', 'build'] + args_list
+    for args in args_list:
+        if "using_hb_new=false" in args:
+            cmd = [python_executable, 'build/lite/hb/__main__.py', 'build'] + args_list
+            break
     return check_output(cmd, cwd=path)
 
 
