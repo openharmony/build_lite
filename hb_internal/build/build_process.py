@@ -33,6 +33,7 @@ from hb_internal.common.config import Config
 from hb_internal.cts.cts import CTS
 from hb_internal.common.device import Device
 from hb_internal.common.product import Product
+from hb_internal.build.fs_process import Packer
 from hb_internal.build.patch_process import Patch
 from hb_internal.preloader.preloader import Preloader
 from hb_internal.common.misc import PreBuild
@@ -207,6 +208,12 @@ class Build():
                 cmd_list.append(self.gn_build)
             cmd_list.append(self.ninja_build)
 
+
+        if self.config.os_level != "standard":
+            if self.config.fs_attr is not None:
+                packer = Packer()
+                cmd_list.append(packer.fs_make)
+
         return cmd_list
 
     def env(self):
@@ -268,11 +275,14 @@ class Build():
             my_ninja_args.append('-k1000000')
 
         # Keep targets to the last
-        if ninja_args.get('default_target') is not None:         
-            if self.config.product == 'ohos-sdk':
-                my_ninja_args.append('build_ohos_sdk')
+        if ninja_args.get('default_target') is not None:
+            if self.config.os_level == "standard":
+                if self.config.product == 'ohos-sdk':
+                    my_ninja_args.append('build_ohos_sdk')
+                else:
+                    my_ninja_args.append('images')
             else:
-                my_ninja_args.append('images')
+                my_ninja_args.append('packages')
         if ninja_args.get('targets'):
             my_ninja_args.extend(ninja_args.get('targets'))
         ninja_cmd = [
