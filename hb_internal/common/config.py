@@ -16,9 +16,10 @@
 # limitations under the License.
 
 import os
+import sys
 import platform
 from distutils.spawn import find_executable
-
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from hb_internal import CONFIG_JSON
 from hb_internal import CONFIG_STRUCT
 from hb_internal import BUILD_TOOLS_CFG
