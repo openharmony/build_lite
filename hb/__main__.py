@@ -46,6 +46,7 @@ def search(findir, target):
     for root, dirs, files in os.walk(findir):
         if target in files:
             return root
+    return False
 
 
 def main():
@@ -56,6 +57,8 @@ def main():
     python_base_dir = os.path.join(topdir, 'prebuilts/python')
     if os.path.exists(python_base_dir):
         python_dir = search(python_base_dir, 'python3')
+        if not python_dir:
+            raise Exception(f"{python_base_dir}/python3 does not exist. please execute build/prebuilts_download.sh")
         python_executable = os.path.join(python_dir, 'python3')
         lite_dir = os.path.join(topdir, 'build/lite')
         hb_dir = search(lite_dir, '__entry__.py')
