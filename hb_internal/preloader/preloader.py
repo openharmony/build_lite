@@ -293,6 +293,10 @@ class MyProduct():
             build_vars['support_jsapi'] = config.get('support_jsapi')
         if 'build_seccomp' in config:
             build_vars['build_seccomp'] = config.get('build_seccomp')
+        if 'chipprod_config_path' in config:
+            chipprod_config_path = os.path.join(self._dirs.source_root_dir, config.get('chipprod_config_path'))
+            if os.path.exists(chipprod_config_path):
+                build_vars['chipprod_config_path'] = chipprod_config_path
 
         self._build_vars = build_vars
         self._parts.update(all_parts)
@@ -371,6 +375,10 @@ class MyProduct():
             build_vars['build_seccomp'] = config.get('build_seccomp')
         if 'support_jsapi' in config:
             build_vars['support_jsapi'] = config.get('support_jsapi')
+        if 'chipprod_config_path' in config:
+            chipprod_config_path = os.path.join(self._dirs.source_root_dir, config.get('chipprod_config_path'))
+            if os.path.exists(chipprod_config_path):
+                build_vars['chipprod_config_path'] = chipprod_config_path
 
         self._build_vars = build_vars
         self._parts.update(all_parts)
