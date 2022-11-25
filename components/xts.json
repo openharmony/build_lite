@@ -139,6 +139,27 @@
       ],
       "features": [],
       "deps": {}
+    },
+    {
+      "component": "device_attest_lite",
+      "description": "",
+      "optional": "true",
+      "dirs": [
+        "test/xts/device_attest_lite"
+      ],
+      "targets": [
+        "//test/xts/device_attest_lite:device_atTest_lite"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [
+        "liteos_m",
+        "liteos_a",
+        "linux"
+      ],
+      "features": [],
+      "deps": {}
     }
   ]
 }
