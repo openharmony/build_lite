@@ -19,6 +19,7 @@ ret=""
 for obj in "$@"; do
     case "${obj}" in
     *.a) ret="${ret} --whole_archive ${obj}" ;;
+    *.o) ret="${ret}" ;;
     *) ret="${ret} ${obj}" ;;
     esac
 done
