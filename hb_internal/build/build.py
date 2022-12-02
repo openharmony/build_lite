@@ -131,7 +131,7 @@ def add_options(parser):
                         default='default')
     parser.add_argument('--build-variant',
                         help='specifies device operating mode',
-                        default='user')
+                        default='root')
     parser.add_argument('--share-ccache',
                         default="",
                         help='It is customized path to place ccache, which allow'
