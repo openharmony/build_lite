@@ -233,6 +233,8 @@ class Build():
             gn_args.append('-v')
             gn_args.append('--tracelog={}/gn_trace.log'.format(self.config._out_path))
         os_level = self.config.os_level
+        if cmd_args.get('export_rust_project'):
+            gn_args.append('--export-rust-project')
         if cmd_args.get('build_variant'):
             self.register_args('build_variant', cmd_args.get('build_variant'))
         if cmd_args.get('device_type'):

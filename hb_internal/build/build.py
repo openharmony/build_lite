@@ -102,6 +102,11 @@ def add_options(parser):
                         help='specifies the log level during compilation'
                         'you can select three levels: debug, info and error',
                         default='info')
+    parser.add_argument('--export-rust-project',
+                        action='store_true',
+                        default=False,
+                        help='specifies if export rust project json during compilation'
+                        'set to true if you want to generate rust-project.json')
     parser.add_argument('--fast-rebuild',
                         action='store_true',
                         default=False,
@@ -215,6 +220,8 @@ def exec_command(args):
         ninja = False
     if args.fast_rebuild:
         cmd_args['fast_rebuild'] = args.fast_rebuild
+    if args.export_rust_project:
+        cmd_args['export_rust_project'] = args.export_rust_project
     if args.disable_package_image:
         cmd_args['disable_package_image'] = args.disable_package_image
     if args.disable_post_build:
