@@ -60,7 +60,8 @@ class PreBuild:
         os.environ['CCACHE_LOGFILE'] = logfile
         os.environ['USE_CCACHE'] = '1'
         os.environ['CCACHE_DIR'] = ccache_base
-        os.environ['CCACHE_MASK'] = '002'
+        os.environ['CCACHE_UMASK'] = '002'
+        os.environ['CCACHE_BASEDIR'] = self._root_path
         ccache_max_size = os.environ.get('CCACHE_MAXSIZE')
         if not ccache_max_size:
             ccache_max_size = '100G'
