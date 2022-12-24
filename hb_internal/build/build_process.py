@@ -162,6 +162,11 @@ class Build():
                     post_build.package_image()
                 if not disable_post_build_args or 'output_part_rom_status' not in disable_post_build_args:
                     output_part_rom_status(self.config.root_path)
+
+                if self.config.os_level == "standard" and (not disable_post_build_args or 'deps_guard' not in disable_post_build_args):
+                    sys.path.append(os.path.join(self.config.root_path, "developtools/integration_verification/tools/deps_guard"))
+                    from deps_guard import deps_guard
+                    deps_guard(self.config.out_path)
         finally:
             if not cmd_args.get('disable_post_build'):
                 if 'post_build' not in locals():
