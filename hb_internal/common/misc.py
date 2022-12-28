@@ -36,18 +36,21 @@ class PreBuild:
         if not ccache_local_dir:
             ccache_local_dir = '.ccache'
         ccache_base = os.environ.get('CCACHE_BASE')
-        if ccache_base is None:
-            ccache_base = os.path.join(self._root_path, ccache_local_dir)
-            if not os.path.exists(ccache_base):
-                os.makedirs(ccache_base)
+
+        # The default value is HOME for local users
+        if not ccache_base:
+            ccache_base = os.environ.get('HOME')
+        ccache_base = os.path.join(ccache_base, ccache_local_dir)
+        if not os.path.exists(ccache_base):
+            os.makedirs(ccache_base)
         ccache_log_file_name = "ccache.log"
         if ccache_log_suffix:
             ccache_log_file_name = "ccache." + ccache_log_suffix + ".log"
 
-        logfile = os.path.join(self._root_path, ccache_log_file_name)
+        logfile = os.path.join(ccache_base, ccache_log_file_name)
         if os.path.exists(logfile):
             oldfile_name = ccache_log_file_name + ".old"
-            oldfile = os.path.join(self._root_path, oldfile_name)
+            oldfile = os.path.join(ccache_base, oldfile_name)
             if os.path.exists(oldfile):
                 os.unlink(oldfile)
             os.rename(logfile, oldfile)
@@ -70,7 +73,12 @@ class PreBuild:
         exec_command(cmd, log_path=self._log_path)
 
     def set_pycache(self):
-        pycache_dir = os.path.join(self._root_path, '.pycache')
+        pycache_dir = os.environ.get('CCACHE_BASE')
+
+        # The default value is HOME for local users
+        if not pycache_dir:
+            pycache_dir = os.environ.get('HOME')
+        pycache_dir = os.path.join(pycache_dir, '.pycache')
         os.environ['PYCACHE_DIR'] = pycache_dir
         pyd_start_cmd = [
             'python3',
@@ -147,9 +155,18 @@ class PostBuild:
         ccache_log_suffix = os.environ.get('CCACHE_LOG_SUFFIX')
         if ccache_log_suffix:
             ccache_log_file_name = "ccache." + ccache_log_suffix + ".log"
+        ccache_local_dir = os.environ.get('CCACHE_LOCAL_DIR')
+        if not ccache_local_dir:
+            ccache_local_dir = '.ccache'
+        ccache_base = os.environ.get('CCACHE_BASE')
+
+        # The default value is HOME for local users
+        if not ccache_base:
+            ccache_base = os.environ.get('HOME')
+        ccache_base = os.path.join(ccache_base, ccache_local_dir)
         cmd = [
             'python3', '{}/build/scripts/summary_ccache_hitrate.py'.format(
-                self._root_path), '{}/{}'.format(self._root_path, ccache_log_file_name)
+                self._root_path), '{}/{}'.format(ccache_base, ccache_log_file_name)
         ]
         exec_command(cmd, log_path=self._log_path)
 
