@@ -158,7 +158,6 @@ class Build():
         else:
             if not cmd_args.get('disable_post_build'):
                 post_build = PostBuild(self.config)
-                post_build.patch_ohos_para(cmd_args)
                 if not cmd_args.get('disable_package_image'):
                     post_build.package_image()
                 if not disable_post_build_args or 'output_part_rom_status' not in disable_post_build_args:
@@ -236,6 +235,8 @@ class Build():
         os_level = self.config.os_level
         if cmd_args.get('build_variant'):
             self.register_args('build_variant', cmd_args.get('build_variant'))
+        if cmd_args.get('device_type'):
+            self.register_args('device_type', cmd_args.get('device_type'))
         gn_cmd = [
             gn_path,
             'gen',
