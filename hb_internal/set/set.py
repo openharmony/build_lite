@@ -103,6 +103,15 @@ def set_product(product_name=None, company=None):
     else:
         config.subsystem_config_json = 'build/subsystem_config.json'
 
+    subsystem_config_overlay_path = os.path.join(config.root_path,
+        'build/subsystem_config_overlay.json')
+    if os.path.isfile(subsystem_config_overlay_path):
+        if product_info.get('subsystem_config_overlay_json'):
+            config.subsystem_config_overlay_json = product_info.get(
+                'subsystem_config_overlay_json')
+        else:
+            config.subsystem_config_overlay_json = 'build/subsystem_config_overlay.json'
+
     if config.version == '2.0':
         config.device_path = board_path
     else:
