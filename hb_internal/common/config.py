@@ -58,6 +58,12 @@ class Config(metaclass=Singleton):
                                                        None)
         self._subsystem_config_json = config_content.get(
             'subsystem_config_json', None)
+        subsystem_config_overlay_path = os.path.join(self._root_path,
+            'build/subsystem_config_overlay.json')
+        if os.path.isfile(subsystem_config_overlay_path):
+            self._subsystem_config_overlay_json = 'build/subsystem_config_overlay.json'
+        else:
+            self._subsystem_config_overlay_json = ''
         self.fs_attr = set()
         self.platform = platform.system()
 
@@ -269,6 +275,16 @@ class Config(metaclass=Singleton):
         self._subsystem_config_json = value
         self.config_update('subsystem_config_json',
                            self._subsystem_config_json)
+
+    @property
+    def subsystem_config_overlay_json(self):
+        return self._subsystem_config_overlay_json
+
+    @subsystem_config_overlay_json.setter
+    def subsystem_config_overlay_json(self, value):
+        self._subsystem_config_overlay_json = value
+        self.config_update('subsystem_config_overlay_json',
+                           self._subsystem_config_overlay_json)
 
     @property
     def log_path(self):

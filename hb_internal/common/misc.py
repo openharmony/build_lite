@@ -202,12 +202,26 @@ class PostBuild:
         exec_command(cmd, log_path=self._log_path)
 
     def compute_overlap_rate(self):
-        cmd = [
-            'python3',
-            '{}/build/ohos/statistics/build_overlap_statistics.py'.format(
-                self._root_path), "--build-out-dir", self._out_path,
-            "--subsystem-config-file",
-            "{}/build/subsystem_config.json".format(self._root_path),
-            "--root-source-dir", self._root_path
-        ]
+        subsystem_config_overlay_path = os.path.join(self._root_path,
+            'build/subsystem_config_overlay.json')
+        if os.path.isfile(subsystem_config_overlay_path):
+            cmd = [
+                'python3',
+                '{}/build/ohos/statistics/build_overlap_statistics.py'.format(
+                    self._root_path), "--build-out-dir", self._out_path,
+                "--subsystem-config-file",
+                "{}/build/subsystem_config.json".format(self._root_path),
+                "--subsystem-config-overlay-file",
+                "{}/build/subsystem_config_overlay.json".format(self._root_path),
+                "--root-source-dir", self._root_path
+            ]
+        else:
+            cmd = [
+                'python3',
+                '{}/build/ohos/statistics/build_overlap_statistics.py'.format(
+                    self._root_path), "--build-out-dir", self._out_path,
+                "--subsystem-config-file",
+                "{}/build/subsystem_config.json".format(self._root_path),
+                "--root-source-dir", self._root_path
+            ]
         exec_command(cmd, log_path=self._log_path)
