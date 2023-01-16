@@ -51,19 +51,38 @@ class Product():
                         else:
                             product_path = p_config_path
                         if product_name is not None:
-                            yield {
-                                'company': company,
-                                "name": product_name,
-                                'product_config_path': p_config_path,
-                                'product_path': product_path,
-                                'version': info.get('version', '3.0'),
-                                'os_level': info.get('type', "mini"),
-                                'build_out_path': info.get('build_out_path'),
-                                'subsystem_config_json':
-                                info.get('subsystem_config_json'),
-                                'config': config_path,
-                                'component_type': info.get('component_type', '')
-                            }
+                            subsystem_config_overlay_path = os.path.join(config.root_path,
+                                'build/subsystem_config_overlay.json')
+                            if os.path.isfile(subsystem_config_overlay_path):
+                                yield {
+                                    'company': company,
+                                    "name": product_name,
+                                    'product_config_path': p_config_path,
+                                    'product_path': product_path,
+                                    'version': info.get('version', '3.0'),
+                                    'os_level': info.get('type', "mini"),
+                                    'build_out_path': info.get('build_out_path'),
+                                    'subsystem_config_json':
+                                    info.get('subsystem_config_json'),
+                                    'subsystem_config_overlay_json':
+                                    subsystem_config_overlay_path,
+                                    'config': config_path,
+                                    'component_type': info.get('component_type', '')
+                                }
+                            else:
+                                yield {
+                                    'company': company,
+                                    "name": product_name,
+                                    'product_config_path': p_config_path,
+                                    'product_path': product_path,
+                                    'version': info.get('version', '3.0'),
+                                    'os_level': info.get('type', "mini"),
+                                    'build_out_path': info.get('build_out_path'),
+                                    'subsystem_config_json':
+                                    info.get('subsystem_config_json'),
+                                    'config': config_path,
+                                    'component_type': info.get('component_type', '')
+                                }
         for company in os.listdir(config.vendor_path):
             company_path = os.path.join(config.vendor_path, company)
             if not os.path.isdir(company_path):

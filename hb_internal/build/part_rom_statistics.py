@@ -192,6 +192,15 @@ def read_subsystem_config(root_path):
                 for path_k, path_v in part_info_valule.items():
                     if path_k == "path":
                         part_json_paths.append(path_v)
+    part_json_overlay_path = os.path.join(root_path, 'build/subsystem_config_overlay.json')
+    if os.path.isfile(part_json_overlay_path):
+        with open(part_json_overlay_path, 'r') as file:
+            file_json = json.load(file)
+            for part_info_valule in file_json.values():
+                for path_k, path_v in part_info_valule.items():
+                    if path_k == "path":
+                        part_json_paths.append(path_v)
+
     return part_json_paths
 
 

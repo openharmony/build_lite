@@ -500,6 +500,8 @@ class Dirs:
 
         self.subsystem_config_json = os.path.join(config.root_path,
                                                   config.subsystem_config_json)
+        self.subsystem_config_overlay_json = os.path.join(config.root_path,
+                                                          config.subsystem_config_overlay_json)
         self.lite_components_dir = os.path.join(config.root_path,
                                                 'build/lite/components')
 
@@ -526,6 +528,8 @@ class Outputs:
                                                    'exclusion_modules.json')
         self.subsystem_config_json = os.path.join(output_dir,
                                                   'subsystem_config.json')
+        self.subsystem_config_overlay_json = os.path.join(output_dir,
+                                                  'subsystem_config_overlay.json')
         self.platforms_build = os.path.join(output_dir, 'platforms.build')
         self.systemcapability_json = os.path.join(output_dir, 'SystemCapability.json')
 
@@ -651,6 +655,9 @@ def main(argv):
     parser.add_argument('--target-cpu', required=True)
     parser.add_argument('--subsystem-config-file',
                         dest='subsystem_config_json',
+                        required=True)
+    parser.add_argument('--subsystem-config-overlay-file',
+                        dest='subsystem_config_overlay_json',
                         required=True)
 
     args = parser.parse_args(argv)
