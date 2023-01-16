@@ -60,14 +60,6 @@ class CTS():
                                              'lite',
                                              'components')
 
-        self._platform_path = os.path.join(self._code_path,
-                                           'build',
-                                           'lite',
-                                           'platform')
-
-        self._kernel_path = os.path.join(self._components_path,
-                                         'kernel.json')
-
         self._product_path = os.path.join(self._code_path,
                                           'build',
                                           'lite',
@@ -98,14 +90,6 @@ class CTS():
     @property
     def components_path(self):
         return self._components_path
-
-    @property
-    def platform_path(self):
-        return self._platform_path
-
-    @property
-    def kernel_path(self):
-        return self._kernel_path
 
     @property
     def product_path(self):
