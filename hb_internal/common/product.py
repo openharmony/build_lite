@@ -51,8 +51,7 @@ class Product():
                         else:
                             product_path = p_config_path
                         if product_name is not None:
-                            subsystem_config_overlay_path = os.path.join(config.root_path,
-                                'build/subsystem_config_overlay.json')
+                            subsystem_config_overlay_path = config.product_path + '/subsystem_config_overlay.json'
                             if os.path.isfile(subsystem_config_overlay_path):
                                 yield {
                                     'company': company,

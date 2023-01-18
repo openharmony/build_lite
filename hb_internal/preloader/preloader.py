@@ -500,8 +500,7 @@ class Dirs:
 
         self.subsystem_config_json = os.path.join(config.root_path,
                                                   config.subsystem_config_json)
-        self.subsystem_config_overlay_json = os.path.join(config.root_path,
-                                                          config.subsystem_config_overlay_json)
+        self.subsystem_config_overlay_json = config.product_path + '/subsystem_config_overlay.json'
         self.lite_components_dir = os.path.join(config.root_path,
                                                 'build/lite/components')
 
@@ -658,7 +657,7 @@ def main(argv):
                         required=True)
     parser.add_argument('--subsystem-config-overlay-file',
                         dest='subsystem_config_overlay_json',
-                        required=True)
+                        required=False)
 
     args = parser.parse_args(argv)
     preloader = Preloader(args)
