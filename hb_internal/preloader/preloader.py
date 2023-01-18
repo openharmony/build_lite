@@ -488,7 +488,6 @@ class Dirs:
         self.built_in_product_dir = config.built_in_product_path
         self.productdefine_dir = os.path.join(self.source_root_dir,
                                               'productdefine/common')
-        self.built_in_device_dir = config.built_in_device_path
         self.built_in_base_dir = os.path.join(self.productdefine_dir, 'base')
 
         # Configs of vendor specified products are stored in
