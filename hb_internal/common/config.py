@@ -305,15 +305,6 @@ class Config(metaclass=Singleton):
         return _built_in_product_path
 
     @property
-    def built_in_device_path(self):
-        _built_in_device_path = os.path.join(self.root_path,
-                                             'productdefine/common/device')
-        if not os.path.isdir(_built_in_device_path):
-            raise OHOSException(
-                f'Invalid built-in product path: {_built_in_device_path}')
-        return _built_in_device_path
-
-    @property
     def build_tools_path(self):
         try:
             tools_path = BUILD_TOOLS_CFG[self.platform]['build_tools_path']

@@ -131,20 +131,7 @@ class Product():
         config = Config()
         version = info.get('version', '3.0')
 
-        if version == '2.0':
-            device_json = os.path.join(config.built_in_device_path,
-                                       f'{info["product_device"]}.json')
-            device_info = read_json_file(device_json)
-            return {
-                'board': device_info.get('device_name'),
-                'kernel': device_info.get('kernel_type', 'linux'),
-                'kernel_version': device_info.get('kernel_version'),
-                'company': device_info.get('device_company'),
-                'board_path': device_info.get('device_build_path'),
-                'target_cpu': device_info.get('target_cpu'),
-                'target_os': device_info.get('target_os')
-            }
-        elif version == '3.0':
+        if version == '3.0':
             device_company = info.get('device_company')
             board = info.get('board')
             _board_path = info.get('board_path')
