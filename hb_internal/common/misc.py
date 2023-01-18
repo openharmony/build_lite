@@ -22,6 +22,7 @@ from datetime import datetime
 from distutils.spawn import find_executable
 from hb_internal.common.utils import exec_command
 from hb_internal.common.utils import hb_warning
+from hb_internal.common.config import Config
 
 
 class PreBuild:
@@ -202,8 +203,8 @@ class PostBuild:
         exec_command(cmd, log_path=self._log_path)
 
     def compute_overlap_rate(self):
-        subsystem_config_overlay_path = os.path.join(self._root_path,
-            'build/subsystem_config_overlay.json')
+        conf = Config()
+        subsystem_config_overlay_path = conf.product_path + '/subsystem_config_overlay.json'
         if os.path.isfile(subsystem_config_overlay_path):
             cmd = [
                 'python3',
@@ -212,7 +213,7 @@ class PostBuild:
                 "--subsystem-config-file",
                 "{}/build/subsystem_config.json".format(self._root_path),
                 "--subsystem-config-overlay-file",
-                "{}/build/subsystem_config_overlay.json".format(self._root_path),
+                "{}/subsystem_config_overlay.json".format(conf.product_path),
                 "--root-source-dir", self._root_path
             ]
         else:
