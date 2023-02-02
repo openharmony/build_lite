@@ -21,6 +21,7 @@ import re
 import json
 
 from hb_internal.common.utils import hb_info
+from hb_internal.common.config import Config
 
 budle_json_files = []
 standard_part_roms = []
@@ -192,7 +193,8 @@ def read_subsystem_config(root_path):
                 for path_k, path_v in part_info_valule.items():
                     if path_k == "path":
                         part_json_paths.append(path_v)
-    part_json_overlay_path = os.path.join(root_path, 'build/subsystem_config_overlay.json')
+    conf = Config()
+    part_json_overlay_path = conf.product_path
     if os.path.isfile(part_json_overlay_path):
         with open(part_json_overlay_path, 'r') as file:
             file_json = json.load(file)
