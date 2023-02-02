@@ -89,6 +89,7 @@ class Product():
                 if not os.path.isdir(company_path):
                     continue
 
+
                 for product in os.listdir(company_path):
                     product_path = os.path.join(company_path, product)
                     config_path = os.path.join(product_path, 'config.json')
