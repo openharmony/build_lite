@@ -58,8 +58,7 @@ class Config(metaclass=Singleton):
                                                        None)
         self._subsystem_config_json = config_content.get(
             'subsystem_config_json', None)
-        self._subsystem_config_overlay_json = self._product_path + '/subsystem_config_overlay.json'
-        
+        self._subsystem_config_overlay_json = ''
         self.fs_attr = set()
         self.platform = platform.system()
 
