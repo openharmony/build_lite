@@ -63,6 +63,8 @@ def build(path, args_list):
         if "using_hb_new=false" in args:
             cmd = [python_executable, 'build/lite/hb/__main__.py', 'build'] + args_list
             break
+    if not os.path.exists(os.path.join(path,'build/hb/main.py')):
+        cmd = [python_executable, 'build/lite/hb/__main__.py', 'build'] + args_list
     return check_output(cmd, cwd=path)
 
 
