@@ -30,7 +30,7 @@ def get_python():
         python_dir = hb_main.search(python_base_dir, 'python3')
         return os.path.join(python_dir, 'python3')
     else:
-        print("please execute preload_download.sh")
+        print("please execute build/prebuilts_download.sh")
         sys.exit()
 
 
