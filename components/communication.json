@@ -94,10 +94,10 @@
       "description": "dhcp service based on linux.",
       "optional": "true",
       "dirs": [
-        "foundation/communication/wifi/dhcp"
+        "foundation/communication/dhcp"
       ],
       "targets": [
-        "//foundation/communication/wifi/dhcp:dhcp"
+        "//foundation/communication/dhcp:dhcp"
       ],
       "rom": "",
       "ram": "",
