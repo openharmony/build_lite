@@ -33,7 +33,6 @@
         "board_special": {},
         "components": [
           "hichainsdk",
-          "syspara_lite",
           "permission"
         ]
       }
